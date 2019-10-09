@@ -1,0 +1,552 @@
+Starting iocInit
+reboot_restore: entry for file 'iocISTTOKrpi.sav'
+reboot_restore: Found filename 'iocISTTOKrpi.sav' in restoreFileList.
+*** restoring from '/opt/epics/iocs/ISTTOKrpi/iocBoot/iocISTTOKrpi/iocISTTOKrpi.sav' at initHookState 7 (after record/device init) ***
+reboot_restore: done with file 'iocISTTOKrpi.sav'
+
+cas warning: Configured TCP port was unavailable.
+cas warning: Using dynamically assigned TCP port 37487,
+cas warning: but now two or more servers share the same UDP port.
+cas warning: Depending on your IP kernel this server may not be
+cas warning: reachable with UDP unicast (a host's IP in EPICS_CA_ADDR_LIST)
+iocRun: All initialization complete
+sevr=info Pulse Sequence entry
+sevr=info Pulse Sequence entry
+sevr=info Pulse Sequence entry
+sevr=info Stopping Mode: NonStopping
+sevr=info Shoting Mode: NonShoting
+#!../../bin/linux-arm/ISTTOKrpi
+## You may have to change ISTTOKrpi to something else
+## everywhere it appears in this file
+< envPaths
+epicsEnvSet("IOC","iocISTTOKrpi")
+epicsEnvSet("TOP","/opt/epics/iocs/ISTTOKrpi")
+epicsEnvSet("SUPPORT","/usr/local/epics/base/../synApps_5_8/support")
+epicsEnvSet("SNCSEQ","/usr/local/epics/base/../synApps_5_8/support/seq-2-2-1")
+epicsEnvSet("ASYN","/usr/local/epics/base/../synApps_5_8/support/asyn-4-26")
+epicsEnvSet("STREAM","/usr/local/epics/base/../synApps_5_8/support/stream-2-6a")
+epicsEnvSet("AUTOSAVE","/usr/local/epics/base/../synApps_5_8/support/autosave-5-6-1")
+epicsEnvSet("DRVASYNI2C","/usr/local/epics/base/../modules/drvAsynI2C")
+epicsEnvSet("EPICS_BASE","/usr/local/epics/base")
+epicsEnvSet( "STREAM_PROTOCOL_PATH", "/opt/epics/iocs/ISTTOKrpi/protocols" )
+epicsEnvSet( "SAVE_DIR", "/opt/epics/iocs/ISTTOKrpi/iocBoot/iocISTTOKrpi" )
+epicsEnvSet( "EPICS_CA_ADDR_LIST", "localhost 192.168.1.152")
+cd "/opt/epics/iocs/ISTTOKrpi"
+## Register all support components
+dbLoadDatabase "dbd/ISTTOKrpi.dbd"
+ISTTOKrpi_registerRecordDeviceDriver pdbbase
+## Load  I2C drivers
+drvAsynI2CConfigure( "I2C", "/dev/i2c-1", 1 )
+## Load Serial drivers
+#drvAsynSerialPortConfigure("RS0","/dev/ttyUSB0")
+#asynSetOption("RS0", 0, "baud", "9600")
+#asynSetOption("RS0", 0, "bits", "8")
+#asynSetOption("RS0", 0, "parity", "none")
+#asynSetOption("RS0", 0, "stop", "1")
+#asynSetOption("RS0", 0, "clocal", "Y")
+#asynSetOption("RS0", 0, "crtscts", "N")
+## Load record instances
+dbLoadRecords("db/ISTTOKstates.db","P=ISTTOK:,R=central:")
+dbLoadRecords("db/ISTTOKpcf8574.db","P=ISTTOK:,R=central:")
+#dbLoadRecords("db/ISTTOKpcf8574.db","P=ISTTOK:,R=central:,ID=57")
+dbLoadRecords("db/ISTTOKvacummPumps.db","P=ISTTOK:,R=central:")
+## Run this to trace the stages of iocInit
+#traceIocInit
+save_restoreSet_status_prefix("iocISTTOKrpi:")
+set_requestfile_path("/opt/epics/iocs/ISTTOKrpi/iocBoot/iocISTTOKrpi")
+set_savefile_path("/opt/epics/iocs/ISTTOKrpi/iocBoot/iocISTTOKrpi")
+save_restoreSet_NumSeqFiles(3)
+save_restoreSet_SeqPeriodInSeconds(600)
+set_pass1_restoreFile("iocISTTOKrpi.sav")
+cd "/opt/epics/iocs/ISTTOKrpi/iocBoot/iocISTTOKrpi"
+asSetFilename("/opt/epics/iocs/ISTTOKrpi/iocBoot/iocISTTOKrpi/access_security.acf")
+iocInit
+############################################################################
+## EPICS R3.15.5
+## EPICS Base built Jan 11 2018
+############################################################################
+#asInit
+# Create request file and start periodic 'save’
+makeAutosaveFileFromDbInfo("/opt/epics/iocs/ISTTOKrpi/iocBoot/iocISTTOKrpi/iocISTTOKrpi.req", "autosaveFields")
+create_monitor_set("iocISTTOKrpi.req", 30)
+## Start any sequence programs
+seq IsttokSeqExec, "unit=ISTTOK"
+Sequencer release 2.2.1, compiled Thu Jan 11 18:42:15 2018
+Spawning sequencer program "IsttokSeqExec", thread 0x1f38430: "IsttokSeqExec"
+IsttokSeqExec[0]: all channels connected & received 1st monitor
+epics> save_restore: Can't connect to all status PV(s)
+Starting iocInit
+reboot_restore: entry for file 'iocISTTOKrpi.sav'
+reboot_restore: Found filename 'iocISTTOKrpi.sav' in restoreFileList.
+*** restoring from '/opt/epics/iocs/ISTTOKrpi/iocBoot/iocISTTOKrpi/iocISTTOKrpi.sav' at initHookState 7 (after record/device init) ***
+reboot_restore: done with file 'iocISTTOKrpi.sav'
+
+cas warning: Configured TCP port was unavailable.
+cas warning: Using dynamically assigned TCP port 34983,
+cas warning: but now two or more servers share the same UDP port.
+cas warning: Depending on your IP kernel this server may not be
+cas warning: reachable with UDP unicast (a host's IP in EPICS_CA_ADDR_LIST)
+iocRun: All initialization complete
+sevr=info Stopping Mode: NonStopping
+sevr=info Cleaning Mode: NonCleaning
+sevr=info Cleaning Mode: NonCleaning
+sevr=info Cleaning Mode: NonCleaning
+sevr=info Shoting Mode: NonShoting
+#!../../bin/linux-arm/ISTTOKrpi
+## You may have to change ISTTOKrpi to something else
+## everywhere it appears in this file
+< envPaths
+epicsEnvSet("IOC","iocISTTOKrpi")
+epicsEnvSet("TOP","/opt/epics/iocs/ISTTOKrpi")
+epicsEnvSet("SUPPORT","/usr/local/epics/base/../synApps_5_8/support")
+epicsEnvSet("SNCSEQ","/usr/local/epics/base/../synApps_5_8/support/seq-2-2-1")
+epicsEnvSet("ASYN","/usr/local/epics/base/../synApps_5_8/support/asyn-4-26")
+epicsEnvSet("STREAM","/usr/local/epics/base/../synApps_5_8/support/stream-2-6a")
+epicsEnvSet("AUTOSAVE","/usr/local/epics/base/../synApps_5_8/support/autosave-5-6-1")
+epicsEnvSet("DRVASYNI2C","/usr/local/epics/base/../modules/drvAsynI2C")
+epicsEnvSet("EPICS_BASE","/usr/local/epics/base")
+epicsEnvSet( "STREAM_PROTOCOL_PATH", "/opt/epics/iocs/ISTTOKrpi/protocols" )
+epicsEnvSet( "SAVE_DIR", "/opt/epics/iocs/ISTTOKrpi/iocBoot/iocISTTOKrpi" )
+epicsEnvSet( "EPICS_CA_ADDR_LIST", "localhost 192.168.1.152")
+cd "/opt/epics/iocs/ISTTOKrpi"
+## Register all support components
+dbLoadDatabase "dbd/ISTTOKrpi.dbd"
+ISTTOKrpi_registerRecordDeviceDriver pdbbase
+## Load  I2C drivers
+drvAsynI2CConfigure( "I2C", "/dev/i2c-1", 1 )
+## Load Serial drivers
+#drvAsynSerialPortConfigure("RS0","/dev/ttyUSB0")
+#asynSetOption("RS0", 0, "baud", "9600")
+#asynSetOption("RS0", 0, "bits", "8")
+#asynSetOption("RS0", 0, "parity", "none")
+#asynSetOption("RS0", 0, "stop", "1")
+#asynSetOption("RS0", 0, "clocal", "Y")
+#asynSetOption("RS0", 0, "crtscts", "N")
+## Load record instances
+dbLoadRecords("db/ISTTOKstates.db","P=ISTTOK:,R=central:")
+dbLoadRecords("db/ISTTOKpcf8574.db","P=ISTTOK:,R=central:")
+#dbLoadRecords("db/ISTTOKpcf8574.db","P=ISTTOK:,R=central:,ID=57")
+dbLoadRecords("db/ISTTOKvacummPumps.db","P=ISTTOK:,R=central:")
+## Run this to trace the stages of iocInit
+#traceIocInit
+save_restoreSet_status_prefix("iocISTTOKrpi:")
+set_requestfile_path("/opt/epics/iocs/ISTTOKrpi/iocBoot/iocISTTOKrpi")
+set_savefile_path("/opt/epics/iocs/ISTTOKrpi/iocBoot/iocISTTOKrpi")
+save_restoreSet_NumSeqFiles(3)
+save_restoreSet_SeqPeriodInSeconds(600)
+set_pass1_restoreFile("iocISTTOKrpi.sav")
+cd "/opt/epics/iocs/ISTTOKrpi/iocBoot/iocISTTOKrpi"
+asSetFilename("/opt/epics/iocs/ISTTOKrpi/iocBoot/iocISTTOKrpi/access_security.acf")
+iocInit
+############################################################################
+## EPICS R3.15.5
+## EPICS Base built Jan 11 2018
+############################################################################
+#asInit
+# Create request file and start periodic 'save’
+makeAutosaveFileFromDbInfo("/opt/epics/iocs/ISTTOKrpi/iocBoot/iocISTTOKrpi/iocISTTOKrpi.req", "autosaveFields")
+create_monitor_set("iocISTTOKrpi.req", 30)
+## Start any sequence programs
+seq IsttokSeqExec, "unit=ISTTOK"
+Sequencer release 2.2.1, compiled Thu Jan 11 18:42:15 2018
+Spawning sequencer program "IsttokSeqExec", thread 0xdc94f8: "IsttokSeqExec"
+IsttokSeqExec[0]: all channels connected & received 1st monitor
+epics> save_restore: Can't connect to all status PV(s)
+Starting iocInit
+reboot_restore: entry for file 'iocISTTOKrpi.sav'
+reboot_restore: Found filename 'iocISTTOKrpi.sav' in restoreFileList.
+*** restoring from '/opt/epics/iocs/ISTTOKrpi/iocBoot/iocISTTOKrpi/iocISTTOKrpi.sav' at initHookState 7 (after record/device init) ***
+reboot_restore: done with file 'iocISTTOKrpi.sav'
+
+cas warning: Configured TCP port was unavailable.
+cas warning: Using dynamically assigned TCP port 35941,
+cas warning: but now two or more servers share the same UDP port.
+cas warning: Depending on your IP kernel this server may not be
+cas warning: reachable with UDP unicast (a host's IP in EPICS_CA_ADDR_LIST)
+iocRun: All initialization complete
+sevr=info Stopping Mode: NonStopping
+sevr=info Pulse Sequence entry
+sevr=info Pulse Sequence entry
+sevr=info Cleaning Mode: NonCleaning
+sevr=info Shoting Mode: NonShoting
+#!../../bin/linux-arm/ISTTOKrpi
+## You may have to change ISTTOKrpi to something else
+## everywhere it appears in this file
+< envPaths
+epicsEnvSet("IOC","iocISTTOKrpi")
+epicsEnvSet("TOP","/opt/epics/iocs/ISTTOKrpi")
+epicsEnvSet("SUPPORT","/usr/local/epics/base/../synApps_5_8/support")
+epicsEnvSet("SNCSEQ","/usr/local/epics/base/../synApps_5_8/support/seq-2-2-1")
+epicsEnvSet("ASYN","/usr/local/epics/base/../synApps_5_8/support/asyn-4-26")
+epicsEnvSet("STREAM","/usr/local/epics/base/../synApps_5_8/support/stream-2-6a")
+epicsEnvSet("AUTOSAVE","/usr/local/epics/base/../synApps_5_8/support/autosave-5-6-1")
+epicsEnvSet("DRVASYNI2C","/usr/local/epics/base/../modules/drvAsynI2C")
+epicsEnvSet("EPICS_BASE","/usr/local/epics/base")
+epicsEnvSet( "STREAM_PROTOCOL_PATH", "/opt/epics/iocs/ISTTOKrpi/protocols" )
+epicsEnvSet( "SAVE_DIR", "/opt/epics/iocs/ISTTOKrpi/iocBoot/iocISTTOKrpi" )
+epicsEnvSet( "EPICS_CA_ADDR_LIST", "localhost 192.168.1.152")
+cd "/opt/epics/iocs/ISTTOKrpi"
+## Register all support components
+dbLoadDatabase "dbd/ISTTOKrpi.dbd"
+ISTTOKrpi_registerRecordDeviceDriver pdbbase
+## Load  I2C drivers
+drvAsynI2CConfigure( "I2C", "/dev/i2c-1", 1 )
+## Load Serial drivers
+#drvAsynSerialPortConfigure("RS0","/dev/ttyUSB0")
+#asynSetOption("RS0", 0, "baud", "9600")
+#asynSetOption("RS0", 0, "bits", "8")
+#asynSetOption("RS0", 0, "parity", "none")
+#asynSetOption("RS0", 0, "stop", "1")
+#asynSetOption("RS0", 0, "clocal", "Y")
+#asynSetOption("RS0", 0, "crtscts", "N")
+## Load record instances
+dbLoadRecords("db/ISTTOKstates.db","P=ISTTOK:,R=central:")
+dbLoadRecords("db/ISTTOKpcf8574.db","P=ISTTOK:,R=central:")
+#dbLoadRecords("db/ISTTOKpcf8574.db","P=ISTTOK:,R=central:,ID=57")
+dbLoadRecords("db/ISTTOKvacummPumps.db","P=ISTTOK:,R=central:")
+## Run this to trace the stages of iocInit
+#traceIocInit
+save_restoreSet_status_prefix("iocISTTOKrpi:")
+set_requestfile_path("/opt/epics/iocs/ISTTOKrpi/iocBoot/iocISTTOKrpi")
+set_savefile_path("/opt/epics/iocs/ISTTOKrpi/iocBoot/iocISTTOKrpi")
+save_restoreSet_NumSeqFiles(3)
+save_restoreSet_SeqPeriodInSeconds(600)
+set_pass1_restoreFile("iocISTTOKrpi.sav")
+cd "/opt/epics/iocs/ISTTOKrpi/iocBoot/iocISTTOKrpi"
+asSetFilename("/opt/epics/iocs/ISTTOKrpi/iocBoot/iocISTTOKrpi/access_security.acf")
+iocInit
+############################################################################
+## EPICS R3.15.5
+## EPICS Base built Jan 11 2018
+############################################################################
+#asInit
+# Create request file and start periodic 'save’
+makeAutosaveFileFromDbInfo("/opt/epics/iocs/ISTTOKrpi/iocBoot/iocISTTOKrpi/iocISTTOKrpi.req", "autosaveFields")
+create_monitor_set("iocISTTOKrpi.req", 30)
+## Start any sequence programs
+seq IsttokSeqExec, "unit=ISTTOK"
+Sequencer release 2.2.1, compiled Thu Jan 11 18:42:15 2018
+Spawning sequencer program "IsttokSeqExec", thread 0xafd3d8: "IsttokSeqExec"
+IsttokSeqExec[0]: all channels connected & received 1st monitor
+epics> save_restore: Can't connect to all status PV(s)
+Starting iocInit
+reboot_restore: entry for file 'iocISTTOKrpi.sav'
+reboot_restore: Found filename 'iocISTTOKrpi.sav' in restoreFileList.
+*** restoring from '/opt/epics/iocs/ISTTOKrpi/iocBoot/iocISTTOKrpi/iocISTTOKrpi.sav' at initHookState 7 (after record/device init) ***
+reboot_restore: done with file 'iocISTTOKrpi.sav'
+
+cas warning: Configured TCP port was unavailable.
+cas warning: Using dynamically assigned TCP port 41945,
+cas warning: but now two or more servers share the same UDP port.
+cas warning: Depending on your IP kernel this server may not be
+cas warning: reachable with UDP unicast (a host's IP in EPICS_CA_ADDR_LIST)
+iocRun: All initialization complete
+sevr=info Starting Mode: NonStarting
+sevr=info Starting Mode: Starting1
+sevr=info Stopping Mode: NonStopping
+sevr=info Stopping Mode: Stopping1
+sevr=info Cleaning Mode: NonCleaning
+sevr=info Cleaning Mode: Cleaning1 In
+sevr=info Shoting Mode: NonShoting
+sevr=info Shoting Mode: NonShoting
+#!../../bin/linux-arm/ISTTOKrpi
+## You may have to change ISTTOKrpi to something else
+## everywhere it appears in this file
+< envPaths
+epicsEnvSet("IOC","iocISTTOKrpi")
+epicsEnvSet("TOP","/opt/epics/iocs/ISTTOKrpi")
+epicsEnvSet("SUPPORT","/usr/local/epics/base/../synApps_5_8/support")
+epicsEnvSet("SNCSEQ","/usr/local/epics/base/../synApps_5_8/support/seq-2-2-1")
+epicsEnvSet("ASYN","/usr/local/epics/base/../synApps_5_8/support/asyn-4-26")
+epicsEnvSet("STREAM","/usr/local/epics/base/../synApps_5_8/support/stream-2-6a")
+epicsEnvSet("AUTOSAVE","/usr/local/epics/base/../synApps_5_8/support/autosave-5-6-1")
+epicsEnvSet("DRVASYNI2C","/usr/local/epics/base/../modules/drvAsynI2C")
+epicsEnvSet("EPICS_BASE","/usr/local/epics/base")
+epicsEnvSet( "STREAM_PROTOCOL_PATH", "/opt/epics/iocs/ISTTOKrpi/protocols" )
+epicsEnvSet( "SAVE_DIR", "/opt/epics/iocs/ISTTOKrpi/iocBoot/iocISTTOKrpi" )
+epicsEnvSet( "EPICS_CA_ADDR_LIST", "localhost 192.168.1.152")
+cd "/opt/epics/iocs/ISTTOKrpi"
+## Register all support components
+dbLoadDatabase "dbd/ISTTOKrpi.dbd"
+ISTTOKrpi_registerRecordDeviceDriver pdbbase
+## Load  I2C drivers
+drvAsynI2CConfigure( "I2C", "/dev/i2c-1", 1 )
+## Load Serial drivers
+#drvAsynSerialPortConfigure("RS0","/dev/ttyUSB0")
+#asynSetOption("RS0", 0, "baud", "9600")
+#asynSetOption("RS0", 0, "bits", "8")
+#asynSetOption("RS0", 0, "parity", "none")
+#asynSetOption("RS0", 0, "stop", "1")
+#asynSetOption("RS0", 0, "clocal", "Y")
+#asynSetOption("RS0", 0, "crtscts", "N")
+## Load record instances
+dbLoadRecords("db/ISTTOKstates.db","P=ISTTOK:,R=central:")
+dbLoadRecords("db/ISTTOKpcf8574.db","P=ISTTOK:,R=central:")
+#dbLoadRecords("db/ISTTOKpcf8574.db","P=ISTTOK:,R=central:,ID=57")
+dbLoadRecords("db/ISTTOKvacummPumps.db","P=ISTTOK:,R=central:")
+## Run this to trace the stages of iocInit
+#traceIocInit
+save_restoreSet_status_prefix("iocISTTOKrpi:")
+set_requestfile_path("/opt/epics/iocs/ISTTOKrpi/iocBoot/iocISTTOKrpi")
+set_savefile_path("/opt/epics/iocs/ISTTOKrpi/iocBoot/iocISTTOKrpi")
+save_restoreSet_NumSeqFiles(3)
+save_restoreSet_SeqPeriodInSeconds(600)
+set_pass1_restoreFile("iocISTTOKrpi.sav")
+cd "/opt/epics/iocs/ISTTOKrpi/iocBoot/iocISTTOKrpi"
+asSetFilename("/opt/epics/iocs/ISTTOKrpi/iocBoot/iocISTTOKrpi/access_security.acf")
+iocInit
+############################################################################
+## EPICS R3.15.5
+## EPICS Base built Jan 11 2018
+############################################################################
+#asInit
+# Create request file and start periodic 'save’
+makeAutosaveFileFromDbInfo("/opt/epics/iocs/ISTTOKrpi/iocBoot/iocISTTOKrpi/iocISTTOKrpi.req", "autosaveFields")
+create_monitor_set("iocISTTOKrpi.req", 30)
+## Start any sequence programs
+seq IsttokSeqExec, "unit=ISTTOK"
+Sequencer release 2.2.1, compiled Thu Jan 11 18:42:15 2018
+Spawning sequencer program "IsttokSeqExec", thread 0x7803b8: "IsttokSeqExec"
+IsttokSeqExec[0]: all channels connected & received 1st monitor
+epics> sevr=info Stopping Mode: NonStopping
+sevr=info Starting Mode: NonStarting
+sevr=info Stopping Mode: NonStopping
+sevr=info Starting Mode: NonStarting
+save_restore: Can't connect to all status PV(s)
+Starting iocInit
+reboot_restore: entry for file 'iocISTTOKrpi.sav'
+reboot_restore: Found filename 'iocISTTOKrpi.sav' in restoreFileList.
+*** restoring from '/opt/epics/iocs/ISTTOKrpi/iocBoot/iocISTTOKrpi/iocISTTOKrpi.sav' at initHookState 7 (after record/device init) ***
+reboot_restore: done with file 'iocISTTOKrpi.sav'
+
+cas warning: Configured TCP port was unavailable.
+cas warning: Using dynamically assigned TCP port 39343,
+cas warning: but now two or more servers share the same UDP port.
+cas warning: Depending on your IP kernel this server may not be
+cas warning: reachable with UDP unicast (a host's IP in EPICS_CA_ADDR_LIST)
+iocRun: All initialization complete
+sevr=info Pulse Sequence entrysevr=info Cleaning Mode: NonCleaning
+sevr=info Cleaning Mode: NonCleaning
+sevr=info Shoting Mode: NonShoting
+sevr=info Shoting Mode: NonShoting
+#!../../bin/linux-arm/ISTTOKrpi
+## You may have to change ISTTOKrpi to something else
+## everywhere it appears in this file
+< envPaths
+epicsEnvSet("IOC","iocISTTOKrpi")
+epicsEnvSet("TOP","/opt/epics/iocs/ISTTOKrpi")
+epicsEnvSet("SUPPORT","/usr/local/epics/base/../synApps_5_8/support")
+epicsEnvSet("SNCSEQ","/usr/local/epics/base/../synApps_5_8/support/seq-2-2-1")
+epicsEnvSet("ASYN","/usr/local/epics/base/../synApps_5_8/support/asyn-4-26")
+epicsEnvSet("STREAM","/usr/local/epics/base/../synApps_5_8/support/stream-2-6a")
+epicsEnvSet("AUTOSAVE","/usr/local/epics/base/../synApps_5_8/support/autosave-5-6-1")
+epicsEnvSet("DRVASYNI2C","/usr/local/epics/base/../modules/drvAsynI2C")
+epicsEnvSet("EPICS_BASE","/usr/local/epics/base")
+epicsEnvSet( "STREAM_PROTOCOL_PATH", "/opt/epics/iocs/ISTTOKrpi/protocols" )
+epicsEnvSet( "SAVE_DIR", "/opt/epics/iocs/ISTTOKrpi/iocBoot/iocISTTOKrpi" )
+epicsEnvSet( "EPICS_CA_ADDR_LIST", "localhost 192.168.1.152")
+cd "/opt/epics/iocs/ISTTOKrpi"
+## Register all support components
+dbLoadDatabase "dbd/ISTTOKrpi.dbd"
+ISTTOKrpi_registerRecordDeviceDriver pdbbase
+## Load  I2C drivers
+drvAsynI2CConfigure( "I2C", "/dev/i2c-1", 1 )
+## Load Serial drivers
+#drvAsynSerialPortConfigure("RS0","/dev/ttyUSB0")
+#asynSetOption("RS0", 0, "baud", "9600")
+#asynSetOption("RS0", 0, "bits", "8")
+#asynSetOption("RS0", 0, "parity", "none")
+#asynSetOption("RS0", 0, "stop", "1")
+#asynSetOption("RS0", 0, "clocal", "Y")
+#asynSetOption("RS0", 0, "crtscts", "N")
+## Load record instances
+dbLoadRecords("db/ISTTOKstates.db","P=ISTTOK:,R=central:")
+dbLoadRecords("db/ISTTOKpcf8574.db","P=ISTTOK:,R=central:")
+#dbLoadRecords("db/ISTTOKpcf8574.db","P=ISTTOK:,R=central:,ID=57")
+dbLoadRecords("db/ISTTOKvacummPumps.db","P=ISTTOK:,R=central:")
+## Run this to trace the stages of iocInit
+#traceIocInit
+save_restoreSet_status_prefix("iocISTTOKrpi:")
+set_requestfile_path("/opt/epics/iocs/ISTTOKrpi/iocBoot/iocISTTOKrpi")
+set_savefile_path("/opt/epics/iocs/ISTTOKrpi/iocBoot/iocISTTOKrpi")
+save_restoreSet_NumSeqFiles(3)
+save_restoreSet_SeqPeriodInSeconds(600)
+set_pass1_restoreFile("iocISTTOKrpi.sav")
+cd "/opt/epics/iocs/ISTTOKrpi/iocBoot/iocISTTOKrpi"
+asSetFilename("/opt/epics/iocs/ISTTOKrpi/iocBoot/iocISTTOKrpi/access_security.acf")
+iocInit
+############################################################################
+## EPICS R3.15.5
+## EPICS Base built Jan 11 2018
+############################################################################
+#asInit
+# Create request file and start periodic 'save’
+makeAutosaveFileFromDbInfo("/opt/epics/iocs/ISTTOKrpi/iocBoot/iocISTTOKrpi/iocISTTOKrpi.req", "autosaveFields")
+create_monitor_set("iocISTTOKrpi.req", 30)
+## Start any sequence programs
+seq IsttokSeqExec, "unit=ISTTOK"
+Sequencer release 2.2.1, compiled Thu Jan 11 18:42:15 2018
+Spawning sequencer program "IsttokSeqExec", thread 0x1e73478: "IsttokSeqExec"
+IsttokSeqExec[0]: all channels connected & received 1st monitor
+epics> save_restore: Can't connect to all status PV(s)
+Starting iocInit
+reboot_restore: entry for file 'iocISTTOKrpi.sav'
+reboot_restore: Found filename 'iocISTTOKrpi.sav' in restoreFileList.
+*** restoring from '/opt/epics/iocs/ISTTOKrpi/iocBoot/iocISTTOKrpi/iocISTTOKrpi.sav' at initHookState 7 (after record/device init) ***
+reboot_restore: done with file 'iocISTTOKrpi.sav'
+
+cas warning: Configured TCP port was unavailable.
+cas warning: Using dynamically assigned TCP port 44303,
+cas warning: but now two or more servers share the same UDP port.
+cas warning: Depending on your IP kernel this server may not be
+cas warning: reachable with UDP unicast (a host's IP in EPICS_CA_ADDR_LIST)
+iocRun: All initialization complete
+sevr=info Starting Mode: NonStarting
+sevr=info Starting Mode: Starting1
+sevr=info Stopping Mode: NonStopping
+sevr=info Stopping Mode: NonStopping
+sevr=info Cleaning Mode: NonCleaning
+sevr=info Cleaning Mode: Cleaning1 In
+sevr=info Shoting Mode: NonShoting
+sevr=info Shoting Mode: NonShoting
+#!../../bin/linux-arm/ISTTOKrpi
+## You may have to change ISTTOKrpi to something else
+## everywhere it appears in this file
+< envPaths
+epicsEnvSet("IOC","iocISTTOKrpi")
+epicsEnvSet("TOP","/opt/epics/iocs/ISTTOKrpi")
+epicsEnvSet("SUPPORT","/usr/local/epics/base/../synApps_5_8/support")
+epicsEnvSet("SNCSEQ","/usr/local/epics/base/../synApps_5_8/support/seq-2-2-1")
+epicsEnvSet("ASYN","/usr/local/epics/base/../synApps_5_8/support/asyn-4-26")
+epicsEnvSet("STREAM","/usr/local/epics/base/../synApps_5_8/support/stream-2-6a")
+epicsEnvSet("AUTOSAVE","/usr/local/epics/base/../synApps_5_8/support/autosave-5-6-1")
+epicsEnvSet("DRVASYNI2C","/usr/local/epics/base/../modules/drvAsynI2C")
+epicsEnvSet("EPICS_BASE","/usr/local/epics/base")
+epicsEnvSet( "STREAM_PROTOCOL_PATH", "/opt/epics/iocs/ISTTOKrpi/protocols" )
+epicsEnvSet( "SAVE_DIR", "/opt/epics/iocs/ISTTOKrpi/iocBoot/iocISTTOKrpi" )
+epicsEnvSet( "EPICS_CA_ADDR_LIST", "localhost 192.168.1.152")
+cd "/opt/epics/iocs/ISTTOKrpi"
+## Register all support components
+dbLoadDatabase "dbd/ISTTOKrpi.dbd"
+ISTTOKrpi_registerRecordDeviceDriver pdbbase
+## Load  I2C drivers
+drvAsynI2CConfigure( "I2C", "/dev/i2c-1", 1 )
+## Load Serial drivers
+#drvAsynSerialPortConfigure("RS0","/dev/ttyUSB0")
+#asynSetOption("RS0", 0, "baud", "9600")
+#asynSetOption("RS0", 0, "bits", "8")
+#asynSetOption("RS0", 0, "parity", "none")
+#asynSetOption("RS0", 0, "stop", "1")
+#asynSetOption("RS0", 0, "clocal", "Y")
+#asynSetOption("RS0", 0, "crtscts", "N")
+## Load record instances
+dbLoadRecords("db/ISTTOKstates.db","P=ISTTOK:,R=central:")
+dbLoadRecords("db/ISTTOKpcf8574.db","P=ISTTOK:,R=central:")
+#dbLoadRecords("db/ISTTOKpcf8574.db","P=ISTTOK:,R=central:,ID=57")
+dbLoadRecords("db/ISTTOKvacummPumps.db","P=ISTTOK:,R=central:")
+## Run this to trace the stages of iocInit
+#traceIocInit
+save_restoreSet_status_prefix("iocISTTOKrpi:")
+set_requestfile_path("/opt/epics/iocs/ISTTOKrpi/iocBoot/iocISTTOKrpi")
+set_savefile_path("/opt/epics/iocs/ISTTOKrpi/iocBoot/iocISTTOKrpi")
+save_restoreSet_NumSeqFiles(3)
+save_restoreSet_SeqPeriodInSeconds(600)
+set_pass1_restoreFile("iocISTTOKrpi.sav")
+cd "/opt/epics/iocs/ISTTOKrpi/iocBoot/iocISTTOKrpi"
+asSetFilename("/opt/epics/iocs/ISTTOKrpi/iocBoot/iocISTTOKrpi/access_security.acf")
+iocInit
+############################################################################
+## EPICS R3.15.5
+## EPICS Base built Jan 11 2018
+############################################################################
+#asInit
+# Create request file and start periodic 'save’
+makeAutosaveFileFromDbInfo("/opt/epics/iocs/ISTTOKrpi/iocBoot/iocISTTOKrpi/iocISTTOKrpi.req", "autosaveFields")
+create_monitor_set("iocISTTOKrpi.req", 30)
+## Start any sequence programs
+seq IsttokSeqExec, "unit=ISTTOK"
+Sequencer release 2.2.1, compiled Thu Jan 11 18:42:15 2018
+Spawning sequencer program "IsttokSeqExec", thread 0x1f704e0: "IsttokSeqExec"
+IsttokSeqExec[0]: all channels connected & received 1st monitor
+epics> sevr=info Stopping Mode: NonStopping
+sevr=info Stopping Mode: NonStopping
+sevr=info Stopping Mode: NonStopping
+sevr=info Stopping Mode: NonStopping
+save_restore: Can't connect to all status PV(s)
+Starting iocInit
+reboot_restore: entry for file 'iocISTTOKrpi.sav'
+reboot_restore: Found filename 'iocISTTOKrpi.sav' in restoreFileList.
+*** restoring from '/opt/epics/iocs/ISTTOKrpi/iocBoot/iocISTTOKrpi/iocISTTOKrpi.sav' at initHookState 7 (after record/device init) ***
+reboot_restore: done with file 'iocISTTOKrpi.sav'
+
+cas warning: Configured TCP port was unavailable.
+cas warning: Using dynamically assigned TCP port 41859,
+cas warning: but now two or more servers share the same UDP port.
+cas warning: Depending on your IP kernel this server may not be
+cas warning: reachable with UDP unicast (a host's IP in EPICS_CA_ADDR_LIST)
+iocRun: All initialization complete
+sevr=info Pulse Sequence entry
+sevr=info Pulse Sequence entry
+sevr=info Stopping Mode: NonStopping
+sevr=info Cleaning Mode: NonCleaning
+sevr=info Shoting Mode: NonShoting
+#!../../bin/linux-arm/ISTTOKrpi
+## You may have to change ISTTOKrpi to something else
+## everywhere it appears in this file
+< envPaths
+epicsEnvSet("IOC","iocISTTOKrpi")
+epicsEnvSet("TOP","/opt/epics/iocs/ISTTOKrpi")
+epicsEnvSet("SUPPORT","/usr/local/epics/base/../synApps_5_8/support")
+epicsEnvSet("SNCSEQ","/usr/local/epics/base/../synApps_5_8/support/seq-2-2-1")
+epicsEnvSet("ASYN","/usr/local/epics/base/../synApps_5_8/support/asyn-4-26")
+epicsEnvSet("STREAM","/usr/local/epics/base/../synApps_5_8/support/stream-2-6a")
+epicsEnvSet("AUTOSAVE","/usr/local/epics/base/../synApps_5_8/support/autosave-5-6-1")
+epicsEnvSet("DRVASYNI2C","/usr/local/epics/base/../modules/drvAsynI2C")
+epicsEnvSet("EPICS_BASE","/usr/local/epics/base")
+epicsEnvSet( "STREAM_PROTOCOL_PATH", "/opt/epics/iocs/ISTTOKrpi/protocols" )
+epicsEnvSet( "SAVE_DIR", "/opt/epics/iocs/ISTTOKrpi/iocBoot/iocISTTOKrpi" )
+epicsEnvSet( "EPICS_CA_ADDR_LIST", "localhost 192.168.1.152")
+cd "/opt/epics/iocs/ISTTOKrpi"
+## Register all support components
+dbLoadDatabase "dbd/ISTTOKrpi.dbd"
+ISTTOKrpi_registerRecordDeviceDriver pdbbase
+## Load  I2C drivers
+drvAsynI2CConfigure( "I2C", "/dev/i2c-1", 1 )
+## Load Serial drivers
+#drvAsynSerialPortConfigure("RS0","/dev/ttyUSB0")
+#asynSetOption("RS0", 0, "baud", "9600")
+#asynSetOption("RS0", 0, "bits", "8")
+#asynSetOption("RS0", 0, "parity", "none")
+#asynSetOption("RS0", 0, "stop", "1")
+#asynSetOption("RS0", 0, "clocal", "Y")
+#asynSetOption("RS0", 0, "crtscts", "N")
+## Load record instances
+dbLoadRecords("db/ISTTOKstates.db","P=ISTTOK:,R=central:")
+dbLoadRecords("db/ISTTOKpcf8574.db","P=ISTTOK:,R=central:")
+#dbLoadRecords("db/ISTTOKpcf8574.db","P=ISTTOK:,R=central:,ID=57")
+dbLoadRecords("db/ISTTOKvacummPumps.db","P=ISTTOK:,R=central:")
+## Run this to trace the stages of iocInit
+#traceIocInit
+save_restoreSet_status_prefix("iocISTTOKrpi:")
+set_requestfile_path("/opt/epics/iocs/ISTTOKrpi/iocBoot/iocISTTOKrpi")
+set_savefile_path("/opt/epics/iocs/ISTTOKrpi/iocBoot/iocISTTOKrpi")
+save_restoreSet_NumSeqFiles(3)
+save_restoreSet_SeqPeriodInSeconds(600)
+set_pass1_restoreFile("iocISTTOKrpi.sav")
+cd "/opt/epics/iocs/ISTTOKrpi/iocBoot/iocISTTOKrpi"
+asSetFilename("/opt/epics/iocs/ISTTOKrpi/iocBoot/iocISTTOKrpi/access_security.acf")
+iocInit
+############################################################################
+## EPICS R3.15.5
+## EPICS Base built Jan 11 2018
+############################################################################
+#asInit
+# Create request file and start periodic 'save’
+makeAutosaveFileFromDbInfo("/opt/epics/iocs/ISTTOKrpi/iocBoot/iocISTTOKrpi/iocISTTOKrpi.req", "autosaveFields")
+create_monitor_set("iocISTTOKrpi.req", 30)
+## Start any sequence programs
+seq IsttokSeqExec, "unit=ISTTOK"
+Sequencer release 2.2.1, compiled Thu Jan 11 18:42:15 2018
+Spawning sequencer program "IsttokSeqExec", thread 0x9df470: "IsttokSeqExec"
+IsttokSeqExec[0]: all channels connected & received 1st monitor
+epics> save_restore: Can't connect to all status PV(s)

@@ -1,0 +1,2255 @@
+/**
+ *
+ * Project       : ISTTOK slow Control
+ *
+ * File          : $Id$
+ * Description   : Pulse Sequence State Machine
+ *
+ * Author(s)     : Bernardo Carvalho (IPFN-IST)
+ *               : Paulo Fortuna Carvalho (IPFN-IST)
+ * Copyright (c) : (IPFN-IST)
+ *
+ * Created 5-Mar-2013
+ * Revised 01-07-2019
+ *
+ * SVN keywords
+ * $Date$
+ * $Revision$
+ * $URL$
+ *
+ **/
+program IsttokSeqExec
+short IsttokOPSTATE[1];
+assign IsttokOPSTATE to {
+	"{unit}:central:OPSTATE"
+};
+monitor IsttokOPSTATE;
+short IsttokOPREQ[1];
+assign IsttokOPREQ to {
+	"{unit}:central:OPREQ"
+};
+monitor IsttokOPREQ;
+short IsttokProcMode;
+assign IsttokProcMode to  "{unit}:central:PROCESS-MODE";
+monitor IsttokProcMode;
+short IsttokProcReq;
+assign IsttokProcReq  to "{unit}:central:PROCESS-REQ";
+monitor IsttokProcReq;
+short IsttokSTARTINGSTATE;
+assign IsttokSTARTINGSTATE to "{unit}:central:STARTINGSTATE";
+monitor IsttokSTARTINGSTATE;
+short IsttokSTOPPINGSTATE;
+assign IsttokSTOPPINGSTATE to "{unit}:central:STOPPINGSTATE";
+monitor IsttokSTOPPINGSTATE;
+short IsttokCLEANINGSTATE;
+assign IsttokCLEANINGSTATE to "{unit}:central:CLEANINGSTATE";
+monitor IsttokCLEANINGSTATE;
+short IsttokCLEANINGMASTATE;
+assign IsttokCLEANINGMASTATE to "{unit}:central:CLEANINGMASTATE";
+monitor IsttokCLEANINGMASTATE;
+short IsttokCLEANINGINOUTSTATE;
+assign IsttokCLEANINGINOUTSTATE to "{unit}:central:CLEANINGINOUTSTATE";
+monitor IsttokCLEANINGINOUTSTATE;
+short IsttokCLEANINGINOUTSTATE0;
+assign IsttokCLEANINGINOUTSTATE0 to "{unit}:central:CLEANINGINOUTSTATE0";
+monitor IsttokCLEANINGINOUTSTATE0;
+short IsttokCLEANINGINOUTSTATE1;
+assign IsttokCLEANINGINOUTSTATE1 to "{unit}:central:CLEANINGINOUTSTATE1";
+monitor IsttokCLEANINGINOUTSTATE1;
+short IsttokCLEANINGINOUTSTATE2;
+assign IsttokCLEANINGINOUTSTATE2 to "{unit}:central:CLEANINGINOUTSTATE2";
+monitor IsttokCLEANINGINOUTSTATE2;
+short IsttokCLEANINGINOUTSTATE3;
+assign IsttokCLEANINGINOUTSTATE3 to "{unit}:central:CLEANINGINOUTSTATE3";
+monitor IsttokCLEANINGINOUTSTATE3;
+short IsttokCLEANINGINOUTSTATE4;
+assign IsttokCLEANINGINOUTSTATE4 to "{unit}:central:CLEANINGINOUTSTATE4";
+monitor IsttokCLEANINGINOUTSTATE4;
+short IsttokCLEANINGINOUTSTATE5;
+assign IsttokCLEANINGINOUTSTATE5 to "{unit}:central:CLEANINGINOUTSTATE5";
+monitor IsttokCLEANINGINOUTSTATE5;
+short IsttokWSHOTINGSTATE;
+assign IsttokWSHOTINGSTATE to "{unit}:central:WSHOTINGSTATE";
+monitor IsttokWSHOTINGSTATE;
+short IsttokRotatoryPump;
+assign IsttokRotatoryPump to "{unit}:central:RotatoryPump";
+short IsttokRotatoryValve;
+assign IsttokRotatoryValve to "{unit}:central:RotatoryValve";
+short IsttokRotatoryPump2;
+assign IsttokRotatoryPump2 to "{unit}:central:RotatoryPump2";
+short IsttokRotatoryValve2;
+assign IsttokRotatoryValve2 to "{unit}:central:RotatoryValve2";
+short IsttokTMPControllerOff;
+assign IsttokTMPControllerOff to "{unit}:central:TMPControllerOff";
+short IsttokTMPControllerOn;
+assign IsttokTMPControllerOn to "{unit}:central:TMPControllerOn";
+short IsttokTMPMotorOff;
+assign IsttokTMPMotorOff to "{unit}:central:TMPMotorOff";
+short IsttokTMPMotorOn;
+assign IsttokTMPMotorOn to "{unit}:central:TMPMotorOn";
+
+short IsttokTMP2ControllerOff;
+assign IsttokTMP2ControllerOff to "{unit}:central:TMP2ControllerOff";
+short IsttokTMP2ControllerOn;
+assign IsttokTMP2ControllerOn to "{unit}:central:TMP2ControllerOn";
+short IsttokTMP2MotorOff;
+assign IsttokTMP2MotorOff to "{unit}:central:TMP2MotorOff";
+short IsttokTMP2MotorOn;
+assign IsttokTMP2MotorOn to "{unit}:central:TMP2MotorOn";
+
+short IsttokTurbo_NormalOperation;
+assign IsttokTurbo_NormalOperation to "{unit}:central:Turbo_NormalOperation";
+monitor IsttokTurbo_NormalOperation;
+short IsttokTurbo_PW_Ind;
+assign IsttokTurbo_PW_Ind to "{unit}:central:Turbo_PW_Ind";
+monitor IsttokTurbo_PW_Ind;
+short IsttokTurbo_Emergency;
+assign IsttokTurbo_Emergency to "{unit}:central:Turbo_Emergency";
+monitor IsttokTurbo_Emergency;
+short IsttokTMPManualValve;
+assign IsttokTMPManualValve to "{unit}:central:TMPManualValve";
+monitor IsttokTMPManualValve;
+short IsttokTurbo2_NormalOperation;
+assign IsttokTurbo2_NormalOperation to "{unit}:central:Turbo2_NormalOperation";
+monitor IsttokTurbo2_NormalOperation;
+short IsttokTurbo2_PW_Ind;
+assign IsttokTurbo2_PW_Ind to "{unit}:central:Turbo2_PW_Ind";
+monitor IsttokTurbo2_PW_Ind;
+short IsttokTurbo2_Emergency;
+assign IsttokTurbo2_Emergency to "{unit}:central:Turbo2_Emergency";
+monitor IsttokTurbo2_Emergency;
+short IsttokFSTriggerState;
+assign IsttokFSTriggerState to "{unit}:central:FSTriggerState";
+monitor IsttokFSTriggerState;
+float IsttokPressure_Primary1;
+assign IsttokPressure_Primary1 to "{unit}:vacuum:Pressure_Primary1";
+monitor IsttokPressure_Primary1;
+float IsttokPressure_Primary2;
+assign IsttokPressure_Primary2 to "{unit}:vacuum:Pressure_Primary2";
+monitor IsttokPressure_Primary2;
+float IsttokPressure_PrimaryCondition;
+assign IsttokPressure_PrimaryCondition to "{unit}:central:Pressure_PrimaryCondition";
+monitor IsttokPressure_PrimaryCondition;
+float IsttokPressure_Primary2Condition;
+assign IsttokPressure_Primary2Condition to "{unit}:central:Pressure_Primary2Condition";
+monitor IsttokPressure_Primary2Condition;
+
+short IsttokBypass_Condition;
+assign IsttokBypass_Condition to "{unit}:central:Bypass_Condition";
+monitor IsttokBypass_Condition;
+
+short STRST_NonStarting = 0;
+short STRST_Starting1 = 1;
+short STRST_Starting2 = 2;
+short STRST_Starting3 = 3;
+short STRST_Starting4 = 4;
+short STRST_Starting5 = 5;
+short STPST_NonStopping = 0;
+short STPST_Stopping1 = 1;
+short STPST_Stopping2 = 2;
+short STPST_Stopping3 = 3;
+short STPST_Stopping4 = 4;
+short STPST_Stopping5 = 5;
+short CLEAN_NonCleaning = 0;
+short CLEAN_Cleaning1 = 1;
+short CLEAN_Cleaning2 = 2;
+short CLEAN_Cleaning3 = 3;
+short CLEAN_Cleaning4 = 4;
+short CLEAN_Cleaning5 = 5;
+short WSHOT_NonShoting = 0;
+short WSHOT_Shoting0 = 0;
+short WSHOT_Shoting1 = 1;
+short WSHOT_Shoting2 = 2;
+short WSHOT_Shoting3 = 3;
+short WSHOT_Shoting4 = 4;
+short WSHOT_Shoting5 = 5;
+short WSHOT_Shoting6 = 6;
+short WSHOT_Shoting7 = 7;
+short WSHOT_Shoting8 = 8;
+short WSHOT_Shoting9 = 9;
+short WSHOT_Shoting10 = 10;
+short WSHOT_Shoting11 = 11;
+short WSHOT_Shoting12 = 12;
+short POS_Stopped;
+short POS_Starting;
+short POS_Process;
+short POS_Clean;
+short POS_WaitShot;
+short POS_Stopping;
+short POS_Emergency;
+short ON=1;
+short OFF=0;
+short START=1;
+short STOP=0;
+short CLEAN=0;
+short SHOT=1;
+short NO_ALARM=0;
+short MINOR=1;
+short MAJOR=2;
+short INVALID=3;
+short IsttokShotBuzzerOnOff;
+assign IsttokShotBuzzerOnOff to "{unit}:central:BuzzerOnOff";
+monitor IsttokShotBuzzerOnOff;
+
+short IsttokShotLightsOnOff;
+assign IsttokShotLightsOnOff to "{unit}:central:LightsOnOff";
+monitor IsttokShotLightsOnOff;
+
+short IsttokShotLightsOnOffState;
+assign IsttokShotLightsOnOffState to "{unit}:central:LightsOnOff-G";
+monitor IsttokShotLightsOnOffState;
+
+short IsttokShotGISValvesOnOff;
+assign IsttokShotGISValvesOnOff to "{unit}:central:GISValvesOnOff";
+monitor IsttokShotGISValvesOnOff;
+short IsttokShotFilamentOnOff;
+assign IsttokShotFilamentOnOff to "{unit}:central:FilamentOnOff";
+monitor IsttokShotFilamentOnOff;
+short IsttokShotCapBankConOnOff;
+assign IsttokShotCapBankConOnOff to "{unit}:central:CapBankConOnOff";
+monitor IsttokShotCapBankConOnOff;
+short IsttokShotCapBankChargeOnOff;
+assign IsttokShotCapBankChargeOnOff to "{unit}:central:CapBankChargeOnOff";
+monitor IsttokShotCapBankChargeOnOff;
+short IsttokShotCapBankDischargeOnOff;
+assign IsttokShotCapBankDischargeOnOff to "{unit}:central:CapBankDischargeOnOff";
+monitor IsttokShotCapBankDischargeOnOff;
+short IsttokShotTorFieldTriggerOnOff;
+assign IsttokShotTorFieldTriggerOnOff to "{unit}:central:TorFieldTriggerOnOff";
+monitor IsttokShotTorFieldTriggerOnOff;
+short IsttokShotTransToPowerOnOff;
+assign IsttokShotTransToPowerOnOff to "{unit}:central:TransToPowerOnOff";
+monitor IsttokShotTransToPowerOnOff;
+short IsttokShotTrans500OnOff;
+assign IsttokShotTrans500OnOff to "{unit}:central:Trans500OnOff";
+monitor IsttokShotTrans500OnOff;
+short IsttokShotBakingPPSOnOff;
+assign IsttokShotBakingPPSOnOff to "{unit}:central:BakingPPSOnOff";
+monitor IsttokShotBakingPPSOnOff;
+/*Relays and INPUT (Valleman Board) have negative Logic!*/
+short RELAY_ON = 0;
+short RELAY_OFF= 1;
+short PCF_INPUT_ON = 0;
+short PCF_INPUT_OFF= 1;
+short IsttokShotCountdown;
+assign IsttokShotCountdown to "{unit}:central:COUNTDOWN";
+monitor IsttokShotCountdown;
+string IsttokShotCountdownStart;
+assign IsttokShotCountdownStart to "{unit}:central:COUNTDOWN.SCAN";
+monitor IsttokShotCountdownStart;
+
+short IsttokEmergencyModeOnOff;
+assign IsttokEmergencyModeOnOff to "{unit}:central:EmergencyModeOnOff";
+monitor IsttokEmergencyModeOnOff;
+
+short IsttokTimingTriggerSignal;
+assign IsttokTimingTriggerSignal to  "{unit}:central:TimingTriggerSignal";
+monitor IsttokTimingTriggerSignal;
+
+/* Trace message record limited to 40 characters */
+string msg;
+string tmp1_stat;
+string tmp2_stat;
+
+assign msg to "{unit}:central:TraceMessage.VAL";
+monitor msg;
+ss PulseSequence {
+	state init {
+		  entry {
+			strcpy(msg, "INIT: Sequence Entry");
+			pvPut(msg);
+			errlogSevPrintf(NO_ALARM, "%s\n",msg);
+			
+			POS_Stopped =0;
+			POS_Starting=1;
+			POS_Process =2;
+			POS_Clean =3;
+			POS_WaitShot=4;
+			POS_Stopping=5;
+			POS_Emergency=6;
+
+			strcpy(msg, "Initializing...");
+			
+			IsttokBypass_Condition = 1;
+			pvPut(IsttokBypass_Condition);
+			
+			pvPut(msg);
+			errlogSevPrintf(NO_ALARM, "%s\n",msg);
+			
+			IsttokShotCountdown = 160;
+			pvPut(IsttokShotCountdown);
+			
+			IsttokProcMode = OFF; // UPON POWER-DOWN OR FAILURE PREVENT TO ENTER WAITSHOT ON POWER-UP!
+			pvPut(IsttokProcMode);
+			
+			IsttokShotBakingPPSOnOff = 1;
+			pvPut(IsttokShotBakingPPSOnOff);
+
+			IsttokShotBuzzerOnOff = 0;
+			pvPut(IsttokShotBuzzerOnOff);
+
+			IsttokShotCapBankChargeOnOff = 1;
+			pvPut(IsttokShotCapBankChargeOnOff);
+
+			IsttokShotCapBankConOnOff = 1;
+			pvPut(IsttokShotCapBankConOnOff);
+
+			IsttokShotCapBankDischargeOnOff = 0;
+			pvPut(IsttokShotCapBankDischargeOnOff);
+
+			IsttokShotFilamentOnOff = 1;
+			pvPut(IsttokShotFilamentOnOff);
+
+			IsttokShotGISValvesOnOff = 1;
+			pvPut(IsttokShotGISValvesOnOff);
+			
+			IsttokShotLightsOnOff = 1;
+			pvPut(IsttokShotLightsOnOff);
+
+			IsttokShotTorFieldTriggerOnOff = 1;
+			pvPut(IsttokShotTorFieldTriggerOnOff);
+
+			IsttokShotTrans500OnOff = 1;
+			pvPut(IsttokShotTrans500OnOff);
+
+			IsttokShotTransToPowerOnOff = 1;
+			pvPut(IsttokShotTransToPowerOnOff);
+
+			IsttokTMP2ControllerOff = 0;
+			pvPut(IsttokTMP2ControllerOff);
+
+			IsttokTMP2ControllerOn = 0;
+			pvPut(IsttokTMP2ControllerOn);
+
+			IsttokTMP2MotorOff = 0;
+			pvPut(IsttokTMP2MotorOff);
+
+			IsttokTMP2MotorOn = 0;
+			pvPut(IsttokTMP2MotorOn);
+
+			IsttokTMPControllerOff = 0;
+			pvPut(IsttokTMPControllerOff);
+
+			IsttokTMPControllerOn = 0;
+			pvPut(IsttokTMPControllerOn);
+
+			IsttokTMPMotorOff = 0;
+			pvPut(IsttokTMPMotorOff);
+
+			IsttokTMPMotorOn = 0;
+			pvPut(IsttokTMPMotorOn);
+
+			// CHECK PRIMARY PRESSURES AND PREVENT STARTING IF REQUIRED
+			if( (IsttokPressure_Primary1 >= IsttokPressure_PrimaryCondition) && (IsttokPressure_Primary2 >= IsttokPressure_Primary2Condition) ){
+				IsttokOPREQ[0] = STOP;
+				pvPut(IsttokOPREQ[0]);
+			}
+			
+			if ((IsttokTurbo_PW_Ind == PCF_INPUT_OFF)) {
+				strcpy(msg, "TMP1 Controller is OFF");
+				pvPut(msg);
+				errlogSevPrintf(NO_ALARM, "%s\n",msg);
+			}else{
+				strcpy(msg, "TMP1 Controller is ON");
+				pvPut(msg);
+				errlogSevPrintf(NO_ALARM, "%s\n",msg);
+			}
+			if ((IsttokTurbo2_PW_Ind == PCF_INPUT_OFF)) {
+				strcpy(msg, "TMP2 Controller is OFF");
+				pvPut(msg);
+				errlogSevPrintf(NO_ALARM, "%s\n",msg);
+			}else{
+				strcpy(msg, "TMP2 Controller is ON");
+				pvPut(msg);
+				errlogSevPrintf(NO_ALARM, "%s\n",msg);
+			}
+		}
+		when (delay(5)) {
+			strcpy(msg, "Initialization... DONE.");
+			pvPut(msg);
+			errlogSevPrintf(NO_ALARM, "%s\n",msg);
+			printf("Entry delay over\n");
+		} state Stopped
+	}
+	/*State Set Emergency*/
+	state Emergency {
+		when (delay(1.0) && (IsttokEmergencyModeOnOff == 0) && ((IsttokOPSTATE[0] == POS_WaitShot) || (IsttokOPSTATE[0] == POS_Clean)) ){
+			IsttokOPSTATE[0] = POS_Emergency;
+			pvPut(IsttokOPSTATE[0]);
+			strcpy(msg, "EMERGENCY: State Entry");
+			pvPut(msg);
+			errlogSevPrintf(NO_ALARM, "%s\n",msg);
+			IsttokEmergencyModeOnOff = 1;
+			pvPut(IsttokEmergencyModeOnOff );
+			if ((IsttokShotCapBankChargeOnOff == 0)) {
+				strcpy(msg, "EMERGENCY: CAPBANK Charge OFF");
+				pvPut(msg);
+				errlogSevPrintf(NO_ALARM, "%s\n",msg);
+				IsttokShotCapBankChargeOnOff = 1;
+				pvPut(IsttokShotCapBankChargeOnOff);
+			}
+			if ((IsttokShotCapBankConOnOff == 0)) {
+				strcpy(msg, "EMERGENCY: CAPBANK Conector OFF");
+				pvPut(msg);
+				errlogSevPrintf(NO_ALARM, "%s\n",msg);
+				IsttokShotCapBankConOnOff = 1;
+				pvPut(IsttokShotCapBankConOnOff);
+			}
+			if ((IsttokShotCapBankDischargeOnOff == 1)) {
+				strcpy(msg, "EMERGENCY: CAPBANK Discharge ON");
+				pvPut(msg);
+				errlogSevPrintf(NO_ALARM, "%s\n",msg);
+				IsttokShotCapBankDischargeOnOff = 0;
+				pvPut(IsttokShotCapBankDischargeOnOff);
+			}
+			if ((IsttokShotGISValvesOnOff == 0)) {
+				strcpy(msg, "EMERGENCY: GIS Valves CLOSE");
+				pvPut(msg);
+				errlogSevPrintf(NO_ALARM, "%s\n",msg);
+				IsttokShotGISValvesOnOff = 1;
+				pvPut(IsttokShotGISValvesOnOff);
+			}
+			if ((IsttokShotFilamentOnOff == 0)) {
+				strcpy(msg, "EMERGENCY: Filament OFF");
+				pvPut(msg);
+				errlogSevPrintf(NO_ALARM, "%s\n",msg);
+				IsttokShotFilamentOnOff = 1;
+				pvPut(IsttokShotFilamentOnOff);
+			}
+			/* Pulse state change to Process */
+			strcpy(msg, "State to Process");
+			pvPut(msg);
+			errlogSevPrintf(NO_ALARM, "%s\n",msg);
+			IsttokProcReq = STOP;
+			pvPut(IsttokProcReq);
+			IsttokOPSTATE[0] = POS_Process;
+			pvPut(IsttokOPSTATE[0]);
+		} state Process
+		when (delay(1.0) && (IsttokEmergencyModeOnOff == 0) && (IsttokOPSTATE[0] == POS_Process)){
+			IsttokOPSTATE[0] = POS_Emergency;
+			pvPut(IsttokOPSTATE[0]);
+			strcpy(msg, "State to Emergency");
+			pvPut(msg);
+			errlogSevPrintf(NO_ALARM, "%s\n",msg);
+			IsttokEmergencyModeOnOff = 1;
+			pvPut(IsttokEmergencyModeOnOff );
+			if ((IsttokShotCapBankChargeOnOff == 0)) {
+				strcpy(msg, "EMERGENCY: CAPBANK Charge OFF");
+				pvPut(msg);
+				errlogSevPrintf(NO_ALARM, "%s\n",msg);
+				IsttokShotCapBankChargeOnOff = 1;
+				pvPut(IsttokShotCapBankChargeOnOff);
+			}
+			if ((IsttokShotCapBankConOnOff == 0)) {
+				strcpy(msg, "EMERGENCY: CAPBANK Conector OFF");
+				pvPut(msg);
+				errlogSevPrintf(NO_ALARM, "%s\n",msg);
+				IsttokShotCapBankConOnOff = 1;
+				pvPut(IsttokShotCapBankConOnOff);
+			}
+			if ((IsttokShotCapBankDischargeOnOff == 1)) {
+				strcpy(msg, "EMERGENCY: CAPBANK Discharge ON");
+				pvPut(msg);
+				errlogSevPrintf(NO_ALARM, "%s\n",msg);
+				IsttokShotCapBankDischargeOnOff = 0;
+				pvPut(IsttokShotCapBankDischargeOnOff);
+			}
+			if ((IsttokShotGISValvesOnOff == 0)) {
+				strcpy(msg, "EMERGENCY: GIS Valves CLOSE");
+				pvPut(msg);
+				errlogSevPrintf(NO_ALARM, "%s\n",msg);
+				IsttokShotGISValvesOnOff = 1;
+				pvPut(IsttokShotGISValvesOnOff);
+			}
+			if ((IsttokShotFilamentOnOff == 0)) {
+				strcpy(msg, "EMERGENCY: Filament OFF");
+				pvPut(msg);
+				errlogSevPrintf(NO_ALARM, "%s\n",msg);
+				IsttokShotFilamentOnOff = 1;
+				pvPut(IsttokShotFilamentOnOff);
+			}
+			/* Pulse state change to Process */
+			strcpy(msg, "State to Process");
+			pvPut(msg);
+			errlogSevPrintf(NO_ALARM, "%s\n",msg);
+			IsttokOPSTATE[0] = POS_Process;
+			pvPut(IsttokOPSTATE[0]);
+		} state Process
+		when (delay(1.0) && (IsttokEmergencyModeOnOff == 0) && (IsttokOPSTATE[0] == POS_Starting)){
+			IsttokOPSTATE[0] = POS_Emergency;
+			pvPut(IsttokOPSTATE[0]);
+			strcpy(msg, "State to Emergency");
+			pvPut(msg);
+			errlogSevPrintf(NO_ALARM, "%s\n",msg);
+			IsttokEmergencyModeOnOff = 1;
+			pvPut(IsttokEmergencyModeOnOff );
+			if ((IsttokShotCapBankChargeOnOff == 0)) {
+				strcpy(msg, "EMERGENCY: CAPBANK Charge OFF");
+				pvPut(msg);
+				errlogSevPrintf(NO_ALARM, "%s\n",msg);
+				IsttokShotCapBankChargeOnOff = 1;
+				pvPut(IsttokShotCapBankChargeOnOff);
+			}
+			if ((IsttokShotCapBankConOnOff == 0)) {
+				strcpy(msg, "EMERGENCY: CAPBANK Conector OFF");
+				pvPut(msg);
+				errlogSevPrintf(NO_ALARM, "%s\n",msg);
+				IsttokShotCapBankConOnOff = 1;
+				pvPut(IsttokShotCapBankConOnOff);
+			}
+			if ((IsttokShotCapBankDischargeOnOff == 1)) {
+				strcpy(msg, "EMERGENCY: CAPBANK Discharge ON");
+				pvPut(msg);
+				errlogSevPrintf(NO_ALARM, "%s\n",msg);
+				IsttokShotCapBankDischargeOnOff = 0;
+				pvPut(IsttokShotCapBankDischargeOnOff);
+			}
+			if ((IsttokShotGISValvesOnOff == 0)) {
+				strcpy(msg, "EMERGENCY: GIS Valves CLOSE");
+				pvPut(msg);
+				errlogSevPrintf(NO_ALARM, "%s\n",msg);
+				IsttokShotGISValvesOnOff = 1;
+				pvPut(IsttokShotGISValvesOnOff);
+			}
+			if ((IsttokShotFilamentOnOff == 0)) {
+				strcpy(msg, "EMERGENCY: Filament OFF");
+				pvPut(msg);
+				errlogSevPrintf(NO_ALARM, "%s\n",msg);
+				IsttokShotFilamentOnOff = 1;
+				pvPut(IsttokShotFilamentOnOff);
+			}
+			strcpy(msg, "State to Stopped");
+			pvPut(msg);
+			errlogSevPrintf(NO_ALARM, "%s\n",msg);
+			IsttokOPREQ[0] = STOP;
+			pvPut(IsttokOPREQ[0]);
+			/* Pulse state change to Stopped */
+			IsttokOPSTATE[0] = POS_Stopped;
+			pvPut(IsttokOPSTATE[0]);
+		} state Stopped
+		when (delay(1.0) && (IsttokEmergencyModeOnOff == 0) && (IsttokOPSTATE[0] == POS_Stopping)){
+			IsttokOPSTATE[0] = POS_Emergency;
+			pvPut(IsttokOPSTATE[0]);
+			strcpy(msg, "State to Emergency");
+			pvPut(msg);
+			errlogSevPrintf(NO_ALARM, "%s\n",msg);
+			IsttokEmergencyModeOnOff = 1;
+			pvPut(IsttokEmergencyModeOnOff );
+			if ((IsttokShotCapBankChargeOnOff == 0)) {
+				strcpy(msg, "EMERGENCY: CAPBANK Charge OFF");
+				pvPut(msg);
+				errlogSevPrintf(NO_ALARM, "%s\n",msg);
+				IsttokShotCapBankChargeOnOff = 1;
+				pvPut(IsttokShotCapBankChargeOnOff);
+			}
+			if ((IsttokShotCapBankConOnOff == 0)) {
+				strcpy(msg, "EMERGENCY: CAPBANK Conector OFF");
+				pvPut(msg);
+				errlogSevPrintf(NO_ALARM, "%s\n",msg);
+				IsttokShotCapBankConOnOff = 1;
+				pvPut(IsttokShotCapBankConOnOff);
+			}
+			if ((IsttokShotCapBankDischargeOnOff == 1)) {
+				strcpy(msg, "EMERGENCY: CAPBANK Discharge ON");
+				pvPut(msg);
+				errlogSevPrintf(NO_ALARM, "%s\n",msg);
+				IsttokShotCapBankDischargeOnOff = 0;
+				pvPut(IsttokShotCapBankDischargeOnOff);
+			}
+			if ((IsttokShotGISValvesOnOff == 0)) {
+				strcpy(msg, "EMERGENCY: GIS Valves CLOSE");
+				pvPut(msg);
+				errlogSevPrintf(NO_ALARM, "%s\n",msg);
+				IsttokShotGISValvesOnOff = 1;
+				pvPut(IsttokShotGISValvesOnOff);
+			}
+			if ((IsttokShotFilamentOnOff == 0)) {
+				strcpy(msg, "EMERGENCY: Filament OFF");
+				pvPut(msg);
+				errlogSevPrintf(NO_ALARM, "%s\n",msg);
+				IsttokShotFilamentOnOff = 1;
+				pvPut(IsttokShotFilamentOnOff);
+			}
+			strcpy(msg, "State to Stopped");
+			pvPut(msg);
+			errlogSevPrintf(NO_ALARM, "%s\n",msg);
+			IsttokOPREQ[0] = STOP;
+			pvPut(IsttokOPREQ[0]);
+			/* Pulse state change to Stopped */
+			IsttokOPSTATE[0] = POS_Stopped;
+			pvPut(IsttokOPSTATE[0]);
+		} state Stopped
+		when (delay(1.0) && (IsttokEmergencyModeOnOff == 0) && (IsttokOPSTATE[0] == POS_Stopped)){
+			IsttokOPSTATE[0] = POS_Emergency;
+			pvPut(IsttokOPSTATE[0]);
+			strcpy(msg, "State to Emergency");
+			pvPut(msg);
+			errlogSevPrintf(NO_ALARM, "%s\n",msg);
+			IsttokEmergencyModeOnOff = 1;
+			pvPut(IsttokEmergencyModeOnOff );
+			if ((IsttokShotCapBankChargeOnOff == 0)) {
+				strcpy(msg, "EMERGENCY: CAPBANK Charge OFF");
+				pvPut(msg);
+				errlogSevPrintf(NO_ALARM, "%s\n",msg);
+				IsttokShotCapBankChargeOnOff = 1;
+				pvPut(IsttokShotCapBankChargeOnOff);
+			}
+			if ((IsttokShotCapBankConOnOff == 0)) {
+				strcpy(msg, "EMERGENCY: CAPBANK Conector OFF");
+				pvPut(msg);
+				errlogSevPrintf(NO_ALARM, "%s\n",msg);
+				IsttokShotCapBankConOnOff = 1;
+				pvPut(IsttokShotCapBankConOnOff);
+			}
+			if ((IsttokShotCapBankDischargeOnOff == 1)) {
+				strcpy(msg, "EMERGENCY: CAPBANK Discharge ON");
+				pvPut(msg);
+				errlogSevPrintf(NO_ALARM, "%s\n",msg);
+				IsttokShotCapBankDischargeOnOff = 0;
+				pvPut(IsttokShotCapBankDischargeOnOff);
+			}
+			if ((IsttokShotGISValvesOnOff == 0)) {
+				strcpy(msg, "EMERGENCY: GIS Valves CLOSE");
+				pvPut(msg);
+				errlogSevPrintf(NO_ALARM, "%s\n",msg);
+				IsttokShotGISValvesOnOff = 1;
+				pvPut(IsttokShotGISValvesOnOff);
+			}
+			if ((IsttokShotFilamentOnOff == 0)) {
+				strcpy(msg, "EMERGENCY: Filament OFF");
+				pvPut(msg);
+				errlogSevPrintf(NO_ALARM, "%s\n",msg);
+				IsttokShotFilamentOnOff = 1;
+				pvPut(IsttokShotFilamentOnOff);
+			}
+			strcpy(msg, "State to Stopped");
+			pvPut(msg);
+			errlogSevPrintf(NO_ALARM, "%s\n",msg);
+			IsttokOPREQ[0] = STOP;
+			pvPut(IsttokOPREQ[0]);
+			/* Pulse state change to Stopped */
+			IsttokOPSTATE[0] = POS_Stopped;
+			pvPut(IsttokOPSTATE[0]);
+		} state Stopped
+	}
+	/* State Set Stopped */
+	state Stopped {
+		when ((IsttokOPREQ[0]==START) && (IsttokEmergencyModeOnOff == 1)) {
+			strcpy(msg, "State to Starting");
+			pvPut(msg);
+			errlogSevPrintf(NO_ALARM, "%s\n",msg);
+			/* Pulse state change to Starting */
+			IsttokOPSTATE[0] = POS_Starting;
+			pvPut(IsttokOPSTATE[0]);
+		} state Starting
+		when((IsttokEmergencyModeOnOff == 0)){
+			strcpy(msg, "Emergency from Stopped");
+			pvPut(msg);
+			errlogSevPrintf(NO_ALARM, "%s\n",msg);
+			/* Pulse state change to Emergency*/
+			IsttokOPSTATE[0] = POS_Stopped;
+			pvPut(IsttokOPSTATE[0]);
+		} state Emergency
+	}
+	/* State Set Starting */
+	state Starting {
+		when ((IsttokOPREQ[0]==STOP) && (IsttokEmergencyModeOnOff == 1)) {
+			strcpy(msg, "State to Stopping");
+			pvPut(msg);
+			errlogSevPrintf(MINOR, "%s\n",msg);
+			/* Pulse state change to Stopping */
+			IsttokOPSTATE[0] = POS_Stopping;
+			pvPut(IsttokOPSTATE[0]);
+		} state Stopping
+		when ((IsttokSTARTINGSTATE == STRST_Starting5) ) {
+			strcpy(msg, "State to Process");
+			pvPut(msg);
+			errlogSevPrintf(NO_ALARM, "%s\n",msg);
+			/* Pulse state change to Process*/
+			IsttokOPSTATE[0] = POS_Process;
+			pvPut(IsttokOPSTATE[0]);
+		} state Process
+		when((IsttokEmergencyModeOnOff == 0)){
+			strcpy(msg, "Emergency from Starting");
+			pvPut(msg);
+			errlogSevPrintf(NO_ALARM, "%s\n",msg);
+			/* Pulse state change to Emergency*/
+			IsttokOPSTATE[0] = POS_Starting;
+			pvPut(IsttokOPSTATE[0]);
+		} state Emergency
+	}
+	/* State Set Process */
+	state Process {
+		when ((IsttokOPREQ[0]==STOP) && (IsttokTMPManualValve == OFF) && (IsttokEmergencyModeOnOff == 1)) {
+			strcpy(msg, "State to Stopping");
+			pvPut(msg);
+			errlogSevPrintf(NO_ALARM, "%s\n",msg);
+			/* Pulse state change to Stopping */
+			IsttokOPSTATE[0] = POS_Stopping;
+			pvPut(IsttokOPSTATE[0]);
+		} state Stopping
+		when ((IsttokProcReq==START) && (IsttokProcMode==CLEAN) && (IsttokEmergencyModeOnOff == 1)) {
+			strcpy(msg, "State to Clean");
+			pvPut(msg);
+			errlogSevPrintf(NO_ALARM, "%s\n",msg);
+			/* Pulse state change to Clean */
+			IsttokOPSTATE[0] = POS_Clean;
+			pvPut(IsttokOPSTATE[0]);
+		} state Clean
+		when ((IsttokProcReq==START) && (IsttokProcMode==SHOT) && (IsttokEmergencyModeOnOff == 1)) {
+			strcpy(msg, "State to WaitShot");
+			pvPut(msg);
+			errlogSevPrintf(NO_ALARM, "%s\n",msg);
+			/* Pulse state change to WaitShot */
+			IsttokOPSTATE[0] = POS_WaitShot;
+			pvPut(IsttokOPSTATE[0]);
+		} state WaitShot
+		when((IsttokEmergencyModeOnOff == 0)){
+			strcpy(msg, "Emergency from Process");
+			pvPut(msg);
+			errlogSevPrintf(NO_ALARM, "%s\n",msg);
+			/* Pulse state change to Emergency*/
+			IsttokOPSTATE[0] = POS_Process;
+			pvPut(IsttokOPSTATE[0]);
+		} state Emergency
+	}
+	/* State Set Clean */
+	state Clean {
+		when (( (IsttokOPREQ[0]==STOP) || (IsttokProcReq==STOP)) && (IsttokEmergencyModeOnOff == 1)) {
+			strcpy(msg, "State to Process");
+			pvPut(msg);
+			errlogSevPrintf(NO_ALARM, "%s\n",msg);
+			/*Just to be sure*/
+			IsttokProcReq = STOP;
+			pvPut(IsttokProcReq);
+			/*Clear Manual Clean States*/
+			IsttokCLEANINGINOUTSTATE1 = -2;
+			pvPut(IsttokCLEANINGINOUTSTATE1);
+			IsttokCLEANINGINOUTSTATE2 = -2;
+			pvPut(IsttokCLEANINGINOUTSTATE2);
+			IsttokCLEANINGINOUTSTATE3 = -2;
+			pvPut(IsttokCLEANINGINOUTSTATE3);
+			IsttokCLEANINGINOUTSTATE4 = -2;
+			pvPut(IsttokCLEANINGINOUTSTATE4);
+			IsttokCLEANINGINOUTSTATE5 = -2;
+			pvPut(IsttokCLEANINGINOUTSTATE5);
+			/* Pulse state change to Process */
+			IsttokOPSTATE[0] = POS_Process;
+			pvPut(IsttokOPSTATE[0]);
+		} state Process
+		when((IsttokEmergencyModeOnOff == 0)){
+			strcpy(msg, "Emergency from Clean");
+			pvPut(msg);
+			errlogSevPrintf(NO_ALARM, "%s\n",msg);
+			/* Pulse state change to Emergency*/
+			IsttokOPSTATE[0] = POS_Clean;
+			pvPut(IsttokOPSTATE[0]);
+		} state Emergency
+
+	}
+	/* State Set WaitShot */
+	state WaitShot {
+		when ( ((IsttokOPREQ[0]==STOP) || (IsttokProcReq==STOP) ) && (IsttokEmergencyModeOnOff == 1) ) {
+			strcpy(msg, "State to Process");
+			pvPut(msg);
+			errlogSevPrintf(NO_ALARM, "%s\n",msg);
+			/*Just to be sure*/
+			IsttokProcReq = STOP;
+			pvPut(IsttokProcReq);
+			/* Pulse state change to Process */
+			IsttokOPSTATE[0] = POS_Process;
+			pvPut(IsttokOPSTATE[0]);
+		} state Process
+		when((IsttokEmergencyModeOnOff == 0)){
+			strcpy(msg, "Emergency from WaitShot");
+			pvPut(msg);
+			errlogSevPrintf(NO_ALARM, "%s\n",msg);
+			/* Pulse state change to Emergency*/
+			IsttokOPSTATE[0] = POS_WaitShot;
+			pvPut(IsttokOPSTATE[0]);
+		} state Emergency
+	}
+	/* State Set Stopping */
+	state Stopping {
+		when ((IsttokSTOPPINGSTATE == STPST_Stopping5) && (IsttokEmergencyModeOnOff == 1)) {
+			strcpy(msg, "State to Stopped");
+			pvPut(msg);
+			errlogSevPrintf(NO_ALARM, "%s\n",msg);
+			/* Pulse state change to Stopped*/
+			IsttokOPSTATE[0] = POS_Stopped;
+			pvPut(IsttokOPSTATE[0]);
+		} state Stopped
+		when((IsttokEmergencyModeOnOff == 0)){
+			strcpy(msg, "Emergency from Stopping");
+			pvPut(msg);
+			errlogSevPrintf(NO_ALARM, "%s\n",msg);
+			/* Pulse state change to Emergency*/
+			IsttokOPSTATE[0] = POS_Stopping;
+			pvPut(IsttokOPSTATE[0]);
+		} state Emergency
+	}
+}
+ss StartingSequence {
+	state NonStarting {
+		entry {
+			IsttokSTARTINGSTATE = STRST_NonStarting;
+			pvPut(IsttokSTARTINGSTATE);
+		}
+		when (IsttokOPSTATE[0] == POS_Starting) {
+			strcpy(msg, "Rotary Pump1 ON");
+			pvPut(msg);
+			errlogSevPrintf(NO_ALARM, "%s\n",msg);
+			IsttokRotatoryPump = RELAY_ON;
+			pvPut(IsttokRotatoryPump);
+			strcpy(msg, "Rotary Pump2 ON");
+			pvPut(msg);
+			errlogSevPrintf(NO_ALARM, "%s\n",msg);
+			IsttokRotatoryPump2 = RELAY_ON;
+			pvPut(IsttokRotatoryPump2);
+			IsttokSTARTINGSTATE = STRST_Starting1;
+			pvPut(IsttokSTARTINGSTATE);
+		} state Starting1
+	}
+	state Starting1 {
+		when (IsttokOPSTATE[0] != POS_Starting ) {
+			strcpy(msg, "Starting1 Out");
+			pvPut(msg);
+			errlogSevPrintf(NO_ALARM, "%s\n",msg);
+			IsttokSTARTINGSTATE = STRST_NonStarting;
+			pvPut(IsttokSTARTINGSTATE);
+		} state NonStarting
+		when (delay(5.0)) {
+			strcpy(msg, "Rotary Valve1 OPEN");
+			pvPut(msg);
+			errlogSevPrintf(NO_ALARM, "%s\n",msg);
+			IsttokRotatoryValve = RELAY_ON;
+			pvPut(IsttokRotatoryValve);
+			strcpy(msg, "Rotary Valve2 OPEN");
+			pvPut(msg);
+			errlogSevPrintf(NO_ALARM, "%s\n",msg);
+			IsttokRotatoryValve2 = RELAY_ON;
+			pvPut(IsttokRotatoryValve2);
+			IsttokSTARTINGSTATE = STRST_Starting2;
+			pvPut(IsttokSTARTINGSTATE);
+		} state Starting2
+	}
+	state Starting2 {
+		when (IsttokOPSTATE[0] != POS_Starting ) {
+			strcpy(msg, "Starting2 Out");
+			pvPut(msg);
+			errlogSevPrintf(NO_ALARM, "%s\n",msg);
+			IsttokSTARTINGSTATE = STRST_NonStarting;
+			pvPut(IsttokSTARTINGSTATE);
+		} state NonStarting
+		when (IsttokTMPManualValve == ON) {
+			strcpy(msg, "Manual Valve Checked");
+			pvPut(msg);
+			errlogSevPrintf(NO_ALARM, "%s\n",msg);
+			IsttokSTARTINGSTATE = STRST_Starting3;
+			pvPut(IsttokSTARTINGSTATE);
+		} state Starting3
+	}
+	state Starting3 {
+		when (IsttokOPSTATE[0] != POS_Starting) {
+			strcpy(msg, "Starting3 Out");
+			pvPut(msg);
+			errlogSevPrintf(NO_ALARM, "%s\n",msg);
+			IsttokSTARTINGSTATE = STRST_NonStarting;
+			pvPut(IsttokSTARTINGSTATE);
+		} state NonStarting
+		when (((IsttokPressure_Primary1 < IsttokPressure_PrimaryCondition) && (IsttokPressure_Primary2 < IsttokPressure_Primary2Condition)) ) {
+
+			printf("Primary1 Pressure=%f\n",IsttokPressure_Primary1);
+			printf("Primary2 Pressure=%f\n",IsttokPressure_Primary2);
+
+			if(IsttokPressure_Primary1 < IsttokPressure_PrimaryCondition){
+				strcpy(msg, "TMP1 MotorOn ON" );
+				pvPut(msg);
+				errlogSevPrintf(NO_ALARM, "%s\n",msg);
+				IsttokTMPMotorOn = ON;
+				pvPut(IsttokTMPMotorOn);
+			}
+			if(IsttokPressure_Primary2 < IsttokPressure_Primary2Condition){
+				strcpy(msg, "TMP2 MotorOn ON" );
+				pvPut(msg);
+				errlogSevPrintf(NO_ALARM, "%s\n",msg);
+				IsttokTMP2MotorOn = ON;
+				pvPut(IsttokTMP2MotorOn);
+			}
+            
+            		if(IsttokTurbo_NormalOperation == PCF_INPUT_ON){
+                		sprintf(tmp1_stat, "ON");
+            		}else{
+                		sprintf(tmp1_stat, "OFF");
+            		}
+
+            		if(IsttokTurbo2_NormalOperation == PCF_INPUT_ON){
+                		sprintf(tmp2_stat, "ON");
+            		}else{
+                		sprintf(tmp2_stat, "OFF");
+            		}
+
+		    	sprintf(msg, "TMPNO = [1:%s][2:%s]", tmp1_stat, tmp2_stat);
+			pvPut(msg);
+			errlogSevPrintf(NO_ALARM, "%s\n",msg);
+			IsttokSTARTINGSTATE = STRST_Starting4;
+			pvPut(IsttokSTARTINGSTATE);
+		} state Starting4
+	}
+	state Starting4 {
+		when ((IsttokOPSTATE[0] != POS_Starting )) {
+			strcpy(msg, "Starting4 Out");
+			pvPut(msg);
+			errlogSevPrintf(NO_ALARM, "%s\n",msg);
+			IsttokSTARTINGSTATE = STRST_NonStarting;
+			pvPut(IsttokSTARTINGSTATE);
+		} state NonStarting
+		when ( (IsttokBypass_Condition == 0) || ( (IsttokTurbo_NormalOperation == PCF_INPUT_ON) || (IsttokTurbo2_NormalOperation == PCF_INPUT_ON) ) ) {
+			if(IsttokTurbo_NormalOperation == PCF_INPUT_ON){
+				strcpy(msg, "TMP1 operating Normal");
+				pvPut(msg);
+				errlogSevPrintf(NO_ALARM, "%s\n",msg);
+			}
+			if(IsttokTurbo2_NormalOperation == PCF_INPUT_ON){
+				strcpy(msg, "TMP2 operating Normal");
+				pvPut(msg);
+				errlogSevPrintf(NO_ALARM, "%s\n",msg);
+			}
+			IsttokSTARTINGSTATE = STRST_Starting5;
+			pvPut(IsttokSTARTINGSTATE);
+		} state Starting5
+	}
+	state Starting5 {
+		when ((IsttokOPSTATE[0] != POS_Starting )) {
+			strcpy(msg, "State to Process");
+			pvPut(msg);
+			errlogSevPrintf(NO_ALARM, "%s\n",msg);
+			IsttokSTARTINGSTATE = STRST_NonStarting;
+			pvPut(IsttokSTARTINGSTATE);
+		} state NonStarting
+	}
+}
+ss StoppingSequence {
+	state NonStopping {
+		entry {
+			IsttokSTOPPINGSTATE = STPST_NonStopping;
+			pvPut(IsttokSTOPPINGSTATE);
+		}
+		when (IsttokOPSTATE[0] == POS_Stopping) {
+			strcpy(msg, "Rotary Valve1 CLOSE");
+			pvPut(msg);
+			errlogSevPrintf(NO_ALARM, "%s\n",msg);
+			IsttokRotatoryValve = RELAY_OFF;
+			pvPut(IsttokRotatoryValve);
+			strcpy(msg, "Rotary Valve2 CLOSE");
+			pvPut(msg);
+			errlogSevPrintf(NO_ALARM, "%s\n",msg);
+			IsttokRotatoryValve2 = RELAY_OFF;
+			pvPut(IsttokRotatoryValve2);
+			IsttokSTOPPINGSTATE = STPST_Stopping1;
+			pvPut(IsttokSTOPPINGSTATE);
+		} state Stopping1
+	}
+	state Stopping1 {
+		when (IsttokOPSTATE[0] != POS_Stopping ) {
+			strcpy(msg, "Stopping1 Out");
+			pvPut(msg);
+			errlogSevPrintf(NO_ALARM, "%s\n",msg);
+			IsttokSTOPPINGSTATE = STPST_NonStopping;
+			pvPut(IsttokSTOPPINGSTATE);
+		} state NonStopping
+		when (delay(2.0)) {
+			strcpy(msg, "Stopping2 In");
+			pvPut(msg);
+			errlogSevPrintf(NO_ALARM, "%s\n",msg);
+			IsttokSTOPPINGSTATE = STPST_Stopping2;
+			pvPut(IsttokSTOPPINGSTATE);
+		} state Stopping2
+	}
+	state Stopping2 {
+		when (IsttokOPSTATE[0] != POS_Stopping ) {
+			strcpy(msg, "Stopping2 Out");
+			pvPut(msg);
+			errlogSevPrintf(NO_ALARM, "%s\n",msg);
+			IsttokSTOPPINGSTATE = STPST_NonStopping;
+			pvPut(IsttokSTOPPINGSTATE);
+		} state NonStopping
+		when (IsttokTMPManualValve == OFF && delay(1.0)) {
+			strcpy(msg, "Stopping3 In");
+			pvPut(msg);
+			errlogSevPrintf(NO_ALARM, "%s\n",msg);
+			IsttokSTOPPINGSTATE = STPST_Stopping3;
+			pvPut(IsttokSTOPPINGSTATE);
+		} state Stopping3
+	}
+	state Stopping3 {
+		when (IsttokOPSTATE[0] != POS_Stopping ) {
+			strcpy(msg, "Stopping3 Out");
+			pvPut(msg);
+			errlogSevPrintf(NO_ALARM, "%s\n",msg);
+			IsttokSTOPPINGSTATE = STPST_NonStopping;
+			pvPut(IsttokSTOPPINGSTATE);
+		} state NonStopping
+		when (delay(5.0)) {
+			strcpy(msg, "Stopping4 In");
+			pvPut(msg);
+			errlogSevPrintf(NO_ALARM, "%s\n",msg);
+			IsttokSTOPPINGSTATE = STPST_Stopping4;
+			pvPut(IsttokSTOPPINGSTATE);
+		} state Stopping4
+	}
+	state Stopping4 {
+		when ((IsttokOPSTATE[0] != POS_Stopping )) {
+			strcpy(msg, "Stopping4 Out");
+			pvPut(msg);
+			errlogSevPrintf(NO_ALARM, "%s\n",msg);
+			IsttokSTOPPINGSTATE = STPST_NonStopping;
+			pvPut(IsttokSTOPPINGSTATE);
+		} state NonStopping
+	when (delay(5.0)) {
+			strcpy(msg, "Rotary Pump1 OFF");
+			pvPut(msg);
+			errlogSevPrintf(NO_ALARM, "%s\n",msg);
+			IsttokRotatoryPump = RELAY_OFF;
+			pvPut(IsttokRotatoryPump);
+			strcpy(msg, "Rotary Pump2 OFF");
+			pvPut(msg);
+			errlogSevPrintf(NO_ALARM, "%s\n",msg);
+			IsttokRotatoryPump2 = RELAY_OFF;
+			pvPut(IsttokRotatoryPump2);
+			IsttokSTOPPINGSTATE = STPST_Stopping5;
+			pvPut(IsttokSTOPPINGSTATE);
+		} state Stopping5
+	}
+	state Stopping5 {
+		when ((IsttokOPSTATE[0] != POS_Stopping )) {
+			strcpy(msg, "State to Stopped");
+			pvPut(msg);
+			errlogSevPrintf(NO_ALARM, "%s\n",msg);
+			IsttokSTOPPINGSTATE = STPST_NonStopping;
+			pvPut(IsttokSTOPPINGSTATE);
+		} state NonStopping
+	}
+}
+ss CleaningSequence {
+	state NonCleaning {
+		entry {
+			strcpy(msg, "State to Process");
+			pvPut(msg);
+			errlogSevPrintf(NO_ALARM, "%s\n",msg);
+			IsttokCLEANINGINOUTSTATE = 1;
+			pvPut(IsttokCLEANINGINOUTSTATE);
+			IsttokCLEANINGINOUTSTATE0 = 2;
+			pvPut(IsttokCLEANINGINOUTSTATE0);
+
+			if (IsttokShotGISValvesOnOff == 0){
+				strcpy(msg, "GIS Valves CLOSE");
+				pvPut(msg);
+				errlogSevPrintf(NO_ALARM, "%s\n",msg);
+				IsttokShotGISValvesOnOff = 1;
+				pvPut(IsttokShotGISValvesOnOff);
+			}
+			if (IsttokShotFilamentOnOff == 0){
+				strcpy(msg, "Filament OFF");
+				pvPut(msg);
+				errlogSevPrintf(NO_ALARM, "%s\n",msg);
+				IsttokShotFilamentOnOff = 1;
+				pvPut(IsttokShotFilamentOnOff);
+			}
+			if (IsttokShotBakingPPSOnOff == 0){
+				strcpy(msg, "Primary-CT OFF");
+				pvPut(msg);
+				errlogSevPrintf(NO_ALARM, "%s\n",msg);
+				IsttokShotBakingPPSOnOff = 1;
+				pvPut(IsttokShotBakingPPSOnOff);
+			}
+			if (IsttokShotTrans500OnOff == 0){
+				strcpy(msg, "Toroidal-BK OPEN");
+				pvPut(msg);
+				errlogSevPrintf(NO_ALARM, "%s\n",msg);
+				IsttokShotTrans500OnOff = 1;
+				pvPut(IsttokShotTrans500OnOff);
+			}
+			if (IsttokShotTransToPowerOnOff == 0){
+				strcpy(msg, "Toroidal-CT OFF");
+				pvPut(msg);
+				errlogSevPrintf(NO_ALARM, "%s\n",msg);
+				IsttokShotTransToPowerOnOff = 1;
+				pvPut(IsttokShotTransToPowerOnOff);
+			}
+			IsttokCLEANINGSTATE = CLEAN_NonCleaning;
+			pvPut(IsttokCLEANINGSTATE);
+		}
+		when (IsttokCLEANINGMASTATE == 1 && IsttokOPSTATE[0] == POS_Clean && IsttokCLEANINGINOUTSTATE == 1) {
+			strcpy(msg, "GIS Valves OPEN");
+			pvPut(msg);
+			errlogSevPrintf(NO_ALARM, "%s\n",msg);
+			IsttokShotGISValvesOnOff = 0;
+			pvPut(IsttokShotGISValvesOnOff);
+			IsttokCLEANINGINOUTSTATE = 1;
+			pvPut(IsttokCLEANINGINOUTSTATE);
+			IsttokCLEANINGSTATE = CLEAN_Cleaning1;
+			pvPut(IsttokCLEANINGSTATE);
+		} state Cleaning1
+		when (IsttokCLEANINGMASTATE == 0 && IsttokOPSTATE[0] == POS_Clean && IsttokCLEANINGINOUTSTATE0 == 1) {
+			strcpy(msg, "NonCleaning");
+			pvPut(msg);
+			errlogSevPrintf(NO_ALARM, "%s\n",msg);
+			IsttokCLEANINGSTATE = CLEAN_NonCleaning;
+			pvPut(IsttokCLEANINGSTATE);
+			IsttokCLEANINGINOUTSTATE0 = 2;
+			pvPut(IsttokCLEANINGINOUTSTATE0);
+		} state NonCleaning
+		when (IsttokCLEANINGMASTATE == 0 && IsttokOPSTATE[0] == POS_Clean && IsttokCLEANINGINOUTSTATE0 == -1) {
+			strcpy(msg, "NonCleaning");
+			pvPut(msg);
+			errlogSevPrintf(NO_ALARM, "%s\n",msg);
+			IsttokCLEANINGSTATE = CLEAN_NonCleaning;
+			pvPut(IsttokCLEANINGSTATE);
+			IsttokCLEANINGINOUTSTATE0 = -2;
+			pvPut(IsttokCLEANINGINOUTSTATE0);
+		} state NonCleaning
+		when (IsttokCLEANINGMASTATE == 0 && IsttokOPSTATE[0] == POS_Clean && IsttokCLEANINGINOUTSTATE1 == 1) {
+			strcpy(msg, "GIS Valves OPEN");
+			pvPut(msg);
+			errlogSevPrintf(NO_ALARM, "%s\n",msg);
+			IsttokShotGISValvesOnOff = 0;
+			pvPut(IsttokShotGISValvesOnOff);
+			IsttokCLEANINGSTATE = CLEAN_Cleaning1;
+			pvPut(IsttokCLEANINGSTATE);
+			IsttokCLEANINGINOUTSTATE1 = 2;
+			pvPut(IsttokCLEANINGINOUTSTATE1);
+		} state Cleaning1
+		when (IsttokCLEANINGMASTATE == 0 && IsttokOPSTATE[0] == POS_Clean && IsttokCLEANINGINOUTSTATE1 == -1) {
+			strcpy(msg, "GIS Valves CLOSE");
+			pvPut(msg);
+			errlogSevPrintf(NO_ALARM, "%s\n",msg);
+			IsttokShotGISValvesOnOff = 1;
+			pvPut(IsttokShotGISValvesOnOff);
+			IsttokCLEANINGSTATE = CLEAN_Cleaning1;
+			pvPut(IsttokCLEANINGSTATE);
+			IsttokCLEANINGINOUTSTATE1 = -2;
+			pvPut(IsttokCLEANINGINOUTSTATE1);
+		} state Cleaning1
+		when (IsttokCLEANINGMASTATE == 0 && IsttokOPSTATE[0] == POS_Clean && IsttokCLEANINGINOUTSTATE2 == 1) {
+			strcpy(msg, "Filament ON");
+			pvPut(msg);
+			errlogSevPrintf(NO_ALARM, "%s\n",msg);
+			IsttokShotFilamentOnOff = 0;
+			pvPut(IsttokShotFilamentOnOff);
+			IsttokCLEANINGSTATE = CLEAN_Cleaning2;
+			pvPut(IsttokCLEANINGSTATE);
+			IsttokCLEANINGINOUTSTATE2 = 2;
+			pvPut(IsttokCLEANINGINOUTSTATE2);
+		} state Cleaning2
+		when (IsttokCLEANINGMASTATE == 0 && IsttokOPSTATE[0] == POS_Clean && IsttokCLEANINGINOUTSTATE2 == -1) {
+			strcpy(msg, "Filament OFF");
+			pvPut(msg);
+			errlogSevPrintf(NO_ALARM, "%s\n",msg);
+			IsttokShotFilamentOnOff = 1;
+			pvPut(IsttokShotFilamentOnOff);
+			IsttokCLEANINGSTATE = CLEAN_Cleaning2;
+			pvPut(IsttokCLEANINGSTATE);
+			IsttokCLEANINGINOUTSTATE2 = -2;
+			pvPut(IsttokCLEANINGINOUTSTATE2);
+		} state Cleaning2
+		when (IsttokCLEANINGMASTATE == 0 && IsttokOPSTATE[0] == POS_Clean && IsttokCLEANINGINOUTSTATE3 == 1) {
+			strcpy(msg, "Primary-CT ON");
+			pvPut(msg);
+			errlogSevPrintf(NO_ALARM, "%s\n",msg);
+			IsttokShotBakingPPSOnOff = 0;
+			pvPut(IsttokShotBakingPPSOnOff);
+			IsttokCLEANINGSTATE = CLEAN_Cleaning3;
+			pvPut(IsttokCLEANINGSTATE);
+			IsttokCLEANINGINOUTSTATE3 = 2;
+			pvPut(IsttokCLEANINGINOUTSTATE3);
+		} state Cleaning3
+		when (IsttokCLEANINGMASTATE == 0 && IsttokOPSTATE[0] == POS_Clean && IsttokCLEANINGINOUTSTATE3 == -1) {
+			strcpy(msg, "Primary-CT OFF");
+			pvPut(msg);
+			errlogSevPrintf(NO_ALARM, "%s\n",msg);
+			IsttokShotBakingPPSOnOff = 1;
+			pvPut(IsttokShotBakingPPSOnOff);
+			IsttokCLEANINGSTATE = CLEAN_Cleaning3;
+			pvPut(IsttokCLEANINGSTATE);
+			IsttokCLEANINGINOUTSTATE3 = -2;
+			pvPut(IsttokCLEANINGINOUTSTATE3);
+		} state Cleaning3
+		when (IsttokCLEANINGMASTATE == 0 && IsttokOPSTATE[0] == POS_Clean && IsttokCLEANINGINOUTSTATE4 == 1) {
+			strcpy(msg, "Toroidal-BK CLOSE");
+			pvPut(msg);
+			errlogSevPrintf(NO_ALARM, "%s\n",msg);
+			IsttokShotTrans500OnOff = 0;
+			pvPut(IsttokShotTrans500OnOff);
+			IsttokCLEANINGSTATE = CLEAN_Cleaning4;
+			pvPut(IsttokCLEANINGSTATE);
+			IsttokCLEANINGINOUTSTATE4 = 2;
+			pvPut(IsttokCLEANINGINOUTSTATE4);
+		} state Cleaning4
+		when (IsttokCLEANINGMASTATE == 0 && IsttokOPSTATE[0] == POS_Clean && IsttokCLEANINGINOUTSTATE4 == -1) {
+			strcpy(msg, "Toroidal-BK OPEN");
+			pvPut(msg);
+			errlogSevPrintf(NO_ALARM, "%s\n",msg);
+			IsttokShotTrans500OnOff = 1;
+			pvPut(IsttokShotTrans500OnOff);
+			IsttokCLEANINGSTATE = CLEAN_Cleaning4;
+			pvPut(IsttokCLEANINGSTATE);
+			IsttokCLEANINGINOUTSTATE4 = -2;
+			pvPut(IsttokCLEANINGINOUTSTATE4);
+		} state Cleaning4
+		when (IsttokCLEANINGMASTATE == 0 && IsttokOPSTATE[0] == POS_Clean && IsttokCLEANINGINOUTSTATE5 == 1) {
+			strcpy(msg, "Toroidal-CT ON");
+			pvPut(msg);
+			errlogSevPrintf(NO_ALARM, "%s\n",msg);
+			IsttokShotTransToPowerOnOff = 0;
+			pvPut(IsttokShotTransToPowerOnOff);
+			IsttokCLEANINGSTATE = CLEAN_Cleaning5;
+			pvPut(IsttokCLEANINGSTATE);
+			IsttokCLEANINGINOUTSTATE5 = 2;
+			pvPut(IsttokCLEANINGINOUTSTATE5);
+		} state Cleaning5
+		when (IsttokCLEANINGMASTATE == 0 && IsttokOPSTATE[0] == POS_Clean && IsttokCLEANINGINOUTSTATE5 == -1) {
+			strcpy(msg, "Toroidal-CT OFF");
+			pvPut(msg);
+			errlogSevPrintf(NO_ALARM, "%s\n",msg);
+			IsttokShotTransToPowerOnOff = 1;
+			pvPut(IsttokShotTransToPowerOnOff);
+			IsttokCLEANINGSTATE = CLEAN_Cleaning5;
+			pvPut(IsttokCLEANINGSTATE);
+			IsttokCLEANINGINOUTSTATE5 = -2;
+			pvPut(IsttokCLEANINGINOUTSTATE5);
+		} state Cleaning5
+	}
+	state Cleaning1 {
+		when (delay(1.0) && (IsttokOPSTATE[0] != POS_Clean )) {
+			strcpy(msg, "GIS Valves CLOSE");
+			pvPut(msg);
+			errlogSevPrintf(NO_ALARM, "%s\n",msg);
+			IsttokCLEANINGINOUTSTATE = 0;
+			pvPut(IsttokCLEANINGINOUTSTATE);
+			IsttokShotGISValvesOnOff = 1;
+			pvPut(IsttokShotGISValvesOnOff);
+			IsttokCLEANINGSTATE = CLEAN_NonCleaning;
+			pvPut(IsttokCLEANINGSTATE);
+		} state NonCleaning
+		when (delay(2.0) && IsttokCLEANINGMASTATE == 1 && IsttokOPSTATE[0] == POS_Clean && IsttokCLEANINGINOUTSTATE == 1) {
+			strcpy(msg, "Filament ON");
+			pvPut(msg);
+			errlogSevPrintf(NO_ALARM, "%s\n",msg);
+			IsttokShotFilamentOnOff = 0;
+			pvPut(IsttokShotFilamentOnOff);
+			IsttokCLEANINGINOUTSTATE = 1;
+			pvPut(IsttokCLEANINGINOUTSTATE);
+			IsttokCLEANINGSTATE = CLEAN_Cleaning2;
+			pvPut(IsttokCLEANINGSTATE);
+		} state Cleaning2
+		when (IsttokCLEANINGMASTATE == 0 && IsttokOPSTATE[0] == POS_Clean && IsttokCLEANINGINOUTSTATE0 == 1) {
+			strcpy(msg, "NonCleaning");
+			pvPut(msg);
+			errlogSevPrintf(NO_ALARM, "%s\n",msg);
+			IsttokCLEANINGSTATE = CLEAN_NonCleaning;
+			pvPut(IsttokCLEANINGSTATE);
+			IsttokCLEANINGINOUTSTATE0 = 2;
+			pvPut(IsttokCLEANINGINOUTSTATE0);
+		} state NonCleaning
+		when (IsttokCLEANINGMASTATE == 0 && IsttokOPSTATE[0] == POS_Clean && IsttokCLEANINGINOUTSTATE0 == -1) {
+			strcpy(msg, "NonCleaning");
+			pvPut(msg);
+			errlogSevPrintf(NO_ALARM, "%s\n",msg);
+			IsttokCLEANINGSTATE = CLEAN_NonCleaning;
+			pvPut(IsttokCLEANINGSTATE);
+			IsttokCLEANINGINOUTSTATE0 = -2;
+			pvPut(IsttokCLEANINGINOUTSTATE0);
+		} state NonCleaning
+		when (IsttokCLEANINGMASTATE == 0 && IsttokOPSTATE[0] == POS_Clean && IsttokCLEANINGINOUTSTATE1 == 1) {
+			strcpy(msg, "GIS Valves OPEN");
+			pvPut(msg);
+			errlogSevPrintf(NO_ALARM, "%s\n",msg);
+			IsttokShotGISValvesOnOff = 0;
+			pvPut(IsttokShotGISValvesOnOff);
+			IsttokCLEANINGSTATE = CLEAN_Cleaning1;
+			pvPut(IsttokCLEANINGSTATE);
+			IsttokCLEANINGINOUTSTATE1 = 2;
+			pvPut(IsttokCLEANINGINOUTSTATE1);
+		} state Cleaning1
+		when (IsttokCLEANINGMASTATE == 0 && IsttokOPSTATE[0] == POS_Clean && IsttokCLEANINGINOUTSTATE1 == -1) {
+			strcpy(msg, "GIS Valves CLOSE");
+			pvPut(msg);
+			errlogSevPrintf(NO_ALARM, "%s\n",msg);
+			IsttokShotGISValvesOnOff = 1;
+			pvPut(IsttokShotGISValvesOnOff);
+			IsttokCLEANINGSTATE = CLEAN_Cleaning1;
+			pvPut(IsttokCLEANINGSTATE);
+			IsttokCLEANINGINOUTSTATE1 = -2;
+			pvPut(IsttokCLEANINGINOUTSTATE1);
+		} state Cleaning1
+		when (IsttokCLEANINGMASTATE == 0 && IsttokOPSTATE[0] == POS_Clean && IsttokCLEANINGINOUTSTATE2 == 1) {
+			strcpy(msg, "Filament ON");
+			pvPut(msg);
+			errlogSevPrintf(NO_ALARM, "%s\n",msg);
+			IsttokShotFilamentOnOff = 0;
+			pvPut(IsttokShotFilamentOnOff);
+			IsttokCLEANINGSTATE = CLEAN_Cleaning2;
+			pvPut(IsttokCLEANINGSTATE);
+			IsttokCLEANINGINOUTSTATE2 = 2;
+			pvPut(IsttokCLEANINGINOUTSTATE2);
+		} state Cleaning2
+		when (IsttokCLEANINGMASTATE == 0 && IsttokOPSTATE[0] == POS_Clean && IsttokCLEANINGINOUTSTATE2 == -1) {
+			strcpy(msg, "Filament OFF");
+			pvPut(msg);
+			errlogSevPrintf(NO_ALARM, "%s\n",msg);
+			IsttokShotFilamentOnOff = 1;
+			pvPut(IsttokShotFilamentOnOff);
+			IsttokCLEANINGSTATE = CLEAN_Cleaning2;
+			pvPut(IsttokCLEANINGSTATE);
+			IsttokCLEANINGINOUTSTATE2 = -2;
+			pvPut(IsttokCLEANINGINOUTSTATE2);
+		} state Cleaning2
+		when (IsttokCLEANINGMASTATE == 0 && IsttokOPSTATE[0] == POS_Clean && IsttokCLEANINGINOUTSTATE3 == 1) {
+			strcpy(msg, "Primary-CT ON");
+			pvPut(msg);
+			errlogSevPrintf(NO_ALARM, "%s\n",msg);
+			IsttokShotBakingPPSOnOff = 0;
+			pvPut(IsttokShotBakingPPSOnOff);
+			IsttokCLEANINGSTATE = CLEAN_Cleaning3;
+			pvPut(IsttokCLEANINGSTATE);
+			IsttokCLEANINGINOUTSTATE3 = 2;
+			pvPut(IsttokCLEANINGINOUTSTATE3);
+		} state Cleaning3
+		when (IsttokCLEANINGMASTATE == 0 && IsttokOPSTATE[0] == POS_Clean && IsttokCLEANINGINOUTSTATE3 == -1) {
+			strcpy(msg, "Primary-CT OFF");
+			pvPut(msg);
+			errlogSevPrintf(NO_ALARM, "%s\n",msg);
+			IsttokShotBakingPPSOnOff = 1;
+			pvPut(IsttokShotBakingPPSOnOff);
+			IsttokCLEANINGSTATE = CLEAN_Cleaning3;
+			pvPut(IsttokCLEANINGSTATE);
+			IsttokCLEANINGINOUTSTATE3 = -2;
+			pvPut(IsttokCLEANINGINOUTSTATE3);
+		} state Cleaning3
+		when (IsttokCLEANINGMASTATE == 0 && IsttokOPSTATE[0] == POS_Clean && IsttokCLEANINGINOUTSTATE4 == 1) {
+			strcpy(msg, "Toroidal-BK CLOSE");
+			pvPut(msg);
+			errlogSevPrintf(NO_ALARM, "%s\n",msg);
+			IsttokShotTrans500OnOff = 0;
+			pvPut(IsttokShotTrans500OnOff);
+			IsttokCLEANINGSTATE = CLEAN_Cleaning4;
+			pvPut(IsttokCLEANINGSTATE);
+			IsttokCLEANINGINOUTSTATE4 = 2;
+			pvPut(IsttokCLEANINGINOUTSTATE4);
+		} state Cleaning4
+		when (IsttokCLEANINGMASTATE == 0 && IsttokOPSTATE[0] == POS_Clean && IsttokCLEANINGINOUTSTATE4 == -1) {
+			strcpy(msg, "Toroidal-BK OPEN");
+			pvPut(msg);
+			errlogSevPrintf(NO_ALARM, "%s\n",msg);
+			IsttokShotTrans500OnOff = 1;
+			pvPut(IsttokShotTrans500OnOff);
+			IsttokCLEANINGSTATE = CLEAN_Cleaning4;
+			pvPut(IsttokCLEANINGSTATE);
+			IsttokCLEANINGINOUTSTATE4 = -2;
+			pvPut(IsttokCLEANINGINOUTSTATE4);
+		} state Cleaning4
+		when (IsttokCLEANINGMASTATE == 0 && IsttokOPSTATE[0] == POS_Clean && IsttokCLEANINGINOUTSTATE5 == 1) {
+			strcpy(msg, "Toroidal-CT ON");
+			pvPut(msg);
+			errlogSevPrintf(NO_ALARM, "%s\n",msg);
+			IsttokShotTransToPowerOnOff = 0;
+			pvPut(IsttokShotTransToPowerOnOff);
+			IsttokCLEANINGSTATE = CLEAN_Cleaning5;
+			pvPut(IsttokCLEANINGSTATE);
+			IsttokCLEANINGINOUTSTATE5 = 2;
+			pvPut(IsttokCLEANINGINOUTSTATE5);
+		} state Cleaning5
+		when (IsttokCLEANINGMASTATE == 0 && IsttokOPSTATE[0] == POS_Clean && IsttokCLEANINGINOUTSTATE5 == -1) {
+			strcpy(msg, "Toroidal-CT OFF");
+			pvPut(msg);
+			errlogSevPrintf(NO_ALARM, "%s\n",msg);
+			IsttokShotTransToPowerOnOff = 1;
+			pvPut(IsttokShotTransToPowerOnOff);
+			IsttokCLEANINGSTATE = CLEAN_Cleaning5;
+			pvPut(IsttokCLEANINGSTATE);
+			IsttokCLEANINGINOUTSTATE5 = -2;
+			pvPut(IsttokCLEANINGINOUTSTATE5);
+		} state Cleaning5
+	}
+	state Cleaning2 {
+		when (delay(1.0) && (IsttokOPSTATE[0] != POS_Clean )) {
+			strcpy(msg, "Filament OFF");
+			pvPut(msg);
+			errlogSevPrintf(NO_ALARM, "%s\n",msg);
+			IsttokCLEANINGINOUTSTATE = 0;
+			pvPut(IsttokCLEANINGINOUTSTATE);
+			IsttokShotFilamentOnOff = 1;
+			pvPut(IsttokShotFilamentOnOff);
+			IsttokCLEANINGSTATE = CLEAN_Cleaning1;
+			pvPut(IsttokCLEANINGSTATE);
+		} state Cleaning1
+		when (delay(2.0) && IsttokCLEANINGMASTATE == 1 && IsttokOPSTATE[0] == POS_Clean	 && IsttokCLEANINGINOUTSTATE == 1) {
+			strcpy(msg, "Primary-CT ON");
+			pvPut(msg);
+			errlogSevPrintf(NO_ALARM, "%s\n",msg);
+			IsttokShotBakingPPSOnOff = 0;
+			pvPut(IsttokShotBakingPPSOnOff);
+			IsttokCLEANINGINOUTSTATE = 1;
+			pvPut(IsttokCLEANINGINOUTSTATE);
+			IsttokCLEANINGSTATE = CLEAN_Cleaning3;
+			pvPut(IsttokCLEANINGSTATE);
+		} state Cleaning3
+		when (IsttokCLEANINGMASTATE == 0 && IsttokOPSTATE[0] == POS_Clean && IsttokCLEANINGINOUTSTATE0 == 1) {
+			strcpy(msg, "NonCleaning");
+			pvPut(msg);
+			errlogSevPrintf(NO_ALARM, "%s\n",msg);
+			IsttokCLEANINGSTATE = CLEAN_NonCleaning;
+			pvPut(IsttokCLEANINGSTATE);
+			IsttokCLEANINGINOUTSTATE0 = 2;
+			pvPut(IsttokCLEANINGINOUTSTATE0);
+		} state NonCleaning
+		when (IsttokCLEANINGMASTATE == 0 && IsttokOPSTATE[0] == POS_Clean && IsttokCLEANINGINOUTSTATE0 == -1) {
+			strcpy(msg, "State to Process");
+			pvPut(msg);
+			errlogSevPrintf(NO_ALARM, "%s\n",msg);
+			IsttokCLEANINGSTATE = CLEAN_NonCleaning;
+			pvPut(IsttokCLEANINGSTATE);
+			IsttokCLEANINGINOUTSTATE0 = -2;
+			pvPut(IsttokCLEANINGINOUTSTATE0);
+		} state NonCleaning
+		when (IsttokCLEANINGMASTATE == 0 && IsttokOPSTATE[0] == POS_Clean && IsttokCLEANINGINOUTSTATE1 == 1) {
+			strcpy(msg, "GIS Valves OPEN");
+			pvPut(msg);
+			errlogSevPrintf(NO_ALARM, "%s\n",msg);
+			IsttokShotGISValvesOnOff = 0;
+			pvPut(IsttokShotGISValvesOnOff);
+			IsttokCLEANINGSTATE = CLEAN_Cleaning1;
+			pvPut(IsttokCLEANINGSTATE);
+			IsttokCLEANINGINOUTSTATE1 = 2;
+			pvPut(IsttokCLEANINGINOUTSTATE1);
+		} state Cleaning1
+		when (IsttokCLEANINGMASTATE == 0 && IsttokOPSTATE[0] == POS_Clean && IsttokCLEANINGINOUTSTATE1 == -1) {
+			strcpy(msg, "GIS Valves CLOSE");
+			pvPut(msg);
+			errlogSevPrintf(NO_ALARM, "%s\n",msg);
+			IsttokShotGISValvesOnOff = 1;
+			pvPut(IsttokShotGISValvesOnOff);
+			IsttokCLEANINGSTATE = CLEAN_Cleaning1;
+			pvPut(IsttokCLEANINGSTATE);
+			IsttokCLEANINGINOUTSTATE1 = -2;
+			pvPut(IsttokCLEANINGINOUTSTATE1);
+		} state Cleaning1
+		when (IsttokCLEANINGMASTATE == 0 && IsttokOPSTATE[0] == POS_Clean && IsttokCLEANINGINOUTSTATE2 == 1) {
+			strcpy(msg, "Filament ON");
+			pvPut(msg);
+			errlogSevPrintf(NO_ALARM, "%s\n",msg);
+			IsttokShotFilamentOnOff = 0;
+			pvPut(IsttokShotFilamentOnOff);
+			IsttokCLEANINGSTATE = CLEAN_Cleaning2;
+			pvPut(IsttokCLEANINGSTATE);
+			IsttokCLEANINGINOUTSTATE2 = 2;
+			pvPut(IsttokCLEANINGINOUTSTATE2);
+		} state Cleaning2
+		when (IsttokCLEANINGMASTATE == 0 && IsttokOPSTATE[0] == POS_Clean && IsttokCLEANINGINOUTSTATE2 == -1) {
+			strcpy(msg, "Filament OFF");
+			pvPut(msg);
+			errlogSevPrintf(NO_ALARM, "%s\n",msg);
+			IsttokShotFilamentOnOff = 1;
+			pvPut(IsttokShotFilamentOnOff);
+			IsttokCLEANINGSTATE = CLEAN_Cleaning2;
+			pvPut(IsttokCLEANINGSTATE);
+			IsttokCLEANINGINOUTSTATE2 = -2;
+			pvPut(IsttokCLEANINGINOUTSTATE2);
+		} state Cleaning2
+		when (IsttokCLEANINGMASTATE == 0 && IsttokOPSTATE[0] == POS_Clean && IsttokCLEANINGINOUTSTATE3 == 1) {
+			strcpy(msg, "Primary-CT ON");
+			pvPut(msg);
+			errlogSevPrintf(NO_ALARM, "%s\n",msg);
+			IsttokShotBakingPPSOnOff = 0;
+			pvPut(IsttokShotBakingPPSOnOff);
+			IsttokCLEANINGSTATE = CLEAN_Cleaning3;
+			pvPut(IsttokCLEANINGSTATE);
+			IsttokCLEANINGINOUTSTATE3 = 2;
+			pvPut(IsttokCLEANINGINOUTSTATE3);
+		} state Cleaning3
+		when (IsttokCLEANINGMASTATE == 0 && IsttokOPSTATE[0] == POS_Clean && IsttokCLEANINGINOUTSTATE3 == -1) {
+			strcpy(msg, "Primary-CT OFF");
+			pvPut(msg);
+			errlogSevPrintf(NO_ALARM, "%s\n",msg);
+			IsttokShotBakingPPSOnOff = 1;
+			pvPut(IsttokShotBakingPPSOnOff);
+			IsttokCLEANINGSTATE = CLEAN_Cleaning3;
+			pvPut(IsttokCLEANINGSTATE);
+			IsttokCLEANINGINOUTSTATE3 = -2;
+			pvPut(IsttokCLEANINGINOUTSTATE3);
+		} state Cleaning3
+		when (IsttokCLEANINGMASTATE == 0 && IsttokOPSTATE[0] == POS_Clean && IsttokCLEANINGINOUTSTATE4 == 1) {
+			strcpy(msg, "Toroidal-BK CLOSE");
+			pvPut(msg);
+			errlogSevPrintf(NO_ALARM, "%s\n",msg);
+			IsttokShotTrans500OnOff = 0;
+			pvPut(IsttokShotTrans500OnOff);
+			IsttokCLEANINGSTATE = CLEAN_Cleaning4;
+			pvPut(IsttokCLEANINGSTATE);
+			IsttokCLEANINGINOUTSTATE4 = 2;
+			pvPut(IsttokCLEANINGINOUTSTATE4);
+		} state Cleaning4
+		when (IsttokCLEANINGMASTATE == 0 && IsttokOPSTATE[0] == POS_Clean && IsttokCLEANINGINOUTSTATE4 == -1) {
+			strcpy(msg, "Toroidal-BK OPEN");
+			pvPut(msg);
+			errlogSevPrintf(NO_ALARM, "%s\n",msg);
+			IsttokShotTrans500OnOff = 1;
+			pvPut(IsttokShotTrans500OnOff);
+			IsttokCLEANINGSTATE = CLEAN_Cleaning4;
+			pvPut(IsttokCLEANINGSTATE);
+			IsttokCLEANINGINOUTSTATE4 = -2;
+			pvPut(IsttokCLEANINGINOUTSTATE4);
+		} state Cleaning4
+		when (IsttokCLEANINGMASTATE == 0 && IsttokOPSTATE[0] == POS_Clean && IsttokCLEANINGINOUTSTATE5 == 1) {
+			strcpy(msg, "Toroidal-CT ON");
+			pvPut(msg);
+			errlogSevPrintf(NO_ALARM, "%s\n",msg);
+			IsttokShotTransToPowerOnOff = 0;
+			pvPut(IsttokShotTransToPowerOnOff);
+			IsttokCLEANINGSTATE = CLEAN_Cleaning5;
+			pvPut(IsttokCLEANINGSTATE);
+			IsttokCLEANINGINOUTSTATE5 = 2;
+			pvPut(IsttokCLEANINGINOUTSTATE5);
+		} state Cleaning5
+		when (IsttokCLEANINGMASTATE == 0 && IsttokOPSTATE[0] == POS_Clean && IsttokCLEANINGINOUTSTATE5 == -1) {
+			strcpy(msg, "Toroidal-CT OFF");
+			pvPut(msg);
+			errlogSevPrintf(NO_ALARM, "%s\n",msg);
+			IsttokShotTransToPowerOnOff = 1;
+			pvPut(IsttokShotTransToPowerOnOff);
+			IsttokCLEANINGSTATE = CLEAN_Cleaning5;
+			pvPut(IsttokCLEANINGSTATE);
+			IsttokCLEANINGINOUTSTATE5 = -2;
+			pvPut(IsttokCLEANINGINOUTSTATE5);
+		} state Cleaning5
+	}
+	state Cleaning3 {
+		when (delay(1.0) && (IsttokOPSTATE[0] != POS_Clean )) {
+			strcpy(msg, "Primary-CT OFF");
+			pvPut(msg);
+			errlogSevPrintf(NO_ALARM, "%s\n",msg);
+			IsttokShotBakingPPSOnOff = 1;
+			pvPut(IsttokShotBakingPPSOnOff);
+			IsttokCLEANINGINOUTSTATE = 0;
+			pvPut(IsttokCLEANINGINOUTSTATE);
+			IsttokCLEANINGSTATE = CLEAN_Cleaning2;
+			pvPut(IsttokCLEANINGSTATE);
+		} state Cleaning2
+		when (delay(2.0) && IsttokCLEANINGMASTATE == 1 && IsttokOPSTATE[0] == POS_Clean && IsttokCLEANINGINOUTSTATE == 1) {
+			strcpy(msg, "Toroidal-BK CLOSE" );
+			pvPut(msg);
+			errlogSevPrintf(NO_ALARM, "%s\n",msg);
+			IsttokShotTrans500OnOff = 0;
+			pvPut(IsttokShotTrans500OnOff);
+			IsttokCLEANINGINOUTSTATE = 1;
+			pvPut(IsttokCLEANINGINOUTSTATE);
+			IsttokCLEANINGSTATE = CLEAN_Cleaning4;
+			pvPut(IsttokCLEANINGSTATE);
+		} state Cleaning4
+		when (IsttokCLEANINGMASTATE == 0 && IsttokOPSTATE[0] == POS_Clean && IsttokCLEANINGINOUTSTATE0 == 1) {
+			strcpy(msg, "State to Process");
+			pvPut(msg);
+			errlogSevPrintf(NO_ALARM, "%s\n",msg);
+			IsttokCLEANINGSTATE = CLEAN_NonCleaning;
+			pvPut(IsttokCLEANINGSTATE);
+			IsttokCLEANINGINOUTSTATE0 = 2;
+			pvPut(IsttokCLEANINGINOUTSTATE0);
+		} state NonCleaning
+		when (IsttokCLEANINGMASTATE == 0 && IsttokOPSTATE[0] == POS_Clean && IsttokCLEANINGINOUTSTATE0 == -1) {
+			strcpy(msg, "State to Process");
+			pvPut(msg);
+			errlogSevPrintf(NO_ALARM, "%s\n",msg);
+			IsttokCLEANINGSTATE = CLEAN_NonCleaning;
+			pvPut(IsttokCLEANINGSTATE);
+			IsttokCLEANINGINOUTSTATE0 = -2;
+			pvPut(IsttokCLEANINGINOUTSTATE0);
+		} state NonCleaning
+		when (IsttokCLEANINGMASTATE == 0 && IsttokOPSTATE[0] == POS_Clean && IsttokCLEANINGINOUTSTATE1 == 1) {
+			strcpy(msg, "GIS Valves OPEN");
+			pvPut(msg);
+			errlogSevPrintf(NO_ALARM, "%s\n",msg);
+			IsttokShotGISValvesOnOff = 0;
+			pvPut(IsttokShotGISValvesOnOff);
+			IsttokCLEANINGSTATE = CLEAN_Cleaning1;
+			pvPut(IsttokCLEANINGSTATE);
+			IsttokCLEANINGINOUTSTATE1 = 2;
+			pvPut(IsttokCLEANINGINOUTSTATE1);
+		} state Cleaning1
+		when (IsttokCLEANINGMASTATE == 0 && IsttokOPSTATE[0] == POS_Clean && IsttokCLEANINGINOUTSTATE1 == -1) {
+			strcpy(msg, "GIS Valves CLOSE");
+			pvPut(msg);
+			errlogSevPrintf(NO_ALARM, "%s\n",msg);
+			IsttokShotGISValvesOnOff = 1;
+			pvPut(IsttokShotGISValvesOnOff);
+			IsttokCLEANINGSTATE = CLEAN_Cleaning1;
+			pvPut(IsttokCLEANINGSTATE);
+			IsttokCLEANINGINOUTSTATE1 = -2;
+			pvPut(IsttokCLEANINGINOUTSTATE1);
+		} state Cleaning1
+		when (IsttokCLEANINGMASTATE == 0 && IsttokOPSTATE[0] == POS_Clean && IsttokCLEANINGINOUTSTATE2 == 1) {
+			strcpy(msg, "Filament ON");
+			pvPut(msg);
+			errlogSevPrintf(NO_ALARM, "%s\n",msg);
+			IsttokShotFilamentOnOff = 0;
+			pvPut(IsttokShotFilamentOnOff);
+			IsttokCLEANINGSTATE = CLEAN_Cleaning2;
+			pvPut(IsttokCLEANINGSTATE);
+			IsttokCLEANINGINOUTSTATE2 = 2;
+			pvPut(IsttokCLEANINGINOUTSTATE2);
+		} state Cleaning2
+		when (IsttokCLEANINGMASTATE == 0 && IsttokOPSTATE[0] == POS_Clean && IsttokCLEANINGINOUTSTATE2 == -1) {
+			strcpy(msg, "Filament OFF");
+			pvPut(msg);
+			errlogSevPrintf(NO_ALARM, "%s\n",msg);
+			IsttokShotFilamentOnOff = 1;
+			pvPut(IsttokShotFilamentOnOff);
+			IsttokCLEANINGSTATE = CLEAN_Cleaning2;
+			pvPut(IsttokCLEANINGSTATE);
+			IsttokCLEANINGINOUTSTATE2 = -2;
+			pvPut(IsttokCLEANINGINOUTSTATE2);
+		} state Cleaning2
+		when (IsttokCLEANINGMASTATE == 0 && IsttokOPSTATE[0] == POS_Clean && IsttokCLEANINGINOUTSTATE3 == 1) {
+			strcpy(msg, "Primary-CT ON");
+			pvPut(msg);
+			errlogSevPrintf(NO_ALARM, "%s\n",msg);
+			IsttokShotBakingPPSOnOff = 0;
+			pvPut(IsttokShotBakingPPSOnOff);
+			IsttokCLEANINGSTATE = CLEAN_Cleaning3;
+			pvPut(IsttokCLEANINGSTATE);
+			IsttokCLEANINGINOUTSTATE3 = 2;
+			pvPut(IsttokCLEANINGINOUTSTATE3);
+		} state Cleaning3
+		when (IsttokCLEANINGMASTATE == 0 && IsttokOPSTATE[0] == POS_Clean && IsttokCLEANINGINOUTSTATE3 == -1) {
+			strcpy(msg, "Primary-CT OFF");
+			pvPut(msg);
+			errlogSevPrintf(NO_ALARM, "%s\n",msg);
+			IsttokShotBakingPPSOnOff = 1;
+			pvPut(IsttokShotBakingPPSOnOff);
+			IsttokCLEANINGSTATE = CLEAN_Cleaning3;
+			pvPut(IsttokCLEANINGSTATE);
+			IsttokCLEANINGINOUTSTATE3 = -2;
+			pvPut(IsttokCLEANINGINOUTSTATE3);
+		} state Cleaning3
+		when (IsttokCLEANINGMASTATE == 0 && IsttokOPSTATE[0] == POS_Clean && IsttokCLEANINGINOUTSTATE4 == 1) {
+			strcpy(msg, "Toroidal-BK CLOSE");
+			pvPut(msg);
+			errlogSevPrintf(NO_ALARM, "%s\n",msg);
+			IsttokShotTrans500OnOff = 0;
+			pvPut(IsttokShotTrans500OnOff);
+			IsttokCLEANINGSTATE = CLEAN_Cleaning4;
+			pvPut(IsttokCLEANINGSTATE);
+			IsttokCLEANINGINOUTSTATE4 = 2;
+			pvPut(IsttokCLEANINGINOUTSTATE4);
+		} state Cleaning4
+		when (IsttokCLEANINGMASTATE == 0 && IsttokOPSTATE[0] == POS_Clean && IsttokCLEANINGINOUTSTATE4 == -1) {
+			strcpy(msg, "Toroidal-BK OPEN");
+			pvPut(msg);
+			errlogSevPrintf(NO_ALARM, "%s\n",msg);
+			IsttokShotTrans500OnOff = 1;
+			pvPut(IsttokShotTrans500OnOff);
+			IsttokCLEANINGSTATE = CLEAN_Cleaning4;
+			pvPut(IsttokCLEANINGSTATE);
+			IsttokCLEANINGINOUTSTATE4 = -2;
+			pvPut(IsttokCLEANINGINOUTSTATE4);
+		} state Cleaning4
+		when (IsttokCLEANINGMASTATE == 0 && IsttokOPSTATE[0] == POS_Clean && IsttokCLEANINGINOUTSTATE5 == 1) {
+			strcpy(msg, "Toroidal-CT ON");
+			pvPut(msg);
+			errlogSevPrintf(NO_ALARM, "%s\n",msg);
+			IsttokShotTransToPowerOnOff = 0;
+			pvPut(IsttokShotTransToPowerOnOff);
+			IsttokCLEANINGSTATE = CLEAN_Cleaning5;
+			pvPut(IsttokCLEANINGSTATE);
+			IsttokCLEANINGINOUTSTATE5 = 2;
+			pvPut(IsttokCLEANINGINOUTSTATE5);
+		} state Cleaning5
+		when (IsttokCLEANINGMASTATE == 0 && IsttokOPSTATE[0] == POS_Clean && IsttokCLEANINGINOUTSTATE5 == -1) {
+			strcpy(msg, "Toroidal-CT OFF");
+			pvPut(msg);
+			errlogSevPrintf(NO_ALARM, "%s\n",msg);
+			IsttokShotTransToPowerOnOff = 1;
+			pvPut(IsttokShotTransToPowerOnOff);
+			IsttokCLEANINGSTATE = CLEAN_Cleaning5;
+			pvPut(IsttokCLEANINGSTATE);
+			IsttokCLEANINGINOUTSTATE5 = -2;
+			pvPut(IsttokCLEANINGINOUTSTATE5);
+		} state Cleaning5
+	}
+	state Cleaning4 {
+		when (delay(1.0) && (IsttokOPSTATE[0] != POS_Clean )) {
+			strcpy(msg, "Toroidal-BK OPEN");
+			pvPut(msg);
+			errlogSevPrintf(NO_ALARM, "%s\n",msg);
+			IsttokShotTrans500OnOff = 1;
+			pvPut(IsttokShotTrans500OnOff);
+			IsttokCLEANINGINOUTSTATE = 0;
+			pvPut(IsttokCLEANINGINOUTSTATE);
+			IsttokCLEANINGSTATE = CLEAN_Cleaning3;
+			pvPut(IsttokCLEANINGSTATE);
+		} state Cleaning3
+		when (delay(2.0) && IsttokCLEANINGMASTATE == 1 && IsttokOPSTATE[0] == POS_Clean && IsttokCLEANINGINOUTSTATE == 1) {
+			strcpy(msg, "Toroidal-CT ON" );
+			pvPut(msg);
+			errlogSevPrintf(NO_ALARM, "%s\n",msg);
+			IsttokShotTransToPowerOnOff = 0;
+			pvPut(IsttokShotTransToPowerOnOff);
+			IsttokCLEANINGINOUTSTATE = 1;
+			pvPut(IsttokCLEANINGINOUTSTATE);
+			IsttokCLEANINGSTATE = CLEAN_Cleaning5;
+			pvPut(IsttokCLEANINGSTATE);
+		} state Cleaning5
+		when (IsttokCLEANINGMASTATE == 0 && IsttokOPSTATE[0] == POS_Clean && IsttokCLEANINGINOUTSTATE0 == 1) {
+			strcpy(msg, "State to Process");
+			pvPut(msg);
+			errlogSevPrintf(NO_ALARM, "%s\n",msg);
+			IsttokCLEANINGSTATE = CLEAN_NonCleaning;
+			pvPut(IsttokCLEANINGSTATE);
+			IsttokCLEANINGINOUTSTATE0 = 2;
+			pvPut(IsttokCLEANINGINOUTSTATE0);
+		} state NonCleaning
+		when (IsttokCLEANINGMASTATE == 0 && IsttokOPSTATE[0] == POS_Clean && IsttokCLEANINGINOUTSTATE0 == -1) {
+			strcpy(msg, "State to Process");
+			pvPut(msg);
+			errlogSevPrintf(NO_ALARM, "%s\n",msg);
+			IsttokCLEANINGSTATE = CLEAN_NonCleaning;
+			pvPut(IsttokCLEANINGSTATE);
+			IsttokCLEANINGINOUTSTATE0 = -2;
+			pvPut(IsttokCLEANINGINOUTSTATE0);
+		} state NonCleaning
+		when (IsttokCLEANINGMASTATE == 0 && IsttokOPSTATE[0] == POS_Clean && IsttokCLEANINGINOUTSTATE1 == 1) {
+			strcpy(msg, "GIS Valves OPEN");
+			pvPut(msg);
+			errlogSevPrintf(NO_ALARM, "%s\n",msg);
+			IsttokShotGISValvesOnOff = 0;
+			pvPut(IsttokShotGISValvesOnOff);
+			IsttokCLEANINGSTATE = CLEAN_Cleaning1;
+			pvPut(IsttokCLEANINGSTATE);
+			IsttokCLEANINGINOUTSTATE1 = 2;
+			pvPut(IsttokCLEANINGINOUTSTATE1);
+		} state Cleaning1
+		when (IsttokCLEANINGMASTATE == 0 && IsttokOPSTATE[0] == POS_Clean && IsttokCLEANINGINOUTSTATE1 == -1) {
+			strcpy(msg, "GIS Valves CLOSE");
+			pvPut(msg);
+			errlogSevPrintf(NO_ALARM, "%s\n",msg);
+			IsttokShotGISValvesOnOff = 1;
+			pvPut(IsttokShotGISValvesOnOff);
+			IsttokCLEANINGSTATE = CLEAN_Cleaning1;
+			pvPut(IsttokCLEANINGSTATE);
+			IsttokCLEANINGINOUTSTATE1 = -2;
+			pvPut(IsttokCLEANINGINOUTSTATE1);
+		} state Cleaning1
+		when (IsttokCLEANINGMASTATE == 0 && IsttokOPSTATE[0] == POS_Clean && IsttokCLEANINGINOUTSTATE2 == 1) {
+			strcpy(msg, "Filament ON");
+			pvPut(msg);
+			errlogSevPrintf(NO_ALARM, "%s\n",msg);
+			IsttokShotFilamentOnOff = 0;
+			pvPut(IsttokShotFilamentOnOff);
+			IsttokCLEANINGSTATE = CLEAN_Cleaning2;
+			pvPut(IsttokCLEANINGSTATE);
+			IsttokCLEANINGINOUTSTATE2 = 2;
+			pvPut(IsttokCLEANINGINOUTSTATE2);
+		} state Cleaning2
+		when (IsttokCLEANINGMASTATE == 0 && IsttokOPSTATE[0] == POS_Clean && IsttokCLEANINGINOUTSTATE2 == -1) {
+			strcpy(msg, "Filament OFF");
+			pvPut(msg);
+			errlogSevPrintf(NO_ALARM, "%s\n",msg);
+			IsttokShotFilamentOnOff = 1;
+			pvPut(IsttokShotFilamentOnOff);
+			IsttokCLEANINGSTATE = CLEAN_Cleaning2;
+			pvPut(IsttokCLEANINGSTATE);
+			IsttokCLEANINGINOUTSTATE2 = -2;
+			pvPut(IsttokCLEANINGINOUTSTATE2);
+		} state Cleaning2
+		when (IsttokCLEANINGMASTATE == 0 && IsttokOPSTATE[0] == POS_Clean && IsttokCLEANINGINOUTSTATE3 == 1) {
+			strcpy(msg, "Primary-CT ON");
+			pvPut(msg);
+			errlogSevPrintf(NO_ALARM, "%s\n",msg);
+			IsttokShotBakingPPSOnOff = 0;
+			pvPut(IsttokShotBakingPPSOnOff);
+			IsttokCLEANINGSTATE = CLEAN_Cleaning3;
+			pvPut(IsttokCLEANINGSTATE);
+			IsttokCLEANINGINOUTSTATE3 = 2;
+			pvPut(IsttokCLEANINGINOUTSTATE3);
+		} state Cleaning3
+		when (IsttokCLEANINGMASTATE == 0 && IsttokOPSTATE[0] == POS_Clean && IsttokCLEANINGINOUTSTATE3 == -1) {
+			strcpy(msg, "Primary-CT OFF");
+			pvPut(msg);
+			errlogSevPrintf(NO_ALARM, "%s\n",msg);
+			IsttokShotBakingPPSOnOff = 1;
+			pvPut(IsttokShotBakingPPSOnOff);
+			IsttokCLEANINGSTATE = CLEAN_Cleaning3;
+			pvPut(IsttokCLEANINGSTATE);
+			IsttokCLEANINGINOUTSTATE3 = -2;
+			pvPut(IsttokCLEANINGINOUTSTATE3);
+		} state Cleaning3
+		when (IsttokCLEANINGMASTATE == 0 && IsttokOPSTATE[0] == POS_Clean && IsttokCLEANINGINOUTSTATE4 == 1) {
+			strcpy(msg, "Toroidal-BK CLOSE");
+			pvPut(msg);
+			errlogSevPrintf(NO_ALARM, "%s\n",msg);
+			IsttokShotTrans500OnOff = 0;
+			pvPut(IsttokShotTrans500OnOff);
+			IsttokCLEANINGSTATE = CLEAN_Cleaning4;
+			pvPut(IsttokCLEANINGSTATE);
+			IsttokCLEANINGINOUTSTATE4 = 2;
+			pvPut(IsttokCLEANINGINOUTSTATE4);
+		} state Cleaning4
+		when (IsttokCLEANINGMASTATE == 0 && IsttokOPSTATE[0] == POS_Clean && IsttokCLEANINGINOUTSTATE4 == -1) {
+			strcpy(msg, "Toroidal-BK OPEN");
+			pvPut(msg);
+			errlogSevPrintf(NO_ALARM, "%s\n",msg);
+			IsttokShotTrans500OnOff = 1;
+			pvPut(IsttokShotTrans500OnOff);
+			IsttokCLEANINGSTATE = CLEAN_Cleaning4;
+			pvPut(IsttokCLEANINGSTATE);
+			IsttokCLEANINGINOUTSTATE4 = -2;
+			pvPut(IsttokCLEANINGINOUTSTATE4);
+		} state Cleaning4
+		when (IsttokCLEANINGMASTATE == 0 && IsttokOPSTATE[0] == POS_Clean && IsttokCLEANINGINOUTSTATE5 == 1) {
+			strcpy(msg, "Toroidal-CT ON");
+			pvPut(msg);
+			errlogSevPrintf(NO_ALARM, "%s\n",msg);
+			IsttokShotTransToPowerOnOff = 0;
+			pvPut(IsttokShotTransToPowerOnOff);
+			IsttokCLEANINGSTATE = CLEAN_Cleaning5;
+			pvPut(IsttokCLEANINGSTATE);
+			IsttokCLEANINGINOUTSTATE5 = 2;
+			pvPut(IsttokCLEANINGINOUTSTATE5);
+		} state Cleaning5
+		when (IsttokCLEANINGMASTATE == 0 && IsttokOPSTATE[0] == POS_Clean && IsttokCLEANINGINOUTSTATE5 == -1) {
+			strcpy(msg, "Toroidal-CT OFF");
+			pvPut(msg);
+			errlogSevPrintf(NO_ALARM, "%s\n",msg);
+			IsttokShotTransToPowerOnOff = 1;
+			pvPut(IsttokShotTransToPowerOnOff);
+			IsttokCLEANINGSTATE = CLEAN_Cleaning5;
+			pvPut(IsttokCLEANINGSTATE);
+			IsttokCLEANINGINOUTSTATE5 = -2;
+			pvPut(IsttokCLEANINGINOUTSTATE5);
+		} state Cleaning5
+	}
+	state Cleaning5 {
+		when (delay(1.0) && (IsttokOPSTATE[0] != POS_Clean )) {
+			strcpy(msg, "Toroidal-CT OFF");
+			pvPut(msg);
+			errlogSevPrintf(NO_ALARM, "%s\n",msg);
+			IsttokShotTransToPowerOnOff = 1;
+			pvPut(IsttokShotTransToPowerOnOff);
+			IsttokCLEANINGINOUTSTATE = 0;
+			pvPut(IsttokCLEANINGINOUTSTATE);
+			IsttokCLEANINGSTATE = CLEAN_Cleaning4;
+			pvPut(IsttokCLEANINGSTATE);
+		} state Cleaning4
+		when (IsttokCLEANINGMASTATE == 0 && IsttokOPSTATE[0] == POS_Clean && IsttokCLEANINGINOUTSTATE0 == 1) {
+			strcpy(msg, "State to Process");
+			pvPut(msg);
+			errlogSevPrintf(NO_ALARM, "%s\n",msg);
+			IsttokCLEANINGSTATE = CLEAN_NonCleaning;
+			pvPut(IsttokCLEANINGSTATE);
+			IsttokCLEANINGINOUTSTATE0 = 2;
+			pvPut(IsttokCLEANINGINOUTSTATE0);
+		} state NonCleaning
+		when (IsttokCLEANINGMASTATE == 0 && IsttokOPSTATE[0] == POS_Clean && IsttokCLEANINGINOUTSTATE0 == -1) {
+			strcpy(msg, "State to Process");
+			pvPut(msg);
+			errlogSevPrintf(NO_ALARM, "%s\n",msg);
+			IsttokCLEANINGSTATE = CLEAN_NonCleaning;
+			pvPut(IsttokCLEANINGSTATE);
+			IsttokCLEANINGINOUTSTATE0 = -2;
+			pvPut(IsttokCLEANINGINOUTSTATE0);
+		} state NonCleaning
+		when (IsttokCLEANINGMASTATE == 0 && IsttokOPSTATE[0] == POS_Clean && IsttokCLEANINGINOUTSTATE1 == 1) {
+			strcpy(msg, "GIS Valves OPEN");
+			pvPut(msg);
+			errlogSevPrintf(NO_ALARM, "%s\n",msg);
+			IsttokShotGISValvesOnOff = 0;
+			pvPut(IsttokShotGISValvesOnOff);
+			IsttokCLEANINGSTATE = CLEAN_Cleaning1;
+			pvPut(IsttokCLEANINGSTATE);
+			IsttokCLEANINGINOUTSTATE1 = 2;
+			pvPut(IsttokCLEANINGINOUTSTATE1);
+		} state Cleaning1
+		when (IsttokCLEANINGMASTATE == 0 && IsttokOPSTATE[0] == POS_Clean && IsttokCLEANINGINOUTSTATE1 == -1) {
+			strcpy(msg, "GIS Valves CLOSE");
+			pvPut(msg);
+			errlogSevPrintf(NO_ALARM, "%s\n",msg);
+			IsttokShotGISValvesOnOff = 1;
+			pvPut(IsttokShotGISValvesOnOff);
+			IsttokCLEANINGSTATE = CLEAN_Cleaning1;
+			pvPut(IsttokCLEANINGSTATE);
+			IsttokCLEANINGINOUTSTATE1 = -2;
+			pvPut(IsttokCLEANINGINOUTSTATE1);
+		} state Cleaning1
+		when (IsttokCLEANINGMASTATE == 0 && IsttokOPSTATE[0] == POS_Clean && IsttokCLEANINGINOUTSTATE2 == 1) {
+			strcpy(msg, "Filament ON");
+			pvPut(msg);
+			errlogSevPrintf(NO_ALARM, "%s\n",msg);
+			IsttokShotFilamentOnOff = 0;
+			pvPut(IsttokShotFilamentOnOff);
+			IsttokCLEANINGSTATE = CLEAN_Cleaning2;
+			pvPut(IsttokCLEANINGSTATE);
+			IsttokCLEANINGINOUTSTATE2 = 2;
+			pvPut(IsttokCLEANINGINOUTSTATE2);
+		} state Cleaning2
+		when (IsttokCLEANINGMASTATE == 0 && IsttokOPSTATE[0] == POS_Clean && IsttokCLEANINGINOUTSTATE2 == -1) {
+			strcpy(msg, "Filament OFF");
+			pvPut(msg);
+			errlogSevPrintf(NO_ALARM, "%s\n",msg);
+			IsttokShotFilamentOnOff = 1;
+			pvPut(IsttokShotFilamentOnOff);
+			IsttokCLEANINGSTATE = CLEAN_Cleaning2;
+			pvPut(IsttokCLEANINGSTATE);
+			IsttokCLEANINGINOUTSTATE2 = -2;
+			pvPut(IsttokCLEANINGINOUTSTATE2);
+		} state Cleaning2
+		when (IsttokCLEANINGMASTATE == 0 && IsttokOPSTATE[0] == POS_Clean && IsttokCLEANINGINOUTSTATE3 == 1) {
+			strcpy(msg, "Primary-CT ON");
+			pvPut(msg);
+			errlogSevPrintf(NO_ALARM, "%s\n",msg);
+			IsttokShotBakingPPSOnOff = 0;
+			pvPut(IsttokShotBakingPPSOnOff);
+			IsttokCLEANINGSTATE = CLEAN_Cleaning3;
+			pvPut(IsttokCLEANINGSTATE);
+			IsttokCLEANINGINOUTSTATE3 = 2;
+			pvPut(IsttokCLEANINGINOUTSTATE3);
+		} state Cleaning3
+		when (IsttokCLEANINGMASTATE == 0 && IsttokOPSTATE[0] == POS_Clean && IsttokCLEANINGINOUTSTATE3 == -1) {
+			strcpy(msg, "Primary-CT OFF");
+			pvPut(msg);
+			errlogSevPrintf(NO_ALARM, "%s\n",msg);
+			IsttokShotBakingPPSOnOff = 1;
+			pvPut(IsttokShotBakingPPSOnOff);
+			IsttokCLEANINGSTATE = CLEAN_Cleaning3;
+			pvPut(IsttokCLEANINGSTATE);
+			IsttokCLEANINGINOUTSTATE3 = -2;
+			pvPut(IsttokCLEANINGINOUTSTATE3);
+		} state Cleaning3
+		when (IsttokCLEANINGMASTATE == 0 && IsttokOPSTATE[0] == POS_Clean && IsttokCLEANINGINOUTSTATE4 == 1) {
+			strcpy(msg, "Toroidal-BK CLOSE");
+			pvPut(msg);
+			errlogSevPrintf(NO_ALARM, "%s\n",msg);
+			IsttokShotTrans500OnOff = 0;
+			pvPut(IsttokShotTrans500OnOff);
+			IsttokCLEANINGSTATE = CLEAN_Cleaning4;
+			pvPut(IsttokCLEANINGSTATE);
+			IsttokCLEANINGINOUTSTATE4 = 2;
+			pvPut(IsttokCLEANINGINOUTSTATE4);
+		} state Cleaning4
+		when (IsttokCLEANINGMASTATE == 0 && IsttokOPSTATE[0] == POS_Clean && IsttokCLEANINGINOUTSTATE4 == -1) {
+			strcpy(msg, "Toroidal-BK OPEN");
+			pvPut(msg);
+			errlogSevPrintf(NO_ALARM, "%s\n",msg);
+			IsttokShotTrans500OnOff = 1;
+			pvPut(IsttokShotTrans500OnOff);
+			IsttokCLEANINGSTATE = CLEAN_Cleaning4;
+			pvPut(IsttokCLEANINGSTATE);
+			IsttokCLEANINGINOUTSTATE4 = -2;
+			pvPut(IsttokCLEANINGINOUTSTATE4);
+		} state Cleaning4
+		when (IsttokCLEANINGMASTATE == 0 && IsttokOPSTATE[0] == POS_Clean && IsttokCLEANINGINOUTSTATE5 == 1) {
+			strcpy(msg, "Toroidal-CT ON");
+			pvPut(msg);
+			errlogSevPrintf(NO_ALARM, "%s\n",msg);
+			IsttokShotTransToPowerOnOff = 0;
+			pvPut(IsttokShotTransToPowerOnOff);
+			IsttokCLEANINGSTATE = CLEAN_Cleaning5;
+			pvPut(IsttokCLEANINGSTATE);
+			IsttokCLEANINGINOUTSTATE5 = 2;
+			pvPut(IsttokCLEANINGINOUTSTATE5);
+		} state Cleaning5
+		when (IsttokCLEANINGMASTATE == 0 && IsttokOPSTATE[0] == POS_Clean && IsttokCLEANINGINOUTSTATE5 == -1) {
+			strcpy(msg, "Toroidal-CT OFF");
+			pvPut(msg);
+			errlogSevPrintf(NO_ALARM, "%s\n",msg);
+			IsttokShotTransToPowerOnOff = 1;
+			pvPut(IsttokShotTransToPowerOnOff);
+			IsttokCLEANINGSTATE = CLEAN_Cleaning5;
+			pvPut(IsttokCLEANINGSTATE);
+			IsttokCLEANINGINOUTSTATE5 = -2;
+			pvPut(IsttokCLEANINGINOUTSTATE5);
+		} state Cleaning5
+	}
+}
+ss ShotingSequence {
+	state NonShoting {
+		entry {
+			strcpy(msg, "Waiting for Trigger...");
+			pvPut(msg);
+			errlogSevPrintf(NO_ALARM, "%s\n",msg);
+			IsttokWSHOTINGSTATE = WSHOT_NonShoting;
+			pvPut(IsttokWSHOTINGSTATE);
+			strcpy(IsttokShotCountdownStart, "Passive");
+			pvPut(IsttokShotCountdownStart);
+			IsttokShotCountdown = 160;
+			pvPut(IsttokShotCountdown);
+		}
+		when( (IsttokOPSTATE[0] == POS_WaitShot) && (IsttokTimingTriggerSignal == 0) && (IsttokShotCountdown >= 160)){
+			strcpy(msg, "Initiating...");
+			pvPut(msg);
+			IsttokShotCountdown = -70;
+			pvPut(IsttokShotCountdown);
+			strcpy(IsttokShotCountdownStart, "1 second");
+			pvPut(IsttokShotCountdownStart);
+		} state Shoting0
+	}
+	state Shoting0 {
+		when ((IsttokOPSTATE[0] != POS_WaitShot) && (IsttokShotCountdown == 160)) {
+			strcpy(msg, "Shoting0 Out");
+			pvPut(msg);
+			errlogSevPrintf(NO_ALARM, "%s\n",msg);
+			IsttokWSHOTINGSTATE = WSHOT_NonShoting;
+			pvPut(IsttokWSHOTINGSTATE);
+		} state NonShoting
+		when ((IsttokOPSTATE[0] == POS_WaitShot) && (IsttokShotCountdown == -61)) {
+			strcpy(msg, "Buzzer 1-Sound");
+			pvPut(msg);
+			errlogSevPrintf(NO_ALARM, "%s\n",msg);
+			IsttokShotBuzzerOnOff = 1;
+			pvPut(IsttokShotBuzzerOnOff);
+			strcpy(msg, "CAPBANK Discharge OFF");
+			pvPut(msg);
+			errlogSevPrintf(NO_ALARM, "%s\n",msg);
+			IsttokShotCapBankDischargeOnOff = 1;
+			pvPut(IsttokShotCapBankDischargeOnOff);
+			strcpy(msg, "Lights ON");
+			pvPut(msg);
+			errlogSevPrintf(NO_ALARM, "%s\n",msg);
+			IsttokShotLightsOnOff = 0;
+			pvPut(IsttokShotLightsOnOff);
+			IsttokWSHOTINGSTATE = WSHOT_Shoting1;
+			pvPut(IsttokWSHOTINGSTATE);
+		} state Shoting1
+	}
+	state Shoting1 {
+		when ((IsttokOPSTATE[0] != POS_WaitShot) && (IsttokShotCountdown == 160)) {
+			strcpy(msg, "Shoting1 Out");
+			pvPut(msg);
+			errlogSevPrintf(NO_ALARM, "%s\n",msg);
+			IsttokWSHOTINGSTATE = WSHOT_NonShoting;
+			pvPut(IsttokWSHOTINGSTATE);
+		} state NonShoting
+		when (IsttokShotCountdown == -60) {
+			strcpy(msg, "GIS Valves OPEN");
+			pvPut(msg);
+			errlogSevPrintf(NO_ALARM, "%s\n",msg);
+			IsttokShotGISValvesOnOff = 0;
+			pvPut(IsttokShotGISValvesOnOff);
+			IsttokWSHOTINGSTATE = WSHOT_Shoting2;
+			pvPut(IsttokWSHOTINGSTATE);
+		} state Shoting2
+	}
+	state Shoting2 {
+		when ((IsttokOPSTATE[0] != POS_WaitShot) && (IsttokShotCountdown == 160)) {
+			strcpy(msg, "Shoting2 Out");
+			pvPut(msg);
+			errlogSevPrintf(NO_ALARM, "%s\n",msg);
+			IsttokWSHOTINGSTATE = WSHOT_NonShoting;
+			pvPut(IsttokWSHOTINGSTATE);
+		} state NonShoting
+		when (IsttokShotCountdown == -59) {
+			strcpy(msg, "CAPBANK Conector ON");
+			pvPut(msg);
+			errlogSevPrintf(NO_ALARM, "%s\n",msg);
+			IsttokShotCapBankConOnOff = 0;
+			pvPut(IsttokShotCapBankConOnOff);
+			IsttokWSHOTINGSTATE = WSHOT_Shoting3;
+			pvPut(IsttokWSHOTINGSTATE);
+		} state Shoting3
+	}
+	state Shoting3 {
+		when ((IsttokOPSTATE[0] != POS_WaitShot) && (IsttokShotCountdown == 160)) {
+			strcpy(msg, "Shoting3 Out");
+			pvPut(msg);
+			errlogSevPrintf(NO_ALARM, "%s\n",msg);
+			IsttokWSHOTINGSTATE = WSHOT_NonShoting;
+			pvPut(IsttokWSHOTINGSTATE);
+		} state NonShoting
+		when (IsttokShotCountdown == -46) {
+			strcpy(msg, "CAPBANK Charge ON" );
+			pvPut(msg);
+			errlogSevPrintf(NO_ALARM, "%s\n",msg);
+			IsttokShotCapBankChargeOnOff = 0;
+			pvPut(IsttokShotCapBankChargeOnOff);
+			IsttokWSHOTINGSTATE = WSHOT_Shoting4;
+			pvPut(IsttokWSHOTINGSTATE);
+		} state Shoting4
+	}
+	state Shoting4 {
+		when ((IsttokOPSTATE[0] != POS_WaitShot) && (IsttokShotCountdown == 160)) {
+			strcpy(msg, "Shoting4 Out");
+			pvPut(msg);
+			errlogSevPrintf(NO_ALARM, "%s\n",msg);
+			IsttokWSHOTINGSTATE = WSHOT_NonShoting;
+			pvPut(IsttokWSHOTINGSTATE);
+		} state NonShoting
+		when (IsttokShotCountdown == -16) {
+			strcpy(msg, "CAPBANK Charge OFF" );
+			pvPut(msg);
+			errlogSevPrintf(NO_ALARM, "%s\n", msg);
+			IsttokShotCapBankChargeOnOff = 1;
+			pvPut(IsttokShotCapBankChargeOnOff);
+			IsttokWSHOTINGSTATE = WSHOT_Shoting5;
+			pvPut(IsttokWSHOTINGSTATE);
+		} state Shoting5
+	}
+	state Shoting5 {
+		when ((IsttokOPSTATE[0] != POS_WaitShot) && (IsttokShotCountdown == 160)) {
+			strcpy(msg, "Shoting5 Out");
+			pvPut(msg);
+			errlogSevPrintf(NO_ALARM, "%s\n",msg);
+			IsttokWSHOTINGSTATE = WSHOT_NonShoting;
+			pvPut(IsttokWSHOTINGSTATE);
+		} state NonShoting
+		when (IsttokShotCountdown == -11) {
+			strcpy(msg, "Buzzer 2-Sound" );
+			pvPut(msg);
+			errlogSevPrintf(NO_ALARM, "%s\n", msg);
+			IsttokShotBuzzerOnOff = 1;
+			pvPut(IsttokShotBuzzerOnOff);
+			strcpy(msg, "Filament ON");
+			pvPut(msg);
+			errlogSevPrintf(NO_ALARM, "%s\n",msg);
+			IsttokShotFilamentOnOff = 0;
+			pvPut(IsttokShotFilamentOnOff);
+			IsttokWSHOTINGSTATE = WSHOT_Shoting6;
+			pvPut(IsttokWSHOTINGSTATE);
+	   } state Shoting6
+	}
+	state Shoting6 {
+		 when ((IsttokOPSTATE[0] != POS_WaitShot) && (IsttokShotCountdown == 160)) {
+			strcpy(msg, "Shoting6 Out");
+			pvPut(msg);
+			errlogSevPrintf(NO_ALARM, "%s\n",msg);
+			IsttokWSHOTINGSTATE = WSHOT_NonShoting;
+			pvPut(IsttokWSHOTINGSTATE);
+		} state NonShoting
+		when (IsttokShotCountdown == -4) {
+			strcpy(msg, "Toroidal Field ON" );
+			pvPut(msg);
+			errlogSevPrintf(NO_ALARM, "%s\n", msg);
+			IsttokShotTorFieldTriggerOnOff = 0;
+			pvPut(IsttokShotTorFieldTriggerOnOff);
+			IsttokWSHOTINGSTATE = WSHOT_Shoting7;
+			pvPut(IsttokWSHOTINGSTATE);
+	   } state Shoting7
+	}
+	state Shoting7 {
+		when ((IsttokOPSTATE[0] != POS_WaitShot ) && (IsttokShotCountdown == 160) ) {
+			strcpy(msg, "Shoting7 Out");
+			pvPut(msg);
+			errlogSevPrintf(NO_ALARM, "%s\n",msg);
+			IsttokWSHOTINGSTATE = WSHOT_NonShoting;
+			pvPut(IsttokWSHOTINGSTATE);
+		} state NonShoting
+		when (IsttokShotCountdown == -2) {
+			strcpy(msg, "Ready for SHOT" );
+			pvPut(msg);
+			errlogSevPrintf(NO_ALARM, "%s\n", msg);
+			IsttokWSHOTINGSTATE = WSHOT_Shoting8;
+			pvPut(IsttokWSHOTINGSTATE);
+	   } state Shoting8
+	}
+	state Shoting8 {
+		when ((IsttokOPSTATE[0] != POS_WaitShot ) && (IsttokShotCountdown == 160) ) {
+			strcpy(msg, "Shoting8 Out");
+			pvPut(msg);
+			errlogSevPrintf(NO_ALARM, "%s\n",msg);
+			IsttokWSHOTINGSTATE = WSHOT_NonShoting;
+			pvPut(IsttokWSHOTINGSTATE);
+		} state NonShoting
+		when (IsttokShotCountdown == 0) {
+			strcpy(msg, "CAPBANK Discharge ON" );
+			pvPut(msg);
+			errlogSevPrintf(NO_ALARM, "%s\n", msg);
+			IsttokShotCapBankDischargeOnOff = 0;
+			pvPut(IsttokShotCapBankDischargeOnOff);
+			IsttokWSHOTINGSTATE = WSHOT_Shoting9;
+			pvPut(IsttokWSHOTINGSTATE);
+	   } state Shoting9
+	}
+	state Shoting9 {
+		when ((IsttokOPSTATE[0] != POS_WaitShot ) && (IsttokShotCountdown == 160) ) {
+			strcpy(msg, "Shoting9 Out");
+			pvPut(msg);
+			errlogSevPrintf(NO_ALARM, "%s\n",msg);
+			IsttokWSHOTINGSTATE = WSHOT_NonShoting;
+			pvPut(IsttokWSHOTINGSTATE);
+		} state NonShoting
+		when (IsttokShotCountdown == 1) {
+			strcpy(msg, "GIS Valves CLOSE" );
+			pvPut(msg);
+			errlogSevPrintf(NO_ALARM, "%s\n", msg);
+			IsttokShotGISValvesOnOff = 1;
+			pvPut(IsttokShotGISValvesOnOff);
+			strcpy(msg, "Filament OFF" );
+			pvPut(msg);
+			errlogSevPrintf(NO_ALARM, "%s\n", msg);
+			IsttokShotFilamentOnOff = 1;
+			pvPut(IsttokShotFilamentOnOff);
+			strcpy(msg, "Toroidal Field OFF" );
+			pvPut(msg);
+			errlogSevPrintf(NO_ALARM, "%s\n", msg);
+			IsttokShotTorFieldTriggerOnOff = 1;
+			pvPut(IsttokShotTorFieldTriggerOnOff);
+			strcpy(msg, "CAPBANK Conector OFF" );
+			pvPut(msg);
+			errlogSevPrintf(NO_ALARM, "%s\n", msg);
+			IsttokShotCapBankConOnOff = 1;
+			pvPut(IsttokShotCapBankConOnOff);
+			IsttokWSHOTINGSTATE = WSHOT_Shoting10;
+			pvPut(IsttokWSHOTINGSTATE);
+		} state Shoting10
+	}
+	state Shoting10 {
+		when ((IsttokOPSTATE[0] != POS_WaitShot ) && (IsttokShotCountdown == 160) ) {
+			strcpy(msg, "Shoting10 Out");
+			pvPut(msg);
+			errlogSevPrintf(NO_ALARM, "%s\n",msg);
+			IsttokWSHOTINGSTATE = WSHOT_NonShoting;
+			pvPut(IsttokWSHOTINGSTATE);
+		} state NonShoting
+		when (IsttokShotCountdown == 2) {
+			strcpy(msg, "Lights OFF and Recovering..." );
+			pvPut(msg);
+			errlogSevPrintf(NO_ALARM, "%s\n", msg);
+			IsttokShotLightsOnOff = 1;
+			pvPut(IsttokShotLightsOnOff);
+			IsttokWSHOTINGSTATE = WSHOT_Shoting11;
+			pvPut(IsttokWSHOTINGSTATE);
+		} state Shoting11
+	}
+	state Shoting11 {
+		when ((IsttokOPSTATE[0] != POS_WaitShot ) && (IsttokShotCountdown == 160) ) {
+			strcpy(msg, "Shoting11 Out");
+			pvPut(msg);
+			errlogSevPrintf(NO_ALARM, "%s\n", msg);
+			IsttokWSHOTINGSTATE = WSHOT_NonShoting;
+			pvPut(IsttokWSHOTINGSTATE);
+		} state NonShoting
+		when (IsttokShotCountdown == 159) {
+			strcpy(msg, "Toroidal Field Recovered" );
+			pvPut(msg);
+			errlogSevPrintf(NO_ALARM, "%s\n", msg);
+			IsttokWSHOTINGSTATE = WSHOT_Shoting12;
+			pvPut(IsttokWSHOTINGSTATE);
+		} state Shoting12
+	}
+	state Shoting12 {
+		when ((IsttokOPSTATE[0] != POS_WaitShot ) && (IsttokShotCountdown == 160) ) {
+			strcpy(msg, "Shoting12 Out");
+			pvPut(msg);
+			errlogSevPrintf(NO_ALARM, "%s\n", msg);
+			IsttokWSHOTINGSTATE = WSHOT_NonShoting;
+			pvPut(IsttokWSHOTINGSTATE);
+		} state NonShoting
+		when (IsttokShotCountdown >= 160) {
+			strcpy(msg, "Terminated");
+			pvPut(msg);
+			errlogSevPrintf(NO_ALARM, "%s\n", msg);
+			strcpy(IsttokShotCountdownStart, "Passive");
+			pvPut(IsttokShotCountdownStart);
+			IsttokShotCountdown = 160;
+			pvPut(IsttokShotCountdown);
+		} state NonShoting
+	}
+}
