@@ -1,5 +1,18 @@
 ### ISTTOK Epics IOC running in the Raspberry Pi Central Control 
 
 ## Steps 
-1. Install epics on RPi Linux
+1. Install epics on Rpi Linux. Install Moduled ASYN, StreamDevice and SNCSEQ
 2. Goto $HOME folder
+3. Run 
+	* `git clone  https://bernardo@git.ipfn.tecnico.ulisboa.pt/r/ISTTOK.git
+	* `cd ISTTOK`
+	* `epics/iocs/ISTTOKrpi`
+	* `make`
+	
+## Start IOC on power up
+1. Make sure `screen` is installed in Linux
+2. Include following Line in /etc/rc.local
+     * `screen -dm bash -c "cd [..]/ISTTOKrpi/iocBoot/iocISTTOKrpi; ../../bin/linux-arm/ISTTOKrpi st.cmd"`
+3. To access EPICS console do
+     * `screen -r`
+
