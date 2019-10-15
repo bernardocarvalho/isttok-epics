@@ -20,3 +20,6 @@ db/
 dbd/
 bin/
 lib/
+
+#epics IOC autosave files
+*.sav*

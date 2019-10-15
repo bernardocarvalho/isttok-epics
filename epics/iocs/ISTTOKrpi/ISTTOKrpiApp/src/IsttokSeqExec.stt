@@ -24,6 +24,7 @@ assign IsttokOPSTATE to {
 	"{unit}:central:OPSTATE"
 };
 monitor IsttokOPSTATE;
+
 short IsttokOPREQ[1];
 assign IsttokOPREQ to {
 	"{unit}:central:OPREQ"
@@ -88,33 +89,39 @@ monitor IsttokWSHOTINGSTATE;
 
 short IsttokRotatoryPump;
 assign IsttokRotatoryPump to "{unit}:central:RotatoryPump";
+monitor IsttokRotatoryPump;
 
 short IsttokRotatoryValve;
 assign IsttokRotatoryValve to "{unit}:central:RotatoryValve";
+monitor IsttokRotatoryValve;
 
 short IsttokRotatoryPump2;
 assign IsttokRotatoryPump2 to "{unit}:central:RotatoryPump2";
+monitor IsttokRotatoryPump2;
 
 short IsttokRotatoryValve2;
 assign IsttokRotatoryValve2 to "{unit}:central:RotatoryValve2";
+monitor IsttokRotatoryValve2;
 
 short IsttokTMPControllerOff;
 assign IsttokTMPControllerOff to "{unit}:central:TMPControllerOff";
+monitor IsttokTMPControllerOff;
 
 short IsttokTMPControllerOn;
 assign IsttokTMPControllerOn to "{unit}:central:TMPControllerOn";
+monitor IsttokTMPControllerOn;
 
 short IsttokTMPMotorOff;
 assign IsttokTMPMotorOff to "{unit}:central:TMPMotorOff";
+monitor IsttokTMPMotorOff;
 
 short IsttokTMPMotorOn;
 assign IsttokTMPMotorOn to "{unit}:central:TMPMotorOn";
+monitor IsttokTMPMotorOn;
 
-short IsttokTMP2MotorOff;
-assign IsttokTMP2MotorOff to "{unit}:central:TMP2MotorOnOff";
-
-short IsttokTMP2MotorOn;
-assign IsttokTMP2MotorOn to "{unit}:central:TMP2MotorOnOff";
+short IsttokTMP2MotorOnOff;
+assign IsttokTMP2MotorOnOff to "{unit}:central:TMP2MotorOnOff";
+monitor IsttokTMP2MotorOnOff;
 
 short IsttokTurbo_NormalOperation;
 assign IsttokTurbo_NormalOperation to "{unit}:central:Turbo_NormalOperation";
@@ -214,10 +221,6 @@ short IsttokShotLightsOnOff;
 assign IsttokShotLightsOnOff to "{unit}:central:LightsOnOff";
 monitor IsttokShotLightsOnOff;
 
-short IsttokShotLightsOnOffState;
-assign IsttokShotLightsOnOffState to "{unit}:central:LightsOnOff-G";
-monitor IsttokShotLightsOnOffState;
-
 short IsttokShotGISValvesOnOff;
 assign IsttokShotGISValvesOnOff to "{unit}:central:GISValvesOnOff";
 monitor IsttokShotGISValvesOnOff;
@@ -242,10 +245,21 @@ short IsttokShotToroidalCleanBreakerOnOff;
 assign IsttokShotToroidalCleanBreakerOnOff to "{unit}:central:ToroidalCleanBreakerOnOff";
 monitor IsttokShotToroidalCleanBreakerOnOff;
 
+short IsttokShotToroidalShotTriggerOnOff;
+assign IsttokShotToroidalShotTriggerOnOff to "{unit}:central:ToroidalShotTriggerOnOff";
+monitor IsttokShotToroidalShotTriggerOnOff;
+
+short IsttokShotToroidalShotEnableOnOff;
+assign IsttokShotToroidalShotEnableOnOff to "{unit}:central:ToroidalShotEnableOnOff";
+monitor IsttokShotToroidalShotEnableOnOff;
 
 short IsttokShotPrimaryCleanContactorOnOff;
 assign IsttokShotPrimaryCleanContactorOnOff to "{unit}:central:PrimaryCleanContactorOnOff";
 monitor IsttokShotPrimaryCleanContactorOnOff;
+
+short IsttokShotPrimaryCleanBreakerOnOff;
+assign IsttokShotPrimaryCleanBreakerOnOff to "{unit}:central:PrimaryCleanBreakerOnOff";
+monitor IsttokShotPrimaryCleanBreakerOnOff;
 
 /*Relays and INPUT (Valleman Board) have negative Logic!*/
 short RELAY_ON = 0;
@@ -272,7 +286,6 @@ monitor IsttokTimingTriggerSignal;
 /* Trace message record limited to 40 characters */
 string msg;
 string tmp1_stat;
-string tmp2_stat;
 
 assign msg to "{unit}:central:TraceMessage.VAL";
 monitor msg;
@@ -308,6 +321,9 @@ ss PulseSequence {
 			IsttokShotPrimaryCleanContactorOnOff = 1;
 			pvPut(IsttokShotPrimaryCleanContactorOnOff);
 
+			IsttokShotPrimaryCleanBreakerOnOff = 1;
+			pvPut(IsttokShotPrimaryCleanBreakerOnOff);
+
 			IsttokShotBuzzerOnOff = 0;
 			pvPut(IsttokShotBuzzerOnOff);
 
@@ -331,12 +347,15 @@ ss PulseSequence {
 
 			IsttokShotToroidalCleanContactorOnOff = 1;
 			pvPut(IsttokShotToroidalCleanContactorOnOff);
+			
+			IsttokShotToroidalShotTriggerOnOff= 1;
+			pvPut(IsttokShotToroidalShotTriggerOnOff);
+			
+			IsttokShotToroidalShotEnableOnOff = 1;
+			pvPut(IsttokShotToroidalShotEnableOnOff);
 
-			IsttokTMP2MotorOff = 0;
-			pvPut(IsttokTMP2MotorOff);
-
-			IsttokTMP2MotorOn = 0;
-			pvPut(IsttokTMP2MotorOn);
+			IsttokTMP2MotorOnOff = 0;
+			pvPut(IsttokTMP2MotorOnOff);
 
 			IsttokTMPControllerOff = 0;
 			pvPut(IsttokTMPControllerOff);
@@ -837,11 +856,11 @@ ss StartingSequence {
 				pvPut(IsttokTMPMotorOn);
 			}
 			if(IsttokPressure_Primary2 < IsttokPressure_Primary2Condition){
-				strcpy(msg, "TMP2 MotorOn ON" );
+				strcpy(msg, "TMP2 MotorOnOff ON" );
 				pvPut(msg);
 				errlogSevPrintf(NO_ALARM, "%s\n",msg);
-				IsttokTMP2MotorOn = ON;
-				pvPut(IsttokTMP2MotorOn);
+				IsttokTMP2MotorOnOff = ON;
+				pvPut(IsttokTMP2MotorOnOff);
 			}
 
 			if(IsttokTurbo_NormalOperation == PCF_INPUT_ON){
@@ -850,7 +869,7 @@ ss StartingSequence {
 			sprintf(tmp1_stat, "OFF");
 			}
 
-		    	sprintf(msg, "TMPNO = [1:%s][2:%s]", tmp1_stat, tmp2_stat);
+		    	sprintf(msg, "TMPNO = [1:%s]", tmp1_stat);
 			pvPut(msg);
 			errlogSevPrintf(NO_ALARM, "%s\n",msg);
 			IsttokSTARTINGSTATE = STRST_Starting4;

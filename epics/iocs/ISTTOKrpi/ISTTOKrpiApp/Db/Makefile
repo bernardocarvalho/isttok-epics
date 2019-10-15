@@ -7,6 +7,7 @@ include $(TOP)/configure/CONFIG
 DB += ISTTOKstates.db
 DB += ISTTOKvacummPumps.db
 DB += ISTTOKpcf8574.db
+DB += ISTTOKpcf8591.db
 DB += ISTTOKrs485.db
 
 # If <anyname>.db template is not named <anyname>*.template add

@@ -34,6 +34,7 @@ dbLoadRecords("db/ISTTOKpcf8574.db","P=ISTTOK:,R=central:")
 #dbLoadRecords("db/ISTTOKpcf8574.db","P=ISTTOK:,R=central:,ID=57")
 dbLoadRecords("db/ISTTOKvacummPumps.db","P=ISTTOK:,R=central:")
 
+dbLoadRecords("db/ISTTOKpcf8591.db","P=ISTTOK:,R=central:")
 
 ## Run this to trace the stages of iocInit
 #traceIocInit

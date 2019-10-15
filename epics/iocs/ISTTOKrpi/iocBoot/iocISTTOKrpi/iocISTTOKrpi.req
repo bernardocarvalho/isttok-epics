@@ -28,8 +28,15 @@ ISTTOK:central:TMP2MotorOnOff.VAL
 ISTTOK:central:Turbo_NormalOperation.VAL
 ISTTOK:central:Turbo_PW_Ind.VAL
 ISTTOK:central:Turbo_Emergency.VAL
-ISTTOK:central:TMPManualValve.VAL
 ISTTOK:central:Turbo2_Emergency.VAL
+ISTTOK:central:Turbo2_Speed.VAL
+ISTTOK:central:Turbo2_Current.VAL
+ISTTOK:central:ToroidalShotTriggerOnOff.VAL
+ISTTOK:central:ToroidalShotEnableOnOff.VAL
+ISTTOK:central:ToroidalCleanBreakerOnOff.VAL
+ISTTOK:central:ToroidalCleanContactorOnOff.VAL
+ISTTOK:central:PrimaryCleanContactorOnOff.VAL
+ISTTOK:central:PrimaryCleanBreakerOnOff.VAL
 ISTTOK:central:Pressure_PrimaryCondition.VAL
 ISTTOK:central:Pressure_Primary2Condition.VAL
 ISTTOK:central:Bypass_Condition.VAL

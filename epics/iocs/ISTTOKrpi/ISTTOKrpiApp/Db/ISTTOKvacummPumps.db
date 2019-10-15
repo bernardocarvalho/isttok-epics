@@ -327,11 +327,21 @@ record(ao,"$(P)$(R)Pressure_Primary2Condition"){
 	field(EGU,"mBar")
 }
 
-#record(ai,"$(P)$(R)Pressure_Primary2"){
-#	field(VAL,"1.0e-3")
-#	field(PREC,"3")
-#	field(EGU,"mBar")
-#}
+record(ai,"$(P)$(R)Bypass_Condition"){
+	field(VAL,"0")
+}
+
+record(ai,"$(P)$(R)Turbo2_Speed"){
+	field(PREC,"3")
+	field(EGU,"RPM")
+	field(VAL,"0")
+}
+
+record(ai,"$(P)$(R)Turbo2_Current"){
+	field(PREC,"3")
+	field(EGU,"mA")
+	field(VAL,"0")
+}
 
 record(ai,"$(P)$(R)Bypass_Condition"){
 	field(VAL,"0")

@@ -3,7 +3,7 @@ LockTimeout  = 500;
 ReplyTimeout = 100;
 ReadTimeout  = 100;
 WriteTimeout = 100;
-MaxInput     = 1;
+MaxInput     = 2;
 ExtraInput   = Error;
 
 rReg {
@@ -20,7 +20,7 @@ rReg {
 
 rConvAdc0 {
   out ${1} 0x00;
-  in  "%01r";
+  in  "%02r";
 }
 rConvAdc1 {
   out ${1} 0x01;
