@@ -25,11 +25,37 @@ record( mbboDirect, "$(P)$(R)PCF8591:72:CTRLREGISTER") {
 	field(VAL, 255)
 	field(PINI,"YES")
 }
-
-record( longin, "$(P)$(R)PCF8591:72:ADC_CH0" ) {
+# Receiving two bytes. last one counts
+record( longin, "$(P)$(R)PCF8591:72:ADC_CH1" ) {
 	field(DTYP, "stream")
 	field(INP,  "@pcf8591.proto rConvAdc0(72) I2C")
-	field(SCAN, "1 second")
+#	field( FLNK, "$(P)$(R)PCF8591:72:CHANNEL1" ) 
+}
+record( calc, "$(P)$(R)PCF8591:72:BYTE2_CH1" ) {
+  field( INPA, "$(P)$(R)PCF8591:72:ADC_CH1 PP NMS")
+# extract LSB =last byte received
+  field( CALC, " A & 255 " )
+}
+
+record( ai, "$(P)$(R)PCF8591:72:CHANNEL1" ) {
+  field( INP, "$(P)$(R)PCF8591:72:ADC_CH1 PP NMS")
+  field( SCAN, "1 second")
+  field( ASLO, "0.02" )
+  field( AOFF, "0" )
+  field( EGU,  "V" )
+  field( PREC, "3" )
+  field( HOPR, "5.0" )
+  field( LOPR, "0.0" )
+}
+record( longin, "$(P)$(R)PCF8591:72:ADC_CH2" ) {
+	field(DTYP, "stream")
+	field(INP,  "@pcf8591.proto rConvAdc1(72) I2C")
 #field( FLNK, "
+}
+record( calc, "$(P)$(R)PCF8591:72:BYTE2_CH2" ) {
+  field( INPA, "$(P)$(R)PCF8591:72:ADC_CH2 PP NMS")
+  field(SCAN, "1 second")
+# LSB i=last byte received
+  field( CALC, " A & 255 " )
 }
 

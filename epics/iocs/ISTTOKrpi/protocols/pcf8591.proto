@@ -24,15 +24,15 @@ rConvAdc0 {
 }
 rConvAdc1 {
   out ${1} 0x01;
-  in  "%01r";
+  in  "%02r";
 }
 rConvAdc2 {
   out ${1} 0x02;
-  in  "%01r";
+  in  "%02r";
 }
 rConvAdc3 {
   out ${1} 0x03;
-  in  "%01r";
+  in  "%02r";
 }
 
 ##  @init { rReg; }
