@@ -1,0 +1,8 @@
+TARGET=linux
+
+include Makefile.inc
+
+LIBRARIES   += -L$(CODEDIR)/BaseLib2/$(TARGET) -lBaseLib2
+LIBRARIES   += -L$(CODEDIR)/MARTe/MARTeSupportLib/$(TARGET) -lMARTeSupLib
+
+OPTIM=
