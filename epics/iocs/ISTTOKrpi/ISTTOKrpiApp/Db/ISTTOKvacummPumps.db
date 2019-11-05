@@ -257,15 +257,23 @@ record(bo, "$(P)$(R)ToroidalCleanBreakerOnOff" ) {
 
 record(bo, "$(P)$(R)ToroidalShotEnableOnOff" ) {
 	field( OUT, "$(P)$(R)PCF8574:61:REGISTER.B1 PP" )
-	field( ZNAM, "On" )
-	field( ONAM, "Off" )
+	field( ZNAM, "Off" )
+	field( ONAM, "On" )
 }
 
 record(bo, "$(P)$(R)ToroidalShotTriggerOnOff" ) {
-	field( OUT, "$(P)$(R)PCF8574:61:REGISTER.B2 PP" )
-	field( ZNAM, "On" )
-	field( ONAM, "Off" )
+	field( ZNAM, "Off" )
+	field( ONAM, "Pulse" )
+	field( HIGH, "2.5")
+	field( FLNK, "$(P)$(R)ToroidalShotTriggerOnOffInv" )
 }
+record(calcout, "$(P)$(R)ToroidalShotTriggerOnOffInv" ) {
+	field( INPA, "$(P)$(R)ToroidalShotTriggerOnOff NPP MS" )
+	field( OUT,  "$(P)$(R)PCF8574:61:REGISTER.B2 PP MS" )
+	field( OOPT, "On Change" )
+	field( CALC, "A?0:1" )
+}
+############################################################
 
 #######################################
 #       CAP BANK CHARGE ON/OFF        #
@@ -334,16 +342,6 @@ record(ai,"$(P)$(R)Bypass_Condition"){
 record(ai,"$(P)$(R)Turbo2_Speed"){
 	field(PREC,"3")
 	field(EGU,"RPM")
-	field(VAL,"0")
-}
-
-record(ai,"$(P)$(R)Turbo2_Current"){
-	field(PREC,"3")
-	field(EGU,"mA")
-	field(VAL,"0")
-}
-
-record(ai,"$(P)$(R)Bypass_Condition"){
 	field(VAL,"0")
 }
 
