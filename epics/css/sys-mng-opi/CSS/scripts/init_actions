@@ -1,0 +1,8 @@
+importPackage(Packages.org.csstudio.opibuilder.scriptUtil);
+
+var i = 0;
+total_actions = widget.getWidgetModel().getActionsInput().getActionsList().size()
+
+for(i=0; i<total_actions; i++){
+	widget.executeAction(i);
+}

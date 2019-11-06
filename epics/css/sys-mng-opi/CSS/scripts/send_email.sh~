@@ -1,0 +1,9 @@
+#!/bin/sh
+echo "Subject: ISTTOK SYSTEM MANAGER APPLICATION" > /home/pricardofc/CSS-Workspaces/sys-mng-opi/CSS/notifications/email.txt
+echo "" >> /home/pricardofc/CSS-Workspaces/sys-mng-opi/CSS/notifications/email.txt
+caget TEST-MNGR-HOST:MON2-TEMP-CPU >> /home/pricardofc/CSS-Workspaces/sys-mng-opi/CSS/notifications/email.txt
+date +"%FT%T" >> /home/pricardofc/CSS-Workspaces/sys-mng-opi/CSS/notifications/email.txt
+echo "E-MAIL: pricardofc@ipfn.tecnico.ulisboa.pt" >> /home/pricardofc/CSS-Workspaces/sys-mng-opi/CSS/notifications/email.txt
+echo "IPFN/IST" >> /home/pricardofc/CSS-Workspaces/sys-mng-opi/CSS/notifications/email.txt
+echo "ISTTOK SYSTEM MANAGER APPLICATION" >> /home/pricardofc/CSS-Workspaces/sys-mng-opi/CSS/notifications/email.txt
+sendmail pricardofc@gmail.com < /home/pricardofc/CSS-Workspaces/sys-mng-opi/CSS/notifications/email.txt
