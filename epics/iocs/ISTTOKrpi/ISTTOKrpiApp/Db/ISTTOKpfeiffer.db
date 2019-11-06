@@ -1,0 +1,97 @@
+record (longin, "$(P)$(R)P001:M")
+{
+	field (DESC, "getPressure001  $(bus)")
+	field (DTYP, "stream")
+	field (INP, "@pfeiffer.proto getPressure001($(P)$(R)P001:E) $(bus)")
+	field (SCAN, "1 second")
+	field (FLNK, "$(P)$(R)P001")
+}
+record (longin, "$(P)$(R)P001:E")
+{
+	field (DESC, "Pressure001 exponent $(bus)")
+}
+record (calc, "$(P)$(R)P001")
+{
+	field (DESC, "ex ISTTOK:vacuum:Pressure_Chamber1")
+	field(INPA, "$(P)$(R)P001:M")
+	field(INPB, "$(P)$(R)P001:E")
+	field(CALC, "(A*0.001)*10.0**(B-20)")
+	field(PREC, "3") 
+	field(EGU, "mBar")
+}
+
+record (longin, "$(P)$(R)P002:M")
+{
+	field (DESC, "getPressure002  $(bus)")
+	field (DTYP, "stream")
+	field (INP, "@pfeiffer.proto getPressure002($(P)$(R)P002:E) $(bus)")
+	field (SCAN, "2 second")
+	field (FLNK, "$(P)$(R)P002")
+}
+record (longin, "$(P)$(R)P002:E")
+{
+	field (DESC, "Pressure002 exponent $(bus)")
+}
+record (calc, "$(P)$(R)P002")
+{
+	field (DESC, "Pressure_Primary1")
+	field(INPA, "$(P)$(R)P002:M")
+	field(INPB, "$(P)$(R)P002:E")
+	field(CALC, "(A*0.001)*10.0**(B-20)")
+	field(PREC, "3") 
+	field(EGU, "mBar")
+}
+
+record (longin, "$(P)$(R)P003:M")
+{
+	field (DESC, "getPressure003 Mantissa $(bus)")
+	field (DTYP, "stream")
+	field (INP, "@pfeiffer.proto getPressure003($(P)$(R)P003:E) $(bus)")
+	field (SCAN, "1 second")
+#	field (SCAN, "I/O Intr")
+	field (FLNK, "$(P)$(R)P003")
+}
+
+record (longin, "$(P)$(R)P003:E")
+{
+	field (DESC, "Pressure003 Exponent $(bus)")
+}
+record (calc, "$(P)$(R)P003")
+{
+	field(DESC, "Pressure_Primary2")
+	field(INPA, "$(P)$(R)P003:M")
+	field(INPB, "$(P)$(R)P003:E")
+	field(CALC, "(A*0.001)* 10.0**(B-20)")
+	field(PREC, "3") 
+	field(EGU, "mBar")
+}
+
+record (longin, "$(P)$(R)P004:M")
+{
+	field (DESC, "getPressure004 Mantissa $(bus)")
+	field (DTYP, "stream")
+	field (INP, "@pfeiffer.proto getPressure004($(P)$(R)P004:E) $(bus)")
+	field (SCAN, "1 second")
+	field (FLNK, "$(P)$(R)P004")
+}
+record (longin, "$(P)$(R)P004:E")
+{
+	field (DESC, "Pressure004 Exponent $(bus)")
+}
+record (calc, "$(P)$(R)P004")
+{
+	field(DESC, "Pressure_TMP_Admission")
+	field(INPA, "$(P)$(R)P004:M")
+	field(INPB, "$(P)$(R)P004:E")
+	field(CALC, "(A*0.001)* 10.0**(B-20)")
+	field(PREC, "3") 
+	field(EGU, "mBar")
+}
+
+record(stringout,"$(P)$(R)RS485Debug") {
+	field(DESC, "")
+	field(DTYP, "stream")
+	field(OUT, "@pfeiffer.proto debug $(bus)")
+	field(VAL,"")
+}
+

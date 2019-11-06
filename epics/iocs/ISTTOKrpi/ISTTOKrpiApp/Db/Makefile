@@ -8,7 +8,7 @@ DB += ISTTOKstates.db
 DB += ISTTOKvacummPumps.db
 DB += ISTTOKpcf8574.db
 DB += ISTTOKpcf8591.db
-DB += ISTTOKrs485.db
+DB += ISTTOKpfeiffer.db
 
 # If <anyname>.db template is not named <anyname>*.template add
 # <anyname>_TEMPLATE = <templatename>
