@@ -197,11 +197,13 @@ assign IsttokTurbo2_Emergency to "ISTTOK:central:Turbo2_Emergency";
 monitor IsttokTurbo2_Emergency;
 
 float IsttokPressure_Primary1;
-assign IsttokPressure_Primary1 to "ISTTOK:vacuum:Pressure_Primary1";
+/* assign IsttokPressure_Primary1 to "ISTTOK:vacuum:Pressure_Primary1"; */
+assign IsttokPressure_Primary1 to "ISTTOK:central:RPump1-Pressure";
 monitor IsttokPressure_Primary1;
 
 float IsttokPressure_Primary2;
-assign IsttokPressure_Primary2 to "ISTTOK:vacuum:Pressure_Primary2";
+/* assign IsttokPressure_Primary2 to "ISTTOK:vacuum:Pressure_Primary2"; */
+assign IsttokPressure_Primary2 to "ISTTOK:central:RPump2-Pressure";
 monitor IsttokPressure_Primary2;
 
 float IsttokPressure_PrimaryCondition;
