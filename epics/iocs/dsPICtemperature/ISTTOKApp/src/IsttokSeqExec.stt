@@ -1,0 +1,224 @@
+/*======================================================================
+ *
+ * Project       : ISTTOK slow Control
+ *
+ * File          : $Id: IsttokSeqExec.stt 4620 2013-03-19 21:22:02Z gquintal $
+ * Description   : Pulse sequence State Machine 
+ *
+ *
+ * Author        : Bernardo Carvalho (IPFN-IST)
+ *
+ * Copyright (c) : (IPFN-IST)
+ * Created 5-Mar-2013
+ *
+ * SVN keywords
+ * $Date: 2013-03-19 21:22:02 +0000 (Tue, 19 Mar 2013) $
+ * $Revision: 4620 $
+ * $URL: http://metis.ipfn.ist.utl.pt:8888/svn/cdaq/ISTTOK/Software/EPICS/ISTTOKcontrol/branches/quintal/ISTTOKApp/src/IsttokSeqExec.stt $
+ *
+-======================================================================*/
+
+program IsttokSeqExec
+
+double v;
+assign v to "{unit}:galium:test_ai";
+monitor v;
+
+/* ISTTOK Array of Operating State PV - MBBI records */
+short IsttokOPSTATE[1];
+assign IsttokOPSTATE to {
+       "{unit}:central:OPSTATE"
+};
+monitor IsttokOPSTATE;
+
+/* ISTTOK Operation Request */
+short IsttokOPREQ[1];
+assign IsttokOPREQ to {
+  "{unit}:central:OPREQ"
+};
+monitor IsttokOPREQ;
+
+/* ISTTOK Plasma Process Mode */
+short IsttokProcMode;
+assign IsttokProcMode to  "{unit}:central:PROCESS-MODE";
+monitor IsttokProcMode;
+
+/* ISTTOK Plasma Process Request */
+short IsttokProcReq;
+assign IsttokProcReq  to "{unit}:central:PROCESS-REQ";
+monitor IsttokProcReq;
+
+short POS_Stopped;
+short POS_Starting;
+short POS_Process;
+short POS_Clean;
+short POS_WaitShot;
+short POS_Stopping;
+
+/* Constants */
+short ON;
+short OFF;
+short START;
+short STOP;
+short CLEAN;
+short SHOT;
+short NO_ALARM;
+short MINOR;
+short MAJOR;
+short INVALID;
+
+/* Trace message record limited to 40 characters */
+string msg;
+assign msg to "{unit}:central:TraceMessage.VAL";
+monitor msg;
+
+ss PulseSequence {
+    state init {
+    	  entry {
+	    /* Initialisation of constants and indexes */
+	    POS_Stopped =0;
+	    POS_Starting=1;
+	    POS_Process =2;
+	    POS_Clean   =3;
+	    POS_WaitShot=4;
+	    POS_Stopping=5;
+
+	    ON=1; OFF=0;
+	    START=1; STOP=0;
+	    SHOT=1; CLEAN=0;
+
+	    NO_ALARM=0; MINOR=1; MAJOR=2; INVALID=3;
+	    
+	    strcpy(msg, "Pulse Sequence entry"); 
+	    pvPut(msg);
+	    errlogSevPrintf(NO_ALARM, "%s\n",msg);
+	  }
+	  
+	  when (delay(5)) {
+	    printf("IsttokSeqExec: Startup delay over\n");
+	  } state Stopped
+    }
+
+    /* State Set Stopped */
+    state Stopped {
+      when ((IsttokOPREQ[0]==START)) {
+	    strcpy(msg, "Pulse State Starting");
+	    pvPut(msg);
+	    errlogSevPrintf(NO_ALARM, "%s\n",msg);
+
+	    /* Pulse state change to Starting */
+	    IsttokOPSTATE[0] = POS_Starting;
+	    pvPut(IsttokOPSTATE[0]);
+      } state Starting
+    }
+
+    /* State Set Starting */
+    state Starting {
+      when ((IsttokOPREQ[0]==STOP)) {
+	    strcpy(msg, "Pulse State to Stopping");
+	    pvPut(msg);
+	    errlogSevPrintf(MINOR, "%s\n",msg);
+
+	    /* Pulse state change to Stopping */
+	   IsttokOPSTATE[0] = POS_Stopping;
+	   pvPut(IsttokOPSTATE[0]);
+      } state Stopping
+
+     when (delay(5.0)) {
+	    strcpy(msg, "Pulse State to Process");
+	    pvPut(msg);
+	    errlogSevPrintf(NO_ALARM, "%s\n",msg);
+
+	    /* Pulse state change to Stopped */
+	   IsttokOPSTATE[0] = POS_Process;
+	   pvPut(IsttokOPSTATE[0]);
+      } state Process
+   }
+    /* State Set Process */
+    state Process {
+      when ((IsttokOPREQ[0]==STOP)) {
+        strcpy(msg, "Pulse State to Stopping");
+        pvPut(msg);
+        errlogSevPrintf(NO_ALARM, "%s\n",msg);
+
+        /* Pulse state change to Stopping */
+        IsttokOPSTATE[0] = POS_Stopping;
+        pvPut(IsttokOPSTATE[0]);
+      } state Stopping
+
+      when ((IsttokProcReq==START) && (IsttokProcMode==CLEAN) ) {
+        strcpy(msg, "Pulse State to Clean");
+        pvPut(msg);
+        errlogSevPrintf(NO_ALARM, "%s\n",msg);
+
+        /* Pulse state change to Clean */
+       IsttokOPSTATE[0] = POS_Clean;
+       pvPut(IsttokOPSTATE[0]);
+      } state Clean
+
+      when ((IsttokProcReq==START) && (IsttokProcMode==SHOT) ) {
+        strcpy(msg, "Pulse State to WaitShot");
+        pvPut(msg);
+        errlogSevPrintf(NO_ALARM, "%s\n",msg);
+
+        /* Pulse state change to WaitShot */
+       IsttokOPSTATE[0] = POS_WaitShot;
+       pvPut(IsttokOPSTATE[0]);
+      } state WaitShot
+    }
+
+    /* State Set Clean */
+    state Clean {
+      when ((IsttokOPREQ[0]==STOP) || (IsttokProcReq==STOP)) {
+        strcpy(msg, "Pulse State to Process");
+        pvPut(msg);
+        errlogSevPrintf(NO_ALARM, "%s\n",msg);
+
+        /*Just to be sure*/
+        IsttokProcReq = STOP;
+	    pvPut(IsttokProcReq);
+
+        /* Pulse state change to Process */
+       IsttokOPSTATE[0] = POS_Process;
+       pvPut(IsttokOPSTATE[0]);
+      } state Process
+    }
+
+    /* State Set WaitShot */
+    state WaitShot {
+      when ((IsttokOPREQ[0]==STOP) || (IsttokProcReq==STOP)) {
+        strcpy(msg, "Pulse State to Process");
+        pvPut(msg);
+        errlogSevPrintf(NO_ALARM, "%s\n",msg);
+
+        /*Just to be sure*/
+        IsttokProcReq = STOP;
+	    pvPut(IsttokProcReq);
+
+        /* Pulse state change to Process */
+       IsttokOPSTATE[0] = POS_Process;
+       pvPut(IsttokOPSTATE[0]);
+      } state Process
+   }
+
+    /* State Set Stopping */
+    state Stopping {
+      when (delay (5.0)) {
+	    strcpy(msg, "Pulse State to Stopped");
+	    pvPut(msg);
+	    errlogSevPrintf(NO_ALARM, "%s\n",msg);
+
+        IsttokOPREQ[0]=STOP;
+	    pvPut(IsttokOPREQ[0]);
+
+	    /* Pulse state change to Stopping */
+	    IsttokOPSTATE[0] = POS_Stopping;
+	    pvPut(IsttokOPSTATE[0]);
+
+	    /* Pulse state change to Stopped */
+	    IsttokOPSTATE[0] = POS_Stopped;
+	     pvPut(IsttokOPSTATE[0]);
+      } state Stopped
+   }
+
+}

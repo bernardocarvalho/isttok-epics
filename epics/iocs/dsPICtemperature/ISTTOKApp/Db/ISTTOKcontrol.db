@@ -1,0 +1,106 @@
+ #
+ # Project       : ISTTOK slow Control
+ #
+ # File          : $Id: ISTTOKcontrol.db 4709 2013-05-03 13:44:29Z bernardo $
+ # Description   : Records for ISTTOK Control 
+ #
+ #
+ # Author        : Bernardo Carvalho (IPFN-IST)
+ #
+ # Copyright (c) : (IPFN-IST)
+ # Created 3-Mar-2013
+ #
+ # SVN keywords
+ # $Date: 2013-05-03 14:44:29 +0100 (Fri, 03 May 2013) $
+ # $Revision: 4709 $
+ # $URL: http://metis.ipfn.ist.utl.pt/svn/cdaq/ISTTOK/Software/EPICS/ISTTOKcontrol/trunk/ISTTOKApp/Db/ISTTOKcontrol.db $
+#
+#
+#
+record(mbbi, "$(P)$(R)OPSTATE") {
+  field(DESC, "Multiple Pulse Sequence State")
+  field(ZRVL, "0")
+  field(ONVL, "1")
+  field(TWVL, "2")
+  field(THVL, "3")
+  field(FRVL, "4")
+  field(FVVL, "5")
+#  field(SXVL, "6")
+#  field(SVVL, "7")
+  field(ZRST, "Stopped")
+  field(ONST, "Starting")
+  field(TWST, "Process")
+  field(THST, "Clean")
+  field(FRST, "WaitShot")
+  field(FVST, "Stopping")
+#  field(SXST, "Pulse")
+#  field(SVST, "AfterChecks")
+  field(VAL, "0")
+}
+
+record(calc, "$(P)$(R)OPCALCSTATE") {
+  field(DESC, "Pulse Calculated State")
+  field(CALC,"2^A")
+  field(SCAN,"1 second")
+  field(INPA,"$(P)$(R)OPSTATE.VAL PP NMS")
+}
+
+record(bo, "$(P)$(R)OPREQ") {
+  field(DESC, "Pulse Sequence Start/Stop")
+  field(VAL, "0")
+  field(ZNAM, "STOP")
+  field(ONAM, "START")
+}
+
+
+record(bo, "$(P)$(R)PROCESS-MODE") {
+  field(DESC, "Plasma Process Mode")
+  field(VAL, "0")
+  field(ZNAM, "CLEAN")
+  field(ONAM, "SHOT")
+}
+
+
+record(bo, "$(P)$(R)PROCESS-REQ") {
+  field(DESC, "Plasma Process sub-states Start/Stop")
+  field(VAL, "0")
+  field(ZNAM, "STOP")
+  field(ONAM, "START")
+}
+
+record(bo, "$(P)$(R)AUTHORISATION") {
+  field(DESC, "Pulse Sequence Authorisation Start/Abort")
+  field(ZNAM, "ABORT")
+  field(ONAM, "START")
+  field(VAL, "0")
+}
+
+record(longout, "$(P)$(R)PULSE-NUMBER") {
+  field(DESC, "Pulse Number")
+  field(VAL, "34442")
+}
+
+record(longout, "$(P)$(R)COUNTDOWN") {
+  field(DESC, "Pulse Countdown")
+  field(VAL, "-30")
+}
+
+record(calc, "$(P)$(R)COUNTER") {
+  field(DESC, "0.1 s counter")
+  field(INPA, "$(P)$(R)COUNTER")
+  field(SCAN, ".1 second")
+  field(CALC, "A + .1")
+}
+
+record(stringin, "$(P)$(R)CurrentTime") {
+  field(DESC, "Current Date and Time of the IOC")
+  field(SCAN, "1 second")
+  field(DTYP, "Soft Timestamp")
+  field(PINI, "YES")
+  field(INP, "@%d/%m/%Y %H:%M:%S")
+}
+
+record(stringout, "$(P)$(R)TraceMessage") {
+  field(DESC, "Trace Message from IOC")
+  field(VAL, "Trace mode ON")
+}
