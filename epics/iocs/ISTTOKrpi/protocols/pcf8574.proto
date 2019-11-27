@@ -15,6 +15,7 @@ rReg {
 ##
 wReg {
   out ${1} "%.1r";
+  @init { out ${1}; in "%.1r"; }
 }
 
 

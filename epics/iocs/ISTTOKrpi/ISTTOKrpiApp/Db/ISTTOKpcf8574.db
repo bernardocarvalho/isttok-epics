@@ -22,8 +22,9 @@ record( mbboDirect, "$(P)$(R)PCF8574:56:REGISTER") {
 	field( OUT,  "@pcf8574.proto wReg(56) I2C")
 	field( SHFT, "0")
 	field( NOBT, "8")
-	field(VAL, 255)
-	field(PINI,"YES")
+#       Has @init on protocol
+#	field(VAL, 255)
+#	field(PINI,"YES")
 }
 
 record( mbbiDirect, "$(P)$(R)PCF8574:56:REGISTER:READ" ) {
@@ -31,7 +32,8 @@ record( mbbiDirect, "$(P)$(R)PCF8574:56:REGISTER:READ" ) {
 	field( INP,  "@pcf8574.proto rReg(56) I2C")
 	field(NOBT, "8")
 	field(SCAN, "1 second")
-	field(PINI,"YES")
+	field(FLNK, "$(P)$(R)PCF8574:56:REGISTER:READ:FNOUT")
+#	field(PINI,"YES")
 }
 
 #####################################################

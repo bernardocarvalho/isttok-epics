@@ -66,12 +66,16 @@ record(calcout, "$(P)$(R)TMPMotorOffInv") {
 #############################
 ### TMP1 Controller inputs###
 #############################
+record(fanout, "$(P)$(R)PCF8574:56:REGISTER:READ:FNOUT"){
+	field(LNK1, "$(P)$(R)Turbo_PW_Ind")
+	field(LNK2, "$(P)$(R)Turbo_Emergency")
+}
 record(bi , "$(P)$(R)Turbo_PW_Ind" ) {
 	field( INP, "$(P)$(R)PCF8574:56:REGISTER:READ.B4 NPP NMS")
-	field( SCAN, "1 second")
+#	field( SCAN, "1 second")
 	field( ZNAM, "ON" )
 	field( ONAM, "OFF" )
-	field(FLNK, "$(P)$(R)Turbo_Emergency")
+#	field(FLNK, "$(P)$(R)Turbo_Emergency")
 }
 
 record(bi , "$(P)$(R)Turbo_Emergency") {
