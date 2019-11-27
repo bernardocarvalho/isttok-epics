@@ -42,35 +42,35 @@ record(calc, "$(P)$(R)OPCALCSTATE") {
 	field(INPA,"$(P)$(R)OPSTATE.VAL PP NMS")
 }
 
-record(calc, "$(P)$(R)OPCALCSTARTSTATE") {
+record(calc, "$(P)$(R)STARTCALCSTATE") {
 	field(DESC, "Start Calculated State")
 	field(CALC,"2^A")
 	field(SCAN,"1 second")
 	field(INPA,"$(P)$(R)STARTINGSTATE.VAL PP NMS")
 }
 
-record(calc, "$(P)$(R)OPCALCSTOPSTATE") {
+record(calc, "$(P)$(R)STOPCALCSTATE") {
 	field(DESC, "Stop Calculated State")
 	field(CALC,"2^A")
 	field(SCAN,"1 second")
 	field(INPA,"$(P)$(R)STOPPINGSTATE.VAL PP NMS")
 }
 
-record(calc, "$(P)$(R)OPCALCACLEANSTATE") {
+record(calc, "$(P)$(R)CLEANCALCSTATE") {
 	field(DESC, "Clean Automatic Calculated State")
 	field(CALC,"(2^(A+1))-1")
 	field(SCAN,"1 second")
 	field(INPA,"$(P)$(R)CLEANINGSTATE.VAL PP NMS")
 }
 
-record(calc, "$(P)$(R)OPCALCMCLEANSTATE") {
-	field(DESC, "Clean Manual Calculated State")
-	field(CALC,"2^A")
-	field(SCAN,"1 second")
-	field(INPA,"$(P)$(R)CLEANINGSTATE.VAL PP NMS")
-}
+#record(calc, "$(P)$(R)OPCALCMCLEANSTATE") {
+#	field(DESC, "Clean Manual Calculated State")
+#	field(CALC,"2^A")
+#	field(SCAN,"1 second")
+#	field(INPA,"$(P)$(R)CLEANINGSTATE.VAL PP NMS")
+#}
 
-record(calc, "$(P)$(R)OPCALCWSHOTSTATE") {
+record(calc, "$(P)$(R)WSHOTCALCSTATE") {
 	field(DESC, "WaitShot Calculated State")
 	field(CALC,"2^A")
 	field(SCAN,"1 second")
@@ -90,49 +90,15 @@ record(bo, "$(P)$(R)OPREQ") {
 	field(ONAM, "START")
 }
 
-record(bo, "$(P)$(R)CLEANINGMASTATE") {
+record(bo, "$(P)$(R)CLEANINGMANMODE") {
 	field(DESC, "Cleaning Manual/Auto")
 	field(VAL, "1")
 	field(ZNAM, "M")
 	field(ONAM, "A")
 }
 
-record(ai, "$(P)$(R)CLEANINGINOUTSTATE") {
-	field(DESC, "Cleaning Automatic In/Out")
-	field(VAL, "1")
-}
 
-record(ai, "$(P)$(R)CLEANINGINOUTSTATE0") {
-	field(DESC, "Cleaning Automatic In/Out")
-	field(VAL, "-2")
-}
-
-record(ai, "$(P)$(R)CLEANINGINOUTSTATE1") {
-	field(DESC, "Cleaning Automatic In/Out")
-	field(VAL, "-2")
-}
-
-record(ai, "$(P)$(R)CLEANINGINOUTSTATE2") {
-	field(DESC, "Cleaning Automatic In/Out")
-	field(VAL, "-2")
-}
-
-record(ai, "$(P)$(R)CLEANINGINOUTSTATE3") {
-	field(DESC, "Cleaning Automatic In/Out")
-	field(VAL, "-2")
-}
-
-record(ai, "$(P)$(R)CLEANINGINOUTSTATE4") {
-	field(DESC, "Cleaning Automatic In/Out")
-	field(VAL, "-2")
-}
-
-record(ai, "$(P)$(R)CLEANINGINOUTSTATE5") {
-	field(DESC, "Cleaning Automatic In/Out")
-	field(VAL, "-2")
-}
-
-record(bo, "$(P)$(R)FSTriggerState") {
+record(bo, "$(P)$(R)FSTriggerStart") {
 	field(DESC, "FireSignal Trigger Start")
 	field(VAL, "0")
 	field(ZNAM, "STOP")
@@ -246,7 +212,7 @@ record(mbbi, "$(P)$(R)CLEANINGSTATE") {
 }
 
 record(mbbi, "$(P)$(R)WSHOTINGSTATE") {
-	field(DESC, "Shoting State Sequence")
+	field(DESC, "Shooting State Sequence")
 	field(ZRVL, "0")
 	field(ONVL, "1")
 	field(TWVL, "2")
@@ -259,18 +225,18 @@ record(mbbi, "$(P)$(R)WSHOTINGSTATE") {
 	field(NIVL, "9")
 	field(TEVL, "10")
 	field(ELVL, "11")
-	field(ZRST, "NonShoting")
-	field(ONST, "Shoting1")
-	field(TWST, "Shoting2")
-	field(THST, "Shoting3")
-	field(FRST, "Shoting4")
-	field(FVST, "Shoting5")
-	field(SXST, "Shoting6")
-	field(SVST, "Shoting7")
-	field(EIST, "Shoting8")
-	field(NIST, "Shoting9")
-	field(TEST, "Shoting10")
-	field(ELST, "Shoting11")
+	field(ZRST, "NonShooting")
+	field(ONST, "Shooting1")
+	field(TWST, "Shooting2")
+	field(THST, "Shooting3")
+	field(FRST, "Shooting4")
+	field(FVST, "Shooting5")
+	field(SXST, "Shooting6")
+	field(SVST, "Shooting7")
+	field(EIST, "Shooting8")
+	field(NIST, "Shooting9")
+	field(TEST, "Shooting10")
+	field(ELST, "Shooting11")
 	field(VAL, "0")
 }
 

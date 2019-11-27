@@ -17,23 +17,11 @@ ISTTOKrpi_registerRecordDeviceDriver pdbbase
 ## Load  I2C drivers
 drvAsynI2CConfigure( "I2C", "/dev/i2c-1", 1 )
 
-## Load Serial drivers
-#drvAsynSerialPortConfigure("RS0","/dev/ttyUSB0")
-
-#asynSetOption("RS0", 0, "baud", "9600")
-#asynSetOption("RS0", 0, "bits", "8")
-#asynSetOption("RS0", 0, "parity", "none")
-#asynSetOption("RS0", 0, "stop", "1")
-#asynSetOption("RS0", 0, "clocal", "Y")
-#asynSetOption("RS0", 0, "crtscts", "N")
-
-
 ## Load record instances
 dbLoadRecords("db/ISTTOKstates.db","P=ISTTOK:,R=central:")
 dbLoadRecords("db/ISTTOKpcf8574.db","P=ISTTOK:,R=central:")
 dbLoadRecords("db/ISTTOKpcf8591.db","P=ISTTOK:,R=central:")
-#dbLoadRecords("db/ISTTOKpcf8574.db","P=ISTTOK:,R=central:,ID=57")
-dbLoadRecords("db/ISTTOKvacummPumps.db","P=ISTTOK:,R=central:")
+dbLoadRecords("db/ISTTOKvacuumPumps.db","P=ISTTOK:,R=central:")
 
 ## Load Serial drivers
 drvAsynSerialPortConfigure("RS0","/dev/ttyUSB0")

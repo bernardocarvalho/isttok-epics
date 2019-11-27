@@ -9,7 +9,7 @@
 # ###                                             ### #
 # ### macros: ID      I2C address of ADC          ### #
 # ### Description:                                ### #
-# ### This is an example DB file using            ### #
+# ### This  DB file is 		 using            ### #
 # ### stream(asynI2C)    to read/write   ### #
 # ### an PCF8591 ADDA chip                        ### #
 #######################################################
@@ -29,7 +29,6 @@ record( mbboDirect, "$(P)$(R)PCF8591:72:CTRLREGISTER") {
 record( longin, "$(P)$(R)PCF8591:72:ADC_CH1" ) {
 	field(DTYP, "stream")
 	field(INP,  "@pcf8591.proto rConvAdc0(72) I2C")
-#	field( FLNK, "$(P)$(R)PCF8591:72:CHANNEL1" ) 
 }
 record( calc, "$(P)$(R)PCF8591:72:BYTE2_CH1" ) {
   field(INPA, "$(P)$(R)PCF8591:72:ADC_CH1 PP NMS")
@@ -37,21 +36,25 @@ record( calc, "$(P)$(R)PCF8591:72:BYTE2_CH1" ) {
   field(CALC, " (A & 255 )" )
 }
 
-record( ai, "$(P)$(R)TMP2Speed" ) {
-  field( DTYP, "Raw Soft Channel" )
-  field( INP, "$(P)$(R)PCF8591:72:BYTE2_CH1 PP NMS")
-  field( SCAN, "1 second")
-  field( ASLO, "16" )
-  field( AOFF, "0" )
-  field( EGU,  "RPM" )
-  field( PREC, "3" )
-  field( HOPR, "5000" )
-  field( LOPR, "0" )
+record( ai, "$(P)$(R)TMPump2-Speed" ) {
+  field(DESC, "TMPump2-Speed")
+  field(DTYP, "Raw Soft Channel" )
+  field(INP, "$(P)$(R)PCF8591:72:BYTE2_CH1 PP NMS")
+  field(SCAN, "1 second")
+  field(ASLO, "16" )
+  field(AOFF, "0" )
+  field(EGU,  "RPM" )
+  field(PREC, "3" )
+  field(HOPR, "5000" )
+  field(LOPR, "0" )
+  field(LOW, "200.0")
+#   #   field(LOLO,"0.0")
+  field(LSV, "MINOR")
+#   #   field(LLSV,"MAJOR")
 }
 record( longin, "$(P)$(R)PCF8591:72:ADC_CH2" ) {
 	field(DTYP, "stream")
 	field(INP,  "@pcf8591.proto rConvAdc1(72) I2C")
-#field( FLNK, "
 }
 record( calc, "$(P)$(R)PCF8591:72:BYTE2_CH2" ) {
   field(INPA, "$(P)$(R)PCF8591:72:ADC_CH2 PP NMS")
@@ -59,9 +62,10 @@ record( calc, "$(P)$(R)PCF8591:72:BYTE2_CH2" ) {
   field(CALC, " (A & 255)" )
 }
 
-record( ai, "$(P)$(R)TMP2Current" ) {
+record( ai, "$(P)$(R)TMPump2-Current" ) {
+  field(DESC, "TMPump2-Current")
   field(DTYP, "Raw Soft Channel" )
-  field(INP, "$(P)$(R)PCF8591:72:BYTE2_CH2 PP NMS")
+  field(INP,  "$(P)$(R)PCF8591:72:BYTE2_CH2 PP NMS")
   field(SCAN, "1 second")
   field(ASLO, "0.1" )
   field(AOFF, "0" )
@@ -69,4 +73,8 @@ record( ai, "$(P)$(R)TMP2Current" ) {
   field(PREC, "3" )
   field(HOPR, "50" )
   field(LOPR, "0" )
+  field(LOW, "2.0")
+#   #   field(LOLO,"0.0")
+  field(LSV, "MINOR")
+#   #   field(LLSV,"MAJOR")
 }

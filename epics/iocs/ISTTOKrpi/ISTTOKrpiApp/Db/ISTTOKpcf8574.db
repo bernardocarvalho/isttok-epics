@@ -18,18 +18,18 @@
 # ### Read/Write pcf8574 address 0x38=56 register ### #
 ###################################################
 record( mbboDirect, "$(P)$(R)PCF8574:56:REGISTER") {
-	field( DTYP, "stream")
-	field( OUT,  "@pcf8574.proto wReg(56) I2C")
-	field( SHFT, "0")
-	field( NOBT, "8")
+	field(DTYP, "stream")
+	field(OUT,  "@pcf8574.proto wReg(56) I2C")
+	field(SHFT, "0")
+	field(NOBT, "8")
 #       Has @init on protocol
 #	field(VAL, 255)
 #	field(PINI,"YES")
 }
 
 record( mbbiDirect, "$(P)$(R)PCF8574:56:REGISTER:READ" ) {
-	field( DTYP, "stream")
-	field( INP,  "@pcf8574.proto rReg(56) I2C")
+	field(DTYP, "stream")
+	field(INP,  "@pcf8574.proto rReg(56) I2C")
 	field(NOBT, "8")
 	field(SCAN, "1 second")
 	field(FLNK, "$(P)$(R)PCF8574:56:REGISTER:READ:FNOUT")
@@ -40,20 +40,21 @@ record( mbbiDirect, "$(P)$(R)PCF8574:56:REGISTER:READ" ) {
 # ### Read/Write pcf8574 address 0x39=57 register ### #
 ###################################################
 record( mbboDirect, "$(P)$(R)PCF8574:57:REGISTER") {
-	field( DTYP, "stream")
-	field( OUT,  "@pcf8574.proto wReg(57) I2C")
-	field( SHFT, "0")
-	field( NOBT, "8")
-	field(VAL, 255)
-	field(PINI,"YES")
+	field(DTYP, "stream")
+	field(OUT,  "@pcf8574.proto wReg(57) I2C")
+	field(SHFT, "0")
+	field(NOBT, "8")
+#	field(VAL, 255)
+#	field(PINI,"YES")
 }
 
 record( mbbiDirect, "$(P)$(R)PCF8574:57:REGISTER:READ" ) {
-	field( DTYP, "stream")
-	field( INP,  "@pcf8574.proto rReg(57) I2C")
+	field(DTYP, "stream")
+	field(INP,  "@pcf8574.proto rReg(57) I2C")
 	field(NOBT, "8")
 	field(SCAN, "1 second")
-	field(PINI,"YES")
+	field(FLNK, "$(P)$(R)PCF8574:57:REGISTER:READ:FNOUT")
+#	field(PINI,"YES")
 }
 
 #####################################################
@@ -64,8 +65,8 @@ record( mbboDirect, "$(P)$(R)PCF8574:60:REGISTER") {
 	field( OUT,  "@pcf8574.proto wReg(60) I2C")
 	field( SHFT, "0")
 	field( NOBT, "8")
-	field(VAL, 255)
-	field(PINI,"YES")
+	#field(VAL, 255)
+	#field(PINI,"YES")
 }
 
 record( mbbiDirect, "$(P)$(R)PCF8574:60:REGISTER:READ" ) {
@@ -73,7 +74,8 @@ record( mbbiDirect, "$(P)$(R)PCF8574:60:REGISTER:READ" ) {
 	field( INP,  "@pcf8574.proto rReg(60) I2C")
 	field(NOBT, "8")
 	field(SCAN, "1 second")
-	field(PINI,"YES")
+#	field(FLNK, "$(P)$(R)PCF8574:60:REGISTER:READ:FNOUT")
+	#field(PINI,"YES")
 }
 
 #####################################################
@@ -84,8 +86,8 @@ record( mbboDirect, "$(P)$(R)PCF8574:61:REGISTER") {
 	field( OUT,  "@pcf8574.proto wReg(61) I2C")
 	field( SHFT, "0")
 	field( NOBT, "8")
-	field(VAL, 255)
-	field(PINI,"YES")
+	#field(VAL, 255)
+	#field(PINI,"YES")
 }
 
 record( mbbiDirect, "$(P)$(R)PCF8574:61:REGISTER:READ" ) {
@@ -93,5 +95,6 @@ record( mbbiDirect, "$(P)$(R)PCF8574:61:REGISTER:READ" ) {
 	field( INP,  "@pcf8574.proto rReg(61) I2C")
 	field(NOBT, "8")
 	field(SCAN, "1 second")
-	field(PINI,"YES")
+	#field(PINI,"YES")
+#	field(FLNK, "$(P)$(R)PCF8574:61:REGISTER:READ:FNOUT")
 }
