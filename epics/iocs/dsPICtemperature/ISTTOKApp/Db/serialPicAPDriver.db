@@ -1,0 +1,242 @@
+###################################################################
+#  This records is the dspPIC uptime in seconds from last reset   #
+###################################################################
+
+record(longin, "$(P)$(R)Uptime")
+{
+   field(PINI, "1")
+   field(DTYP, "asynInt32")
+   field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))PIC_UPTIME")
+   field(SCAN, "I/O Intr")
+}
+
+###################################################################
+#  These records control Valve Open/Close                         #
+###################################################################
+record(bo, "$(P)$(R)Valve_1")
+{
+    field(PINI, "0")
+    field(DTYP, "asynInt32")
+    field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))PIC_VALVE_1_STATE")
+    field(ZNAM, "Close") # Off
+    field(ONAM, "Open")
+}
+
+record(bi, "$(P)$(R)Valve_1_RBV")
+{
+    field(PINI, "1")
+    field(DTYP, "asynInt32")
+    field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))PIC_VALVE_1_STATE")
+    field(ZNAM, "Closed")
+    field(ZSV,  "NO_ALARM")
+    field(ONAM, "Openned")
+    field(OSV,  "MINOR")
+    field(SCAN, "I/O Intr")
+}
+
+record(bo, "$(P)$(R)Valve_2")
+{
+    field(PINI,  "0")
+    field(DTYP, "asynInt32")
+    field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))PIC_VALVE_2_STATE")
+    field(ZNAM, "Close") # Off
+    field(ONAM, "Open")
+}
+
+record(bi, "$(P)$(R)Valve_2_RBV")
+{
+    field(PINI, "1")
+    field(DTYP, "asynInt32")
+    field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))PIC_VALVE_2_STATE")
+    field(ZNAM, "Closed")
+    field(ZSV,  "NO_ALARM")
+    field(ONAM, "Openned")
+    field(OSV,  "MINOR")
+    field(SCAN, "I/O Intr")
+}
+record(bo, "$(P)$(R)Valve_3")
+{
+    field(PINI,  "0")
+    field(DTYP, "asynInt32")
+    field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))PIC_VALVE_3_STATE")
+    field(ZNAM, "Close") # Off
+    field(ONAM, "Open")
+}
+
+record(bi, "$(P)$(R)Valve_3_RBV")
+{
+    field(PINI, "1")
+    field(DTYP, "asynInt32")
+    field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))PIC_VALVE_3_STATE")
+    field(ZNAM, "Closed")
+    field(ZSV,  "NO_ALARM")
+    field(ONAM, "Openned")
+    field(OSV,  "MINOR")
+    field(SCAN, "I/O Intr")
+}
+record(bo, "$(P)$(R)Valve_4")
+{
+    field(PINI,  "0")
+    field(DTYP, "asynInt32")
+    field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))PIC_VALVE_4_STATE")
+    field(ZNAM, "Close") # Off
+    field(ONAM, "Open")
+}
+
+record(bi, "$(P)$(R)Valve_4_RBV")
+{
+    field(PINI, "1")
+    field(DTYP, "asynInt32")
+    field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))PIC_VALVE_4_STATE")
+    field(ZNAM, "Closed")
+    field(ZSV,  "NO_ALARM")
+    field(ONAM, "Openned")
+    field(OSV,  "MINOR")
+    field(SCAN, "I/O Intr")
+}
+
+###################################################################
+#  These records read Temperatures                                #
+###################################################################
+
+record(ai, "$(P)$(R)Temperature_0")
+{
+   field(PINI, "1")
+   field(DTYP, "asynFloat64")
+   field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))PIC_TEMP_0_VAL")
+#   field(PREC, "5")
+   field(DESC,"IN-SUP") 
+   field(SCAN, "I/O Intr")
+   field(HIHI,"90.0")
+   field(HIGH,"50.0")
+   field(LOW, "20.0")
+   field(LOLO,"0.0")
+   field(HHSV,"MAJOR")
+   field(HSV, "MINOR")
+   field(LSV, "MINOR")
+   field(LLSV,"MAJOR")
+   field(ADEL, "1.0")      # Archive Deadband
+   field(MDEL, "0.0")      # Monitor Deadband
+   # Engineering Units
+   field(EGU, "Celcius")
+}
+
+record(ai, "$(P)$(R)Temperature_1")
+{
+   field(PINI, "1")
+   field(DTYP, "asynFloat64")
+   field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))PIC_TEMP_1_VAL")
+#   field(PREC, "5")
+   field(DESC,"DEP. INFERIOR") 
+   field(SCAN, "I/O Intr")
+   field(HIHI,"90.0")
+   field(HIGH,"50.0")
+   field(LOW, "20.0")
+   field(LOLO,"0.0")
+   field(HHSV,"MAJOR")
+   field(HSV, "MINOR")
+   field(LSV, "MINOR")
+   field(LLSV,"MAJOR")
+   field(ADEL, "1.0")      # Archive Deadband
+   field(MDEL, "0.0")      # Monitor Deadband
+   # Engineering Units
+   field(EGU, "Celcius")
+}
+
+record(ai, "$(P)$(R)Temperature_2")
+{
+   field(PINI, "1")
+   field(DTYP, "asynFloat64")
+   field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))PIC_TEMP_2_VAL")
+#   field(PREC, "5")
+   field(DESC,"BYPASS") 
+   field(SCAN, "I/O Intr")
+   field(HIHI,"90.0")
+   field(HIGH,"50.0")
+   field(LOW, "20.0")
+   field(LOLO,"0.0")
+   field(HHSV,"MAJOR")
+   field(HSV, "MINOR")
+   field(LSV, "MINOR")
+   field(LLSV,"MAJOR")
+   field(ADEL, "1.0")      # Archive Deadband
+   field(MDEL, "0.0")      # Monitor Deadband
+   # Engineering Units
+   field(EGU, "Celcius")
+}
+
+record(ai, "$(P)$(R)Temperature_3")
+{
+   field(PINI, "1")
+   field(DTYP, "asynFloat64")
+   field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))PIC_TEMP_3_VAL")
+#   field(PREC, "5")
+   field(DESC,"TROCO INFERIOR") 
+   field(SCAN, "I/O Intr")
+   field(HIHI,"90.0")
+   field(HIGH,"50.0")
+   field(LOW, "20.0")
+   field(LOLO,"0.0")
+   field(HHSV,"MAJOR")
+   field(HSV, "MINOR")
+   field(LSV, "MINOR")
+   field(LLSV,"MAJOR")
+   field(ADEL, "1.0")      # Archive Deadband
+   field(MDEL, "0.0")      # Monitor Deadband
+   # Engineering Units
+   field(EGU, "Celcius")
+}
+
+record(ai, "$(P)$(R)Temperature_4")
+{
+   field(PINI, "1")
+   field(DTYP, "asynFloat64")
+   field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))PIC_TEMP_4_VAL")
+#   field(PREC, "5")
+   field(DESC,"DEP. SUPERIOR") 
+   field(SCAN, "I/O Intr")
+   field(HIHI,"90.0")
+   field(HIGH,"50.0")
+   field(LOW, "20.0")
+   field(LOLO,"0.0")
+   field(HHSV,"MAJOR")
+   field(HSV, "MINOR")
+   field(LSV, "MINOR")
+   field(LLSV,"MAJOR")
+   field(ADEL, "1.0")      # Archive Deadband
+   field(MDEL, "0.0")      # Monitor Deadband
+   # Engineering Units
+   field(EGU, "Celcius")
+}
+
+record(ai, "$(P)$(R)Temperature_5")
+{
+   field(PINI, "1")
+   field(DTYP, "asynFloat64")
+   field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))PIC_TEMP_5_VAL")
+#   field(PREC, "5")
+   field(DESC,"COLECTOR") 
+   field(SCAN, "I/O Intr")
+   field(HIHI,"90.0")
+   field(HIGH,"50.0")
+   field(LOW, "20.0")
+   field(LOLO,"0.0")
+   field(HHSV,"MAJOR")
+   field(HSV, "MINOR")
+   field(LSV, "MINOR")
+   field(LLSV,"MAJOR")
+   field(ADEL, "1.0")      # Archive Deadband
+   field(MDEL, "0.0")      # Monitor Deadband
+   # Engineering Units
+   field(EGU, "Celcius")
+}
+
+###################################################################
+#  Test records			 	                          #
+###################################################################
+						    
+record(ai, "$(P)$(R)test_ai")
+{
+    field(DESC,"test record say: Hello World")
+}
+

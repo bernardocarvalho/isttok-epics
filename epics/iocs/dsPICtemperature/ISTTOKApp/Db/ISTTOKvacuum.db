@@ -1,0 +1,129 @@
+#
+# Project       : ISTTOK EPICS/dsPIC Slow Control
+#
+# File          : $Id: ISTTOKvacuum.db 4709 2013-05-03 13:44:29Z bernardo $
+# Description   : Records for ISTTOK Vacuum System 
+#
+# Author        : Bernardo Carvalho (IPFN-IST)
+#
+# Copyright (c) : (IPFN-IST)
+# Created 3-May-2013
+#
+# SVN keywords
+# $Date: 2013-05-03 14:44:29 +0100 (Fri, 03 May 2013) $
+# $Revision: 4709 $
+# $URL: http://metis.ipfn.ist.utl.pt/svn/cdaq/ISTTOK/Software/EPICS/ISTTOKcontrol/trunk/ISTTOKApp/Db/ISTTOKvacuum.db $
+#
+###################################################################
+#  This records is the dspPIC uptime in seconds from last reset   #
+###################################################################
+
+record(longin, "$(P)$(R)Uptime")
+{
+   field(DESC,"uptime from dsPIC $(R)")
+   field(PINI, "1")
+   field(DTYP, "asynInt32")
+   field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))PIC_UPTIME")
+   field(SCAN, "I/O Intr")
+  field(FLNK,"$(P)$(R)Diff_Uptime") #Link to update Diff_Uptime
+}
+record(calc, "$(P)$(R)Diff_Uptime") {
+  field(DESC, "Uptime diff. between I/O Intr scans")
+  field(CALC,"B-A")
+  field(SCAN,"Passive")
+  field(INPA,"$(P)$(R)Last_Uptime.VAL NPP")
+  field(INPB,"$(P)$(R)Uptime")
+  field(FLNK,"$(P)$(R)Last_Uptime")
+  field(HIHI,"100.0")
+  field(HIGH,"2.0")
+  field(LOW, "0.0")
+  field(LOLO,"-10.0")
+}
+record(calc, "$(P)$(R)Last_Uptime") {
+  field(DESC, "Last Uptime  for diff. calc")
+  field(CALC,"A")
+  field(SCAN,"Passive")
+  field(INPA,"$(P)$(R)Uptime")
+#  field(INPB,"$(P)$(R)Uptime PP")
+}
+
+###################################################################
+#  These records read Pressures                                   #
+###################################################################
+record(ai, "$(P)$(R)Pressure_Chamber1")
+{
+   field(DESC,"Pressure from sensor xxx on dsPIC $(R)")
+   field(PINI, "1")
+   field(DTYP, "asynFloat64")
+   field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))PIC_PRESS_1_VAL")
+# Precision
+   field(PREC, "3") 
+#  Engineering Units
+   field(EGU, "mBar")
+   field(LINR, "LINEAR")
+# val = val * ESLO + EGUL
+   field(ESLO, "1.0e-6")
+   field(EGUL, "0.0")
+   field(SCAN, "I/O Intr")
+   field(ADEL, "1.0e-8") # Archive Deadband
+   field(MDEL, "0")      # Monitor Deadband
+   field(HIHI,"1.0e-1")
+   field(HIGH,"1.0e-2")
+#   field(LOW, "20.0")
+#   field(LOLO,"0.0")
+   field(HOPR,"1.0")    # High Operating Range
+   field(LOPR,"1.0e-6") # Low Operating Range
+   field(HHSV,"MAJOR")
+   field(HSV, "MINOR")
+#   field(LSV, "MINOR")
+#   field(LLSV,"MAJOR")
+}
+
+record(calc, "$(P)$(R)Pressure_Chamber1calc")
+{
+   field(DESC,"Copy of Pressure_Chamber1")
+   field(CALC, "A*1e6")
+   field(INPA, "$(P)$(R)Pressure_Chamber1 CP MS")
+   field(ADEL, "0.005") # Archive Deadband
+# Precision
+#   field(PREC, "3") 
+#  Engineering Units
+   field(EGU, "mBAR")
+}
+
+record(ai, "$(P)$(R)Pressure_Primary1")
+{
+   field(DESC,"Pressure from sensor xxx on dsPIC $(R)")
+   field(PINI, "1")
+   field(DTYP, "asynFloat64")
+   field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))PIC_PRESS_2_VAL")
+# Precision
+   field(PREC, "3") 
+#  Engineering Units
+   field(EGU, "mBar")
+   field(LINR, "LINEAR")
+# val = val * ESLO + EGUL
+#   field(ESLO, "1.0e-6")
+#   field(EGUL, "0.0")
+   field(SCAN, "I/O Intr")
+   field(ADEL, "1.0e-4") # Archive Deadband
+   field(MDEL, "0")      # Monitor Deadband
+   field(HIHI,"1.0e-1")
+   field(HIGH,"1.0e-2")
+#   field(LOW, "20.0")
+#   field(LOLO,"0.0")
+   field(HHSV,"MAJOR")
+   field(HSV, "MINOR")
+#   field(LSV, "MINOR")
+#   field(LLSV,"MAJOR")
+}
+
+###################################################################
+#  Test records			 	                          #
+###################################################################
+						    
+record(ai, "$(P)$(R)test_ai")
+{
+    field(DESC,"test record")
+}
+

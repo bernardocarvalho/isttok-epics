@@ -1,0 +1,45 @@
+# RELEASE - Location of external support modules
+#
+# IF YOU MAKE ANY CHANGES to this file you must subsequently
+# do a "gnumake rebuild" in this application's top level
+# directory.
+#
+# The build process does not check dependencies against files
+# that are outside this application, thus you should do a
+# "gnumake rebuild" in the top level directory after EPICS_BASE
+# or any other external module pointed to below is rebuilt.
+#
+# Host- or target-specific settings can be given in files named
+#  RELEASE.$(EPICS_HOST_ARCH).Common
+#  RELEASE.Common.$(T_A)
+#  RELEASE.$(EPICS_HOST_ARCH).$(T_A)
+#
+# This file should ONLY define paths to other support modules,
+# or include statements that pull in similar RELEASE files.
+# Build settings that are NOT module paths should appear in a
+# CONFIG_SITE file.
+# If you don't want to install files into $(TOP) then define
+# INSTALL_LOCATION_APP here:
+#INSTALL_LOCATION_APP=/opt/epics/apps
+
+TEMPLATE_TOP=$(EPICS_BASE)/templates/makeBaseApp/top
+
+#AUTOSAVE=${EPICS_MODULES}/autosave
+ASYN=/opt/epics/modules/asyn
+#${EPICS_MODULES}/asyn
+SNCSEQ=/opt/epics/modules/sncseq
+#${EPICS_MODULES}/sncseq
+
+#IOCMON=${EPICS_MODULES}/iocmon
+#SYSMON=${EPICS_MODULES}/sysmon
+
+#STD=${EPICS_MODULES}/std
+
+# EPICS_BASE usually appears last so other apps can override stuff:
+#EPICS_BASE=/opt/epics/base/
+EPICS_BASE=/opt/epics/base-3.14.12.3/
+#/opt/codac-3.1/epics/base
+
+# Set RULES here if you want to take build rules from somewhere
+# other than EPICS_BASE:
+#RULES=/path/to/epics/support/module/rules/x-y

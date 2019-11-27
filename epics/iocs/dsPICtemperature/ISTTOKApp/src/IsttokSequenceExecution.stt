@@ -1,0 +1,84 @@
+/*======================================================================
+ *
+ * Project       : ISTTOK slow Control
+ *
+ * Description   : ISTTOK sequence State Machine 
+ *
+ *
+ * Author        : Bernardo Carvalho (IPFN-IST)
+ *
+ * Copyright (c) : (IPFN-IST)
+ * Created 25-Feb-2013
+ *
+ * SVN keywords
+ * $Date: 2013-03-05 21:09:02 +0000 (Tue, 05 Mar 2013) $
+ * $Revision: 4553 $
+ * $URL: http://metis.ipfn.ist.utl.pt:8888/svn/cdaq/ISTTOK/Software/EPICS/ISTTOKcontrol/branches/quintal/ISTTOKApp/src/IsttokSequenceExecution.stt $
+ *
+-======================================================================*/
+program IsttokSequenceExecution
+
+/* ISTTOK Array of Operating State PV - MBBI records */
+short IsttokOPSTATE[1];
+assign IsttokOPSTATE to {
+	"ISTTOK:central:OPSTATE"
+};
+monitor IsttokOPSTATE;
+
+short POS_Stopped;
+short POS_Starting;
+short POS_Process;
+short POS_Clean;
+short POS_WaitShot;
+short POS_Stopping;
+
+/* ISTTOK Operation Request */
+short IsttokOPREQ[1];
+assign IsttokOPREQ to {
+  "ISTTOK:central:OPREQ"
+};
+monitor IsttokOPREQ;
+
+/*	"45FPSC-0001-POS:AUTHORISATION" */
+
+/* Constants */
+short ON;
+short OFF;
+short START;
+short STOP;
+short NO_ALARM;
+short MINOR;
+short MAJOR;
+short INVALID;
+
+/* Trace message record limited to 40 characters */
+string msg;
+assign msg to "ISTTOK:central:TraceMessage.VAL";
+monitor msg;
+
+/*
+int i;
+long j;
+*/
+/****************************************************************/
+/* ISTTOK sequence State Set	  				*/
+/****************************************************************/
+
+ss ss1 {
+  state init {
+    when (delay(10)) {
+      printf("sncExample: Startup delay over\n");
+    } state low
+   }
+  state low {
+    when (delay(10)) {
+      printf("sncExample: Changing to high\n");
+    } state high
+  }
+  state high {
+    when (delay(10)) {
+      printf("sncExample: Changing to low\n");
+    } state low
+  }
+}
+												

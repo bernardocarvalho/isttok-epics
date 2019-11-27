@@ -1,0 +1,663 @@
+###################################################################
+#  This records is the dspPIC uptime in seconds from last reset   #
+###################################################################
+
+record(longin, "$(P)$(R)Uptime")
+{
+   field(PINI, "1")
+   field(DTYP, "asynInt32")
+   field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))PIC_UPTIME")
+   field(SCAN, "I/O Intr")
+}
+
+record(calc, "$(P)$(R)Diff_Uptime") {
+  field(DESC, "Uptime diff. between I/O Intr scans")
+  field(CALC,"B-A")
+  field(SCAN,"Passive")
+  field(INPA,"$(P)$(R)Last_Uptime.VAL NPP")
+  field(INPB,"$(P)$(R)Uptime")
+  field(FLNK,"$(P)$(R)Last_Uptime")
+  field(HIHI,"100.0")
+  field(HIGH,"2.0")
+  field(LOW, "0.0")
+  field(LOLO,"-10.0")
+}
+
+record(calc, "$(P)$(R)Last_Uptime") {
+  field(DESC, "Last Uptime  for diff. calc")
+  field(CALC,"A")
+  field(SCAN,"Passive")
+  field(INPA,"$(P)$(R)Uptime")
+#  field(INPB,"$(P)$(R)Uptime PP")
+}
+
+###################################################################
+#  These records read Temperatures                                #
+###################################################################
+
+record(ai, "$(P)$(R)Temperature_0")
+{
+   field(PINI, "1")
+   field(DTYP, "asynFloat64")
+   field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))PIC_TEMP_0_VAL")
+#   field(PREC, "5")
+   field(DESC,"IN-SUP") 
+   field(SCAN, "I/O Intr")
+   field(HIHI,"90.0")
+   field(HIGH,"50.0")
+   field(LOW, "20.0")
+   field(LOLO,"0.0")
+   field(HHSV,"MAJOR")
+   field(HSV, "MINOR")
+   field(LSV, "MINOR")
+   field(LLSV,"MAJOR")
+   field(ADEL, "1.0")      # Archive Deadband
+   field(MDEL, "0.0")      # Monitor Deadband
+   # Engineering Units
+   field(EGU, "Celcius")
+}
+
+record(ai, "$(P)$(R)Temperature_1")
+{
+   field(PINI, "1")
+   field(DTYP, "asynFloat64")
+   field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))PIC_TEMP_1_VAL")
+#   field(PREC, "5")
+   field(DESC,"DEP. INFERIOR") 
+   field(SCAN, "I/O Intr")
+   field(HIHI,"90.0")
+   field(HIGH,"50.0")
+   field(LOW, "20.0")
+   field(LOLO,"0.0")
+   field(HHSV,"MAJOR")
+   field(HSV, "MINOR")
+   field(LSV, "MINOR")
+   field(LLSV,"MAJOR")
+   field(ADEL, "1.0")      # Archive Deadband
+   field(MDEL, "0.0")      # Monitor Deadband
+   # Engineering Units
+   field(EGU, "Celcius")
+}
+
+record(ai, "$(P)$(R)Temperature_2")
+{
+   field(PINI, "1")
+   field(DTYP, "asynFloat64")
+   field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))PIC_TEMP_2_VAL")
+#   field(PREC, "5")
+   field(DESC,"BYPASS") 
+   field(SCAN, "I/O Intr")
+   field(HIHI,"90.0")
+   field(HIGH,"50.0")
+   field(LOW, "20.0")
+   field(LOLO,"0.0")
+   field(HHSV,"MAJOR")
+   field(HSV, "MINOR")
+   field(LSV, "MINOR")
+   field(LLSV,"MAJOR")
+   field(ADEL, "1.0")      # Archive Deadband
+   field(MDEL, "0.0")      # Monitor Deadband
+   # Engineering Units
+   field(EGU, "Celcius")
+}
+
+record(ai, "$(P)$(R)Temperature_3")
+{
+   field(PINI, "1")
+   field(DTYP, "asynFloat64")
+   field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))PIC_TEMP_3_VAL")
+#   field(PREC, "5")
+   field(DESC,"TROCO INFERIOR") 
+   field(SCAN, "I/O Intr")
+   field(HIHI,"90.0")
+   field(HIGH,"50.0")
+   field(LOW, "20.0")
+   field(LOLO,"0.0")
+   field(HHSV,"MAJOR")
+   field(HSV, "MINOR")
+   field(LSV, "MINOR")
+   field(LLSV,"MAJOR")
+   field(ADEL, "1.0")      # Archive Deadband
+   field(MDEL, "0.0")      # Monitor Deadband
+   # Engineering Units
+   field(EGU, "Celcius")
+}
+
+record(ai, "$(P)$(R)Temperature_4")
+{
+   field(PINI, "1")
+   field(DTYP, "asynFloat64")
+   field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))PIC_TEMP_4_VAL")
+#   field(PREC, "5")
+   field(DESC,"DEP. SUPERIOR") 
+   field(SCAN, "I/O Intr")
+   field(HIHI,"90.0")
+   field(HIGH,"50.0")
+   field(LOW, "20.0")
+   field(LOLO,"0.0")
+   field(HHSV,"MAJOR")
+   field(HSV, "MINOR")
+   field(LSV, "MINOR")
+   field(LLSV,"MAJOR")
+   field(ADEL, "1.0")      # Archive Deadband
+   field(MDEL, "0.0")      # Monitor Deadband
+   # Engineering Units
+   field(EGU, "Celcius")
+}
+
+record(ai, "$(P)$(R)Temperature_5")
+{
+   field(PINI, "1")
+   field(DTYP, "asynFloat64")
+   field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))PIC_TEMP_5_VAL")
+#   field(PREC, "5")
+   field(DESC,"COLECTOR") 
+   field(SCAN, "I/O Intr")
+   field(HIHI,"90.0")
+   field(HIGH,"50.0")
+   field(LOW, "20.0")
+   field(LOLO,"0.0")
+   field(HHSV,"MAJOR")
+   field(HSV, "MINOR")
+   field(LSV, "MINOR")
+   field(LLSV,"MAJOR")
+   field(ADEL, "1.0")      # Archive Deadband
+   field(MDEL, "0.0")      # Monitor Deadband
+   # Engineering Units
+   field(EGU, "Celcius")
+}
+
+record(ai, "$(P)$(R)Temperature_6")
+{
+   field(PINI, "1")
+   field(DTYP, "asynFloat64")
+   field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))PIC_TEMP_6_VAL")
+#   field(PREC, "5")
+   field(DESC,"COLECTOR") 
+   field(SCAN, "I/O Intr")
+   field(HIHI,"90.0")
+   field(HIGH,"50.0")
+   field(LOW, "20.0")
+   field(LOLO,"0.0")
+   field(HHSV,"MAJOR")
+   field(HSV, "MINOR")
+   field(LSV, "MINOR")
+   field(LLSV,"MAJOR")
+   field(ADEL, "1.0")      # Archive Deadband
+   field(MDEL, "0.0")      # Monitor Deadband
+   # Engineering Units
+   field(EGU, "Celcius")
+}
+
+record(ai, "$(P)$(R)Temperature_7")
+{
+   field(PINI, "1")
+   field(DTYP, "asynFloat64")
+   field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))PIC_TEMP_7_VAL")
+#   field(PREC, "5")
+   field(DESC,"COLECTOR") 
+   field(SCAN, "I/O Intr")
+   field(HIHI,"90.0")
+   field(HIGH,"50.0")
+   field(LOW, "20.0")
+   field(LOLO,"0.0")
+   field(HHSV,"MAJOR")
+   field(HSV, "MINOR")
+   field(LSV, "MINOR")
+   field(LLSV,"MAJOR")
+   field(ADEL, "1.0")      # Archive Deadband
+   field(MDEL, "0.0")      # Monitor Deadband
+   # Engineering Units
+   field(EGU, "Celcius")
+}
+
+
+###################################################################
+#  This records is the dspPIC uptime in seconds from last reset   #
+###################################################################
+
+record(longin, "$(P)$(R)Uptime")
+{
+   field(PINI, "1")
+   field(DTYP, "asynInt32")
+   field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))PIC_UPTIME")
+   field(SCAN, "I/O Intr")
+}
+
+record(calc, "$(P)$(R)Diff_Uptime") {
+  field(DESC, "Uptime diff. between I/O Intr scans")
+  field(CALC,"B-A")
+  field(SCAN,"Passive
+  field(INPA,"$(P)$(R)Last_Uptime.VAL NPP")
+  field(INPB,"$(P)$(R)Uptime")
+  field(FLNK,"$(P)$(R)Last_Uptime")
+  field(HIHI,"100.0")
+  field(HIGH,"2.0")
+  field(LOW, "0.0")
+  field(LOLO,"-10.0")
+}
+
+record(calc, "$(P)$(R)Last_Uptime") {
+  field(DESC, "Last Uptime  for diff. calc")
+  field(CALC,"A")
+  field(SCAN,"Passive")
+  field(INPA,"$(P)$(R)Uptime")
+#  field(INPB,"$(P)$(R)Uptime PP")
+}
+
+###################################################################
+#  These records read Temperatures                                #
+###################################################################
+
+record(ai, "$(P)$(R)Temperature_0")
+{
+   field(PINI, "1")
+   field(DTYP, "asynFloat64")
+   field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))PIC_TEMP_0_VAL")
+# Precision
+#   field(PREC, "5")
+#  Engineering Units
+   field(EGU, "ºC")
+# Convertion
+   field(LINR, "LINEAR")
+# val = val * ESLO + EGUL
+   field(ESLO, "1/1024")
+   field(EGUL, "0.0")
+   field(DESC,"Thermocouple 0") 
+   field(SCAN, "I/O Intr")
+   field(HIHI,"90.0")
+   field(HIGH,"50.0")
+   field(LOW, "20.0")
+   field(LOLO,"0.0")
+   field(HHSV,"MAJOR")
+   field(HSV, "MINOR")
+   field(LSV, "MINOR")
+   field(LLSV,"MAJOR")
+   field(ADEL, "1.0")      # Archive Deadband
+   field(MDEL, "0.0")      # Monitor Deadband
+}
+
+
+record(ai, "$(P)$(R)Temperature_1")
+{
+   field(PINI, "1")
+   field(DTYP, "asynFloat64")
+   field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))PIC_TEMP_1_VAL")
+#   field(PREC, "5")
+   field(DESC,"DEP. INFERIOR") 
+   field(SCAN, "I/O Intr")
+   field(HIHI,"90.0")
+   field(HIGH,"50.0")
+   field(LOW, "20.0")
+   field(LOLO,"0.0")
+   field(HHSV,"MAJOR")
+   field(HSV, "MINOR")
+   field(LSV, "MINOR")
+   field(LLSV,"MAJOR")
+   field(ADEL, "1.0")      # Archive Deadband
+   field(MDEL, "0.0")      # Monitor Deadband
+   # Engineering Units
+   field(EGU, "Celcius")
+}
+
+record(ai, "$(P)$(R)Temperature_2")
+{
+   field(PINI, "1")
+   field(DTYP, "asynFloat64")
+   field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))PIC_TEMP_2_VAL")
+#   field(PREC, "5")
+   field(DESC,"BYPASS") 
+   field(SCAN, "I/O Intr")
+   field(HIHI,"90.0")
+   field(HIGH,"50.0")
+   field(LOW, "20.0")
+   field(LOLO,"0.0")
+   field(HHSV,"MAJOR")
+   field(HSV, "MINOR")
+   field(LSV, "MINOR")
+   field(LLSV,"MAJOR")
+   field(ADEL, "1.0")      # Archive Deadband
+   field(MDEL, "0.0")      # Monitor Deadband
+   # Engineering Units
+   field(EGU, "Celcius")
+}
+
+record(ai, "$(P)$(R)Temperature_3")
+{
+   field(PINI, "1")
+   field(DTYP, "asynFloat64")
+   field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))PIC_TEMP_3_VAL")
+#   field(PREC, "5")
+   field(DESC,"TROCO INFERIOR") 
+   field(SCAN, "I/O Intr")
+   field(HIHI,"90.0")
+   field(HIGH,"50.0")
+   field(LOW, "20.0")
+   field(LOLO,"0.0")
+   field(HHSV,"MAJOR")
+   field(HSV, "MINOR")
+   field(LSV, "MINOR")
+   field(LLSV,"MAJOR")
+   field(ADEL, "1.0")      # Archive Deadband
+   field(MDEL, "0.0")      # Monitor Deadband
+   # Engineering Units
+   field(EGU, "Celcius")
+}
+
+record(ai, "$(P)$(R)Temperature_4")
+{
+   field(PINI, "1")
+   field(DTYP, "asynFloat64")
+   field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))PIC_TEMP_4_VAL")
+#   field(PREC, "5")
+   field(DESC,"DEP. SUPERIOR") 
+   field(SCAN, "I/O Intr")
+   field(HIHI,"90.0")
+   field(HIGH,"50.0")
+   field(LOW, "20.0")
+   field(LOLO,"0.0")
+   field(HHSV,"MAJOR")
+   field(HSV, "MINOR")
+   field(LSV, "MINOR")
+   field(LLSV,"MAJOR")
+   field(ADEL, "1.0")      # Archive Deadband
+   field(MDEL, "0.0")      # Monitor Deadband
+   # Engineering Units
+   field(EGU, "Celcius")
+}
+
+record(ai, "$(P)$(R)Temperature_5")
+{
+   field(PINI, "1")
+   field(DTYP, "asynFloat64")
+   field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))PIC_TEMP_5_VAL")
+#   field(PREC, "5")
+   field(DESC,"COLECTOR") 
+   field(SCAN, "I/O Intr")
+   field(HIHI,"90.0")
+   field(HIGH,"50.0")
+   field(LOW, "20.0")
+   field(LOLO,"0.0")
+   field(HHSV,"MAJOR")
+   field(HSV, "MINOR")
+   field(LSV, "MINOR")
+   field(LLSV,"MAJOR")
+   field(ADEL, "1.0")      # Archive Deadband
+   field(MDEL, "0.0")      # Monitor Deadband
+   # Engineering Units
+   field(EGU, "Celcius")
+}
+
+record(ai, "$(P)$(R)Temperature_6")
+{
+   field(PINI, "1")
+   field(DTYP, "asynFloat64")
+   field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))PIC_TEMP_6_VAL")
+#   field(PREC, "5")
+   field(DESC,"COLECTOR") 
+   field(SCAN, "I/O Intr")
+   field(HIHI,"90.0")
+   field(HIGH,"50.0")
+   field(LOW, "20.0")
+   field(LOLO,"0.0")
+   field(HHSV,"MAJOR")
+   field(HSV, "MINOR")
+   field(LSV, "MINOR")
+   field(LLSV,"MAJOR")
+   field(ADEL, "1.0")      # Archive Deadband
+   field(MDEL, "0.0")      # Monitor Deadband
+   # Engineering Units
+   field(EGU, "Celcius")
+}
+
+record(ai, "$(P)$(R)Temperature_7")
+{
+   field(PINI, "1")
+   field(DTYP, "asynFloat64")
+   field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))PIC_TEMP_7_VAL")
+#   field(PREC, "5")
+   field(DESC,"COLECTOR") 
+   field(SCAN, "I/O Intr")
+   field(HIHI,"90.0")
+   field(HIGH,"50.0")
+   field(LOW, "20.0")
+   field(LOLO,"0.0")
+   field(HHSV,"MAJOR")
+   field(HSV, "MINOR")
+   field(LSV, "MINOR")
+   field(LLSV,"MAJOR")
+   field(ADEL, "1.0")      # Archive Deadband
+   field(MDEL, "0.0")      # Monitor Deadband
+   # Engineering Units
+   field(EGU, "Celcius")
+}
+
+
+###################################################################
+#  These records read Wave Periodes                               #
+###################################################################
+
+
+
+record(calc, "$(P)$(R)Diff_Uptime") {
+  field(DESC, "Uptime diff. between I/O Intr scans")
+  field(CALC,"B-A")
+  field(SCAN,"Passive")
+  field(INPA,"$(P)$(R)Last_Uptime.VAL NPP")
+  field(INPB,"$(P)$(R)Uptime")
+  field(FLNK,"$(P)$(R)Last_Uptime")
+  field(HIHI,"100.0")
+  field(HIGH,"2.0")
+  field(LOW, "0.0")
+  field(LOLO,"-10.0")
+}
+
+record(calc, "$(P)$(R)Last_Uptime") {
+  field(DESC, "Last Uptime  for diff. calc")
+  field(CALC,"A")
+  field(SCAN,"Passive")
+  field(INPA,"$(P)$(R)Uptime")
+#  field(INPB,"$(P)$(R)Uptime PP")
+}
+
+###################################################################
+#  These records read Temperatures                                #
+###################################################################
+
+record(ai, "$(P)$(R)Temperature_0")
+{
+   field(PINI, "1")
+   field(DTYP, "asynFloat64")
+   field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))PIC_TEMP_0_VAL")
+#   field(PREC, "5")
+   field(DESC,"IN-SUP") 
+   field(SCAN, "I/O Intr")
+   field(HIHI,"90.0")
+   field(HIGH,"50.0")
+   field(LOW, "20.0")
+   field(LOLO,"0.0")
+   field(HHSV,"MAJOR")
+   field(HSV, "MINOR")
+   field(LSV, "MINOR")
+   field(LLSV,"MAJOR")
+   field(ADEL, "1.0")      # Archive Deadband
+   field(MDEL, "0.0")      # Monitor Deadband
+   # Engineering Units
+   field(EGU, "Celcius")
+}
+
+record(ai, "$(P)$(R)Temperature_1")
+{
+   field(PINI, "1")
+   field(DTYP, "asynFloat64")
+   field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))PIC_TEMP_1_VAL")
+#   field(PREC, "5")
+   field(DESC,"DEP. INFERIOR") 
+   field(SCAN, "I/O Intr")
+   field(HIHI,"90.0")
+   field(HIGH,"50.0")
+   field(LOW, "20.0")
+   field(LOLO,"0.0")
+   field(HHSV,"MAJOR")
+   field(HSV, "MINOR")
+   field(LSV, "MINOR")
+   field(LLSV,"MAJOR")
+   field(ADEL, "1.0")      # Archive Deadband
+   field(MDEL, "0.0")      # Monitor Deadband
+   # Engineering Units
+   field(EGU, "Celcius")
+}
+
+record(ai, "$(P)$(R)Temperature_2")
+{
+   field(PINI, "1")
+   field(DTYP, "asynFloat64")
+   field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))PIC_TEMP_2_VAL")
+#   field(PREC, "5")
+   field(DESC,"BYPASS") 
+   field(SCAN, "I/O Intr")
+   field(HIHI,"90.0")
+   field(HIGH,"50.0")
+   field(LOW, "20.0")
+   field(LOLO,"0.0")
+   field(HHSV,"MAJOR")
+   field(HSV, "MINOR")
+   field(LSV, "MINOR")
+   field(LLSV,"MAJOR")
+   field(ADEL, "1.0")      # Archive Deadband
+   field(MDEL, "0.0")      # Monitor Deadband
+   # Engineering Units
+   field(EGU, "Celcius")
+}
+
+record(ai, "$(P)$(R)Temperature_3")
+{
+   field(PINI, "1")
+   field(DTYP, "asynFloat64")
+   field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))PIC_TEMP_3_VAL")
+#   field(PREC, "5")
+   field(DESC,"TROCO INFERIOR") 
+   field(SCAN, "I/O Intr")
+   field(HIHI,"90.0")
+   field(HIGH,"50.0")
+   field(LOW, "20.0")
+   field(LOLO,"0.0")
+   field(HHSV,"MAJOR")
+   field(HSV, "MINOR")
+   field(LSV, "MINOR")
+   field(LLSV,"MAJOR")
+   field(ADEL, "1.0")      # Archive Deadband
+   field(MDEL, "0.0")      # Monitor Deadband
+   # Engineering Units
+   field(EGU, "Celcius")
+}
+
+record(ai, "$(P)$(R)Temperature_4")
+{
+   field(PINI, "1")
+   field(DTYP, "asynFloat64")
+   field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))PIC_TEMP_4_VAL")
+#   field(PREC, "5")
+   field(DESC,"DEP. SUPERIOR") 
+   field(SCAN, "I/O Intr")
+   field(HIHI,"90.0")
+   field(HIGH,"50.0")
+   field(LOW, "20.0")
+   field(LOLO,"0.0")
+   field(HHSV,"MAJOR")
+   field(HSV, "MINOR")
+   field(LSV, "MINOR")
+   field(LLSV,"MAJOR")
+   field(ADEL, "1.0")      # Archive Deadband
+   field(MDEL, "0.0")      # Monitor Deadband
+   # Engineering Units
+   field(EGU, "Celcius")
+}
+
+record(ai, "$(P)$(R)Temperature_5")
+{
+   field(PINI, "1")
+   field(DTYP, "asynFloat64")
+   field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))PIC_TEMP_5_VAL")
+#   field(PREC, "5")
+   field(DESC,"COLECTOR") 
+   field(SCAN, "I/O Intr")
+   field(HIHI,"90.0")
+   field(HIGH,"50.0")
+   field(LOW, "20.0")
+   field(LOLO,"0.0")
+   field(HHSV,"MAJOR")
+   field(HSV, "MINOR")
+   field(LSV, "MINOR")
+   field(LLSV,"MAJOR")
+   field(ADEL, "1.0")      # Archive Deadband
+   field(MDEL, "0.0")      # Monitor Deadband
+   # Engineering Units
+   field(EGU, "Celcius")
+}
+
+record(ai, "$(P)$(R)Temperature_6")
+{
+   field(PINI, "1")
+   field(DTYP, "asynFloat64")
+   field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))PIC_TEMP_6_VAL")
+#   field(PREC, "5")
+   field(DESC,"COLECTOR") 
+   field(SCAN, "I/O Intr")
+   field(HIHI,"90.0")
+   field(HIGH,"50.0")
+   field(LOW, "20.0")
+   field(LOLO,"0.0")
+   field(HHSV,"MAJOR")
+   field(HSV, "MINOR")
+   field(LSV, "MINOR")
+   field(LLSV,"MAJOR")
+   field(ADEL, "1.0")      # Archive Deadband
+   field(MDEL, "0.0")      # Monitor Deadband
+   # Engineering Units
+   field(EGU, "Celcius")
+}
+
+record(ai, "$(P)$(R)Temperature_7")
+{
+   field(PINI, "1")
+   field(DTYP, "asynFloat64")
+   field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))PIC_TEMP_7_VAL")
+#   field(PREC, "5")
+   field(DESC,"COLECTOR") 
+   field(SCAN, "I/O Intr")
+   field(HIHI,"90.0")
+   field(HIGH,"50.0")
+   field(LOW, "20.0")
+   field(LOLO,"0.0")
+   field(HHSV,"MAJOR")
+   field(HSV, "MINOR")
+   field(LSV, "MINOR")
+   field(LLSV,"MAJOR")
+   field(ADEL, "1.0")      # Archive Deadband
+   field(MDEL, "0.0")      # Monitor Deadband
+   # Engineering Units
+   field(EGU, "Celcius")
+}
+
+
+###################################################################
+#  These records read Wave Periodes                               #
+###################################################################
+
+record(longin, "$(P)$(R)CondenserBank")
+{
+   field(PINI, "1")
+   field(DTYP, "asynInt32")
+   field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))PIC_PERIODE_1_VAL")
+   field(SCAN, "I/O Intr")
+}
+
+###################################################################
+#  Test records			 	                                      #
+###################################################################
+						    
+record(ai, "$(P)$(R)test_ai")
+{
+    field(DESC,"test record")
+}

@@ -1,0 +1,137 @@
+/*======================================================================
+ *
+ * Project       : ISTTOK slow Control
+ *
+ * Description   : Pulse sequence State Machine 
+ *
+ *
+ * Author        : Bernardo Carvalho (IPFN-IST)
+ *
+ * Copyright (c) : (IPFN-IST)
+ * Created 25-Feb-2013
+ *
+ * SVN keywords
+ * $Date: 2013-03-04 12:22:41 +0000 (Mon, 04 Mar 2013) $
+ * $Revision: 4546 $
+ * $URL: http://metis.ipfn.ist.utl.pt/svn/cdaq/ISTTOK/Software/EPICS/serialPic/serialPicAPDriverApp/src/serialPicAPDriver.cpp $
+ *
+-======================================================================*/
+
+
+program PulseSequenceExecution
+
+/* ISTTOK Array of Operating State PV - MBBI records */
+short IsttokOPSTATE[1];
+assign IsttokOPSTATE to {
+	"ISTTOK:central:OPSTATE"
+};
+monitor IsttokOPSTATE;
+
+
+short POS_Stopped;
+short POS_Starting;
+short POS_Process;
+short POS_Clean;
+short POS_Wait-Shot;
+short POS_Stopping;
+
+/* ISTTOK Operation Request */
+short IsttokOPREQ[1];
+assign IsttokOPREQ to {
+	"ISTTOK:central:OPREQ",
+//	"45FPSC-0001-POS:AUTHORISATION"
+};
+monitor IsttokOPREQ;
+
+/* Constants */
+short ON;
+short OFF;
+short START;
+short STOP;
+short NO_ALARM;
+short MINOR;
+short MAJOR;
+short INVALID;
+
+/* Trace message record limited to 40 characters */
+string msg;
+assign msg to "ISTTOK:central:TraceMessage.VAL";
+monitor msg;
+
+int i;
+long j;
+/****************************************************************/
+/* Pulse sequence State Set										*/
+/****************************************************************/
+
+ss PulseSequence {
+
+    /* State Set Init */
+	state Init {
+		entry {
+	    	/* Initialisation of constants and indexes */
+
+			POS_Stopped=0;
+			POS_Starting=1;
+			POS_Process=2;
+			POS_Clean=3;
+			POS_Wait-Shot=4;
+			POS_Stopping=5;
+
+	    	ON=1; OFF=0;
+	    	START=1; STOP=0;
+
+	    	NO_ALARM=0; MINOR=1; MAJOR=2; INVALID=3;
+
+			strcpy(msg, "Pulse Sequence entry"); 
+	    	pvPut(msg);
+			errlogSevPrintf(NO_ALARM, "%s\n",msg);
+		}
+
+		when (PulseSequenceOPSTATE[0] == POS_Stopped) {
+  			strcpy(msg, "Pulse State is Stopped"); 
+	    	pvPut(msg);
+			errlogSevPrintf(NO_ALARM, "%s\n",msg);
+        } state Stopped
+		
+		when (PulseSequenceOPSTATE[0] == POS_Starting) {
+  			strcpy(msg, "Pulse State is Starting"); 
+	    	pvPut(msg);
+			errlogSevPrintf(NO_ALARM, "%s\n",msg);
+        } state Starting
+		
+	/* State Set Stopped */
+	state Stopped {
+			when ((IsttokOPREQ[0]==START)) {
+   			strcpy(msg, "Pulse State Starting"); 
+	    	pvPut(msg);
+			errlogSevPrintf(NO_ALARM, "%s\n",msg);
+
+        	/* Pulse state change to Starting */
+        	PulseSequenceOPSTATE[0] = POS_Starting;
+        	pvPut(PulseSequenceOPSTATE[0]);
+			} state Starting
+	}
+	/* State Set Starting */
+	state Starting {
+		when ((IsttokOPREQ[0]==START)) {
+			sleep(10);
+			strcpy(msg, "Pulse State is Stopped"); 
+	    	pvPut(msg);
+			errlogSevPrintf(NO_ALARM, "%s\n",msg);
+			
+			/* Pulse state change to Stopped */
+			PulseSequenceOPSTATE[0] = POS_Stopped;
+			pvPut(PulseSequenceOPSTATE[0]);
+		} state Stopped
+		when ((IsttokOPREQ[0]==STOP)) {
+			strcpy(msg, "Pulse State is Stopped"); 
+	    	pvPut(msg);
+			errlogSevPrintf(NO_ALARM, "%s\n",msg);
+			
+			/* Pulse state change to Stopped */
+			PulseSequenceOPSTATE[0] = POS_Stopped;
+			pvPut(PulseSequenceOPSTATE[0]);
+		} state Stopped
+	}
+}
