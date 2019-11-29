@@ -45,11 +45,10 @@ dbLoadRecords("db/ISTTOKpfeiffer.db","P=ISTTOK:,R=central:,bus=RS0")
 
 save_restoreSet_status_prefix("$(IOC):")
 set_requestfile_path("$(SAVE_DIR)")
-set_savefile_path("$(SAVE_DIR)")
+set_savefile_path("$(SAVE_DIR)/save")
 save_restoreSet_NumSeqFiles(3)
 save_restoreSet_SeqPeriodInSeconds(600)
 set_pass1_restoreFile("$(IOC).sav")
-
 
 cd "${TOP}/iocBoot/${IOC}"
 
@@ -64,4 +63,5 @@ iocInit
 create_monitor_set("$(IOC).req", 30)
 
 ## Start any sequence programs
-seq IsttokSeqExec, "unit=ISTTOK"
+seq IsttokSeqExec
+#, "unit=ISTTOK"

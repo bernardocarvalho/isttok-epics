@@ -14,6 +14,7 @@ record(bo, "$(P)$(R)TMPump1-ControllerOn" ) {
 	field(ONAM, "Pulse" )
 	field(HIGH, "2.5")
     	field(FLNK, "$(P)$(R)TMPump1-ControllerOnInv" )
+	field(VAL,"0")
 
 #	field( FLNK, "$(P)$(R)TMPControllerOnInv" )
 }
@@ -33,6 +34,7 @@ record(bo, "$(P)$(R)TMPump1-ControllerOff" ) {
 	field(HIGH, "2.5")
 	#field( FLNK, "$(P)$(R)TMPControllerOffInv" )    
 	field(FLNK, "$(P)$(R)TMPump1-ControllerOffInv" )
+	field(VAL,"0")
 }
 
 record(calcout, "$(P)$(R)TMPump1-ControllerOffInv") {
@@ -61,6 +63,7 @@ record(bo, "$(P)$(R)TMPump1-MotorOff") {
 	field( ONAM, "Pulse")
 	field( HIGH, "2.5")
 	field( FLNK, "$(P)$(R)TMPump1-MotorOffInv")
+	field(VAL,"0")
 }
 
 record(calcout, "$(P)$(R)TMPump1-MotorOffInv") {
@@ -112,7 +115,7 @@ record(bi , "$(P)$(R)TMPump1-NormalOperation" ) {
 #record(bi , "$(P)$(R)Turbo_NormalOperation" ) {
 	field( INP, "$(P)$(R)PCF8574:56:REGISTER:READ.B7 NPP NMS")
 	field( ZNAM, "ON" )
-	field( ONAM, "OFF" )
+	field(ONAM, "OFF" )
    	field(OSV,"MINOR")
 }
 
@@ -128,6 +131,7 @@ record(bi , "$(P)$(R)TMPump1-NormalOperation" ) {
 record(fanout, "$(P)$(R)PCF8574:57:REGISTER:READ:FNOUT"){
 	field(LNK1, "$(P)$(R)TMPump2-Emergency")
 	field(LNK2, "$(P)$(R)TMPump2-Acceleration")
+	field(LNK3, "$(P)$(R)TTSystem-tzero")
 }
 record(bi , "$(P)$(R)TMPump2-Emergency") {
    	field(DESC," TMP2 – Falha ")
@@ -143,11 +147,24 @@ record(bi , "$(P)$(R)TMPump2-Acceleration") {
 	field( ZNAM, "ON" )
 	field( ONAM, "OFF" )
 }
+####################################
+#       TIMING TRIGGER ON/OFF      #
+####################################
+record(bi , "$(P)$(R)TTSystem-tzero" ) {
+	field(DESC,"Trigger control 60s before shot")
+#   record(bi , "$(P)$(R)TimingTriggerSignal" ) {
+	field(INP, "$(P)$(R)PCF8574:57:REGISTER:READ.B7")
+	field(SCAN, "1 second" )
+	field(ZNAM, "OFF" )
+	field(ONAM, "ON" )
+}
 
 ###############################
 ### TMP2 Controller Outputs ###
 ###############################
-record(bo, "$(P)$(R)TMP2MotorOnOff" ) {
+record(bo, "$(P)$(R)TMPump2-Motor" ) {
+   field(DESC," Motor On/Off ")
+#   record(bo, "$(P)$(R)TMP2MotorOnOff" ) {
 	field( OUT,  "$(P)$(R)PCF8574:57:REGISTER.B2 PP MS")
 	field( ZNAM, "ON")
 	field( ONAM, "OFF")
@@ -157,10 +174,12 @@ record(bo, "$(P)$(R)TMP2MotorOnOff" ) {
 #       BUZZER ON/OFF        #
 ##############################
 record(bo, "$(P)$(R)Buzzer" ) {
-	field( ZNAM, "Off" )
-	field( ONAM, "Pulse" )
-	field( HIGH, "2.5")
-	field( FLNK, "$(P)$(R)BuzzerInv" )
+	field(DESC," Lab Buzzer ")
+	field(ZNAM, "Off" )
+	field(ONAM, "Pulse" )
+	field(HIGH, "2.5")
+	field(FLNK, "$(P)$(R)BuzzerInv" )
+	field(VAL,"0")
 }
 record(calcout, "$(P)$(R)BuzzerInv" ) {
 	field( INPA, "$(P)$(R)Buzzer NPP MS" )
@@ -172,11 +191,11 @@ record(calcout, "$(P)$(R)BuzzerInv" ) {
 ##############################
 #       EMERGENCY MODE       #
 ##############################
-record( bo, "$(P)$(R)EmergencyButton" ) {
-   field(DESC," Botao fisico que executa a soft Emergency ")
-	field( OUT, "$(P)$(R)PCF8574:57:REGISTER.B4 PP" )
-	field( ZNAM, "On" )
-	field( ONAM, "Off")
+record(bo, "$(P)$(R)EmergencyButton" ) {
+   field(DESC,"Soft Emergency Button")
+	field(OUT, "$(P)$(R)PCF8574:57:REGISTER.B4 PP" )
+	field(ZNAM, "On" )
+	field(ONAM, "Off")
 }
 
 ############
@@ -185,15 +204,6 @@ record( bo, "$(P)$(R)EmergencyButton" ) {
 #$(P)$(R)PCF8574:57:REGISTER:READ.B5
 #$(P)$(R)PCF8574:57:REGISTER:READ.B6
 
-####################################
-#       TIMING TRIGGER ON/OFF      #
-####################################
-record(bi , "$(P)$(R)TimingTriggerSignal" ) {
-	field( INP, "$(P)$(R)PCF8574:57:REGISTER:READ.B7")
-	field( SCAN, "1 second" )
-	field( ZNAM, "OFF" )
-	field( ONAM, "ON" )
-}
 
 ###############
 ###############
@@ -207,31 +217,34 @@ record(bi , "$(P)$(R)TimingTriggerSignal" ) {
 record( bo, "$(P)$(R)RPump1-Motor" ) {
 #   field(DESC," Liga a alimentação da bomba rotatória 1 ")
 #record( bo, "$(P)$(R)RotatoryPump" ) {
-	field( OUT, "$(P)$(R)PCF8574:60:REGISTER.B0 PP" )
-	field( ZNAM, "On" )
-	field( ONAM, "Off" )
+	field(OUT, "$(P)$(R)PCF8574:60:REGISTER.B0 PP" )
+	field(ZNAM, "On" )
+	field(ONAM, "Off" )
+	field(VAL,"1")
 }
 
 #############################
 #       ROTARY1 VALVE       #
 #############################
 record( bo, "$(P)$(R)RPump1-Valve" ) {
-	field(DESC," Abre a valvula da bomba rotatoria 1 ")
+	field(DESC,"Abre a valvula da bomba rotatoria 1 ")
 #   record( bo, "$(P)$(R)RotatoryValve" ) {
 	field( OUT, "$(P)$(R)PCF8574:60:REGISTER.B1 PP" )
 	field( ZNAM, "Open" )
 	field( ONAM, "Closed" )
+	field(VAL,"1")
 }
 
 #############################
 #       ROTARY2 PUMP        #
 #############################
 record( bo, "$(P)$(R)RPump2-Motor" ) {
-	field(DESC," Liga a alimentacao da bomba rotatoria 2 ")
+	field(DESC,"Power On Rotatory Pump 2")
 #record( bo, "$(P)$(R)RotatoryPump2" ) {
 	field( OUT, "$(P)$(R)PCF8574:60:REGISTER.B2 PP" )
 	field( ZNAM, "On" )
 	field( ONAM, "Off" )
+	field(VAL,"1")
 }
 
 #############################
@@ -240,20 +253,23 @@ record( bo, "$(P)$(R)RPump2-Motor" ) {
 record( bo, "$(P)$(R)RPump2-Valve" ) {
    	field(DESC," Abre a valvula da bomba rotatoria 2 ")
 #record( bo, "$(P)$(R)RotatoryValve2" ) {
-	field( OUT, "$(P)$(R)PCF8574:60:REGISTER.B3 PP" )
-	field( ZNAM, "Open" )
-	field( ONAM, "Closed" )
+	field(OUT, "$(P)$(R)PCF8574:60:REGISTER.B3 PP" )
+	field(ZNAM, "Open" )
+	field(ONAM, "Closed" )
+	field(VAL,"1")
 }
 
 ################################
 #       FILAMENT ON/OFF        #
 ################################
 record(bo, "$(P)$(R)VVessel-Filament" ) {
-   field(DESC," Filamento dentro do TOK para pre ionizar a câmara")
+   field(DESC,"Vacuum Vessel Filament power")
 #   record(bo, "$(P)$(R)FilamentOnOff" ) {
 	field( OUT, "$(P)$(R)PCF8574:60:REGISTER.B4 PP" )
 	field( ZNAM, "On" )
 	field( ONAM, "Off" )
+	field(VAL,"1")
+	field(PINI,"YES")
 }
 
 ##############################
@@ -262,9 +278,10 @@ record(bo, "$(P)$(R)VVessel-Filament" ) {
 record(bo, "$(P)$(R)Lab-WarningLight" ) {
    field(DESC," Luzes de sinalização, 220V ")
 #   record(bo, "$(P)$(R)LightsOnOff" ) {
-	field( OUT, "$(P)$(R)PCF8574:60:REGISTER.B5 PP" )
-	field( ZNAM, "On" )
-	field( ONAM, "Off" )
+	field(OUT, "$(P)$(R)PCF8574:60:REGISTER.B5 PP" )
+	field(ZNAM, "On" )
+	field(ONAM, "Off" )
+	field(VAL,"1")
 }
 
 ############
@@ -281,6 +298,7 @@ record(bo, "$(P)$(R)Clean-TorContactor" ) {
 	field( OUT, "$(P)$(R)PCF8574:60:REGISTER.B7 PP" )
 	field( ZNAM, "On" )
 	field( ONAM, "Off" )
+	field(VAL,"1")
 }
 
 ###############
@@ -298,6 +316,7 @@ record(bo, "$(P)$(R)Clean-TorPneuBreaker" ) {
 	field( OUT, "$(P)$(R)PCF8574:61:REGISTER.B0 PP" )
 	field( ZNAM, "On" )
 	field( ONAM, "Off" )
+	field(VAL,"1")
 }
 
 record(bo, "$(P)$(R)Shot-TorPSDisable" ) {
@@ -306,6 +325,7 @@ record(bo, "$(P)$(R)Shot-TorPSDisable" ) {
 	field( OUT, "$(P)$(R)PCF8574:61:REGISTER.B1 PP" )
 	field( ZNAM, "Off" )
 	field( ONAM, "On" )
+	field(VAL,"1")
 }
 
 record(bo, "$(P)$(R)Shot-TorPSTrigger" ) {
@@ -315,6 +335,7 @@ record(bo, "$(P)$(R)Shot-TorPSTrigger" ) {
 	field( ONAM, "Pulse" )
 	field( HIGH, "2.5")
     	field( FLNK, "$(P)$(R)Shot-TorPSTriggerInv" )
+	field(VAL,"0")
 #	field( FLNK, "$(P)$(R)ToroidalShotTriggerOnOffInv" )
 }
 record(calcout, "$(P)$(R)Shot-TorPSTriggerInv" ) {
@@ -333,9 +354,10 @@ record(calcout, "$(P)$(R)Shot-TorPSTriggerInv" ) {
 record(bo, "$(P)$(R)CapBank-Charge" ) {
 ##   field(DESC," Contactor 220V do circuito de carga do banco de condensadores p/ SHOT (ELCO) ")
 #record(bo, "$(P)$(R)CapBankChargeOnOff" ) {
-	field( OUT, "$(P)$(R)PCF8574:61:REGISTER.B3 PP" )
-	field( ZNAM, "On" )
-	field( ONAM, "Off" )
+	field(OUT, "$(P)$(R)PCF8574:61:REGISTER.B3 PP" )
+	field(ZNAM, "On" )
+	field(ONAM, "Off" )
+	field(VAL,"1")
 }
 
 ########################################
@@ -344,9 +366,10 @@ record(bo, "$(P)$(R)CapBank-Charge" ) {
 record(bo, "$(P)$(R)Clean-PrimContactor" ) {
 #   field(DESC," Contactor 220V do para o primário das descargas de limpeza ")
 #   record(bo, "$(P)$(R)PrimaryCleanContactorOnOff" ) {
-	field( OUT,  "$(P)$(R)PCF8574:61:REGISTER.B4 PP MS" )
-	field( ZNAM, "On" )
-	field( ONAM, "Off" )
+	field(OUT,  "$(P)$(R)PCF8574:61:REGISTER.B4 PP MS" )
+	field(ZNAM, "On" )
+	field(ONAM, "Off" )
+	field(VAL,"1")
 }
 
 ####################################
@@ -358,6 +381,7 @@ record(bo, "$(P)$(R)Clean-PrimPneuBreaker"){
 	field( OUT, "$(P)$(R)PCF8574:61:REGISTER.B5 PP" )
 	field( ZNAM, "On")
 	field( ONAM, "Off")
+	field(VAL,"1")
 }
 
 ##################################
@@ -369,34 +393,38 @@ record(bo, "$(P)$(R)GasIS-Valves" ) {
 	field( OUT, "$(P)$(R)PCF8574:61:REGISTER.B6 PP" )
 	field( ZNAM, "On" )
 	field( ONAM, "Off" )
+	field(VAL,"1")
 }
 
 ##########################################
 #       CAP BANK DISCHARGE ON/OFF        #
 ##########################################
 record(bo, "$(P)$(R)CapBank-Discharge" ) {
-   field(DESC," Liga o circuito de descarga do ELCO ")
+   	field(DESC," Liga o circuito de descarga do ELCO ")
 #   record(bo, "$(P)$(R)CapBankDischargeOnOff" ) {
-	field( OUT, "$(P)$(R)PCF8574:61:REGISTER.B7 PP" )
-	field( ZNAM, "On" )
-	field( ONAM, "Off" )
+	field(OUT, "$(P)$(R)PCF8574:61:REGISTER.B7 PP" )
+	field(ZNAM, "On" )
+	field(ONAM, "Off" )
+	field(VAL,"1")
 }
 
 #########################
 ###Pressure Conditions###
 #########################
-record(ao,"$(P)$(R)Pressure_PrimaryCondition"){
-	field(VAL,"5.0e-3")
-	field(PREC,"3")
-	field(EGU,"mBar")
-}
-record(ao,"$(P)$(R)Pressure_Primary2Condition"){
-	field(VAL,"5.0e-3")
-	field(PREC,"3")
-	field(EGU,"mBar")
-}
+#record(ao,"$(P)$(R)Pressure_PrimaryCondition"){
+#	field(VAL,"5.0e-3")
+#	field(PREC,"3")
+#	field(EGU,"mBar")
+#}
+#record(ao,"$(P)$(R)Pressure_Primary2Condition"){
+#	field(VAL,"5.0e-3")
+#	field(PREC,"3")
+#	field(EGU,"mBar")
+#}
 
-record(ai,"$(P)$(R)Bypass_Condition"){
+record(bo,"$(P)$(R)Primary-PressureCondition"){
+	field(ZNAM, "OFF" )
+	field(ONAM, "ON" )
 	field(VAL,"0")
 }
 

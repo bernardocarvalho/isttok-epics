@@ -1,7 +1,7 @@
 #
 # Project       : ISTTOK slow Control
 #
-# File          : $Id: ISTTOKcontrol.db 4709 2013-05-03 13:44:29Z bernardo $
+# File          : 
 # Description   : Records for ISTTOK Control 
 #
 ##
@@ -10,10 +10,6 @@
 # Copyright (c) : (IPFN-IST)
 # Created 3-Mar-2013
 #
-# SVN keywords
-# $Date: 2013-05-03 14:44:29 +0100 (Fri, 03 May 2013) $
-# $Revision: 4709 $
-# $URL: http://metis.ipfn.ist.utl.pt/svn/cdaq/ISTTOK/Software/EPICS/ISTTOKcontrol/trunk/ISTTOKApp/Db/ISTTOKcontrol.db $
 ##
 
 record(mbbi, "$(P)$(R)OPSTATE") {
@@ -33,6 +29,24 @@ record(mbbi, "$(P)$(R)OPSTATE") {
 	field(FVST, "Stopping")
 	field(SXST, "Emergency")
 	field(VAL, "0")
+}
+record(mbbo, "$(P)$(R)LASTOPSTATE") {
+	field(DESC, "Pulse Sequence Last Saved State")
+	field(ZRVL, "0")
+	field(ONVL, "1")
+	field(TWVL, "2")
+	field(THVL, "3")
+	field(FRVL, "4")
+	field(FVVL, "5")
+	field(SXVL, "6")
+	field(ZRST, "Stopped")
+	field(ONST, "Starting")
+	field(TWST, "Process")
+	field(THST, "Clean")
+	field(FRST, "WaitShot")
+	field(FVST, "Stopping")
+	field(SXST, "Emergency")
+#	field(VAL, "0")
 }
 
 record(calc, "$(P)$(R)OPCALCSTATE") {

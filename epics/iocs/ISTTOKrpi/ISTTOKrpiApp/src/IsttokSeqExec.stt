@@ -79,6 +79,10 @@ short IsttokOPSTATE;
 assign IsttokOPSTATE to "ISTTOK:central:OPSTATE";
 monitor IsttokOPSTATE;
  
+short IsttokLastOPSTATE;
+assign IsttokLastOPSTATE to "ISTTOK:central:LASTOPSTATE";
+monitor IsttokLastOPSTATE;
+ 
 short IsttokOPREQ;
 assign IsttokOPREQ to "ISTTOK:central:OPREQ";
 monitor IsttokOPREQ;
@@ -101,7 +105,7 @@ monitor IsttokSTOPPINGSTATE;
  
 short IsttokCLEANINGSTATE;
 assign IsttokCLEANINGSTATE to "ISTTOK:central:CLEANINGSTATE";
-monitor IsttokCLEANINGSTATE;
+/* monitor IsttokCLEANINGSTATE;*/
  
 short IsttokCLEANINGMANMODE;
 assign IsttokCLEANINGMANMODE to "ISTTOK:central:CLEANINGMANMODE";
@@ -109,43 +113,43 @@ monitor IsttokCLEANINGMANMODE;
 
 short IsttokWSHOTINGSTATE;
 assign IsttokWSHOTINGSTATE to "ISTTOK:central:WSHOTINGSTATE";
-monitor IsttokWSHOTINGSTATE;
+/* monitor IsttokWSHOTINGSTATE; */
  
 short IsttokRPump1_Motor;
 assign IsttokRPump1_Motor to "ISTTOK:central:RPump1-Motor";
-monitor IsttokRPump1_Motor;
+/* monitor IsttokRPump1_Motor; */
  
 short IsttokRPump1_Valve;
 assign IsttokRPump1_Valve to "ISTTOK:central:RPump1-Valve";
-monitor IsttokRPump1_Valve;
+/*monitor IsttokRPump1_Valve;*/
  
 short IsttokRPump2_Motor;
 assign IsttokRPump2_Motor to "ISTTOK:central:RPump2-Motor";
-monitor IsttokRPump2_Motor;
+/* monitor IsttokRPump2_Motor; */
  
 short IsttokRPump2_Valve;
 assign IsttokRPump2_Valve to "ISTTOK:central:RPump2-Valve";
-monitor IsttokRPump2_Valve;
+/* monitor IsttokRPump2_Valve; */
  
 short IsttokTMPump1_ControllerOff;
 assign IsttokTMPump1_ControllerOff to "ISTTOK:central:TMPump1-ControllerOff";
-monitor IsttokTMPump1_ControllerOff;
+/* monitor IsttokTMPump1_ControllerOff; */
  
 short IsttokTMPump1_ControllerOn;
 assign IsttokTMPump1_ControllerOn to "ISTTOK:central:TMPump1-ControllerOn";
-monitor IsttokTMPump1_ControllerOn;
+/* monitor IsttokTMPump1_ControllerOn; */
  
 short IsttokTMPump1_MotorOff;
 assign IsttokTMPump1_MotorOff to "ISTTOK:central:TMPump1-MotorOff";
-monitor IsttokTMPump1_MotorOff;
+/* monitor IsttokTMPump1_MotorOff; */
  
 short IsttokTMPump1_MotorOn;
 assign IsttokTMPump1_MotorOn to "ISTTOK:central:TMPump1-MotorOn";
-monitor IsttokTMPump1_MotorOn;
+/* monitor IsttokTMPump1_MotorOn; */
  
 short IsttokTMPump2_Motor;
 assign IsttokTMPump2_Motor to "ISTTOK:central:TMPump2-Motor";
-monitor IsttokTMPump2_Motor;
+/* monitor IsttokTMPump2_Motor; */
  
 short IsttokTMPump1_NormalOperation;
 assign IsttokTMPump1_NormalOperation to "ISTTOK:central:TMPump1-NormalOperation";
@@ -177,49 +181,50 @@ float IsttokRPump2_Pressure;
 assign IsttokRPump2_Pressure to "ISTTOK:central:RPump2-Pressure";
 monitor IsttokRPump2_Pressure;
  
-float IsttokRPump1_PressureLowLimit;
+/* float IsttokRPump1_PressureLowLimit;
 assign IsttokRPump1_PressureLowLimit to "ISTTOK:central:RPump1-PressureLowLimit";
 monitor IsttokRPump1_PressureLowLimit;
  
 float IsttokRPump2_PressureLowLimit;
 assign IsttokRPump2_PressureLowLimit to "ISTTOK:central:RPump2-PressureLowLimit";
 monitor IsttokRPump2_PressureLowLimit;
- 
+*/
+
 short IsttokPrimary_PressureCondition;
 assign IsttokPrimary_PressureCondition to "ISTTOK:central:Primary-PressureCondition";
 monitor IsttokPrimary_PressureCondition;
  
 short IsttokShotBuzzer;
 assign IsttokShotBuzzer to "ISTTOK:central:Buzzer";
-monitor IsttokShotBuzzer;
+/* monitor IsttokShotBuzzer; */
  
 short IsttokShotLab_WarningLight;
 assign IsttokShotLab_WarningLight to "ISTTOK:central:Lab-WarningLight";
-monitor IsttokShotLab_WarningLight;
+/* monitor IsttokShotLab_WarningLight; */
  
 short IsttokShotGasIS_Valves;
 assign IsttokShotGasIS_Valves to "ISTTOK:central:GasIS-Valves";
-monitor IsttokShotGasIS_Valves;
+/* monitor IsttokShotGasIS_Valves; */
  
 short IsttokShotVVessel_Filament;
 assign IsttokShotVVessel_Filament to "ISTTOK:central:VVessel-Filament";
-monitor IsttokShotVVessel_Filament;
+/* monitor IsttokShotVVessel_Filament; */
  
 short IsttokShotCapBank_Charge;
 assign IsttokShotCapBank_Charge to "ISTTOK:central:CapBank-Charge";
-monitor IsttokShotCapBank_Charge;
+/* monitor IsttokShotCapBank_Charge; */
  
 short IsttokShotCapBank_Discharge;
 assign IsttokShotCapBank_Discharge to "ISTTOK:central:CapBank-Discharge";
-monitor IsttokShotCapBank_Discharge;
+/* monitor IsttokShotCapBank_Discharge; */
  
 short IsttokShotClean_TorContactor;
 assign IsttokShotClean_TorContactor to "ISTTOK:central:Clean-TorContactor";
-monitor IsttokShotClean_TorContactor;
+/* monitor IsttokShotClean_TorContactor; */
  
 short IsttokShotClean_TorPneuBreaker;
 assign IsttokShotClean_TorPneuBreaker to "ISTTOK:central:Clean-TorPneuBreaker";
-monitor IsttokShotClean_TorPneuBreaker;
+/* monitor IsttokShotClean_TorPneuBreaker; */
  
 short IsttokShotShot_TorPSTrigger;
 assign IsttokShotShot_TorPSTrigger to "ISTTOK:central:Shot-TorPSTrigger";
@@ -227,23 +232,23 @@ monitor IsttokShotShot_TorPSTrigger;
  
 short IsttokShotShot_TorPSDisable;
 assign IsttokShotShot_TorPSDisable to "ISTTOK:central:Shot-TorPSDisable";
-monitor IsttokShotShot_TorPSDisable;
+/* monitor IsttokShotShot_TorPSDisable; */
  
 short IsttokShotClean_PrimContactor;
 assign IsttokShotClean_PrimContactor to "ISTTOK:central:Clean-PrimContactor";
-monitor IsttokShotClean_PrimContactor;
+/* monitor IsttokShotClean_PrimContactor; */
  
 short IsttokShotClean_PrimPneuBreaker;
 assign IsttokShotClean_PrimPneuBreaker to "ISTTOK:central:Clean-PrimPneuBreaker";
-monitor IsttokShotClean_PrimPneuBreaker;
+/* monitor IsttokShotClean_PrimPneuBreaker; */
  
 short IsttokShotCountdown;
 assign IsttokShotCountdown to "ISTTOK:central:COUNTDOWN";
-monitor IsttokShotCountdown;
+/* monitor IsttokShotCountdown; */
  
-string IsttokShotCountdownStart;
-assign IsttokShotCountdownStart to "ISTTOK:central:COUNTDOWN.SCAN";
-monitor IsttokShotCountdownStart;
+string IsttokShotCountdownScan;
+assign IsttokShotCountdownScan to "ISTTOK:central:COUNTDOWN.SCAN";
+/* monitor IsttokShotCountdownStart; */
  
 short IsttokEmergencyButton;
 assign IsttokEmergencyButton to "ISTTOK:central:EmergencyButton";
@@ -331,8 +336,8 @@ ss PulseSequence {
             IsttokTMPump1_MotorOn = PCF_RELAY_ON;
             pvPut(IsttokTMPump1_MotorOn);
  
-            // CHECK PRIMARY PRESSURES AND PREVENT STARTING IF REQUIRED
-            if( (IsttokRPump1_Pressure >= IsttokRPump1_PressureLowLimit) && (IsttokRPump2_Pressure >= IsttokRPump2_PressureLowLimit) ){
+            // CHECK PRIMARY PRESSURES AND PREVENT STARTING IF REQUIRED TODO: Unfold ifs
+            if( (pvStatus(IsttokRPump1_Pressure) != pvStatOK) && (pvStatus(IsttokRPump1_Pressure) != pvStatOK)) {
                 IsttokOPREQ = STOP;
                 pvPut(IsttokOPREQ);
             }
@@ -831,25 +836,26 @@ ss StartingSequence {
             IsttokSTARTINGSTATE = STRST_NonStarting;
             pvPut(IsttokSTARTINGSTATE);
         } state NonStarting
-        when (((IsttokRPump1_Pressure < IsttokRPump1_PressureLowLimit) && (IsttokRPump2_Pressure < IsttokRPump2_PressureLowLimit)) ) {
+        when ( (pvStatus(IsttokRPump1_Pressure) == pvStatOK) && (pvStatus(IsttokRPump1_Pressure) == pvStatOK)) {
+/*  TODO unfold when      when (((IsttokRPump1_Pressure < IsttokRPump1_PressureLowLimit) && (IsttokRPump2_Pressure < IsttokRPump2_PressureLowLimit)) ) { */
  
             printf("Primary1 Pressure=%f\n",IsttokRPump1_Pressure);
             printf("Primary2 Pressure=%f\n",IsttokRPump2_Pressure);
  
-            if(IsttokRPump1_Pressure < IsttokRPump1_PressureLowLimit){
+//            if(IsttokRPump1_Pressure < IsttokRPump1_PressureLowLimit){
                 strcpy(msg, "TMP1 MotorOn ON" );
                 pvPut(msg);
                 errlogSevPrintf(NO_ALARM, "%s\n",msg);
                 IsttokTMPump1_MotorOn = ON;
                 pvPut(IsttokTMPump1_MotorOn);
-            }
-            if(IsttokRPump2_Pressure < IsttokRPump2_PressureLowLimit){
+//            }
+//            if(IsttokRPump2_Pressure < IsttokRPump2_PressureLowLimit){
                 strcpy(msg, "TMP2 MotorOnOff ON" );
                 pvPut(msg);
                 errlogSevPrintf(NO_ALARM, "%s\n",msg);
                 IsttokTMPump2_Motor = ON;
                 pvPut(IsttokTMPump2_Motor);
-            }
+//            }
  
             if(IsttokTMPump1_NormalOperation == PCF_INPUT_ON){
             sprintf(tmp1_stat, "ON");
@@ -1129,8 +1135,8 @@ ss ShotingSequence {
             errlogSevPrintf(NO_ALARM, "%s\n",msg);
             IsttokWSHOTINGSTATE = WSHOT_NonShoting;
             pvPut(IsttokWSHOTINGSTATE);
-            strcpy(IsttokShotCountdownStart, "Passive");
-            pvPut(IsttokShotCountdownStart);
+            strcpy(IsttokShotCountdownScan, "Passive");
+            pvPut(IsttokShotCountdownScan);
             IsttokShotCountdown = 160;
             pvPut(IsttokShotCountdown);
         }
@@ -1139,8 +1145,8 @@ ss ShotingSequence {
             pvPut(msg);
             IsttokShotCountdown = -70;
             pvPut(IsttokShotCountdown);
-            strcpy(IsttokShotCountdownStart, "1 second");
-            pvPut(IsttokShotCountdownStart);
+            strcpy(IsttokShotCountdownScan, "1 second");
+            pvPut(IsttokShotCountdownScan);
         } state Shoting0
     }
     state Shoting0 {
@@ -1382,8 +1388,8 @@ ss ShotingSequence {
             strcpy(msg, "Terminated");
             pvPut(msg);
             errlogSevPrintf(NO_ALARM, "%s\n", msg);
-            strcpy(IsttokShotCountdownStart, "Passive");
-            pvPut(IsttokShotCountdownStart);
+            strcpy(IsttokShotCountdownScan, "Passive");
+            pvPut(IsttokShotCountdownScan);
             IsttokShotCountdown = 160;
             pvPut(IsttokShotCountdown);
         } state NonShoting
