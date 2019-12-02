@@ -112,7 +112,6 @@ record(bi , "$(P)$(R)TMPump1-Acceleration") {
 
 record(bi , "$(P)$(R)TMPump1-NormalOperation" ) {
    field(DESC," TMP1 – Operação Normal ")
-#record(bi , "$(P)$(R)Turbo_NormalOperation" ) {
 	field( INP, "$(P)$(R)PCF8574:56:REGISTER:READ.B7 NPP NMS")
 	field( ZNAM, "ON" )
 	field(ONAM, "OFF" )
@@ -132,13 +131,13 @@ record(fanout, "$(P)$(R)PCF8574:57:REGISTER:READ:FNOUT"){
 	field(LNK1, "$(P)$(R)TMPump2-Emergency")
 	field(LNK2, "$(P)$(R)TMPump2-Acceleration")
 	field(LNK3, "$(P)$(R)TTSystem-tzero")
+	field(LNK4, "$(P)$(R)Emergency-PhysButton")
 }
 record(bi , "$(P)$(R)TMPump2-Emergency") {
    	field(DESC," TMP2 – Falha ")
 	field( INP, "$(P)$(R)PCF8574:57:REGISTER:READ.B0 NPP NMS")
 	field( ZNAM, "ON" )
 	field( ONAM, "OFF" )
-#	field(FLNK, "$(P)$(R)Turbo2_Acceleration")
 }
 
 record(bi , "$(P)$(R)TMPump2-Acceleration") {
@@ -191,11 +190,25 @@ record(calcout, "$(P)$(R)BuzzerInv" ) {
 ##############################
 #       EMERGENCY MODE       #
 ##############################
-record(bo, "$(P)$(R)EmergencyButton" ) {
-   field(DESC,"Soft Emergency Button")
-	field(OUT, "$(P)$(R)PCF8574:57:REGISTER.B4 PP" )
-	field(ZNAM, "On" )
-	field(ONAM, "Off")
+record(bi, "$(P)$(R)Emergency-PhysButton" ) {
+   field(DESC,"External Physical Emergency Button")
+   	field( INP, "$(P)$(R)PCF8574:57:REGISTER:READ.B4 NPP NMS")
+#	field(OUT, "$(P)$(R)PCF8574:57:REGISTER.B4 PP" )
+	field(ZNAM, "ON")
+	field(ONAM, "OFF" )
+	field(FLNK, "$(P)$(R)Emergency" )
+}
+record(bo, "$(P)$(R)Emergency-UserButton" ) {
+   field(DESC,"Soft User Emergency Button")
+	field(ZNAM, "OFF" )
+	field(ONAM, "ON")
+	field(FLNK, "$(P)$(R)Emergency" )
+}
+record(calc, "$(P)$(R)Emergency" ) {
+   	field(DESC,"Emergency State")
+	field(INPA,"$(P)$(R)Emergency-PhysButton.RVAL NPP" ) 
+	field(INPB,"$(P)$(R)Emergency-UserButton.RVAL NPP" ) 
+	field(CALC, "A || B" ) # ! Not
 }
 
 ############
@@ -407,20 +420,6 @@ record(bo, "$(P)$(R)CapBank-Discharge" ) {
 	field(ONAM, "Off" )
 	field(VAL,"1")
 }
-
-#########################
-###Pressure Conditions###
-#########################
-#record(ao,"$(P)$(R)Pressure_PrimaryCondition"){
-#	field(VAL,"5.0e-3")
-#	field(PREC,"3")
-#	field(EGU,"mBar")
-#}
-#record(ao,"$(P)$(R)Pressure_Primary2Condition"){
-#	field(VAL,"5.0e-3")
-#	field(PREC,"3")
-#	field(EGU,"mBar")
-#}
 
 record(bo,"$(P)$(R)Primary-PressureCondition"){
 	field(ZNAM, "OFF" )

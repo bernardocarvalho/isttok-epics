@@ -21,7 +21,7 @@ drvAsynI2CConfigure( "I2C", "/dev/i2c-1", 1 )
 dbLoadRecords("db/ISTTOKstates.db","P=ISTTOK:,R=central:")
 dbLoadRecords("db/ISTTOKpcf8574.db","P=ISTTOK:,R=central:")
 dbLoadRecords("db/ISTTOKpcf8591.db","P=ISTTOK:,R=central:")
-dbLoadRecords("db/ISTTOKvacuumPumps.db","P=ISTTOK:,R=central:")
+dbLoadRecords("db/ISTTOKmachineControl.db","P=ISTTOK:,R=central:")
 
 ## Load Serial drivers
 drvAsynSerialPortConfigure("RS0","/dev/ttyUSB0")
@@ -43,12 +43,15 @@ dbLoadRecords("db/ISTTOKpfeiffer.db","P=ISTTOK:,R=central:,bus=RS0")
 ## Run this to trace the stages of iocInit
 #traceIocInit
 
-save_restoreSet_status_prefix("$(IOC):")
+#save_restoreSet_status_prefix("$(IOC):")
+save_restoreSet_status_prefix("xxx:")
 set_requestfile_path("$(SAVE_DIR)")
 set_savefile_path("$(SAVE_DIR)/save")
 save_restoreSet_NumSeqFiles(3)
 save_restoreSet_SeqPeriodInSeconds(600)
+set_pass2_restoreFile("$(IOC).sav")
 set_pass1_restoreFile("$(IOC).sav")
+dbLoadRecords("$(AUTOSAVE)/asApp/Db/save_restoreStatus.db", "P=xxx:")
 
 cd "${TOP}/iocBoot/${IOC}"
 

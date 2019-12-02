@@ -6,16 +6,14 @@ ISTTOK:central:TMPump1-ManualValve.VAL
 ISTTOK:central:LASTOPSTATE.VAL
 ISTTOK:central:OPREQ
 ISTTOK:central:PROCESS-MODE.VAL
-ISTTOK:central:PROCESS-REQ.VAL
+#ISTTOK:central:PROCESS-REQ.VAL
 #ISTTOK:central:STARTINGSTATE.VAL
 #ISTTOK:central:STOPPINGSTATE.VAL
 #ISTTOK:central:CLEANINGSTATE.VAL
 ISTTOK:central:CLEANINGMANMODE.VAL
 #ISTTOK:central:WSHOTINGSTATE.VAL
 
-#ISTTOK:central:Pressure_PrimaryCondition.VAL
-#ISTTOK:central:Pressure_Primary2Condition.VAL
-ISTTOK:central:EmergencyButton.VAL
+ISTTOK:central:Emergency-UserButton.VAL
 ISTTOK:central:RPump1-Pressure.HIGH
 ISTTOK:central:RPump1-Pressure.HIHI
 ISTTOK:central:RPump2-Pressure.HIGH

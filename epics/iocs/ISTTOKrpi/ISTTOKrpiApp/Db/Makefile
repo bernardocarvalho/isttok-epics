@@ -5,7 +5,7 @@ include $(TOP)/configure/CONFIG
 
 # Install databases, templates & substitutions like this
 DB += ISTTOKstates.db
-DB += ISTTOKvacuumPumps.db
+DB += ISTTOKmachineControl.db
 DB += ISTTOKpcf8574.db
 DB += ISTTOKpcf8591.db
 DB += ISTTOKpfeiffer.db

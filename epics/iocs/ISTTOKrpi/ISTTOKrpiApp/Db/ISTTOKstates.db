@@ -31,6 +31,7 @@ record(mbbi, "$(P)$(R)OPSTATE") {
 	field(VAL, "0")
 }
 record(mbbo, "$(P)$(R)LASTOPSTATE") {
+	info(autosaveFields, "VAL")
 	field(DESC, "Pulse Sequence Last Saved State")
 	field(ZRVL, "0")
 	field(ONVL, "1")
@@ -98,15 +99,18 @@ record(ai, "$(P)$(R)Temperature_0") {
 }
 
 record(bo, "$(P)$(R)OPREQ") {
+	info(autosaveFields, "VAL")
 	field(DESC, "Pulse Sequence Start/Stop")
-	field(VAL, "0")
+#	field(VAL, "0")
 	field(ZNAM, "STOP")
 	field(ONAM, "START")
 }
 
 record(bo, "$(P)$(R)CLEANINGMANMODE") {
+	info(autosaveFields, "VAL")
 	field(DESC, "Cleaning Manual/Auto")
-	field(VAL, "1")
+	info(autosaveFields, "VAL")
+#	field(VAL, "1")
 	field(ZNAM, "M")
 	field(ONAM, "A")
 }
