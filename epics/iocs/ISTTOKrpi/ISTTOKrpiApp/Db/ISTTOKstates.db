@@ -64,12 +64,12 @@ record(calc, "$(P)$(R)STARTCALCSTATE") {
 	field(INPA,"$(P)$(R)STARTINGSTATE.VAL PP NMS")
 }
 
-record(calc, "$(P)$(R)STOPCALCSTATE") {
-	field(DESC, "Stop Calculated State")
-	field(CALC,"2^A")
-	field(SCAN,"1 second")
-	field(INPA,"$(P)$(R)STOPPINGSTATE.VAL PP NMS")
-}
+#record(calc, "$(P)$(R)STOPCALCSTATE") {
+#	field(DESC, "Stop Calculated State")
+#	field(CALC,"2^A")
+#	field(SCAN,"1 second")
+#	field(INPA,"$(P)$(R)STOPPINGSTATE.VAL PP NMS")
+#}
 
 record(calc, "$(P)$(R)CLEANCALCSTATE") {
 	field(DESC, "Clean Automatic Calculated State")
@@ -195,22 +195,22 @@ record(mbbi, "$(P)$(R)STARTINGSTATE") {
 	field(VAL, "0")
 }
 
-record(mbbi, "$(P)$(R)STOPPINGSTATE") {
-	field(DESC, "Stopping State Sequence")
-	field(ZRVL, "0")
-	field(ONVL, "1")
-	field(TWVL, "2")
-	field(THVL, "3")
-	field(FRVL, "4")
-	field(FVVL, "5")
-	field(ZRST, "NonStopped")
-	field(ONST, "Stopping1")
-	field(TWST, "Stopping2")
-	field(THST, "Stopping3")
-	field(FRST, "Stopping4")
-	field(FVST, "Stopping5")
-	field(VAL, "0")
-}
+#record(mbbi, "$(P)$(R)STOPPINGSTATE") {
+#	field(DESC, "Stopping State Sequence")
+#	field(ZRVL, "0")
+#	field(ONVL, "1")
+#	field(TWVL, "2")
+#	field(THVL, "3")
+#	field(FRVL, "4")
+#	field(FVVL, "5")
+#	field(ZRST, "NonStopped")
+#	field(ONST, "Stopping1")
+#	field(TWST, "Stopping2")
+#	field(THST, "Stopping3")
+#	field(FRST, "Stopping4")
+#	field(FVST, "Stopping5")
+#	field(VAL, "0")
+#}
 
 record(mbbi, "$(P)$(R)CLEANINGSTATE") {
 	field(DESC, "Cleaning State Sequence")

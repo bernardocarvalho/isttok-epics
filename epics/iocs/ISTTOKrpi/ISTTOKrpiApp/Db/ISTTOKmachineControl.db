@@ -151,9 +151,8 @@ record(bi , "$(P)$(R)TMPump2-Acceleration") {
 ####################################
 record(bi , "$(P)$(R)TTSystem-tzero" ) {
 	field(DESC,"Trigger control 60s before shot")
-#   record(bi , "$(P)$(R)TimingTriggerSignal" ) {
-	field(INP, "$(P)$(R)PCF8574:57:REGISTER:READ.B7")
-	field(SCAN, "1 second" )
+#	field(INP, "$(P)$(R)PCF8574:57:REGISTER:READ.B7")
+	field(VAL,"1")
 	field(ZNAM, "OFF" )
 	field(ONAM, "ON" )
 }
@@ -231,9 +230,10 @@ record( bo, "$(P)$(R)RPump1-Motor" ) {
 #   field(DESC," Liga a alimentação da bomba rotatória 1 ")
 #record( bo, "$(P)$(R)RotatoryPump" ) {
 	field(OUT, "$(P)$(R)PCF8574:60:REGISTER.B0 PP" )
-	field(ZNAM, "On" )
-	field(ONAM, "Off" )
+	field(ZNAM, "Off" )
+	field(ONAM, "On" )
 	field(VAL,"1")
+   	field(ZSV,"MINOR")
 }
 
 #############################
@@ -242,9 +242,9 @@ record( bo, "$(P)$(R)RPump1-Motor" ) {
 record( bo, "$(P)$(R)RPump1-Valve" ) {
 	field(DESC,"Abre a valvula da bomba rotatoria 1 ")
 #   record( bo, "$(P)$(R)RotatoryValve" ) {
-	field( OUT, "$(P)$(R)PCF8574:60:REGISTER.B1 PP" )
-	field( ZNAM, "Open" )
-	field( ONAM, "Closed" )
+	field(OUT, "$(P)$(R)PCF8574:60:REGISTER.B1 PP" )
+	field(ZNAM, "Closed" )
+	field(ONAM, "Open" )
 	field(VAL,"1")
 }
 
@@ -253,11 +253,11 @@ record( bo, "$(P)$(R)RPump1-Valve" ) {
 #############################
 record( bo, "$(P)$(R)RPump2-Motor" ) {
 	field(DESC,"Power On Rotatory Pump 2")
-#record( bo, "$(P)$(R)RotatoryPump2" ) {
-	field( OUT, "$(P)$(R)PCF8574:60:REGISTER.B2 PP" )
-	field( ZNAM, "On" )
-	field( ONAM, "Off" )
+	field(OUT, "$(P)$(R)PCF8574:60:REGISTER.B2 PP" )
+	field(ZNAM, "Off" )
+	field(ONAM, "On" )
 	field(VAL,"1")
+   	field(ZSV,"MINOR")
 }
 
 #############################
@@ -265,10 +265,9 @@ record( bo, "$(P)$(R)RPump2-Motor" ) {
 #############################
 record( bo, "$(P)$(R)RPump2-Valve" ) {
    	field(DESC," Abre a valvula da bomba rotatoria 2 ")
-#record( bo, "$(P)$(R)RotatoryValve2" ) {
 	field(OUT, "$(P)$(R)PCF8574:60:REGISTER.B3 PP" )
-	field(ZNAM, "Open" )
-	field(ONAM, "Closed" )
+	field(ZNAM, "Closed" )
+	field(ONAM, "Open" )
 	field(VAL,"1")
 }
 
