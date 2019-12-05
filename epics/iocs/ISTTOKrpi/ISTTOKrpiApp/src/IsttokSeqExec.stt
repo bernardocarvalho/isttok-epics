@@ -882,15 +882,10 @@ ss CleaningSequence{
 ss ShotSequence {
     state NonShoting {
         entry {
-            strcpy(msg, "Waiting for Trigger...");
-            pvPut(msg);
-            errlogSevPrintf(NO_ALARM, "%s\n",msg);
             IsttokWSHOTINGSTATE = WSHTST_NonShoting;
             pvPut(IsttokWSHOTINGSTATE);
             strcpy(IsttokShotCountdownScan, "Passive");
             pvPut(IsttokShotCountdownScan);
-//            IsttokShotCountdown = 160;
-//            pvPut(IsttokShotCountdown);
         }
         when( IsttokOPSTATE == POS_WaitShot ){
             strcpy(msg, "Waiting for Trigger...");
@@ -911,6 +906,8 @@ ss ShotSequence {
             errlogSevPrintf(NO_ALARM, "%s\n",msg);
             strcpy(IsttokShotCountdownScan, "Passive");
             pvPut(IsttokShotCountdownScan);
+            IsttokProcReq = STOP;
+            pvPut(IsttokProcReq);
             IsttokWSHOTINGSTATE = WSHTST_NonShoting;
             pvPut(IsttokWSHOTINGSTATE);
             IsttokOPSTATE = POS_Process;
@@ -921,8 +918,6 @@ ss ShotSequence {
             pvPut(msg);
             IsttokShotCountdown = -70;
             pvPut(IsttokShotCountdown);
-//            strcpy(IsttokShotCountdownScan, "1 second");
-//            pvPut(IsttokShotCountdownScan);
             IsttokWSHOTINGSTATE = WSHTST_Shoting2;
             pvPut(IsttokWSHOTINGSTATE);
         } state Shoting2

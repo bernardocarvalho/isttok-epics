@@ -67,4 +67,3 @@ create_monitor_set("$(IOC).req", 30)
 
 ## Start any sequence programs
 seq IsttokSeqExec
-#, "unit=ISTTOK"
