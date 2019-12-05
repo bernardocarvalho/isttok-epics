@@ -151,8 +151,8 @@ record(bi , "$(P)$(R)TMPump2-Acceleration") {
 ####################################
 record(bi , "$(P)$(R)TTSystem-tzero" ) {
 	field(DESC,"Trigger control 60s before shot")
-#	field(INP, "$(P)$(R)PCF8574:57:REGISTER:READ.B7")
-	field(VAL,"1")
+	field(INP, "$(P)$(R)PCF8574:57:REGISTER:READ.B7")
+#	field(VAL,"1")
 	field(ZNAM, "OFF" )
 	field(ONAM, "ON" )
 }
@@ -306,7 +306,6 @@ record(bo, "$(P)$(R)Lab-WarningLight" ) {
 ##############################
 record(bo, "$(P)$(R)Clean-TorContactor" ) {
 #   field(DESC," Contactor 220V do transformador para a fonte de campo toroidal das descargas de limpeza (500 A) ")
-#   record(bo, "$(P)$(R)ToroidalCleanContactorOnOff" ) {
 	field( OUT, "$(P)$(R)PCF8574:60:REGISTER.B7 PP" )
 	field( ZNAM, "On" )
 	field( ONAM, "Off" )
@@ -324,7 +323,6 @@ record(bo, "$(P)$(R)Clean-TorContactor" ) {
 ############################
 record(bo, "$(P)$(R)Clean-TorPneuBreaker" ) {
 ##   field(DESC," Interruptor de ar comprimido  do transformador para a fonte de campo toroidal das descargas de limpeza (500 A)")
-#record(bo, "$(P)$(R)ToroidalCleanBreakerOnOff" ) {
 	field( OUT, "$(P)$(R)PCF8574:61:REGISTER.B0 PP" )
 	field( ZNAM, "On" )
 	field( ONAM, "Off" )
@@ -333,7 +331,6 @@ record(bo, "$(P)$(R)Clean-TorPneuBreaker" ) {
 
 record(bo, "$(P)$(R)Shot-TorPSDisable" ) {
 #   field(DESC," É desligado na emergência e em qualquer estado que não seja Process ou Wait Shot.")
-#   record(bo, "$(P)$(R)ToroidalShotEnableOnOff" ) {
 	field( OUT, "$(P)$(R)PCF8574:61:REGISTER.B1 PP" )
 	field( ZNAM, "Off" )
 	field( ONAM, "On" )
@@ -342,17 +339,14 @@ record(bo, "$(P)$(R)Shot-TorPSDisable" ) {
 
 record(bo, "$(P)$(R)Shot-TorPSTrigger" ) {
 	field(DESC," Trigger da FRAEP")
-#   record(bo, "$(P)$(R)ToroidalShotTriggerOnOff" ) {
 	field( ZNAM, "Off" )
 	field( ONAM, "Pulse" )
 	field( HIGH, "2.5")
     	field( FLNK, "$(P)$(R)Shot-TorPSTriggerInv" )
 	field(VAL,"0")
-#	field( FLNK, "$(P)$(R)ToroidalShotTriggerOnOffInv" )
 }
 record(calcout, "$(P)$(R)Shot-TorPSTriggerInv" ) {
 #   field(DESC," $(R)")
-#record(calcout, "$(P)$(R)ToroidalShotTriggerOnOffInv" ) {
 	field( INPA, "$(P)$(R)ToroidalShotTriggerOnOff NPP MS" )
 	field( OUT,  "$(P)$(R)PCF8574:61:REGISTER.B2 PP MS" )
 	field( OOPT, "On Change" )

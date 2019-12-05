@@ -195,23 +195,6 @@ record(mbbi, "$(P)$(R)STARTINGSTATE") {
 	field(VAL, "0")
 }
 
-#record(mbbi, "$(P)$(R)STOPPINGSTATE") {
-#	field(DESC, "Stopping State Sequence")
-#	field(ZRVL, "0")
-#	field(ONVL, "1")
-#	field(TWVL, "2")
-#	field(THVL, "3")
-#	field(FRVL, "4")
-#	field(FVVL, "5")
-#	field(ZRST, "NonStopped")
-#	field(ONST, "Stopping1")
-#	field(TWST, "Stopping2")
-#	field(THST, "Stopping3")
-#	field(FRST, "Stopping4")
-#	field(FVST, "Stopping5")
-#	field(VAL, "0")
-#}
-
 record(mbbi, "$(P)$(R)CLEANINGSTATE") {
 	field(DESC, "Cleaning State Sequence")
 	field(ZRVL, "0")
@@ -230,7 +213,7 @@ record(mbbi, "$(P)$(R)CLEANINGSTATE") {
 }
 
 record(mbbi, "$(P)$(R)WSHOTINGSTATE") {
-	field(DESC, "Shooting State Sequence")
+	field(DESC, "Plasma Shot State Sequence")
 	field(ZRVL, "0")
 	field(ONVL, "1")
 	field(TWVL, "2")
@@ -243,8 +226,10 @@ record(mbbi, "$(P)$(R)WSHOTINGSTATE") {
 	field(NIVL, "9")
 	field(TEVL, "10")
 	field(ELVL, "11")
+	field(TLVL, "12")
+	field(TTVL, "13")
 	field(ZRST, "NonShooting")
-	field(ONST, "Shooting1")
+	field(ONST, "ShotWTrig")
 	field(TWST, "Shooting2")
 	field(THST, "Shooting3")
 	field(FRST, "Shooting4")
@@ -255,6 +240,8 @@ record(mbbi, "$(P)$(R)WSHOTINGSTATE") {
 	field(NIST, "Shooting9")
 	field(TEST, "Shooting10")
 	field(ELST, "Shooting11")
+	field(TVST, "Shooting12")
+	field(TTST, "ShotEnd")
 	field(VAL, "0")
 }
 
