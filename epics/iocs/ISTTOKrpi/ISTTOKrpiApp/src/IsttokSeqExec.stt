@@ -53,6 +53,13 @@ short WSHTST_Shoting11 = 11;
 short WSHTST_Shoting12 = 12;
 short WSHTST_ShotEnd = 13;
 
+short  STPST_NonStopping = 0;
+short  STPST_Stopping1 = 1;
+short  STPST_Stopping2 = 2;
+short  STPST_Stopping3 = 3;
+//short  STPST_Stopping4 = 4;
+//short  STPST_Stopping5 = 5;
+
 short POS_Stopped =0;
 short POS_Starting=1;
 short POS_Process =2;
@@ -71,7 +78,8 @@ short NO_ALARM=0;
 short MINOR=1;
 short MAJOR=2;
 short INVALID=3;
- 
+
+/* PV variables  */ 
 short IsttokOPSTATE;
 assign IsttokOPSTATE to "ISTTOK:central:OPSTATE";
 monitor IsttokOPSTATE;
@@ -92,20 +100,24 @@ short IsttokProcReq;
 assign IsttokProcReq  to "ISTTOK:central:PROCESS-REQ";
 monitor IsttokProcReq;
  
-short IsttokSTARTINGSTATE;
-assign IsttokSTARTINGSTATE to "ISTTOK:central:STARTINGSTATE";
-monitor IsttokSTARTINGSTATE;
+short STARTINGSTATE;
+assign STARTINGSTATE to "ISTTOK:central:STARTINGSTATE";
+//monitor STARTINGSTATE;
 
-short IsttokCLEANINGSTATE;
-assign IsttokCLEANINGSTATE to "ISTTOK:central:CLEANINGSTATE";
+short CLEANINGSTATE;
+assign CLEANINGSTATE to "ISTTOK:central:CLEANINGSTATE";
  
-short IsttokCLEANINGMANMODE;
-assign IsttokCLEANINGMANMODE to "ISTTOK:central:CLEANINGMANMODE";
-monitor IsttokCLEANINGMANMODE;
+short CLEANINGMANMODE;
+assign CLEANINGMANMODE to "ISTTOK:central:CLEANINGMANMODE";
+//monitor CLEANINGMANMODE;
 
-short IsttokWSHOTINGSTATE;
-assign IsttokWSHOTINGSTATE to "ISTTOK:central:WSHOTINGSTATE";
+short WSHOTINGSTATE;
+assign WSHOTINGSTATE to "ISTTOK:central:WSHOTINGSTATE";
  
+short IsttokSTOPPINGSTATE;
+assign IsttokSTOPPINGSTATE to "ISTTOK:central:STOPPINGSTATE";
+//monitor IsttokSTOPPINGSTATE;
+
 short IsttokRPump1_Motor;
 assign IsttokRPump1_Motor to "ISTTOK:central:RPump1-Motor";
  
@@ -369,14 +381,14 @@ ss PulseSequence {
             IsttokOPSTATE = POS_Stopping;
             pvPut(IsttokOPSTATE);
         } state Stopping
-        when ((IsttokSTARTINGSTATE == STRST_Starting5) ) {
+        when ((STARTINGSTATE == STRST_Starting5) ) {
             strcpy(msg, "State to Process");
             pvPut(msg);
             errlogSevPrintf(NO_ALARM, "%s\n",msg);
             strcpy(msg, "Toroidal Shot Disable");
             pvPut(msg);
             errlogSevPrintf(NO_ALARM, "%s\n",msg);
-            IsttokShotShot_TorPSDisable = 1;
+            IsttokShotShot_TorPSDisable = PCF_RELAY_OFF;
             pvPut(IsttokShotShot_TorPSDisable);
             /* Pulse state change to Process*/
             IsttokOPSTATE = POS_Process;
@@ -396,7 +408,14 @@ ss PulseSequence {
 	entry{
             IsttokLastOPSTATE = POS_Process;
             pvPut(IsttokLastOPSTATE);
+            IsttokShotShot_TorPSDisable = PCF_RELAY_OFF;
+            pvPut(IsttokShotShot_TorPSDisable);
 	}
+        when ( (pvStatus(IsttokRPump1_Pressure) != pvStatOK) || (pvStatus(IsttokRPump1_Pressure) != pvStatOK)) {
+            /* Pulse state change to Stopping */
+            IsttokOPSTATE = POS_Stopping;
+            pvPut(IsttokOPSTATE);
+        } state Stopping
         when ((IsttokOPREQ==STOP) || (IsttokTMPump1_ManualValve == OFF)) {
             /*Just to be sure */
             IsttokProcReq = STOP;
@@ -405,13 +424,13 @@ ss PulseSequence {
             strcpy(msg, "State to Stopping");
             pvPut(msg);
             errlogSevPrintf(NO_ALARM, "%s\n",msg);
-            pvPut(msg);
-            errlogSevPrintf(NO_ALARM, "%s\n",msg);
-            strcpy(msg, "Toroidal Shot Disable");
-            pvPut(msg);
-            errlogSevPrintf(NO_ALARM, "%s\n",msg);
-            IsttokShotShot_TorPSDisable = PCF_RELAY_ON;
-            pvPut(IsttokShotShot_TorPSDisable);
+    //        pvPut(msg);
+   //         errlogSevPrintf(NO_ALARM, "%s\n",msg);
+  //          strcpy(msg, "Toroidal Shot Disable");
+   //         pvPut(msg);
+    //        errlogSevPrintf(NO_ALARM, "%s\n",msg);
+            //IsttokShotShot_TorPSDisable = PCF_RELAY_OFF;
+            //pvPut(IsttokShotShot_TorPSDisable);
             /* Pulse state change to Stopping */
             IsttokOPSTATE = POS_Stopping;
             pvPut(IsttokOPSTATE);
@@ -420,11 +439,11 @@ ss PulseSequence {
             strcpy(msg, "State to Clean");
             pvPut(msg);
             errlogSevPrintf(NO_ALARM, "%s\n",msg);
-            strcpy(msg, "Toroidal Shot Disable");
-            pvPut(msg);
-            errlogSevPrintf(NO_ALARM, "%s\n",msg);
-            IsttokShotShot_TorPSDisable = PCF_RELAY_ON;
-            pvPut(IsttokShotShot_TorPSDisable);
+ //           strcpy(msg, "Toroidal Shot Disable");
+ //           pvPut(msg);
+ //           errlogSevPrintf(NO_ALARM, "%s\n",msg);
+            //IsttokShotShot_TorPSDisable = PCF_RELAY_OFF;
+            //pvPut(IsttokShotShot_TorPSDisable);
             /* Pulse state change to Clean */
             IsttokOPSTATE = POS_Clean;
             pvPut(IsttokOPSTATE);
@@ -436,7 +455,7 @@ ss PulseSequence {
             strcpy(msg, "Toroidal Shot Enable");
             pvPut(msg);
             errlogSevPrintf(NO_ALARM, "%s\n",msg);
-            IsttokShotShot_TorPSDisable = PCF_RELAY_OFF;
+            IsttokShotShot_TorPSDisable = PCF_RELAY_ON;
             pvPut(IsttokShotShot_TorPSDisable);
             /* Pulse state change to WaitShot */
             IsttokOPSTATE = POS_WaitShot;
@@ -446,11 +465,11 @@ ss PulseSequence {
             strcpy(msg, "Emergency from Process");
             pvPut(msg);
             errlogSevPrintf(NO_ALARM, "%s\n",msg);
-            strcpy(msg, "Toroidal Shot Disable");
-            pvPut(msg);
-            errlogSevPrintf(NO_ALARM, "%s\n",msg);
-            IsttokShotShot_TorPSDisable = PCF_RELAY_ON;
-            pvPut(IsttokShotShot_TorPSDisable);
+//            strcpy(msg, "Toroidal Shot Disable");
+//            pvPut(msg);
+//            errlogSevPrintf(NO_ALARM, "%s\n",msg);
+            //IsttokShotShot_TorPSDisable = PCF_RELAY_OFF;
+            //pvPut(IsttokShotShot_TorPSDisable);
             /* Pulse state change to Emergency*/
             IsttokOPSTATE = POS_Process;
             pvPut(IsttokOPSTATE);
@@ -503,7 +522,7 @@ ss PulseSequence {
     }
     /* State Stopping */
     state Stopping {
-	entry{	
+/*	entry{	
             IsttokRPump1_Motor = PCF_RELAY_ON;
             pvPut(IsttokRPump1_Motor);
             strcpy(msg, "Rotary Pumps 1/2 OFF");
@@ -514,15 +533,9 @@ ss PulseSequence {
             //IsttokLastOPSTATE = POS_Process;
             //pvPut(IsttokLastOPSTATE);
 	}
+*/
 //        } state Stopping
-    	when (delay(5)) {
-            IsttokRPump1_Valve = PCF_RELAY_ON;
-            pvPut(IsttokRPump1_Valve);
-            strcpy(msg, "Rotary Valves 1/2 CLOSE");
-            pvPut(msg);
-            errlogSevPrintf(NO_ALARM, "%s\n",msg);
-            IsttokRPump2_Valve = PCF_RELAY_ON;
-            pvPut(IsttokRPump2_Valve);
+        when (IsttokSTOPPINGSTATE == STPST_Stopping3) {
             //IsttokSTOPPINGSTATE = STPST_Stopping1;
             //pvPut(IsttokSTOPPINGSTATE);
             IsttokOPSTATE = POS_Stopped;
@@ -607,11 +620,12 @@ ss PulseSequence {
     }
 }
 
+/* Starting State Set */
 ss StartingSequence {
     state NonStarting {
         entry {
-            IsttokSTARTINGSTATE = STRST_NonStarting;
-            pvPut(IsttokSTARTINGSTATE);
+            STARTINGSTATE = STRST_NonStarting;
+            pvPut(STARTINGSTATE);
         }
         when (IsttokOPSTATE == POS_Starting) {
             strcpy(msg, "Rotary Pump1 ON");
@@ -624,8 +638,8 @@ ss StartingSequence {
             errlogSevPrintf(NO_ALARM, "%s\n",msg);
             IsttokRPump2_Motor = PCF_RELAY_OFF;
             pvPut(IsttokRPump2_Motor);
-            IsttokSTARTINGSTATE = STRST_Starting1;
-            pvPut(IsttokSTARTINGSTATE);
+            STARTINGSTATE = STRST_Starting1;
+            pvPut(STARTINGSTATE);
         } state Starting1
     }
     state Starting1 {
@@ -633,8 +647,8 @@ ss StartingSequence {
             strcpy(msg, "Starting1 Out");
             pvPut(msg);
             errlogSevPrintf(NO_ALARM, "%s\n",msg);
-            IsttokSTARTINGSTATE = STRST_NonStarting;
-            pvPut(IsttokSTARTINGSTATE);
+          //  IsttokSTARTINGSTATE = STRST_NonStarting;
+          //  pvPut(IsttokSTARTINGSTATE);
         } state NonStarting
         when (delay(5.0)) {
             strcpy(msg, "Rotary Valve1 OPEN");
@@ -647,8 +661,8 @@ ss StartingSequence {
             errlogSevPrintf(NO_ALARM, "%s\n",msg);
             IsttokRPump2_Valve = PCF_RELAY_OFF;
             pvPut(IsttokRPump2_Valve);
-            IsttokSTARTINGSTATE = STRST_Starting2;
-            pvPut(IsttokSTARTINGSTATE);
+            STARTINGSTATE = STRST_Starting2;
+            pvPut(STARTINGSTATE);
         } state Starting2
     }
     state Starting2 {
@@ -656,15 +670,15 @@ ss StartingSequence {
             strcpy(msg, "Starting2 Out");
             pvPut(msg);
             errlogSevPrintf(NO_ALARM, "%s\n",msg);
-            IsttokSTARTINGSTATE = STRST_NonStarting;
-            pvPut(IsttokSTARTINGSTATE);
+            STARTINGSTATE = STRST_NonStarting;
+            pvPut(STARTINGSTATE);
         } state NonStarting
         when (IsttokTMPump1_ManualValve == ON) {
             strcpy(msg, "Manual Valve Checked");
             pvPut(msg);
             errlogSevPrintf(NO_ALARM, "%s\n",msg);
-            IsttokSTARTINGSTATE = STRST_Starting3;
-            pvPut(IsttokSTARTINGSTATE);
+            STARTINGSTATE = STRST_Starting3;
+            pvPut(STARTINGSTATE);
         } state Starting3
     }
     state Starting3 {
@@ -672,14 +686,14 @@ ss StartingSequence {
             strcpy(msg, "Starting3 Out");
             pvPut(msg);
             errlogSevPrintf(NO_ALARM, "%s\n",msg);
-            IsttokSTARTINGSTATE = STRST_NonStarting;
-            pvPut(IsttokSTARTINGSTATE);
+            STARTINGSTATE = STRST_NonStarting;
+            pvPut(STARTINGSTATE);
         } state NonStarting
         when ( (pvStatus(IsttokRPump1_Pressure) == pvStatOK) && (pvStatus(IsttokRPump1_Pressure) == pvStatOK)) {
 /*  TODO unfold when      when (((IsttokRPump1_Pressure < IsttokRPump1_PressureLowLimit) && (IsttokRPump2_Pressure < IsttokRPump2_PressureLowLimit)) ) { */
  
-            printf("Primary1 Pressure=%f\n",IsttokRPump1_Pressure);
-            printf("Primary2 Pressure=%f\n",IsttokRPump2_Pressure);
+            //printf("Primary1 Pressure=%f\n",IsttokRPump1_Pressure);
+            //printf("Primary2 Pressure=%f\n",IsttokRPump2_Pressure);
  
 //            if(IsttokRPump1_Pressure < IsttokRPump1_PressureLowLimit){
                 strcpy(msg, "TMP1 MotorOn ON" );
@@ -692,7 +706,7 @@ ss StartingSequence {
                 strcpy(msg, "TMP2 MotorOnOff ON" );
                 pvPut(msg);
                 errlogSevPrintf(NO_ALARM, "%s\n",msg);
-                IsttokTMPump2_Motor = ON;
+                IsttokTMPump2_Motor = PCF_RELAY_ON;
                 pvPut(IsttokTMPump2_Motor);
 //            }
  
@@ -705,8 +719,8 @@ ss StartingSequence {
             sprintf(msg, "TMPNO = [1:%s]", tmp1_stat);
             pvPut(msg);
             errlogSevPrintf(NO_ALARM, "%s\n",msg);
-            IsttokSTARTINGSTATE = STRST_Starting4;
-            pvPut(IsttokSTARTINGSTATE);
+            STARTINGSTATE = STRST_Starting4;
+            pvPut(STARTINGSTATE);
         } state Starting4
     }
     state Starting4 {
@@ -714,8 +728,8 @@ ss StartingSequence {
             strcpy(msg, "Starting4 Out");
             pvPut(msg);
             errlogSevPrintf(NO_ALARM, "%s\n",msg);
-            IsttokSTARTINGSTATE = STRST_NonStarting;
-            pvPut(IsttokSTARTINGSTATE);
+            //IsttokSTARTINGSTATE = STRST_NonStarting;
+            //pvPut(IsttokSTARTINGSTATE);
         } state NonStarting
         when (IsttokTMPump1_NormalOperation == PCF_INPUT_ON) {    // (IsttokPrimary_PressureCondition == 0) || 
 //            if(IsttokTMPump1_NormalOperation == PCF_INPUT_ON){
@@ -723,8 +737,8 @@ ss StartingSequence {
             pvPut(msg);
             errlogSevPrintf(NO_ALARM, "%s\n",msg);
 //            }
-            IsttokSTARTINGSTATE = STRST_Starting5;
-            pvPut(IsttokSTARTINGSTATE);
+            STARTINGSTATE = STRST_Starting5;
+            pvPut(STARTINGSTATE);
         } state Starting5
     }
     state Starting5 {
@@ -732,8 +746,8 @@ ss StartingSequence {
             strcpy(msg, "State to Process");
             pvPut(msg);
             errlogSevPrintf(NO_ALARM, "%s\n",msg);
-            IsttokSTARTINGSTATE = STRST_NonStarting;
-            pvPut(IsttokSTARTINGSTATE);
+            //IsttokSTARTINGSTATE = STRST_NonStarting;
+            //pvPut(IsttokSTARTINGSTATE);
         } state NonStarting
     }
 }
@@ -766,13 +780,13 @@ ss CleaningSequence{
             IsttokShotClean_TorContactor = PCF_RELAY_OFF;
             pvPut(IsttokShotClean_TorContactor);
 
-            IsttokCLEANINGSTATE = CLNST_NonCleaning;
-            pvPut(IsttokCLEANINGSTATE);
+            CLEANINGSTATE = CLNST_NonCleaning;
+            pvPut(CLEANINGSTATE);
 
             errlogSevPrintf(NO_ALARM, "%s\n",msg);
 
         }
-        when(delay(1.0) && IsttokCLEANINGMANMODE == 1 && IsttokOPSTATE == POS_Clean){
+        when(delay(1.0) && CLEANINGMANMODE == 1 && IsttokOPSTATE == POS_Clean){
             strcpy(msg, "Initiating Auto Cleaning...");
             pvPut(msg);
             strcpy(msg, "GIS Valves OPEN");
@@ -780,8 +794,8 @@ ss CleaningSequence{
             errlogSevPrintf(NO_ALARM, "%s\n",msg);
             IsttokShotGasIS_Valves = PCF_RELAY_ON;
             pvPut(IsttokShotGasIS_Valves);
-	    IsttokCLEANINGSTATE = CLNST_Cleaning1;
-	    pvPut(IsttokCLEANINGSTATE);
+	    CLEANINGSTATE = CLNST_Cleaning1;
+	    pvPut(CLEANINGSTATE);
         } state Cleaning1
     }
     state Cleaning1 {
@@ -793,14 +807,14 @@ ss CleaningSequence{
             IsttokShotGasIS_Valves = PCF_RELAY_OFF;
             pvPut(IsttokShotGasIS_Valves);
         } state NonCleaning
-        when (delay(2.0) && IsttokCLEANINGMANMODE == 1 && IsttokOPSTATE == POS_Clean ) {
+        when (delay(2.0) && CLEANINGMANMODE == 1 && IsttokOPSTATE == POS_Clean ) {
             strcpy(msg, "Filament ON");
             pvPut(msg);
             errlogSevPrintf(NO_ALARM, "%s\n",msg);
             IsttokShotVVessel_Filament = PCF_RELAY_ON;
             pvPut(IsttokShotVVessel_Filament);
-	    IsttokCLEANINGSTATE = CLNST_Cleaning2;
-	    pvPut(IsttokCLEANINGSTATE);
+	    CLEANINGSTATE = CLNST_Cleaning2;
+	    pvPut(CLEANINGSTATE);
         } state Cleaning2
     }
     state Cleaning2{
@@ -811,17 +825,17 @@ ss CleaningSequence{
             errlogSevPrintf(NO_ALARM, "%s\n",msg);
             IsttokShotVVessel_Filament = PCF_RELAY_OFF;
             pvPut(IsttokShotVVessel_Filament);
-	    IsttokCLEANINGSTATE = CLNST_Cleaning1;
-	    pvPut(IsttokCLEANINGSTATE);
+	    CLEANINGSTATE = CLNST_Cleaning1;
+	    pvPut(CLEANINGSTATE);
         } state Cleaning1
-        when (delay(2.0) && IsttokCLEANINGMANMODE == 1 && IsttokOPSTATE == POS_Clean) {
+        when (delay(2.0) && CLEANINGMANMODE == 1 && IsttokOPSTATE == POS_Clean) {
             strcpy(msg, "Primary-CT ON");
             pvPut(msg);
             errlogSevPrintf(NO_ALARM, "%s\n",msg);
             IsttokShotClean_PrimContactor = PCF_RELAY_ON;
             pvPut(IsttokShotClean_PrimContactor);
-	    IsttokCLEANINGSTATE = CLNST_Cleaning3;
-	    pvPut(IsttokCLEANINGSTATE);
+	    CLEANINGSTATE = CLNST_Cleaning3;
+	    pvPut(CLEANINGSTATE);
         } state Cleaning3
     }
     state Cleaning3{
@@ -831,17 +845,17 @@ ss CleaningSequence{
             errlogSevPrintf(NO_ALARM, "%s\n",msg);
             IsttokShotClean_PrimContactor = PCF_RELAY_OFF;
             pvPut(IsttokShotClean_PrimContactor);
-	    IsttokCLEANINGSTATE = CLNST_Cleaning2;
-	    pvPut(IsttokCLEANINGSTATE);
+	    CLEANINGSTATE = CLNST_Cleaning2;
+	    pvPut(CLEANINGSTATE);
         } state Cleaning2
-        when(delay(2.0) && IsttokCLEANINGMANMODE == 1 && IsttokOPSTATE == POS_Clean){
+        when(delay(2.0) && CLEANINGMANMODE == 1 && IsttokOPSTATE == POS_Clean){
             strcpy(msg, "Toroidal-BK CLOSE");
             pvPut(msg);
             errlogSevPrintf(NO_ALARM, "%s\n",msg);
             IsttokShotClean_TorPneuBreaker = PCF_RELAY_ON;
             pvPut(IsttokShotClean_TorPneuBreaker);
-	    IsttokCLEANINGSTATE = CLNST_Cleaning4;
-	    pvPut(IsttokCLEANINGSTATE);
+	    CLEANINGSTATE = CLNST_Cleaning4;
+	    pvPut(CLEANINGSTATE);
         } state Cleaning4
 
     }
@@ -852,17 +866,17 @@ ss CleaningSequence{
             errlogSevPrintf(NO_ALARM, "%s\n",msg);
             IsttokShotClean_TorPneuBreaker = PCF_RELAY_OFF;
             pvPut(IsttokShotClean_TorPneuBreaker);
-	    IsttokCLEANINGSTATE = CLNST_Cleaning3;
-	    pvPut(IsttokCLEANINGSTATE);
+	    CLEANINGSTATE = CLNST_Cleaning3;
+	    pvPut(CLEANINGSTATE);
         } state Cleaning3
-        when (delay(2.0) && IsttokCLEANINGMANMODE == 1 && IsttokOPSTATE == POS_Clean){
+        when (delay(2.0) && CLEANINGMANMODE == 1 && IsttokOPSTATE == POS_Clean){
             strcpy(msg, "Toroidal-CT ON");
             pvPut(msg);
             errlogSevPrintf(NO_ALARM, "%s\n",msg);
             IsttokShotClean_TorContactor = PCF_RELAY_ON;
             pvPut(IsttokShotClean_TorContactor);
-	    IsttokCLEANINGSTATE = CLNST_Cleaning5;
-	    pvPut(IsttokCLEANINGSTATE);
+	    CLEANINGSTATE = CLNST_Cleaning5;
+	    pvPut(CLEANINGSTATE);
         } state Cleaning5
 
     }
@@ -873,8 +887,8 @@ ss CleaningSequence{
             errlogSevPrintf(NO_ALARM, "%s\n",msg);
             IsttokShotClean_TorContactor = PCF_RELAY_OFF;
             pvPut(IsttokShotClean_TorContactor);
-	    IsttokCLEANINGSTATE = CLNST_Cleaning4;
-	    pvPut(IsttokCLEANINGSTATE);
+	    CLEANINGSTATE = CLNST_Cleaning4;
+	    pvPut(CLEANINGSTATE);
         } state Cleaning4
     }
 }
@@ -882,8 +896,8 @@ ss CleaningSequence{
 ss ShotSequence {
     state NonShoting {
         entry {
-            IsttokWSHOTINGSTATE = WSHTST_NonShoting;
-            pvPut(IsttokWSHOTINGSTATE);
+            WSHOTINGSTATE = WSHTST_NonShoting;
+            pvPut(WSHOTINGSTATE);
             strcpy(IsttokShotCountdownScan, "Passive");
             pvPut(IsttokShotCountdownScan);
         }
@@ -895,8 +909,8 @@ ss ShotSequence {
             pvPut(IsttokShotCountdown);
             strcpy(IsttokShotCountdownScan, "1 second");
             pvPut(IsttokShotCountdownScan);
-            IsttokWSHOTINGSTATE = WSHTST_WaitTrg;
-            pvPut(IsttokWSHOTINGSTATE);
+            WSHOTINGSTATE = WSHTST_WaitTrg;
+            pvPut(WSHOTINGSTATE);
         } state ShotWaitTrg 
     }
     state ShotWaitTrg {
@@ -908,8 +922,8 @@ ss ShotSequence {
             pvPut(IsttokShotCountdownScan);
             IsttokProcReq = STOP;
             pvPut(IsttokProcReq);
-            IsttokWSHOTINGSTATE = WSHTST_NonShoting;
-            pvPut(IsttokWSHOTINGSTATE);
+            WSHOTINGSTATE = WSHTST_NonShoting;
+            pvPut(WSHOTINGSTATE);
             IsttokOPSTATE = POS_Process;
             pvPut(IsttokOPSTATE);
         } state NonShoting
@@ -918,8 +932,8 @@ ss ShotSequence {
             pvPut(msg);
             IsttokShotCountdown = -70;
             pvPut(IsttokShotCountdown);
-            IsttokWSHOTINGSTATE = WSHTST_Shoting2;
-            pvPut(IsttokWSHOTINGSTATE);
+            WSHOTINGSTATE = WSHTST_Shoting2;
+            pvPut(WSHOTINGSTATE);
         } state Shoting2
     }
     state Shoting2 {
@@ -944,8 +958,8 @@ ss ShotSequence {
             errlogSevPrintf(NO_ALARM, "%s\n",msg);
             IsttokShotLab_WarningLight = PCF_RELAY_ON;
             pvPut(IsttokShotLab_WarningLight);
-            IsttokWSHOTINGSTATE = WSHTST_Shoting3;
-            pvPut(IsttokWSHOTINGSTATE);
+            WSHOTINGSTATE = WSHTST_Shoting3;
+            pvPut(WSHOTINGSTATE);
         } state Shoting3
     }
     state Shoting3 {
@@ -960,8 +974,8 @@ ss ShotSequence {
             errlogSevPrintf(NO_ALARM, "%s\n",msg);
             IsttokShotGasIS_Valves = PCF_RELAY_ON;
             pvPut(IsttokShotGasIS_Valves);
-            IsttokWSHOTINGSTATE = WSHTST_Shoting4;
-            pvPut(IsttokWSHOTINGSTATE);
+            WSHOTINGSTATE = WSHTST_Shoting4;
+            pvPut(WSHOTINGSTATE);
         } state Shoting4
     }
     state Shoting4 {
@@ -969,12 +983,12 @@ ss ShotSequence {
             strcpy(msg, "Shoting4 Out");
             pvPut(msg);
             errlogSevPrintf(NO_ALARM, "%s\n",msg);
-            IsttokWSHOTINGSTATE = WSHTST_NonShoting;
-            pvPut(IsttokWSHOTINGSTATE);
+            WSHOTINGSTATE = WSHTST_NonShoting;
+            pvPut(WSHOTINGSTATE);
         } state NonShoting
         when (IsttokShotCountdown == -59) {
-            IsttokWSHOTINGSTATE = WSHTST_Shoting5;
-            pvPut(IsttokWSHOTINGSTATE);
+            WSHOTINGSTATE = WSHTST_Shoting5;
+            pvPut(WSHOTINGSTATE);
         } state Shoting5
     }
     state Shoting5 {
@@ -982,8 +996,8 @@ ss ShotSequence {
             strcpy(msg, "Shoting5 Out");
             pvPut(msg);
             errlogSevPrintf(NO_ALARM, "%s\n",msg);
-            IsttokWSHOTINGSTATE = WSHTST_NonShoting;
-            pvPut(IsttokWSHOTINGSTATE);
+            WSHOTINGSTATE = WSHTST_NonShoting;
+            pvPut(WSHOTINGSTATE);
         } state NonShoting
         when (IsttokShotCountdown == -46) {
             strcpy(msg, "CAPBANK Charge ON" );
@@ -991,8 +1005,8 @@ ss ShotSequence {
             errlogSevPrintf(NO_ALARM, "%s\n",msg);
             IsttokShotCapBank_Charge = PCF_RELAY_ON;
             pvPut(IsttokShotCapBank_Charge);
-            IsttokWSHOTINGSTATE = WSHTST_Shoting6;
-            pvPut(IsttokWSHOTINGSTATE);
+            WSHOTINGSTATE = WSHTST_Shoting6;
+            pvPut(WSHOTINGSTATE);
         } state Shoting6
     }
     state Shoting6 {
@@ -1002,8 +1016,8 @@ ss ShotSequence {
             errlogSevPrintf(NO_ALARM, "%s\n", msg);
             IsttokShotCapBank_Charge = PCF_RELAY_OFF;
             pvPut(IsttokShotCapBank_Charge);
-            IsttokWSHOTINGSTATE = WSHTST_Shoting7;
-            pvPut(IsttokWSHOTINGSTATE);
+            WSHOTINGSTATE = WSHTST_Shoting7;
+            pvPut(WSHOTINGSTATE);
         } state Shoting7
     }
     state Shoting7 {
@@ -1018,8 +1032,8 @@ ss ShotSequence {
             errlogSevPrintf(NO_ALARM, "%s\n",msg);
             IsttokShotVVessel_Filament = PCF_RELAY_ON;
             pvPut(IsttokShotVVessel_Filament);
-            IsttokWSHOTINGSTATE = WSHTST_Shoting8;
-            pvPut(IsttokWSHOTINGSTATE);
+            WSHOTINGSTATE = WSHTST_Shoting8;
+            pvPut(WSHOTINGSTATE);
        } state Shoting8
     }
     state Shoting8 {
@@ -1028,8 +1042,8 @@ ss ShotSequence {
             strcpy(msg, "Shoting8 Out");
             pvPut(msg);
             errlogSevPrintf(NO_ALARM, "%s\n",msg);
-            IsttokWSHOTINGSTATE = WSHTST_NonShoting;
-            pvPut(IsttokWSHOTINGSTATE);
+            WSHOTINGSTATE = WSHTST_NonShoting;
+            pvPut(WSHOTINGSTATE);
         } state NonShoting
 */
         when (IsttokShotCountdown == -4) {
@@ -1039,8 +1053,8 @@ ss ShotSequence {
 //          PS Trigger Pulse
             IsttokShotShot_TorPSTrigger = ON;
             pvPut(IsttokShotShot_TorPSTrigger);        
-            IsttokWSHOTINGSTATE = WSHTST_Shoting9;
-            pvPut(IsttokWSHOTINGSTATE);
+            WSHOTINGSTATE = WSHTST_Shoting9;
+            pvPut(WSHOTINGSTATE);
        } state Shoting9
     }
     state Shoting9 {
@@ -1048,8 +1062,8 @@ ss ShotSequence {
             strcpy(msg, "Ready for SHOT" );
             pvPut(msg);
             errlogSevPrintf(NO_ALARM, "%s\n", msg);
-            IsttokWSHOTINGSTATE = WSHTST_Shoting10;
-            pvPut(IsttokWSHOTINGSTATE);
+            WSHOTINGSTATE = WSHTST_Shoting10;
+            pvPut(WSHOTINGSTATE);
        } state Shoting10
     }
     state Shoting10 {
@@ -1059,8 +1073,8 @@ ss ShotSequence {
             errlogSevPrintf(NO_ALARM, "%s\n", msg);
             IsttokShotCapBank_Discharge = PCF_RELAY_OFF;
             pvPut(IsttokShotCapBank_Discharge);
-            IsttokWSHOTINGSTATE = WSHTST_Shoting11;
-            pvPut(IsttokWSHOTINGSTATE);
+            WSHOTINGSTATE = WSHTST_Shoting11;
+            pvPut(WSHOTINGSTATE);
        } state Shoting11
     }
     state Shoting11 {
@@ -1075,8 +1089,8 @@ ss ShotSequence {
             errlogSevPrintf(NO_ALARM, "%s\n", msg);
             IsttokShotVVessel_Filament = 1;
             pvPut(IsttokShotVVessel_Filament);
-            IsttokWSHOTINGSTATE = WSHTST_Shoting12;
-            pvPut(IsttokWSHOTINGSTATE);
+            WSHOTINGSTATE = WSHTST_Shoting12;
+            pvPut(WSHOTINGSTATE);
         } state Shoting12
     }
     state Shoting12 {
@@ -1086,8 +1100,8 @@ ss ShotSequence {
             errlogSevPrintf(NO_ALARM, "%s\n", msg);
             IsttokShotLab_WarningLight = PCF_RELAY_OFF;
             pvPut(IsttokShotLab_WarningLight);
-            IsttokWSHOTINGSTATE = WSHTST_ShotEnd;
-            pvPut(IsttokWSHOTINGSTATE);
+            WSHOTINGSTATE = WSHTST_ShotEnd;
+            pvPut(WSHOTINGSTATE);
         } state ShotEnd
     }
     state ShotEnd {
@@ -1096,8 +1110,8 @@ ss ShotSequence {
             strcpy(msg, "Shoting13 Out");
             pvPut(msg);
             errlogSevPrintf(NO_ALARM, "%s\n", msg);
-            IsttokWSHOTINGSTATE = WSHTST_NonShoting;
-            pvPut(IsttokWSHOTINGSTATE);
+            WSHOTINGSTATE = WSHTST_NonShoting;
+            pvPut(WSHOTINGSTATE);
         } state NonShoting
 */
         when (IsttokShotCountdown > 160) {
@@ -1106,25 +1120,96 @@ ss ShotSequence {
             errlogSevPrintf(NO_ALARM, "%s\n", msg);
 //            IsttokShotCountdown = 0;
 //            pvPut(IsttokShotCountdown);
-            IsttokWSHOTINGSTATE = WSHTST_WaitTrg;
-            pvPut(IsttokWSHOTINGSTATE);
+            WSHOTINGSTATE = WSHTST_WaitTrg;
+            pvPut(WSHOTINGSTATE);
         } state ShotWaitTrg 
     }
 }
+
+/* Stopping State Set */
+ss StoppingSequence {
+    state NonStopping {
+        entry {
+            IsttokSTOPPINGSTATE = STPST_NonStopping; 
+            pvPut(IsttokSTOPPINGSTATE);
+        }
+        when (IsttokOPSTATE == POS_Stopping) {
+            strcpy(msg, "Stopping Mode: Stopping1");
+            pvPut(msg);
+            // errlogSevPrintf(NO_ALARM, "%s\n",msg);
+
+	    IsttokTMPump1_MotorOff = ON;
+            pvPut(IsttokTMPump1_MotorOff);
+
+ 	    IsttokTMPump2_Motor = PCF_RELAY_OFF;
+            pvPut(IsttokTMPump2_Motor);
+            IsttokSTOPPINGSTATE = STPST_Stopping1;
+            pvPut(IsttokSTOPPINGSTATE);
+        } state Stopping1 
+    }
+   state Stopping1 {
+      when (IsttokOPSTATE != POS_Stopping ) {
+            strcpy(msg, "Stopping Mode: NonStopping");
+            pvPut(msg);
+            errlogSevPrintf(NO_ALARM, "%s\n",msg);
+
+            //IsttokSTOPPINGSTATE = STPST_NonStopping; 
+            //pvPut(IsttokSTOPPINGSTATE);
+      } state NonStopping 
+
+      when (delay(5.0) && IsttokTMPump1_ManualValve==OFF) {
+            strcpy(msg, "Manual Valve Closed Checked");
+            pvPut(msg);
+            errlogSevPrintf(NO_ALARM, "%s\n",msg);
+            IsttokRPump1_Motor = PCF_RELAY_ON;
+            pvPut(IsttokRPump1_Motor);
+            strcpy(msg, "Rotary Pumps 1 & 2 OFF");
+            pvPut(msg);
+            errlogSevPrintf(NO_ALARM, "%s\n",msg);
+            IsttokRPump2_Motor = PCF_RELAY_ON;
+            pvPut(IsttokRPump2_Motor);
+            IsttokSTOPPINGSTATE = STPST_Stopping2;
+            pvPut(IsttokSTOPPINGSTATE);
+        } state Stopping2 
+    }
+   state Stopping2 {
+        when (IsttokOPSTATE != POS_Stopping ) {
+            IsttokSTOPPINGSTATE = STPST_NonStopping; 
+            pvPut(IsttokSTOPPINGSTATE);
+        } state NonStopping 
+    	when (delay(5)) {
+            IsttokRPump1_Valve = PCF_RELAY_ON;
+            pvPut(IsttokRPump1_Valve);
+            strcpy(msg, "Rotary Valves 1 & 2 CLOSE");
+            pvPut(msg);
+            errlogSevPrintf(NO_ALARM, "%s\n",msg);
+            IsttokRPump2_Valve = PCF_RELAY_ON;
+            pvPut(IsttokRPump2_Valve);
+            IsttokSTOPPINGSTATE = STPST_Stopping3;
+            pvPut(IsttokSTOPPINGSTATE);
+	} state Stopping3 
+   }	
+   state Stopping3 {
+        when (IsttokOPSTATE != POS_Stopping ) {
+            IsttokSTOPPINGSTATE = STPST_NonStopping; 
+            pvPut(IsttokSTOPPINGSTATE);
+        } state NonStopping 
+   }
+}	
 /*        when (IsttokShotCountdown > 159) {
             strcpy(msg, "Toroidal Field Recovered" );
             pvPut(msg);
             errlogSevPrintf(NO_ALARM, "%s\n", msg);
-            IsttokWSHOTINGSTATE = WSHTST_Shoting12;
-            pvPut(IsttokWSHOTINGSTATE);
+            WSHOTINGSTATE = WSHTST_Shoting12;
+            pvPut(WSHOTINGSTATE);
         } state Shoting12
     state Shoting12 {
         when ((IsttokOPSTATE != POS_WaitShot ) && (IsttokShotCountdown == 160) ) {
             strcpy(msg, "Shoting12 Out");
             pvPut(msg);
             errlogSevPrintf(NO_ALARM, "%s\n", msg);
-            IsttokWSHOTINGSTATE = WSHTST_NonShoting;
-            pvPut(IsttokWSHOTINGSTATE);
+            WSHOTINGSTATE = WSHTST_NonShoting;
+            pvPut(WSHOTINGSTATE);
         } state NonShoting
         when (IsttokShotCountdown >= 160) {
             strcpy(msg, "Terminated");
@@ -1136,5 +1221,21 @@ ss ShotSequence {
 //            pvPut(IsttokShotCountdown);
         } state ShotWaitTrg 
     }
+
+
+
+	entry{	
+            IsttokRPump1_Motor = PCF_RELAY_ON;
+            pvPut(IsttokRPump1_Motor);
+            strcpy(msg, "Rotary Pumps 1/2 OFF");
+            pvPut(msg);
+            errlogSevPrintf(NO_ALARM, "%s\n",msg);
+            IsttokRPump2_Motor = PCF_RELAY_ON;
+            pvPut(IsttokRPump2_Motor);
+            //IsttokLastOPSTATE = POS_Process;
+            //pvPut(IsttokLastOPSTATE);
+	}
+//        } state Stopping
+
 */
 

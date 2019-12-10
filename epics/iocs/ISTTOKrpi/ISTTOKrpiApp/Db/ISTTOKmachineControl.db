@@ -135,9 +135,10 @@ record(fanout, "$(P)$(R)PCF8574:57:REGISTER:READ:FNOUT"){
 }
 record(bi , "$(P)$(R)TMPump2-Emergency") {
    	field(DESC," TMP2 – Falha ")
-	field( INP, "$(P)$(R)PCF8574:57:REGISTER:READ.B0 NPP NMS")
-	field( ZNAM, "ON" )
-	field( ONAM, "OFF" )
+	field(INP, "$(P)$(R)PCF8574:57:REGISTER:READ.B0 NPP NMS")
+	field(ZNAM, "ON" )
+	field(ONAM, "OFF" )
+   	field(ZSV,"MAJOR")
 }
 
 record(bi , "$(P)$(R)TMPump2-Acceleration") {
@@ -414,11 +415,11 @@ record(bo, "$(P)$(R)CapBank-Discharge" ) {
 	field(VAL,"1")
 }
 
-record(bo,"$(P)$(R)Primary-PressureCondition"){
-	field(ZNAM, "OFF" )
-	field(ONAM, "ON" )
-	field(VAL,"0")
-}
+#record(bo,"$(P)$(R)Primary-PressureCondition"){
+#	field(ZNAM, "OFF" )
+#	field(ONAM, "ON" )
+#	field(VAL,"0")
+#}
 
 record(ai,"$(P)$(R)TMPump2-Speed"){
 #   field(DESC," ADC Pump speed 0-10V ")
