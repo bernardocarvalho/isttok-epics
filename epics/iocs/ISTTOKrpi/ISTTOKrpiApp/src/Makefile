@@ -51,8 +51,8 @@ ISTTOKrpi_LIBS += ISTTOKrpiSupport
 # To build SNL programs, SNCSEQ must be defined
 # in the <top>/configure/RELEASE file
 ifneq ($(SNCSEQ),)
-    # Build sncExample into ISTTOKrpiSupport
-    IsttokSeqExec_SNCFLAGS += +r
+	# Build sncExample into ISTTOKrpiSupport , Safe Mode : +s
+    IsttokSeqExec_SNCFLAGS += +r +s
     ISTTOKrpi_DBD += IsttokSeqExec.dbd
     # A .stt sequence program is *not* pre-processed:
     ISTTOKrpiSupport_SRCS += IsttokSeqExec.stt

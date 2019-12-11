@@ -44,14 +44,14 @@ dbLoadRecords("db/ISTTOKpfeiffer.db","P=ISTTOK:,R=central:,bus=RS0")
 #traceIocInit
 
 #save_restoreSet_status_prefix("$(IOC):")
-save_restoreSet_status_prefix("xxx:")
+save_restoreSet_status_prefix("ISTTOK:")
 set_requestfile_path("$(SAVE_DIR)")
 set_savefile_path("$(SAVE_DIR)/save")
 save_restoreSet_NumSeqFiles(3)
 save_restoreSet_SeqPeriodInSeconds(600)
-set_pass2_restoreFile("$(IOC).sav")
+set_pass0_restoreFile("$(IOC).sav")
 set_pass1_restoreFile("$(IOC).sav")
-dbLoadRecords("$(AUTOSAVE)/asApp/Db/save_restoreStatus.db", "P=xxx:")
+dbLoadRecords("$(AUTOSAVE)/asApp/Db/save_restoreStatus.db", "P=ISTTOK:")
 
 cd "${TOP}/iocBoot/${IOC}"
 
@@ -65,5 +65,5 @@ iocInit
 # makeAutosaveFileFromDbInfo("$(SAVE_DIR)/$(IOC).req", "autosaveFields")
 create_monitor_set("$(IOC).req", 30)
 
-## Start any sequence programs
-seq IsttokSeqExec
+## Start any sequence programs , use safe mode
+seq  IsttokSeqExec

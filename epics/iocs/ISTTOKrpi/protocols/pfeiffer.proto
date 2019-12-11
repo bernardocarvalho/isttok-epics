@@ -1,9 +1,9 @@
 Terminator=CR; 
 MaxInput = 20;
 
-#in millisecond
+# in millisecond
 #ReadTimeout = 2000;
-ReplyTimeout = 200;
+ReplyTimeout = 250;
 
 # Using redirection to read 2 records, mantissa and exponent
 getPressure001 {
