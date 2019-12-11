@@ -135,7 +135,8 @@ record(fanout, "$(P)$(R)PCF8574:57:REGISTER:READ:FNOUT"){
 }
 record(bi , "$(P)$(R)TMPump2-Emergency") {
    	field(DESC," TMP2 – Falha ")
-	field(INP, "$(P)$(R)PCF8574:57:REGISTER:READ.B0 NPP NMS")
+#	field(INP, "$(P)$(R)PCF8574:57:REGISTER:READ.B0 NPP NMS")
+	field(VAL,"1")
 	field(ZNAM, "ON" )
 	field(ONAM, "OFF" )
    	field(ZSV,"MAJOR")

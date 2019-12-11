@@ -64,7 +64,7 @@ record(calc, "$(P)$(R)STARTCALCSTATE") {
 	field(INPA,"$(P)$(R)STARTINGSTATE.VAL PP NMS")
 }
 
-record(calc, "$(P)$(R)STOPCALCSTATE") {
+record(calc, "$(P)$(R)STOPPINGCALCSTATE") {
 	field(DESC, "Stop Calculated State")
 	field(CALC,"2^A")
 	field(SCAN,"1 second")
@@ -78,12 +78,6 @@ record(calc, "$(P)$(R)CLEANCALCSTATE") {
 	field(INPA,"$(P)$(R)CLEANINGSTATE.VAL PP NMS")
 }
 
-#record(calc, "$(P)$(R)OPCALCMCLEANSTATE") {
-#	field(DESC, "Clean Manual Calculated State")
-#	field(CALC,"2^A")
-#	field(SCAN,"1 second")
-#	field(INPA,"$(P)$(R)CLEANINGSTATE.VAL PP NMS")
-#}
 
 record(calc, "$(P)$(R)WSHOTCALCSTATE") {
 	field(DESC, "WaitShot Calculated State")
@@ -253,7 +247,7 @@ record(mbbi, "$(P)$(R)STOPPINGSTATE") {
   field(THVL, "3")
   field(FRVL, "4")
   field(FVVL, "5")
-  field(ZRST, "NonStopped")
+  field(ZRST, "NonStopping")
   field(ONST, "Stopping1")
   field(TWST, "Stopping2")
   field(THST, "Stopping3")
