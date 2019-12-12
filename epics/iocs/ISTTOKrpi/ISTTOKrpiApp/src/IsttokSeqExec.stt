@@ -58,7 +58,7 @@ short  STPST_NonStopping = 0;
 short  STPST_Stopping1 = 1;
 short  STPST_Stopping2 = 2;
 short  STPST_Stopping3 = 3;
-//short  STPST_Stopping4 = 4;
+short  STPST_StoppingEnd = 4;
 //short  STPST_Stopping5 = 5;
 
 short POS_Stopped =0;
@@ -150,9 +150,9 @@ assign IsttokTMPump1_MotorOn to "ISTTOK:central:TMPump1-MotorOn";
 short IsttokTMPump2_Motor;
 assign IsttokTMPump2_Motor to "ISTTOK:central:TMPump2-Motor";
  
-short IsttokTMPump1_NormalOperation;
-assign IsttokTMPump1_NormalOperation to "ISTTOK:central:TMPump1-NormalOperation";
-monitor IsttokTMPump1_NormalOperation;
+short TMPump1NormalOperation;
+assign TMPump1NormalOperation to "ISTTOK:central:TMPump1-NormalOperation";
+monitor TMPump1NormalOperation;
  
 short IsttokTMPump1_Power;
 assign IsttokTMPump1_Power to "ISTTOK:central:TMPump1-Power";
@@ -526,7 +526,7 @@ ss PulseSequence {
             pvPut(IsttokOPSTATE);
       	} state Starting
 
-        when (STOPPINGSTATE == STPST_Stopping3) {
+        when (STOPPINGSTATE == STPST_StoppingEnd) {
             IsttokOPSTATE = POS_Stopped;
             pvPut(IsttokOPSTATE);
         } state Stopped
@@ -689,7 +689,7 @@ ss StartingSequence {
                 IsttokTMPump2_Motor = PCF_RELAY_ON;
                 pvPut(IsttokTMPump2_Motor);
 /* 
-            if(IsttokTMPump1_NormalOperation == PCF_INPUT_ON){
+            if(TMPump1NormalOperation == PCF_INPUT_ON){
 	            sprintf(tmp1_stat, "ON");
             }else{
         	    sprintf(tmp1_stat, "OFF");
@@ -711,7 +711,7 @@ ss StartingSequence {
             //IsttokSTARTINGSTATE = STRST_NonStarting;
             //pvPut(IsttokSTARTINGSTATE);
         } state NonStarting
-        when (IsttokTMPump1_NormalOperation == PCF_INPUT_ON) {   // TODO insert TMP2 Test 
+        when (TMPump1NormalOperation == PCF_INPUT_ON) {   // TODO insert TMP2 Test 
             strcpy(msg, "TMP1 operating Normal");
             pvPut(msg);
             errlogSevPrintf(NO_ALARM, "%s\n",msg);
@@ -1122,26 +1122,18 @@ ss StoppingSequence {
         } state Stopping1 
     }
    state Stopping1 {
-      when (IsttokOPSTATE != POS_Stopping ) {
-/*
-            strcpy(msg, "Stopping Mode: NonStopping");
+        when (IsttokOPSTATE != POS_Stopping ) { } state NonStopping 
+        when (TMPump1NormalOperation == PCF_INPUT_OFF) {   // TODO insert TMP2 Test 
+            strcpy(msg, "TMP1 Stopping");
             pvPut(msg);
             errlogSevPrintf(NO_ALARM, "%s\n",msg);
-
-            STOPPINGSTATE = STPST_NonStopping; 
+            STOPPINGSTATE = STPST_Stopping2;
             pvPut(STOPPINGSTATE);
-*/
+	} state Stopping2 
+   }	
+   state Stopping2 {
+      when (IsttokOPSTATE != POS_Stopping ) {
       } state NonStopping 
-/*
-      when (delay(5) && IsttokOPREQ==START ) {
-            strcpy(msg, "State to Starting");
-            pvPut(msg);
-            errlogSevPrintf(NO_ALARM, "%s\n",msg);
-	   /* State change to Starting 
-            IsttokOPSTATE = POS_Starting;
-            pvPut(IsttokOPSTATE);
-      } state NonStopping
-*/
       when (delay(5.0) && IsttokTMPump1_ManualValve==OFF) {
             strcpy(msg, "Manual Valve Closed Checked");
             pvPut(msg);
@@ -1153,14 +1145,12 @@ ss StoppingSequence {
             errlogSevPrintf(NO_ALARM, "%s\n",msg);
             IsttokRPump2_Motor = PCF_RELAY_ON;
             pvPut(IsttokRPump2_Motor);
-            STOPPINGSTATE = STPST_Stopping2;
+            STOPPINGSTATE = STPST_Stopping3;
             pvPut(STOPPINGSTATE);
-        } state Stopping2 
+        } state Stopping3 
     }
-   state Stopping2 {
+   state Stopping3 {
         when (IsttokOPSTATE != POS_Stopping ) {
-         //   STOPPINGSTATE = STPST_NonStopping; 
-         //   pvPut(STOPPINGSTATE);
         } state NonStopping 
     	when (delay(5)) {
             IsttokRPump1_Valve = PCF_RELAY_ON;
@@ -1170,15 +1160,12 @@ ss StoppingSequence {
             errlogSevPrintf(NO_ALARM, "%s\n",msg);
             IsttokRPump2_Valve = PCF_RELAY_ON;
             pvPut(IsttokRPump2_Valve);
-            STOPPINGSTATE = STPST_Stopping3;
+            STOPPINGSTATE = STPST_StoppingEnd;
             pvPut(STOPPINGSTATE);
-	} state Stopping3 
+	} state StoppingEnd 
    }	
-   state Stopping3 {
-        when (IsttokOPSTATE != POS_Stopping ) {
-        //    STOPPINGSTATE = STPST_NonStopping; 
-        //    pvPut(STOPPINGSTATE);
-        } state NonStopping 
+   state StoppingEnd {
+        when (IsttokOPSTATE != POS_Stopping ) {  } state NonStopping 
    }
 }
 

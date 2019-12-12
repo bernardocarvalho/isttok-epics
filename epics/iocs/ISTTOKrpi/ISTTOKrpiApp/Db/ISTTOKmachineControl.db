@@ -81,37 +81,31 @@ record(fanout, "$(P)$(R)PCF8574:56:REGISTER:READ:FNOUT"){
 	field(LNK2, "$(P)$(R)TMPump1-Emergency")
 	field(LNK3, "$(P)$(R)TMPump1-Acceleration")
 	field(LNK4, "$(P)$(R)TMPump1-NormalOperation")
-#	field(LNK2, "$(P)$(R)Turbo_Emergency")
 }
 record(bi , "$(P)$(R)TMPump1-Power" ) {
    field(DESC," TMP1 – Alimentada 220V ")
-#record(bi , "$(P)$(R)Turbo_PW_Ind" ) {
 	field( INP, "$(P)$(R)PCF8574:56:REGISTER:READ.B4 NPP NMS")
-#	field( SCAN, "1 second")
 	field( ZNAM, "ON" )
 	field( ONAM, "OFF" )
-#	field(FLNK, "$(P)$(R)Turbo_Emergency")
 }
 record(bi , "$(P)$(R)TMPump1-Emergency") {
    field(DESC," TMP1 – Falha ")
-#record(bi , "$(P)$(R)Turbo_Emergency") {
-	field( INP, "$(P)$(R)PCF8574:56:REGISTER:READ.B5 NPP NMS")
+	field( INP, "$(P)$(R)PCF8574:56:REGISTER:READ.B6 NPP NMS")
+#	field(VAL,"1")
 	field( ZNAM, "ON" )
 	field( ONAM, "OFF" )
    	field(ZSV,"MAJOR")
-#	field(FLNK, "$(P)$(R)Turbo_Acceleration")
 }
 record(bi , "$(P)$(R)TMPump1-Acceleration") {
    	field(DESC," TMP1 – Motor em aceleração ")
-#record(bi , "$(P)$(R)Turbo_Acceleration") {
-	field( INP, "$(P)$(R)PCF8574:56:REGISTER:READ.B6 NPP NMS")
+	field( INP, "$(P)$(R)PCF8574:56:REGISTER:READ.B5 NPP NMS")
 	field( ZNAM, "ON" )
 	field( ONAM, "OFF" )
-#	field(FLNK, "$(P)$(R)Turbo_NormalOperation")
+   	field(ZSV,"MINOR")
 }
 
 record(bi , "$(P)$(R)TMPump1-NormalOperation" ) {
-   field(DESC," TMP1 – Operação Normal ")
+   	field(DESC," TMP1 – Operação Normal ")
 	field( INP, "$(P)$(R)PCF8574:56:REGISTER:READ.B7 NPP NMS")
 	field( ZNAM, "ON" )
 	field(ONAM, "OFF" )
