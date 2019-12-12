@@ -85,6 +85,10 @@ short IsttokOPSTATE;
 assign IsttokOPSTATE to "ISTTOK:central:OPSTATE";
 monitor IsttokOPSTATE;
  
+int PulseNumber;
+assign PulseNumber to "ISTTOK:central:PULSE-NUMBER";
+monitor PulseNumber;
+ 
 short IsttokLastOPSTATE;
 assign IsttokLastOPSTATE to "ISTTOK:central:LASTOPSTATE";
 monitor IsttokLastOPSTATE;
@@ -902,6 +906,8 @@ ss ShotSequence {
             pvPut(IsttokShotCountdown);
             WSHOTINGSTATE = WSHTST_Shoting2;
             pvPut(WSHOTINGSTATE);
+            PulseNumber +=1;
+            pvPut(PulseNumber);
         } state Shoting2
     }
     state Shoting2 {
