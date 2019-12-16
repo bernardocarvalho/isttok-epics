@@ -9,6 +9,7 @@ DB += ISTTOKmachineControl.db
 DB += ISTTOKpcf8574.db
 DB += ISTTOKpcf8591.db
 DB += ISTTOKpfeiffer.db
+DB += sendmail.db
 
 # If <anyname>.db template is not named <anyname>*.template add
 # <anyname>_TEMPLATE = <templatename>

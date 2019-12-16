@@ -1,4 +1,19 @@
-###############
+#############################################
+## Project       : ISTTOK slow Control
+##
+## File          : 
+## Description   : Records for ISTTOK Control I/O channels connected to 2 Velleman board 
+##
+##
+## Author        : Bernardo Carvalho (IPFN-IST)
+##
+## Copyright (c) : IPFN-IST 2015-2020
+## Created 3-Mar-2019
+##
+##
+##########################################
+
+################
 ###############
 # REGISTER 56 #
 ###############
@@ -173,36 +188,35 @@ record(bo, "$(P)$(R)Buzzer" ) {
 	field(ONAM, "Pulse" )
 	field(HIGH, "2.5")
 	field(FLNK, "$(P)$(R)BuzzerInv" )
-	field(VAL,"0")
+	field(VAL, "0")
 }
 record(calcout, "$(P)$(R)BuzzerInv" ) {
-	field( INPA, "$(P)$(R)Buzzer NPP MS" )
-	field( OUT,  "$(P)$(R)PCF8574:57:REGISTER.B3 PP MS" )
-	field( OOPT, "On Change" )
-	field( CALC, "A?0:1" )
+	field(INPA, "$(P)$(R)Buzzer NPP MS" )
+	field(OUT,  "$(P)$(R)PCF8574:57:REGISTER.B3 PP MS" )
+	field(OOPT, "On Change" )
+	field(CALC, "A?0:1" )
 }
 
 ##############################
 #       EMERGENCY MODE       #
 ##############################
 record(bi, "$(P)$(R)Emergency-PhysButton" ) {
-   field(DESC,"External Physical Emergency Button")
-   	field( INP, "$(P)$(R)PCF8574:57:REGISTER:READ.B4 NPP NMS")
-#	field(OUT, "$(P)$(R)PCF8574:57:REGISTER.B4 PP" )
+   	field(DESC,"External Physical Emergency Button")
+   	field(INP, "$(P)$(R)PCF8574:57:REGISTER:READ.B4 NPP NMS")
 	field(ZNAM, "ON")
 	field(ONAM, "OFF" )
 	field(FLNK, "$(P)$(R)Emergency" )
 }
 record(bo, "$(P)$(R)Emergency-UserButton" ) {
-   field(DESC,"Soft User Emergency Button")
+   	field(DESC,"Soft User Emergency Button")
 	field(ZNAM, "OFF" )
 	field(ONAM, "ON")
 	field(FLNK, "$(P)$(R)Emergency" )
 }
 record(calc, "$(P)$(R)Emergency" ) {
-   	field(DESC,"Emergency State")
-	field(INPA,"$(P)$(R)Emergency-PhysButton.RVAL NPP" ) 
-	field(INPB,"$(P)$(R)Emergency-UserButton.RVAL NPP" ) 
+   	field(DESC, "Emergency State")
+	field(INPA, "$(P)$(R)Emergency-PhysButton.RVAL NPP" ) 
+	field(INPB, "$(P)$(R)Emergency-UserButton.RVAL NPP" ) 
 	field(CALC, "A || B" ) # ! Not
 }
 
@@ -223,8 +237,7 @@ record(calc, "$(P)$(R)Emergency" ) {
 #       ROTARY1 PUMP        #
 #############################
 record( bo, "$(P)$(R)RPump1-Motor" ) {
-#   field(DESC," Liga a alimentação da bomba rotatória 1 ")
-#record( bo, "$(P)$(R)RotatoryPump" ) {
+   field(DESC,"Power to Rotatory Pump 1. Relay 5")
 	field(OUT, "$(P)$(R)PCF8574:60:REGISTER.B0 PP" )
 	field(ZNAM, "Off" )
 	field(ONAM, "On" )
@@ -236,8 +249,7 @@ record( bo, "$(P)$(R)RPump1-Motor" ) {
 #       ROTARY1 VALVE       #
 #############################
 record( bo, "$(P)$(R)RPump1-Valve" ) {
-	field(DESC,"Abre a valvula da bomba rotatoria 1 ")
-#   record( bo, "$(P)$(R)RotatoryValve" ) {
+	field(DESC,"Abre a valvula da bomba rotatoria 1. Relay 4")
 	field(OUT, "$(P)$(R)PCF8574:60:REGISTER.B1 PP" )
 	field(ZNAM, "Closed" )
 	field(ONAM, "Open" )
@@ -261,9 +273,9 @@ record( bo, "$(P)$(R)RPump2-Motor" ) {
 #############################
 record( bo, "$(P)$(R)RPump2-Valve" ) {
    	field(DESC," Abre a valvula da bomba rotatoria 2 ")
-	field(OUT, "$(P)$(R)PCF8574:60:REGISTER.B3 PP" )
-	field(ZNAM, "Closed" )
-	field(ONAM, "Open" )
+	field(OUT,"$(P)$(R)PCF8574:60:REGISTER.B3 PP" )
+	field(ZNAM,"Closed" )
+	field(ONAM,"Open" )
 	field(VAL,"1")
 }
 

@@ -30,6 +30,7 @@ ISTTOKrpi_DBD += asyn.dbd
 ISTTOKrpi_DBD += stream.dbd
 ISTTOKrpi_DBD += drvAsynI2C.dbd
 ISTTOKrpi_DBD += drvAsynSerialPort.dbd
+ISTTOKrpi_DBD += drvAsynIPPort.dbd
 ISTTOKrpi_DBD += asSupport.dbd
 
 # Add all the support libraries needed by this IOC

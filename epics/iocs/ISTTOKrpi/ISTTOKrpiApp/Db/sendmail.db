@@ -1,0 +1,7 @@
+record(stringout, $(P)$(R)sendmail){
+    field(DESC, "Send email")
+    field(DTYP, "stream")
+    field(OUT, "@sendmail.proto send(isttok@ipfn.tecnico.ulisboa.pt,bernardo.brotas@gmail.com) $(PORT) $(A)")
+#    field(PINI, "YES")
+}
+

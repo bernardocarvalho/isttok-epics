@@ -35,6 +35,12 @@ asynSetOption("RS0", 0, "crtscts", "N")
 
 dbLoadRecords("db/ISTTOKpfeiffer.db","P=ISTTOK:,R=central:,bus=RS0")
 
+# connect to the MAIL server mail.ipfn.tecnico.ulisboa.pt
+#		,priority,noAutoConnect,noProcessEos
+drvAsynIPPortConfigure("L0","193.136.136.3:25",0,1,0)
+
+dbLoadRecords("db/sendmail.db", "P=ISTTOK:,PORT=L0,R=central:,L=0,A=0")
+
 # Uncomment to Debug STREAM serial activity
 #var streamError 1
 #var streamDebug 1

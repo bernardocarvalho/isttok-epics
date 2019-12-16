@@ -1,0 +1,45 @@
+# https://epics.anl.gov/tech-talk/2013/msg02051.php
+Terminator = CR LF;
+ExtraInput = Ignore;
+ReplyTimeout = 1000;
+
+@mismatch { out "QUIT"; disconnect; }
+
+mail_start {
+	connect 10000;
+	in "220";
+	out "HELO ipfn.tecnico.ulisboa.pt";
+	in "250";
+	out "AUTH LOGIN";
+	in "334";
+	out "YmVybmFyZG8=";
+	in "334";
+	out "RjJjb21ldA==";
+	in "235";
+	out "MAIL FROM:\$1";
+	in "250";
+	out "RCPT TO:\$2";
+	in "250";
+	out "RCPT TO: halves@ipfn.tecnico.ulisboa.pt";
+	in "250";
+	out "DATA";
+	in "354";
+	out "From: \$1";
+	out "To: \$2";
+	out "Subject: Report from ISTTOK";
+	out "";
+}
+
+mail_end {
+	out ".";
+	in "250";
+	out "QUIT";
+	disconnect;
+}
+
+send {
+	mail_start;
+	out "Problem is: %s";
+	mail_end;
+}
+

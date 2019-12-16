@@ -235,7 +235,10 @@ monitor IsttokTTSystem_tzero;
 /* Trace message record limited to 40 characters */
 string msg;
 assign msg to "ISTTOK:central:TraceMessage.VAL";
-monitor msg;
+//monitor msg;
+
+string sendMail;
+assign sendMail to "ISTTOK:central:sendmail";
 
 /* Main Pulse State Set */
 ss PulseSequence {
@@ -352,8 +355,6 @@ ss PulseSequence {
             pvPut(msg);
             errlogSevPrintf(NO_ALARM, "%s\n",msg);
             /* Pulse state change to Starting */
-//            IsttokOPSTATE = POS_Starting;
-//            pvPut(IsttokOPSTATE);
         } state Starting
     }
     /* State Starting */
@@ -367,24 +368,18 @@ ss PulseSequence {
             pvPut(msg);
             errlogSevPrintf(MAJOR, "%s\n",msg);
             /* Pulse state change to Emergency*/
-        //    IsttokOPSTATE = POS_Starting;
-        //    pvPut(IsttokOPSTATE);
         } state Emergency
         when (IsttokOPREQ == STOP) {
             strcpy(msg, "State to Stopping");
             pvPut(msg);
             errlogSevPrintf(MINOR, "%s\n",msg);
             /* Pulse state change to Stopping */
-//            IsttokOPSTATE = POS_Stopping;
-//            pvPut(IsttokOPSTATE);
         } state Stopping
         when (STARTINGSTATE == STRST_StartingEnd ) {
             strcpy(msg, "State to Process");
             pvPut(msg);
             errlogSevPrintf(NO_ALARM, "%s\n",msg);
             /* Pulse state change to Process*/
-//            IsttokOPSTATE = POS_Process;
-//            pvPut(IsttokOPSTATE);
         } state Process
     }
     /* State Process */
@@ -409,6 +404,8 @@ ss PulseSequence {
             /* Vacuum emergency: Pulse state change to Stopping */
             IsttokOPREQ = STOP;
             pvPut(IsttokOPREQ);
+            strcpy(sendMail, "Vacuum Emergency while Process");
+            pvPut(sendMail);
         } state Stopping
 
         when (IsttokOPREQ==STOP || IsttokTMPump1_ManualValve == OFF) {
@@ -634,8 +631,6 @@ ss StartingSequence {
             strcpy(msg, "Starting1 Out");
             pvPut(msg);
             errlogSevPrintf(NO_ALARM, "%s\n",msg);
-          //  IsttokSTARTINGSTATE = STRST_NonStarting;
-          //  pvPut(IsttokSTARTINGSTATE);
         } state NonStarting
         when (delay(5.0)) {
             strcpy(msg, "Rotary Valve1 OPEN");
@@ -688,17 +683,6 @@ ss StartingSequence {
                 errlogSevPrintf(NO_ALARM, "%s\n",msg);
                 IsttokTMPump2_Motor = PCF_RELAY_ON;
                 pvPut(IsttokTMPump2_Motor);
-/* 
-            if(TMPump1NormalOperation == PCF_INPUT_ON){
-	            sprintf(tmp1_stat, "ON");
-            }else{
-        	    sprintf(tmp1_stat, "OFF");
-            }
- 
-            sprintf(msg, "TMPNO = [1:%s]", tmp1_stat);
-            pvPut(msg);
-            errlogSevPrintf(NO_ALARM, "%s\n",msg);
-*/
 	    STARTINGSTATE = STRST_Starting4;
             pvPut(STARTINGSTATE);
         } state Starting4
@@ -1079,21 +1063,10 @@ ss ShotSequence {
         } state ShotEnd
     }
     state ShotEnd {
-/*
-        when ((IsttokOPSTATE != POS_WaitShot ) && (IsttokShotCountdown == 160) ) {
-            strcpy(msg, "Shoting13 Out");
-            pvPut(msg);
-            errlogSevPrintf(NO_ALARM, "%s\n", msg);
-            WSHOTINGSTATE = WSHTST_NonShoting;
-            pvPut(WSHOTINGSTATE);
-        } state NonShoting
-*/
         when (IsttokShotCountdown > 160) {
             strcpy(msg, "Terminated");
             pvPut(msg);
             errlogSevPrintf(NO_ALARM, "%s\n", msg);
-//            IsttokShotCountdown = 0;
-//            pvPut(IsttokShotCountdown);
             WSHOTINGSTATE = WSHTST_WaitTrg;
             pvPut(WSHOTINGSTATE);
         } state ShotWaitTrg 
