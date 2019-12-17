@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--  XML configuration for ISTTOK COntrol
+     2018/01/25 14:28:06.826000000
+Usage:
+../../bin/ArchiveConfigTool/ArchiveConfigTool -export -engine ISTTOKcontrol -config t.xml
+../../bin/ArchiveConfigTool/ArchiveConfigTool -engine ISTTOKcontrol -config isttokcontrol.xml -import -host localhost -port 4812
+
+../../bin/ArchiveConfigTool/ArchiveConfigTool -engine ISTTOKcontrol -config isttokcontrol.xml -delete_config
+ -->
+<engineconfig>
+  <group>
+    <name>ISTTOKcontrol</name>
+      <channel><name>ISTTOK:central:VVessel-Pressure</name>
+	<period>00:01:00</period><scan/>
+      </channel>
+      <channel><name>ISTTOK:central:TMPump1-PressureAdmission</name>
+	<period>00:01:00</period><scan/>
+      </channel>
+      <channel><name>ISTTOK:central:RPump1-Pressure</name>
+	<period>00:01:00</period><scan/>
+      </channel>
+      <channel><name>ISTTOK:central:RPump2-Pressure</name>
+	<period>00:01:00</period><scan/>
+      </channel>
+      <channel><name>ISTTOK:central:PULSE-NUMBER</name>
+	<period>00:10:00</period><monitor/>
+      </channel>
+      <channel><name>ISTTOK:central:OPSTATE</name>
+	<period>00:10:00</period><monitor/>
+      	<enable/>
+      </channel>
+
+<!--  
+      <channel><name>ISTTOK:temperature:RawTemperature_0</name>
+	<period>00:00:30</period><scan/>
+      </channel>
+      <channel><name>ISTTOK:temperature:Temperature_0</name>
+	<period>00:00:30</period><scan/>
+      </channel>
+      <channel><name>ISTTOK:temperature:Capbank_Voltage</name>
+	<period>00:00:30</period><scan/>
+      </channel>
+      <channel><name>ISTTOK:vacuum:Pressure_Chamber1</name>
+	<period>10.0</period>
+	<monitor>0.002e-6</monitor> 	
+        <scan/>
+      </channel>
+      <channel><name>ISTTOK:vacuum:Pressure_Chamber1calc</name>
+	<period>30.0</period>
+	<monitor>0.002e-6</monitor> 	
+        <monitor/>
+      </channel>
+      <channel><name>ISTTOK:temperature:Uptime</name><period>00:00:30</period><scan/></channel>
+    <channel><name> ISTTOK:galium:Temperature_0</name>
+	<period>30.0</period><monitor/>
+      </channel>
+      <channel><name> ISTTOK:galium:Temperature_1</name>
+	<period>30.0</period><monitor/>
+      </channel>
+      <channel><name> ISTTOK:galium:Temperature_2</name>
+	<period>30.0</period><monitor/>
+      </channel>
+      <channel><name> ISTTOK:galium:Temperature_3</name>
+	<period>30.0</period><monitor/>
+      </channel>
+      <channel><name> ISTTOK:galium:Temperature_4</name>
+	<period>30.0</period><monitor/>
+      </channel>
+      <channel><name> ISTTOK:galium:Temperature_5</name>
+	<period>30.0</period><monitor/>
+      </channel> 
+
+
+      <channel><name>sim://noiseWaveform(0,10,100,10)</name>
+	<period>00:00:00.100</period><scan/>
+      </channel>
+      <channel>
+	<name>sim://sine(0, 10, 50, 0.1)</name>
+	<period>00:00:00.100</period>
+	<scan/>
+      </channel>
+-->
+  </group>
+</engineconfig>
