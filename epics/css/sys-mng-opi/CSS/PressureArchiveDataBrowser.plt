@@ -55,6 +55,23 @@
             <autoscale>false</autoscale>
             <log_scale>true</log_scale>
         </axis>
+        <axis>
+            <visible>true</visible>
+            <name>Value 3</name>
+            <use_axis_name>false</use_axis_name>
+            <use_trace_names>true</use_trace_names>
+            <right>false</right>
+            <color>
+                <red>0</red>
+                <green>0</green>
+                <blue>0</blue>
+            </color>
+            <min>0.0</min>
+            <max>10.0</max>
+            <grid>false</grid>
+            <autoscale>false</autoscale>
+            <log_scale>false</log_scale>
+        </axis>
     </axes>
     <annotations>
     </annotations>
@@ -84,14 +101,14 @@
             </archive>
         </pv>
         <pv>
-            <display_name>ISTTOK:vacuum:Pressure_Primary1</display_name>
+            <display_name>ISTTOK:central:RPump1-Pressure</display_name>
             <visible>true</visible>
-            <name>ISTTOK:vacuum:Pressure_Primary1</name>
-            <axis>1</axis>
+            <name>ISTTOK:central:RPump1-Pressure</name>
+            <axis>2</axis>
             <color>
-                <red>242</red>
-                <green>26</green>
-                <blue>26</blue>
+                <red>255</red>
+                <green>0</green>
+                <blue>0</blue>
             </color>
             <trace_type>AREA</trace_type>
             <linewidth>2</linewidth>
@@ -102,7 +119,7 @@
             <ring_size>5000</ring_size>
             <request>OPTIMIZED</request>
             <archive>
-                <name>rdb</name>
+                <name>RDB</name>
                 <url>jdbc:mysql://192.168.1.152/archive</url>
                 <key>1</key>
             </archive>
