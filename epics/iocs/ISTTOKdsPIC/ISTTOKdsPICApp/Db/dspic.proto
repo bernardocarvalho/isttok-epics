@@ -1,0 +1,37 @@
+# https://epics.anl.gov/tech-talk/2013/msg02051.php
+Terminator = CR LF;
+MaxInput = 125;
+ReadTimeout = 500;
+#ExtraInput = Ignore;
+
+getTE01 {
+	in "TE01_%10u TE02_%*10u %*80c";
+}
+
+getTE02 {
+#	in "TE01_%*s TE02_%10u TE03_%*10u %*70c";
+	in "TE01_%*u TE02_%10u TE03_%*10u TE04_%*10u PRD01_%*10u UP_%*10u %*u %+<sum8>";
+}
+
+getTE03 {
+#	in "TE01_%*s TE02_%*10u TE03_%10u %*80c";
+	in "TE01_%*u TE02_%*10u TE03_%10u TE04_%*10u PRD01_%*10u UP_%*10u %*u %+<sum8>";
+}
+
+getTE04 {
+#	in "TE01_%*s TE02_%*10u TE03_%*10u TE04_%10u %*40c";
+	in "TE01_%*u TE02_%*10u TE03_%*10u TE04_%10u PRD01_%*10u UP_%*10u %*u %+<sum8>";
+}
+
+getPRD01 {
+#	in "TE01_%*s TE02_%*10u TE03_%*10u TE04_%*10u PRD01_%10u %*30c";
+	in "TE01_%*s TE02_%*10u TE03_%*10u TE04_%*10u PRD01_%10u UP_%*10u %*u %+<sum8>";
+}
+
+getUP {
+	in "TE01_%*s TE02_%*10u TE03_%*10u TE04_%*10u PRD01_%*10u UP_%10u %*u %+<sum8>";
+}
+
+getStr{
+    in "TE01_%10s%*93c";
+}

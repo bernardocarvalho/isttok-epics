@@ -1,0 +1,141 @@
+###################################################################
+#  This records is the dspPIC uptime in seconds from last reset   #
+###################################################################
+record(longin, "$(P)$(R)Uptime")
+{
+   field(DESC, "Reads dsPIC Uptime")
+   field(DTYP, "stream")
+   field(INP, "@dspic.proto getUP $(PORT)")
+   field(SCAN, "I/O Intr")
+   field(FLNK,"$(P)$(R)Diff_Uptime") #Link to update Diff_Uptime
+   field(ADEL,100)
+   field(MDEL,0)
+}
+
+record(calc, "$(P)$(R)Diff_Uptime") {
+  field(DESC, "Uptime diff. between I/O Intr scans")
+  field(CALC,"B-A")
+  field(SCAN,"Passive")
+  field(INPA,"$(P)$(R)Last_Uptime.VAL NPP")
+  field(INPB,"$(P)$(R)Uptime")
+  field(FLNK,"$(P)$(R)Last_Uptime")
+  field(HIHI,"100.0")
+  field(HIGH,"2.0")
+  field(LOW, "0.0")
+  field(LOLO,"-10.0")
+}
+
+record(calc, "$(P)$(R)Last_Uptime") {
+  field(DESC, "Last Uptime  for diff. calc")
+  field(CALC,"A")
+  field(SCAN,"Passive")
+  field(INPA,"$(P)$(R)Uptime")
+}
+###################################################################
+#  These records read Temperatures                                #
+###################################################################
+record(ai, "$(P)$(R)Temperature_0")
+{
+    field(DESC, "Reads  TE01 Temperature")
+    field(DTYP, "stream")
+    field(INP, "@dspic.proto getTE01 $(PORT) $(A)")
+    field(SCAN, "I/O Intr")
+   field(EGU, "C")
+   field(PREC, "4")
+   field(LINR, "LINEAR")
+   field(ESLO, "0.00001163358")
+   field(EGUL, "-1.02376")
+   field(HIHI,"90.0")
+   field(HIGH,"80.0")
+   field(LOW, "20.0")
+   field(LOLO,"0.0")
+   field(HHSV,"MAJOR")
+   field(HSV, "MINOR")
+   field(LSV, "MINOR")
+   field(LLSV,"MAJOR")
+}
+# Precision
+#  Engineering Units
+#   field(EGU, "Raw")
+# Convertion
+# val = val * ESLO + EGUL
+#   field(ESLO, "0.000011633582866550557")
+#   field(DESC,"Thermocouple 0")
+#   field(HIHI,"90.0")
+#   field(HIGH,"50.0")
+#   field(LOW, "20.0")
+#   field(LOLO,"0.0")
+#   field(HHSV,"MAJOR")
+#   field(HSV, "MINOR")
+#   field(LSV, "MINOR")
+#   field(LLSV,"MAJOR")
+#   field(ADEL, "10000.0")      # Archive Deadband
+#   field(MDEL, "0.0")      # Monitor Deadband
+
+record(ai, "$(P)$(R)Temperature_1")
+{
+    field(DESC, "Reads  TE02 Temperature")
+    field(DTYP, "stream")
+    field(INP, "@dspic.proto getTE02 $(PORT) $(A)")
+    field(SCAN, "I/O Intr")
+   field(EGU, "C")
+   field(PREC, "4")
+   field(LINR, "LINEAR")
+#  field(CALC,"A*0.000011633582866550557-1.02376")
+   field(ESLO,  "0.00001163358")
+   field(EGUL, "-1.02376")
+}
+record(ai, "$(P)$(R)Temperature_2")
+{
+   field(DESC, "Reads  TE03 Temperature")
+   field(DTYP, "stream")
+   field(INP, "@dspic.proto getTE03 $(PORT)")
+   field(SCAN, "I/O Intr")
+   field(EGU, "C")
+   field(PREC, "4")
+   field(LINR, "LINEAR")
+   field(ESLO,  "0.00001163358")
+   field(EGUL, "-1.02376")
+}
+record(ai, "$(P)$(R)Temperature_3")
+{
+    field(DESC, "Reads  TE04 Temperature")
+    field(DTYP, "stream")
+    field(INP, "@dspic.proto getTE04 $(PORT)")
+    field(SCAN, "I/O Intr")
+   field(EGU, "C")
+   field(PREC, "4")
+   field(LINR, "LINEAR")
+   field(ESLO,  "0.00001163358")
+   field(EGUL, "-1.02376")
+}
+record(ai, "$(P)$(R)Capbank_Voltage") {
+{
+    field(DESC, "Reads  PRD01, Capitor bank Voltage PWM")
+    field(DTYP, "stream")
+    field(INP, "@dspic.proto getPRD01 $(PORT)")
+    field(SCAN, "I/O Intr")
+    field(LINR, "LINEAR")
+#   # val = val * ESLO + EGUL
+    field(ESLO, "1.0")
+    field(EGUL, "0.0")
+# Precision
+   field(PREC, "1")
+   # Units
+    field(EGU, "V")
+#     # Alarms
+}
+record(stringin, $(P)$(R)idn){
+    field(DESC, "Debug info blabla")
+    field(DTYP, "stream")
+    field(INP, "@dspic.proto getStr $(PORT) $(A)")
+    field(SCAN, "I/O Intr")
+}
+
+record(stringin, "$(P)$(R)CurrentTime") {
+  field(DESC, "Current Date and Time of the IOC")
+  field(SCAN, "1 second")
+  field(DTYP, "Soft Timestamp")
+  field(PINI, "YES")
+  field(INP, "@%d/%m/%Y %H:%M:%S")
+}
