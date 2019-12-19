@@ -1,5 +1,5 @@
 epicsEnvSet("IOC","iocISTTOKrpi")
-epicsEnvSet("TOP","/opt/epics/iocs/ISTTOKrpi")
+epicsEnvSet("TOP","/home/pi/ISTTOK/epics/iocs/ISTTOKrpi")
 epicsEnvSet("SUPPORT","/usr/local/epics/base/../synApps_5_8/support")
 epicsEnvSet("SNCSEQ","/usr/local/epics/base/../synApps_5_8/support/seq-2-2-1")
 epicsEnvSet("ASYN","/usr/local/epics/base/../synApps_5_8/support/asyn-4-26")

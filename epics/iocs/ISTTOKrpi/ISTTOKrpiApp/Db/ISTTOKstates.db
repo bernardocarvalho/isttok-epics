@@ -172,6 +172,11 @@ record(stringout, "$(P)$(R)TraceMessage") {
 	field(VAL, "Trace mode ON")
 }
 
+record(stringout, "$(P)$(R)LogMessage") {
+	field(DESC, "Log Message ")
+#	field(VAL, "Trace mode ON")
+}
+
 record(mbbi, "$(P)$(R)STARTINGSTATE") {
 	field(DESC, "Starting State Sequence")
 	field(ZRVL, "0")

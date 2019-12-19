@@ -404,7 +404,8 @@ ss PulseSequence {
             /* Vacuum emergency: Pulse state change to Stopping */
             IsttokOPREQ = STOP;
             pvPut(IsttokOPREQ);
-            strcpy(sendMail, "Vacuum Emergency while Process");
+            //strcpy(sendMail, "Vacuum Emergency while Process");
+	    sprintf(sendMail, "R1:%1.1e R2:%.1e T1:%d T2:%d",IsttokRPump1_Pressure,IsttokRPump2_Pressure,IsttokTMPump1_Emergency,IsttokTMPump2_Emergency);
             pvPut(sendMail);
         } state Stopping
 
