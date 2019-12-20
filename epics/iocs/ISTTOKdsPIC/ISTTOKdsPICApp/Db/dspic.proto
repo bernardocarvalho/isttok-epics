@@ -1,7 +1,7 @@
 # https://epics.anl.gov/tech-talk/2013/msg02051.php
 Terminator = CR LF;
-MaxInput = 125;
-ReadTimeout = 500;
+MaxInput = 110;
+ReadTimeout = 200;
 #ExtraInput = Ignore;
 
 getTE01 {
