@@ -452,7 +452,7 @@ ss PulseSequence {
 
         when (IsttokOPREQ == STOP) {} state Stopping
 
-        when ( pvStatus(IsttokVVesselTemperature) != pvStatOK)  {
+        when (pvSeverity(IsttokVVesselTemperature) >= pvSevrMAJOR)  {
             /* Temperature Limit Pulse state change to Process */
             //IsttokProcReq = STOP;
             //pvPut(IsttokProcReq);
