@@ -111,6 +111,7 @@ monitor STARTINGSTATE;
 
 short CLEANINGSTATE;
 assign CLEANINGSTATE to "ISTTOK:central:CLEANINGSTATE";
+monitor CLEANINGSTATE;
  
 short CLEANINGMANMODE;
 assign CLEANINGMANMODE to "ISTTOK:central:CLEANINGMANMODE";
@@ -444,22 +445,13 @@ ss PulseSequence {
             IsttokOPSTATE = POS_Clean;
             pvPut(IsttokOPSTATE);
         } 
-        when (IsttokProcReq==STOP )  {
-            strcpy(msg, "State to Process");
+        when ((IsttokProcReq==STOP) && (CLEANINGSTATE == CLNST_NonCleaning))  {
+            strcpy(msg, "State to Process  F Clean");
             pvPut(msg);
             errlogSevPrintf(NO_ALARM, "%s\n",msg);
         } state Process
 
         when (IsttokOPREQ == STOP) {} state Stopping
-
-        when (pvSeverity(IsttokVVesselTemperature) >= pvSevrMAJOR)  {
-            /* Temperature Limit Pulse state change to Process */
-            //IsttokProcReq = STOP;
-            //pvPut(IsttokProcReq);
-            strcpy(msg, "State to Process");
-            pvPut(msg);
-            errlogSevPrintf(MINOR, "%s\n",msg);
-        } state Process
 
         when ( pvStatus(IsttokTMPump1_Emergency) != pvStatOK || 
 	       pvStatus(IsttokTMPump2_Emergency) != pvStatOK)  {
@@ -772,7 +764,7 @@ ss CleaningSequence{
         } state Cleaning1
     }
     state Cleaning1 {
-        when (delay(1.0) && (IsttokOPSTATE != POS_Clean )) {
+        when (delay(1.0) && IsttokProcReq==STOP) {
             // Reversing Cleaning
             strcpy(msg, "GIS Valves CLOSE");
             pvPut(msg);
@@ -780,6 +772,7 @@ ss CleaningSequence{
             IsttokShotGasIS_Valves = PCF_RELAY_OFF;
             pvPut(IsttokShotGasIS_Valves);
         } state NonCleaning
+
         when (delay(2.0) && CLEANINGMANMODE == 1 && IsttokOPSTATE == POS_Clean ) {
             strcpy(msg, "Filament ON");
             pvPut(msg);
@@ -791,7 +784,7 @@ ss CleaningSequence{
         } state Cleaning2
     }
     state Cleaning2{
-        when (delay(1.0) && IsttokOPSTATE != POS_Clean ) {
+        when (delay(1.0) && IsttokProcReq==STOP) {
             // Reversing Cleaning
             strcpy(msg, "Filament OFF");
             pvPut(msg);
@@ -812,7 +805,7 @@ ss CleaningSequence{
         } state Cleaning3
     }
     state Cleaning3{
-        when(delay(1.0) && IsttokOPSTATE != POS_Clean){
+        when(delay(1.0) && IsttokProcReq==STOP){
             strcpy(msg, "Primary-CT OFF");
             pvPut(msg);
             errlogSevPrintf(NO_ALARM, "%s\n",msg);
@@ -833,7 +826,7 @@ ss CleaningSequence{
 
     }
     state Cleaning4{
-        when(delay (1.0) && IsttokOPSTATE != POS_Clean){
+        when(delay (1.0) && IsttokProcReq==STOP){
             strcpy(msg, "Toroidal-BK OPEN");
             pvPut(msg);
             errlogSevPrintf(NO_ALARM, "%s\n",msg);
@@ -854,15 +847,28 @@ ss CleaningSequence{
 
     }
     state Cleaning5{
-        when(delay(1.0) && IsttokOPSTATE != POS_Clean){
+        when (IsttokProcReq==STOP) {
+//        } state Process
+ //       when(delay(1.0) && IsttokOPSTATE != POS_Clean){
             strcpy(msg, "Toroidal-CT OFF");
             pvPut(msg);
             errlogSevPrintf(NO_ALARM, "%s\n",msg);
             IsttokShotClean_TorContactor = PCF_RELAY_OFF;
             pvPut(IsttokShotClean_TorContactor);
+/* Close GIS to let Pressure down */
+            IsttokShotGasIS_Valves = PCF_RELAY_OFF;
+            pvPut(IsttokShotGasIS_Valves);
 	    CLEANINGSTATE = CLNST_Cleaning4;
 	    pvPut(CLEANINGSTATE);
         } state Cleaning4
+        when (pvSeverity(IsttokVVesselTemperature) >= pvSevrMAJOR) {
+            /* Temperature Limit Pulse state change to Process */
+            IsttokProcReq = STOP;
+            pvPut(IsttokProcReq);
+            strcpy(msg, "Temperature Limit-> State to Process");
+            pvPut(msg);
+            errlogSevPrintf(MINOR, "%s\n",msg);
+        } state Cleaning5
     }
 }
 
