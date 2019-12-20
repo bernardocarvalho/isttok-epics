@@ -25,6 +25,16 @@ Usage:
       <channel><name>ISTTOK:central:PULSE-NUMBER</name>
 	<period>00:10:00</period><monitor/>
       </channel>
+      <channel><name>ISTTOK:central:LogMessage</name>
+	<period>00:10:00</period><monitor/>
+      </channel>
+      <channel><name>ISTTOK:central:TraceMessage</name>
+	<period>00:10:00</period><monitor/>
+      </channel>
+      <channel><name>ISTTOK:temperature:VVessel-Temperature</name>
+	<period>00:02:00</period>
+	<monitor>1.0</monitor> 	
+      </channel>
       <channel><name>ISTTOK:central:OPSTATE</name>
 	<period>00:10:00</period><monitor/>
       	<enable/>

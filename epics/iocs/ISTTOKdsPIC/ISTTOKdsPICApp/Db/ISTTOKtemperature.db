@@ -34,7 +34,7 @@ record(calc, "$(P)$(R)Last_Uptime") {
 ###################################################################
 #  These records read Temperatures                                #
 ###################################################################
-record(ai, "$(P)$(R)Temperature_0")
+record(ai, "$(P)$(R)VVessel-Temperature")
 {
     field(DESC, "Reads TE01 Temperature")
     field(DTYP, "stream")
@@ -44,20 +44,22 @@ record(ai, "$(P)$(R)Temperature_0")
    field(PREC, "4")
    field(LINR, "LINEAR")
 #   field(ESLO, "0.00001163358")
+#   See https://paulscherrerinstitute.github.io/StreamDevice/ai.html
 #   field(EGUL, "-1.02376")
 #   x 30
    field(ESLO, "0.000349007") 
-   field(EGUL, "-10.0")
-   field(HOPR, "120.0")
-   field(LOPR, "10.0")
-   field(HIHI,"90.0")
-   field(HIGH,"80.0")
-   field(LOW, "20.0")
-   field(LOLO,"0.0")
+   #field(EGUL, "-30.71")
+   field(EOFF, "-30.71")
+   field(HOPR, "140.0")
+   field(LOPR, "0.0")
+   field(HIHI,"130.0")
+   field(HIGH,"120.0")
+   field(LOW, "0.0")
+   field(LOLO,"-10.0")
    field(HHSV,"MAJOR")
    field(HSV, "MINOR")
-   field(LSV, "MINOR")
-   field(LLSV,"MAJOR")
+#   field(LSV, "MINOR")
+#   field(LLSV,"MAJOR")
    field(ADEL, "1.0")      # Archive Deadband
 }
 # Precision

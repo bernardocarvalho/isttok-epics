@@ -1,0 +1,6 @@
+epicsEnvSet("IOC","iocISTTOKdsPIC")
+epicsEnvSet("TOP","/opt/epics/apps/ISTTOK")
+epicsEnvSet("MODULES","/opt/epics/modules")
+epicsEnvSet("ASYN","/opt/epics/modules/asyn")
+epicsEnvSet("STREAM","/opt/epics/modules/stream")
+epicsEnvSet("EPICS_BASE","/opt/epics/base-3.15.7")
