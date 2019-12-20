@@ -8,7 +8,7 @@
     <scroll>true</scroll>
     <update_period>3.0</update_period>
     <scroll_step>5</scroll_step>
-    <start>-15 days 0.0 seconds</start>
+    <start>-1 days 0.0 seconds</start>
     <end>now</end>
     <archive_rescale>NONE</archive_rescale>
     <background>
@@ -32,8 +32,8 @@
                 <green>0</green>
                 <blue>0</blue>
             </color>
-            <min>4.923402629482079E-38</min>
-            <max>6.616152516271121E7</max>
+            <min>1.0E-8</min>
+            <max>100.0</max>
             <grid>true</grid>
             <autoscale>false</autoscale>
             <log_scale>true</log_scale>
@@ -49,14 +49,14 @@
                 <green>0</green>
                 <blue>0</blue>
             </color>
-            <min>5.137681385218519E-15</min>
-            <max>1.681969375676812E12</max>
+            <min>1.0E-12</min>
+            <max>0.01</max>
             <grid>true</grid>
             <autoscale>false</autoscale>
             <log_scale>true</log_scale>
         </axis>
         <axis>
-            <visible>true</visible>
+            <visible>false</visible>
             <name>Value 3</name>
             <use_axis_name>false</use_axis_name>
             <use_trace_names>true</use_trace_names>
@@ -67,24 +67,24 @@
                 <blue>0</blue>
             </color>
             <min>0.0</min>
-            <max>10.0</max>
+            <max>0.1</max>
             <grid>false</grid>
             <autoscale>false</autoscale>
-            <log_scale>false</log_scale>
+            <log_scale>true</log_scale>
         </axis>
     </axes>
     <annotations>
     </annotations>
     <pvlist>
         <pv>
-            <display_name>ISTTOK:vacuum:Pressure_Chamber1</display_name>
+            <display_name>RPump1-Pressure</display_name>
             <visible>true</visible>
-            <name>ISTTOK:vacuum:Pressure_Chamber1</name>
+            <name>ISTTOK:central:RPump1-Pressure</name>
             <axis>0</axis>
             <color>
-                <red>21</red>
-                <green>21</green>
-                <blue>196</blue>
+                <red>255</red>
+                <green>0</green>
+                <blue>0</blue>
             </color>
             <trace_type>AREA</trace_type>
             <linewidth>2</linewidth>
@@ -95,19 +95,67 @@
             <ring_size>5000</ring_size>
             <request>OPTIMIZED</request>
             <archive>
-                <name>rdb</name>
+                <name>RDB</name>
                 <url>jdbc:mysql://192.168.1.152/archive</url>
                 <key>1</key>
             </archive>
         </pv>
         <pv>
-            <display_name>ISTTOK:central:RPump1-Pressure</display_name>
+            <display_name>RPump2-Pressure</display_name>
             <visible>true</visible>
-            <name>ISTTOK:central:RPump1-Pressure</name>
-            <axis>2</axis>
+            <name>ISTTOK:central:RPump2-Pressure</name>
+            <axis>0</axis>
             <color>
                 <red>255</red>
+                <green>165</green>
+                <blue>0</blue>
+            </color>
+            <trace_type>AREA</trace_type>
+            <linewidth>2</linewidth>
+            <point_type>NONE</point_type>
+            <point_size>2</point_size>
+            <waveform_index>0</waveform_index>
+            <period>0.0</period>
+            <ring_size>5000</ring_size>
+            <request>OPTIMIZED</request>
+            <archive>
+                <name>RDB</name>
+                <url>jdbc:mysql://192.168.1.152/archive</url>
+                <key>1</key>
+            </archive>
+        </pv>
+        <pv>
+            <display_name>TMPump1-PressureAdmission</display_name>
+            <visible>true</visible>
+            <name>ISTTOK:central:TMPump1-PressureAdmission</name>
+            <axis>1</axis>
+            <color>
+                <red>0</red>
                 <green>0</green>
+                <blue>255</blue>
+            </color>
+            <trace_type>AREA</trace_type>
+            <linewidth>2</linewidth>
+            <point_type>NONE</point_type>
+            <point_size>2</point_size>
+            <waveform_index>0</waveform_index>
+            <period>0.0</period>
+            <ring_size>5000</ring_size>
+            <request>OPTIMIZED</request>
+            <archive>
+                <name>RDB</name>
+                <url>jdbc:mysql://192.168.1.152/archive</url>
+                <key>1</key>
+            </archive>
+        </pv>
+        <pv>
+            <display_name>VVessel-Pressure</display_name>
+            <visible>true</visible>
+            <name>ISTTOK:central:VVessel-Pressure</name>
+            <axis>1</axis>
+            <color>
+                <red>0</red>
+                <green>128</green>
                 <blue>0</blue>
             </color>
             <trace_type>AREA</trace_type>
