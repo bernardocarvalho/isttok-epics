@@ -86,11 +86,11 @@ record(calc, "$(P)$(R)WSHOTCALCSTATE") {
 	field(INPA,"$(P)$(R)WSHOTINGSTATE.VAL PP NMS")
 }
 
-record(ai, "$(P)$(R)Temperature_0") {
-	field(DESC, "ISTTOK Temperature 0 Calculated")
-	field(EGU, "C")
-	field(SCAN,"1 second")
-}
+#record(ai, "$(P)$(R)Temperature_0") {
+#	field(DESC, "ISTTOK Temperature 0 Calculated")
+#	field(EGU, "C")
+#	field(SCAN,"1 second")
+#}
 
 record(bo, "$(P)$(R)OPREQ") {
 	info(autosaveFields, "VAL")
