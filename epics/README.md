@@ -234,8 +234,7 @@ Process Variables in this IOC Server:
 | ISTTOK:central:RPump1-Pressure | ai | yes |
 |ISTTOK:central:RPump2-Pressure  | ai | yes |
 |ISTTOK:central:TMPump1-PressureAdmission | ai | yes |
-|ISTTOK:central:VVessel-Pressure   | ai | yes |
-----------
+ISTTOK:central:VVessel-Pressure   | ai | yes 
 
 
 ##### Start the IOC on power up
