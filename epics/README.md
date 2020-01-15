@@ -121,8 +121,8 @@ Process Value in this IOC Server:
 
 #### Hardware Platform
 1. A Raspberry Pi 3, running a linux distribution
-  * Has a USB/RS485 port for monitoring pressure (to be connected soon)
-2. Two Interface Boarda, Velleman Model   [k8000](https://www.velleman.eu/products/view/?id=9383)
+  * Has a USB/RS485 port for monitoring pressure (to be connected soon)   
+2. Two Interface Boards, Velleman Model   [k8000](https://www.velleman.eu/products/view/?id=9383)
   * connected to raspberry Pi through I2C interface;
   * 8 isolated output connected to the relays (6 relays installed for the rotatory control)
   * 4 isolated outputs connected to SEIKO unit controller
