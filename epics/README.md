@@ -74,13 +74,14 @@ PC -> PIC
 `VL01_1 CKS\r\n`
 
 Table of word fields
-|| |
+
+| N | A |
 |:------|-----|
-  |  VLxx_|    Valve|
-  |  TExx_|   Temperature|
-  |  UP_ |   Uptime  |
-  |  PRDxx_|  Wave Period |
-  |  PRxx_ |   Pressure |
+|  VLxx_|    Valve|
+|  TExx_|   Temperature|
+|  UP_ |   Uptime  |
+|  PRDxx_|  Wave Period |
+|  PRxx_ |   Pressure |
 
 #### Software Platform
 
@@ -97,7 +98,7 @@ Table of word fields
    * MySQL server (user: report )
    * ArchiveConfigTool in `/home/bernardo/css/ArchiveConfigTool`
 
-Process Value in the IOC Server for this system.
+Process Value in this IOC Server:
 
 |PV Name	|PV Type	|Archive|
 |:----------|-------|---:|
@@ -144,6 +145,24 @@ Process Value in the IOC Server for this system.
       * Running in `screen deamon` (see `/etc/rc.local`) 
 
   For installation EPICS in Rpi see this [link](prjemian.github.io/epicspi)
+
+Process Value in this IOC Server:
+
+|PV Name	|PV Type	|Archive|
+|:----------|-------|---:|
+|ISTTOK:central:AUTHORISATION |	bo 	|	no |
+|ISTTOK:central:OPREQ |	bo 	|	no |
+|ISTTOK:central:PROCESS-MODE |	bo 	|	no |
+|ISTTOK:central:PROCESS-REQ |	bo 	|	no |
+|ISTTOK:central:COUNTER |	calc 	|	no |
+|ISTTOK:central:COUNTDOWN |	mbbi 	-
+|ISTTOK:central:PULSE-NUMBER |	longout | yes |
+|ISTTOK:central:OPSTATE |longout 	|  | yes |
+|ISTTOK:central:CurrentTime |	stringin 	|	no |
+|ISTTOK:central:TraceMessage |	stringout 	|	no |
+----------
+
+
 
 ##### Start the IOC on power up
 	1. Make sure `screen` is installed in Linux
