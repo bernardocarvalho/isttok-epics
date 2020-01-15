@@ -8,6 +8,7 @@ ISTTOK:central:COUNTDOWN
 ISTTOK:central:COUNTER
 ISTTOK:central:PCF8591:72:BYTE2_CH1
 ISTTOK:central:PCF8591:72:BYTE2_CH2
+ISTTOK:central:PCF8591:72:BYTE2_CH3
 ISTTOK:central:Emergency
 ISTTOK:central:VVessel-Pressure
 ISTTOK:central:RPump1-Pressure
@@ -15,6 +16,7 @@ ISTTOK:central:TMPump1-PressureAdmission
 ISTTOK:central:RPump2-Pressure
 ISTTOK:central:TMPump2-Speed
 ISTTOK:central:TMPump2-Current
+ISTTOK:central:Shot-TorPSCurrentImage
 ISTTOK:central:PCF8574:56:REGISTER
 ISTTOK:central:PCF8574:57:REGISTER
 ISTTOK:central:PCF8574:60:REGISTER
@@ -29,7 +31,7 @@ ISTTOK:central:TDA8444:32:DAC_CH3
 ISTTOK:central:TDA8444:32:DAC_CH4
 ISTTOK:central:TDA8444:32:DAC_CH5
 ISTTOK:central:TDA8444:32:DAC_CH6
-ISTTOK:central:TDA8444:32:DAC_CH7
+ISTTOK:central:Shot-TorPSCurrent
 ISTTOK:SR_0_State
 ISTTOK:SR_1_State
 ISTTOK:SR_2_State
@@ -40,6 +42,7 @@ ISTTOK:SR_6_State
 ISTTOK:SR_7_State
 ISTTOK:central:PCF8591:72:ADC_CH1
 ISTTOK:central:PCF8591:72:ADC_CH2
+ISTTOK:central:PCF8591:72:ADC_CH3
 ISTTOK:central:P001:M
 ISTTOK:central:P001:E
 ISTTOK:central:P002:M

@@ -78,6 +78,35 @@ record( ai, "$(P)$(R)TMPump2-Current" ) {
   field(LSV, "MINOR")
 #   #   field(LLSV,"MAJOR")
 }
+
+# Receiving two bytes. last one counts
+record( longin, "$(P)$(R)PCF8591:72:ADC_CH3" ) {
+	field(DTYP, "stream")
+	field(INP,  "@pcf8591.proto rConvAdc2(72) I2C")
+}
+record( calc, "$(P)$(R)PCF8591:72:BYTE2_CH3" ) {
+  field(INPA, "$(P)$(R)PCF8591:72:ADC_CH3 PP NMS")
+# extract LSB =last byte received
+  field(CALC, " (A & 255 )" )
+}
+record(ai, "$(P)$(R)Shot-TorPSCurrentImage" ) {
+  field(DESC, "Toroidal Current Image")
+  field(DTYP, "Raw Soft Channel" )
+  field(INP, "$(P)$(R)PCF8591:72:BYTE2_CH3 PP NMS")
+  field(SCAN, "1 second")
+  field(ASLO, "39.215686275" )
+  field(AOFF, "0.0" )
+  field(EGU,  "A" )
+  field(PREC, "3" )
+  field(HOPR, "10000" )
+  field(LOPR, "0" )
+  field(LOW, "200.0")
+#   #   field(LOLO,"0.0")
+  field(LSV, "MINOR")
+#   #   field(LLSV,"MAJOR")
+}
+
+
 record( longout, "$(P)$(R)PCF8591:72:DAC") {
 	field(DTYP, "stream")
 	field(OUT,  "@pcf8591.proto wDac(72) I2C")
