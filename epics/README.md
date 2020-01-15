@@ -150,7 +150,7 @@ Process Value in this IOC Server:
 #### Process Variables 
 Process Variables in this IOC Server:
 
-*. State machine PVs
+	* State machine PVs
 =======
 
 |PV Name	|PV Type	|Archive|
@@ -168,7 +168,7 @@ Process Variables in this IOC Server:
 |ISTTOK:central:LogMessage |	stringout 	|	yes |
 ----------
 
-*. Connected to PCF8574 I2C Address = 56 (Bottom Valleman)
+* Connected to PCF8574 I2C Address = 56 (Bottom Valleman)
 
 |PV Name	| PV Type	| Bit |
 |:----------|-------|---:|
