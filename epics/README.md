@@ -108,7 +108,8 @@ Process Value in this IOC Server:
 |ISTTOK:temperature:Temperature_1	|ai	| no |
 |ISTTOK:temperature:Temperature_2	|ai	| no |
 |ISTTOK:temperature:Temperature_3	|ai	| no |
-|ISTTOK:temperature:Capbank_Voltage|	ai|	no |
+|ISTTOK:temperature:Capbank_Voltage |	ai|	no |
+|ISTTOK:temperature:VVessel-Temperature  | ai | yes |
 ----------
 
 ### Central Control/Vacuum Node
@@ -149,7 +150,7 @@ Process Value in this IOC Server:
 #### Process Variables 
 Process Variables in this IOC Server:
 
-1. State machine PVs
+*. State machine PVs
 =======
 
 |PV Name	|PV Type	|Archive|
@@ -167,7 +168,7 @@ Process Variables in this IOC Server:
 |ISTTOK:central:LogMessage |	stringout 	|	yes |
 ----------
 
-2. Connected to PCF8574 I2C Address = 56 (Bottom Valleman)
+*. Connected to PCF8574 I2C Address = 56 (Bottom Valleman)
 
 |PV Name	| PV Type	| Bit |
 |:----------|-------|---:|
@@ -181,7 +182,7 @@ Process Variables in this IOC Server:
 |ISTTOK:central:TMPump1-NormalOperation | bi | 7 |
 ----------
 
-3. Connected to PCF8574 I2C Address = 57
+*. Connected to PCF8574 I2C Address = 57
 
 |PV Name	| PV Type	| Bit |
 |:----------|-------|---:|
@@ -193,7 +194,7 @@ Process Variables in this IOC Server:
 |ISTTOK:central:EmergencyButton| bo | 2 |
 ----------
 
-4. Connected to PCF8574 Address = 60 (Top Valleman)
+*. Connected to PCF8574 Address = 60 (Top Valleman)
 
 |PV Name	| PV Type	| Bit |
 |:----------|-------|---:|
@@ -207,7 +208,20 @@ Process Variables in this IOC Server:
 ----------
 
 
-4. Connected to RS485 Bus
+*. Connected to tda8444 DAC  @ address 0x20=d32  (Bottom Valleman)
+
+|PV Name	|PV Type	|Archive|
+|:----------|-------|---:|
+| ISTTOK:central:)TDA8444:32:DAC_CH0| longout | no |
+| ISTTOK:central:)TDA8444:32:DAC_CH1| longout | no |
+| ISTTOK:central:)TDA8444:32:DAC_CH2| longout | no |
+| ISTTOK:central:)TDA8444:32:DAC_CH3| longout | no |
+| ISTTOK:central:)TDA8444:32:DAC_CH5| longout | no |
+| ISTTOK:central:)TDA8444:32:DAC_CH6| longout | no |
+| ISTTOK:central:)TDA8444:32:)Shot-TorPSCurrent| longout | no |
+----------
+
+*. Connected to RS485 Bus
 
 |PV Name	|PV Type	|Archive|
 |:----------|-------|---:|
@@ -215,22 +229,8 @@ Process Variables in this IOC Server:
 |ISTTOK:central:RPump2-Pressure  | ai | yes |
 |ISTTOK:central:TMPump1-PressureAdmission | ai | yes |
 |ISTTOK:central:VVessel-Pressure   | ai | yes |
-|ISTTOK:temperature:VVessel-Temperature  | ai | yes |
-|  | ai | yes |
 ----------
 
-ISTTOK:central:TMPump1-ControllerOn
-ISTTOK:central:TMPump1-ControllerOff
-ISTTOK:central:TMPump1-MotorOn
-ISTTOK:central:TMPump1-MotorOff
-ISTTOK:central:TMPump2-Motor
-ISTTOK:central:Buzzer
-ISTTOK:central:Emergency-UserButton
-ISTTOK:central:RPump1-Motor
-ISTTOK:central:RPump1-Valve
-ISTTOK:central:RPump2-Motor
-ISTTOK:central:RPump2-Valve
-ISTTOK:central:VVessel-Filament
 =======
 |ISTTOK:central:COUNTDOWN |	mbbi 	-
 |ISTTOK:central:PULSE-NUMBER |	longout | yes |
