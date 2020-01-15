@@ -1,4 +1,5 @@
 ISTTOK:central:PULSE-NUMBER.VAL
+ISTTOK:central:LogMessage.VAL
 
 ISTTOK:central:LASTOPSTATE.VAL
 ISTTOK:central:OPREQ

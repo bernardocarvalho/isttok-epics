@@ -1,0 +1,42 @@
+Terminator   = "";
+LockTimeout  = 500;
+ReplyTimeout = 100;
+ReadTimeout  = 100;
+WriteTimeout = 100;
+MaxInput     = 2;
+ExtraInput   = Error;
+#I2C-bus format 
+# 0 1 0 0 A2 A1 A0 0 : I3 I2 I1 I0 SD SC SB SA : X X D5 D4 D3 D2 D1 D0
+# A2 to A0 = programmable address bits; A = Acknowledge; I3 to I0 = Instruction bits;
+# SD to SA = subaddress bits; X = don’t care; D5 to D0 = data bits; 
+
+#instruction F will cause a consecutive writing of the data bytes into the 
+#same DAC-latch whose subaddress was given in the instruction byte. 
+
+#0xF0 
+wDac0 {
+  out ${1} 240 "%.1r";
+}
+wDac1 {
+  out ${1} 241 "%.1r";
+}
+wDac2 {
+  out ${1} 242 "%.1r";
+}
+wDac3 {
+  out ${1} 243 "%.1r";
+}
+wDac4 {
+  out ${1} 244 "%.1r";
+}
+wDac5 {
+  out ${1} 245 "%.1r";
+}
+wDac6 {
+  out ${1} 246 "%.1r";
+}
+wDac7 {
+  out ${1} 247 "%.1r";
+}
+
+

@@ -78,3 +78,11 @@ record( ai, "$(P)$(R)TMPump2-Current" ) {
   field(LSV, "MINOR")
 #   #   field(LLSV,"MAJOR")
 }
+record( longout, "$(P)$(R)PCF8591:72:DAC") {
+	field(DTYP, "stream")
+	field(OUT,  "@pcf8591.proto wDac(72) I2C")
+	field(DRVH, "255" )
+        field(DRVL, "0" )
+	field(VAL, 128)
+	field(PINI,"YES")
+}

@@ -1,0 +1,84 @@
+#######################################################
+# ###                                             ### #
+# ### EPICS Database for                          ### #
+# ### I2C PCF8591 board                           ### #
+# ###                                             ### #
+# ### author: B. Carvalho IPFN                    ### #
+# ###                                             ### #
+# ### Ref 2.0; 2019-10-14                         ### #
+# ###                                             ### #
+# ### macros: ID      I2C address of ADC          ### #
+# ### Description:                                ### #
+# ### This  DB file is using                      ### #
+# ### stream(asynI2C)    to write                 ### #
+# ### an TDA8444 DAC chip                        ### #
+#######################################################
+
+#####################################################
+# Read/Write tda8444 register @ address 0x20=d32 ## #
+#####################################################
+record( longout, "$(P)$(R)TDA8444:32:DAC_CH0") {
+	field(DTYP, "stream")
+	field(OUT,  "@tda8444.proto wDac0(32) I2C")
+	field(DRVH, "63" )
+        field(DRVL, "0" )
+	field(VAL, 32)
+	field(PINI,"YES")
+}
+record( longout, "$(P)$(R)TDA8444:32:DAC_CH1") {
+	field(DTYP, "stream")
+	field(OUT,  "@tda8444.proto wDac1(32) I2C")
+	field(DRVH, "63" )
+        field(DRVL, "0" )
+	field(VAL, 32)
+	field(PINI,"YES")
+}
+record( longout, "$(P)$(R)TDA8444:32:DAC_CH2") {
+	field(DTYP, "stream")
+	field(OUT,  "@tda8444.proto wDac2(32) I2C")
+	field(DRVH, "63" )
+        field(DRVL, "0" )
+	field(VAL, 32)
+	field(PINI,"YES")
+}
+record( longout, "$(P)$(R)TDA8444:32:DAC_CH3") {
+	field(DTYP, "stream")
+	field(OUT,  "@tda8444.proto wDac3(32) I2C")
+	field(DRVH, "63" )
+        field(DRVL, "0" )
+	field(VAL, 32)
+	field(PINI,"YES")
+}
+record( longout, "$(P)$(R)TDA8444:32:DAC_CH4") {
+	field(DTYP, "stream")
+	field(OUT,  "@tda8444.proto wDac4(32) I2C")
+	field(DRVH, "63" )
+        field(DRVL, "0" )
+	field(VAL, 32)
+	field(PINI,"YES")
+}
+record( longout, "$(P)$(R)TDA8444:32:DAC_CH5") {
+	field(DTYP, "stream")
+	field(OUT,  "@tda8444.proto wDac5(32) I2C")
+	field(DRVH, "63" )
+        field(DRVL, "0" )
+	field(VAL, 32)
+	field(PINI,"YES")
+}
+record( longout, "$(P)$(R)TDA8444:32:DAC_CH6") {
+	field(DTYP, "stream")
+	field(OUT,  "@tda8444.proto wDac6(32) I2C")
+	field(DRVH, "63" )
+        field(DRVL, "0" )
+	field(VAL, 32)
+	field(PINI,"YES")
+}
+#record( longout, "$(P)$(R) TDA8444:32:DAC_CH7") {
+record( longout, "$(P)$(R)Shot-TorPSCurrent") {
+	field(DTYP, "stream")
+	field(OUT,  "@tda8444.proto wDac7(32) I2C")
+	field(DRVH, "63" )
+        field(DRVL, "0" )
+	field(VAL, 1)
+	field(PINI,"YES")
+}
