@@ -206,7 +206,7 @@ Process Variables in this IOC Server:
 ----------
 
 
-* Connected to tda8444 DAC  @ address 0x20=d32  (Bottom Valleman)
+* Connected to TDA8444 DAC  @ address 0x20=d32  (Bottom Valleman)
 
 |PV Name	|PV Type	|Archive|
 |:----------|-------|---:|
@@ -216,14 +216,16 @@ Process Variables in this IOC Server:
 | ISTTOK:central:TDA8444:32:DAC_CH3| longout | no |
 | ISTTOK:central:TDA8444:32:DAC_CH5| longout | no |
 | ISTTOK:central:TDA8444:32:DAC_CH6| longout | no |
-| ISTTOK:central:TDA8444:32:Shot-TorPSCurrent| longout | no |
+| ISTTOK:central:Shot-TorPSCurrent| longout | no |
 ----------
 
-* Connected to pcf8591  ADC  /DAC register @ address 0x48=d72 #
+* Connected to PCF8591  ADC  / DAC register @ address 0x48=d72 
 
 |PV Name	|PV Type	| CH	|Archive|
 |:----------|-------|---:|
-| ISTTOK:central:TDA8444:32:TMPump2-Speed"| ai | ch1 | no |
+| ISTTOK:central:PCF8591:72:TMPump2-Speed| ai | ch1 | no |
+| ISTTOK:central:PCF8591:72:TMPump2-Current| ai | ch2 | no |
+| ISTTOK:central:Shot-TorPSCurrentImage"| ai | ch3 | no |
 ----------
 
 * Connected to RS485 Bus
