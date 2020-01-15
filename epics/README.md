@@ -150,6 +150,7 @@ Process Value in this IOC Server:
 Process Variables in this IOC Server:
 
 1. State machine PVs
+=======
 
 |PV Name	|PV Type	|Archive|
 |:----------|-------|---:|
@@ -158,6 +159,7 @@ Process Variables in this IOC Server:
 |ISTTOK:central:PROCESS-MODE |	bo 	|	no |
 |ISTTOK:central:PROCESS-REQ |	bo 	|	no |
 |ISTTOK:central:COUNTER |	calc 	|	no |
+<<<<<<< HEAD
 |ISTTOK:central:COUNTDOWN |	mbbi 	|	no |
 |ISTTOK:central:PULSE-NUMBER |	longout | yes |
 |ISTTOK:central:OPSTATE |longout | yes |
@@ -225,6 +227,14 @@ ISTTOK:central:RPump1-Valve
 ISTTOK:central:RPump2-Motor
 ISTTOK:central:RPump2-Valve
 ISTTOK:central:VVessel-Filament
+=======
+|ISTTOK:central:COUNTDOWN |	mbbi 	-
+|ISTTOK:central:PULSE-NUMBER |	longout | yes |
+|ISTTOK:central:OPSTATE |longout 	|  | yes |
+|ISTTOK:central:CurrentTime |	stringin 	|	no |
+|ISTTOK:central:TraceMessage |	stringout 	|	no |
+----------
+
 
 
 ##### Start the IOC on power up
