@@ -150,8 +150,7 @@ Process Value in this IOC Server:
 #### Process Variables 
 Process Variables in this IOC Server:
 
-	* State machine PVs
-=======
+* State machine PVs
 
 |PV Name	|PV Type	|Archive|
 |:----------|-------|---:|
@@ -182,7 +181,7 @@ Process Variables in this IOC Server:
 |ISTTOK:central:TMPump1-NormalOperation | bi | 7 |
 ----------
 
-*. Connected to PCF8574 I2C Address = 57
+* Connected to PCF8574 I2C Address = 57
 
 |PV Name	| PV Type	| Bit |
 |:----------|-------|---:|
@@ -190,11 +189,11 @@ Process Variables in this IOC Server:
 |ISTTOK:central:TMPump2-Acceleration | bi | 1 |
 |ISTTOK:central:TMPump2-MotorOn | bo | 2 |
 |ISTTOK:central:Buzzer| bo | 3 |
+|ISTTOK:central:Emergency-PhysButton| bi | 4 |
 |ISTTOK:central:TTSystem-tzero| bo | 7 |
-|ISTTOK:central:EmergencyButton| bo | 2 |
 ----------
 
-*. Connected to PCF8574 Address = 60 (Top Valleman)
+* Connected to PCF8574 Address = 60 (Top Valleman)
 
 |PV Name	| PV Type	| Bit |
 |:----------|-------|---:|
@@ -203,25 +202,24 @@ Process Variables in this IOC Server:
 |ISTTOK:central:RPump2-Motor| bo | 2 |
 |ISTTOK:central:RPump2-Valve| bo | 3 |
 |ISTTOK:central:VVessel-Filament| bo | 4 |
-
 |ISTTOK:central:Clean-TorContactor| bo | 7 |
 ----------
 
 
-*. Connected to tda8444 DAC  @ address 0x20=d32  (Bottom Valleman)
+* Connected to tda8444 DAC  @ address 0x20=d32  (Bottom Valleman)
 
 |PV Name	|PV Type	|Archive|
 |:----------|-------|---:|
-| ISTTOK:central:)TDA8444:32:DAC_CH0| longout | no |
-| ISTTOK:central:)TDA8444:32:DAC_CH1| longout | no |
-| ISTTOK:central:)TDA8444:32:DAC_CH2| longout | no |
-| ISTTOK:central:)TDA8444:32:DAC_CH3| longout | no |
-| ISTTOK:central:)TDA8444:32:DAC_CH5| longout | no |
-| ISTTOK:central:)TDA8444:32:DAC_CH6| longout | no |
-| ISTTOK:central:)TDA8444:32:)Shot-TorPSCurrent| longout | no |
+| ISTTOK:central:TDA8444:32:DAC_CH0| longout | no |
+| ISTTOK:central:TDA8444:32:DAC_CH1| longout | no |
+| ISTTOK:central:TDA8444:32:DAC_CH2| longout | no |
+| ISTTOK:central:TDA8444:32:DAC_CH3| longout | no |
+| ISTTOK:central:TDA8444:32:DAC_CH5| longout | no |
+| ISTTOK:central:TDA8444:32:DAC_CH6| longout | no |
+| ISTTOK:central:TDA8444:32:)Shot-TorPSCurrent| longout | no |
 ----------
 
-*. Connected to RS485 Bus
+* Connected to RS485 Bus
 
 |PV Name	|PV Type	|Archive|
 |:----------|-------|---:|
@@ -230,15 +228,6 @@ Process Variables in this IOC Server:
 |ISTTOK:central:TMPump1-PressureAdmission | ai | yes |
 |ISTTOK:central:VVessel-Pressure   | ai | yes |
 ----------
-
-=======
-|ISTTOK:central:COUNTDOWN |	mbbi 	-
-|ISTTOK:central:PULSE-NUMBER |	longout | yes |
-|ISTTOK:central:OPSTATE |longout 	|  | yes |
-|ISTTOK:central:CurrentTime |	stringin 	|	no |
-|ISTTOK:central:TraceMessage |	stringout 	|	no |
-----------
-
 
 
 ##### Start the IOC on power up
