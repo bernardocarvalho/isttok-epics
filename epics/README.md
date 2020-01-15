@@ -74,13 +74,14 @@ PC -> PIC
 `VL01_1 CKS\r\n`
 
 Table of word fields
-|| |
+
+| N | A |
 |:------|-----|
-  |  VLxx_|    Valve|
-  |  TExx_|   Temperature|
-  |  UP_ |   Uptime  |
-  |  PRDxx_|  Wave Period |
-  |  PRxx_ |   Pressure |
+|  VLxx_|    Valve|
+|  TExx_|   Temperature|
+|  UP_ |   Uptime  |
+|  PRDxx_|  Wave Period |
+|  PRxx_ |   Pressure |
 
 #### Software Platform
 
@@ -97,7 +98,7 @@ Table of word fields
    * MySQL server (user: report )
    * ArchiveConfigTool in `/home/bernardo/css/ArchiveConfigTool`
 
-Process Value in the IOC Server for this system.
+Process Value in this IOC Server:
 
 |PV Name	|PV Type	|Archive|
 |:----------|-------|---:|
@@ -107,7 +108,8 @@ Process Value in the IOC Server for this system.
 |ISTTOK:temperature:Temperature_1	|ai	| no |
 |ISTTOK:temperature:Temperature_2	|ai	| no |
 |ISTTOK:temperature:Temperature_3	|ai	| no |
-|ISTTOK:temperature:Capbank_Voltage|	ai|	no |
+|ISTTOK:temperature:Capbank_Voltage |	ai|	no |
+|ISTTOK:temperature:VVessel-Temperature  | ai | yes |
 ----------
 
 ### Central Control/Vacuum Node
@@ -118,10 +120,9 @@ Process Value in the IOC Server for this system.
 - Main State Machine 
 
 #### Hardware Platform
-1. A Raspberry Pi 3, running a linux distribution
-  * Has a USB/RS485 port for monitoring pressure (to be connected soon)
-2. Two Interface Board, Velleman
-   [k8000](https://www.velleman.eu/products/view/?id=9383)
+1. A Raspberry Pi 3, running a linux distribution..
+  * Has a USB/RS485 port for monitoring pressure (to be connected soon)  
+2. Two Interface Boards, Velleman Model   [k8000](https://www.velleman.eu/products/view/?id=9383)..
   * connected to raspberry Pi through I2C interface;
   * 8 isolated output connected to the relays (6 relays installed for the rotatory control)
   * 4 isolated outputs connected to SEIKO unit controller
@@ -144,6 +145,97 @@ Process Value in the IOC Server for this system.
       * Running in `screen deamon` (see `/etc/rc.local`) 
 
   For installation EPICS in Rpi see this [link](prjemian.github.io/epicspi)
+
+#### Process Variables 
+Process Variables in this IOC Server:
+
+* State machine PVs
+
+|PV Name	|PV Type	|Archive|
+|:----------|-------|---:|
+|ISTTOK:central:AUTHORISATION |	bo 	|	no |
+|ISTTOK:central:OPREQ |	bo 	|	no |
+|ISTTOK:central:PROCESS-MODE |	bo 	|	no |
+|ISTTOK:central:PROCESS-REQ |	bo 	|	no |
+|ISTTOK:central:COUNTER |	calc 	|	no |
+|ISTTOK:central:COUNTDOWN |	mbbi 	|	no |
+|ISTTOK:central:PULSE-NUMBER |	longout | yes |
+|ISTTOK:central:OPSTATE |longout | yes |
+|ISTTOK:central:CurrentTime |	stringin 	|	no |
+|ISTTOK:central:TraceMessage |	stringout 	|	yes |
+|ISTTOK:central:LogMessage |	stringout 	|	yes |
+----------
+
+* Connected to PCF8574 I2C Address = 56 (Bottom Valleman)
+
+|PV Name	| PV Type	| Bit |
+|:----------|-------|---:|
+| ISTTOK:central:TMPump1-ControllerOn | bo | 0 |
+|ISTTOK:central:TMPump1-ControllerOff  | bo | 1 |
+|ISTTOK:central:TMPump1-MotorOn | bo | 2 |
+|ISTTOK:central:TMPump1-MotorOff | bo | 3 |
+|ISTTOK:central:TMPump1-Power | bi | 4 |
+|ISTTOK:central:TMPump1-Acceleration | bi | 5 |
+|ISTTOK:central:TMPump1-Emergency | bi | 6 |
+|ISTTOK:central:TMPump1-NormalOperation | bi | 7 |
+----------
+
+* Connected to PCF8574 I2C Address = 57
+
+|PV Name	| PV Type	| Bit |
+|:----------|-------|---:|
+|ISTTOK:central:TMPump2-Emergency | bi | 0 |
+|ISTTOK:central:TMPump2-Acceleration | bi | 1 |
+|ISTTOK:central:TMPump2-MotorOn | bo | 2 |
+|ISTTOK:central:Buzzer| bo | 3 |
+|ISTTOK:central:Emergency-PhysButton| bi | 4 |
+|ISTTOK:central:TTSystem-tzero| bo | 7 |
+----------
+
+* Connected to PCF8574 Address = 60 (Top Valleman)
+
+|PV Name	| PV Type	| Bit |
+|:----------|-------|---:|
+|ISTTOK:central:RPump1-Motor| bo | 0 |
+|ISTTOK:central:RPump1-Valve| bo | 1 |
+|ISTTOK:central:RPump2-Motor| bo | 2 |
+|ISTTOK:central:RPump2-Valve| bo | 3 |
+|ISTTOK:central:VVessel-Filament| bo | 4 |
+|ISTTOK:central:Clean-TorContactor| bo | 7 |
+----------
+
+
+* Connected to TDA8444 DAC  @ address 0x20=d32  (Bottom Valleman)
+
+|PV Name	|PV Type	|Archive|
+|:----------|-------|---:|
+| ISTTOK:central:TDA8444:32:DAC_CH0| longout | no |
+| ISTTOK:central:TDA8444:32:DAC_CH1| longout | no |
+| ISTTOK:central:TDA8444:32:DAC_CH2| longout | no |
+| ISTTOK:central:TDA8444:32:DAC_CH3| longout | no |
+| ISTTOK:central:TDA8444:32:DAC_CH5| longout | no |
+| ISTTOK:central:TDA8444:32:DAC_CH6| longout | no |
+| ISTTOK:central:Shot-TorPSCurrent| longout | no |
+----------
+
+* Connected to PCF8591  ADC  / DAC register @ address 0x48=d72 
+
+|PV Name	|PV Type	| CH	|Archive|
+|:----------|-------|---:|
+| ISTTOK:central:TMPump2-Speed| ai | ch1 | no |
+| ISTTOK:central:TMPump2-Current| ai | ch2 | no |
+| ISTTOK:central:Shot-TorPSCurrentImage"| ai | ch3 | no |
+----------
+
+* Connected to RS485 Bus
+
+|PV Name	|PV Type	|Archive|
+|:----------|-------|---:|
+| ISTTOK:central:RPump1-Pressure | ai | yes |
+|ISTTOK:central:RPump2-Pressure  | ai | yes |
+|ISTTOK:central:TMPump1-PressureAdmission | ai | yes |
+ISTTOK:central:VVessel-Pressure   | ai | yes 
+
 
 ##### Start the IOC on power up
 	1. Make sure `screen` is installed in Linux
