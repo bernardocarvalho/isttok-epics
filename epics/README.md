@@ -159,7 +159,6 @@ Process Variables in this IOC Server:
 |ISTTOK:central:PROCESS-MODE |	bo 	|	no |
 |ISTTOK:central:PROCESS-REQ |	bo 	|	no |
 |ISTTOK:central:COUNTER |	calc 	|	no |
-<<<<<<< HEAD
 |ISTTOK:central:COUNTDOWN |	mbbi 	|	no |
 |ISTTOK:central:PULSE-NUMBER |	longout | yes |
 |ISTTOK:central:OPSTATE |longout | yes |
@@ -167,7 +166,9 @@ Process Variables in this IOC Server:
 |ISTTOK:central:TraceMessage |	stringout 	|	yes |
 |ISTTOK:central:LogMessage |	stringout 	|	yes |
 ----------
-2. Connected to PCF8574 Address = 56 (Bottom Valleman)
+
+2. Connected to PCF8574 I2C Address = 56 (Bottom Valleman)
+
 |PV Name	| PV Type	| Bit |
 |:----------|-------|---:|
 | ISTTOK:central:TMPump1-ControllerOn | bo | 0 |
@@ -180,7 +181,8 @@ Process Variables in this IOC Server:
 |ISTTOK:central:TMPump1-NormalOperation | bi | 7 |
 ----------
 
-3. Connected to PCF8574 Address = 57
+3. Connected to PCF8574 I2C Address = 57
+
 |PV Name	| PV Type	| Bit |
 |:----------|-------|---:|
 |ISTTOK:central:TMPump2-Emergency | bi | 0 |
@@ -192,6 +194,7 @@ Process Variables in this IOC Server:
 ----------
 
 4. Connected to PCF8574 Address = 60 (Top Valleman)
+
 |PV Name	| PV Type	| Bit |
 |:----------|-------|---:|
 |ISTTOK:central:RPump1-Motor| bo | 0 |
@@ -204,7 +207,8 @@ Process Variables in this IOC Server:
 ----------
 
 
-4. Connected to RS484 Bus
+4. Connected to RS485 Bus
+
 |PV Name	|PV Type	|Archive|
 |:----------|-------|---:|
 | ISTTOK:central:RPump1-Pressure | ai | yes |
