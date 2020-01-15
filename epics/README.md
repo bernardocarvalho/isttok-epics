@@ -74,13 +74,14 @@ PC -> PIC
 `VL01_1 CKS\r\n`
 
 Table of word fields
-|| |
+
+| N | A |
 |:------|-----|
-  |  VLxx_|    Valve|
-  |  TExx_|   Temperature|
-  |  UP_ |   Uptime  |
-  |  PRDxx_|  Wave Period |
-  |  PRxx_ |   Pressure |
+|  VLxx_|    Valve|
+|  TExx_|   Temperature|
+|  UP_ |   Uptime  |
+|  PRDxx_|  Wave Period |
+|  PRxx_ |   Pressure |
 
 #### Software Platform
 
@@ -97,7 +98,7 @@ Table of word fields
    * MySQL server (user: report )
    * ArchiveConfigTool in `/home/bernardo/css/ArchiveConfigTool`
 
-Process Value in the IOC Server for this system.
+Process Value in this IOC Server:
 
 |PV Name	|PV Type	|Archive|
 |:----------|-------|---:|
@@ -144,6 +145,87 @@ Process Value in the IOC Server for this system.
       * Running in `screen deamon` (see `/etc/rc.local`) 
 
   For installation EPICS in Rpi see this [link](prjemian.github.io/epicspi)
+
+#### Process Variables 
+Process Variables in this IOC Server:
+
+1. State machine PVs
+
+|PV Name	|PV Type	|Archive|
+|:----------|-------|---:|
+|ISTTOK:central:AUTHORISATION |	bo 	|	no |
+|ISTTOK:central:OPREQ |	bo 	|	no |
+|ISTTOK:central:PROCESS-MODE |	bo 	|	no |
+|ISTTOK:central:PROCESS-REQ |	bo 	|	no |
+|ISTTOK:central:COUNTER |	calc 	|	no |
+|ISTTOK:central:COUNTDOWN |	mbbi 	|	no |
+|ISTTOK:central:PULSE-NUMBER |	longout | yes |
+|ISTTOK:central:OPSTATE |longout | yes |
+|ISTTOK:central:CurrentTime |	stringin 	|	no |
+|ISTTOK:central:TraceMessage |	stringout 	|	yes |
+|ISTTOK:central:LogMessage |	stringout 	|	yes |
+----------
+2. Connected to PCF8574 Address = 56 (Bottom Valleman)
+|PV Name	| PV Type	| Bit |
+|:----------|-------|---:|
+| ISTTOK:central:TMPump1-ControllerOn | bo | 0 |
+|ISTTOK:central:TMPump1-ControllerOff  | bo | 1 |
+|ISTTOK:central:TMPump1-MotorOn | bo | 2 |
+|ISTTOK:central:TMPump1-MotorOff | bo | 3 |
+|ISTTOK:central:TMPump1-Power | bi | 4 |
+|ISTTOK:central:TMPump1-Acceleration | bi | 5 |
+|ISTTOK:central:TMPump1-Emergency | bi | 6 |
+|ISTTOK:central:TMPump1-NormalOperation | bi | 7 |
+----------
+
+3. Connected to PCF8574 Address = 57
+|PV Name	| PV Type	| Bit |
+|:----------|-------|---:|
+|ISTTOK:central:TMPump2-Emergency | bi | 0 |
+|ISTTOK:central:TMPump2-Acceleration | bi | 1 |
+|ISTTOK:central:TMPump2-MotorOn | bo | 2 |
+|ISTTOK:central:Buzzer| bo | 3 |
+|ISTTOK:central:TTSystem-tzero| bo | 7 |
+|ISTTOK:central:EmergencyButton| bo | 2 |
+----------
+
+4. Connected to PCF8574 Address = 60 (Top Valleman)
+|PV Name	| PV Type	| Bit |
+|:----------|-------|---:|
+|ISTTOK:central:RPump1-Motor| bo | 0 |
+|ISTTOK:central:RPump1-Valve| bo | 1 |
+|ISTTOK:central:RPump2-Motor| bo | 2 |
+|ISTTOK:central:RPump2-Valve| bo | 3 |
+|ISTTOK:central:VVessel-Filament| bo | 4 |
+
+|ISTTOK:central:Clean-TorContactor| bo | 7 |
+----------
+
+
+4. Connected to RS484 Bus
+|PV Name	|PV Type	|Archive|
+|:----------|-------|---:|
+| ISTTOK:central:RPump1-Pressure | ai | yes |
+|ISTTOK:central:RPump2-Pressure  | ai | yes |
+|ISTTOK:central:TMPump1-PressureAdmission | ai | yes |
+|ISTTOK:central:VVessel-Pressure   | ai | yes |
+|ISTTOK:temperature:VVessel-Temperature  | ai | yes |
+|  | ai | yes |
+----------
+
+ISTTOK:central:TMPump1-ControllerOn
+ISTTOK:central:TMPump1-ControllerOff
+ISTTOK:central:TMPump1-MotorOn
+ISTTOK:central:TMPump1-MotorOff
+ISTTOK:central:TMPump2-Motor
+ISTTOK:central:Buzzer
+ISTTOK:central:Emergency-UserButton
+ISTTOK:central:RPump1-Motor
+ISTTOK:central:RPump1-Valve
+ISTTOK:central:RPump2-Motor
+ISTTOK:central:RPump2-Valve
+ISTTOK:central:VVessel-Filament
+
 
 ##### Start the IOC on power up
 	1. Make sure `screen` is installed in Linux
