@@ -261,7 +261,7 @@ ISTTOK:central:VVessel-Pressure   | ai | yes
 * Run File -> Import -> General-> Projects from folder 
 	* point to cloned folder
 * Navigate to `ISTTOK/epics/css/sys-mng-opi/CSS`
-	* Open ´SystemManagerIsttok.opi` with "OPI Display" 
+	* Open `SystemManagerIsttok.opi` with "OPI Display" 
   
 
 ### EPICS Channel Access Configuration
