@@ -245,6 +245,25 @@ ISTTOK:central:VVessel-Pressure   | ai | yes
      		* `sudo screen -r`
 
 
+## Download and configure CS-Studio
+
+* Install  JAVA JDK (version Java SE Development Kit 8)
+* Download ISTTOK EPICS Files to a working folder
+	* `git clone  https://bernardo@git.ipfn.tecnico.ulisboa.pt/r/ISTTOK.git`
+* Goto site [CS-Studio](http://download.controlsystemstudio.org/release/4.5/) and download latest version to your OS
+* Uncompress folder
+* Run `cs-studio` executable
+	* Choose a workplace folder
+* Goto to Menu EDIT->Preferences->CSS Core->Data Sources->Channel Access
+	* On Address List replace `localhost` with `epics.ipfn.tecnico.ulisboa.pt`
+	* Uncheck `Auto Address List`
+	* Restart CS-Studio
+* Run File -> Import -> General-> Projects from folder 
+	* point to cloned folder
+* Navigate to `ISTTOK/epics/css/sys-mng-opi/CSS`
+	* Open `SystemManagerIsttok.opi` with "OPI Display" 
+  
+
 ### EPICS Channel Access Configuration
 ```
 export EPICS_CA_ADDR_LIST="192.168.1.110 192.168.1.152"
