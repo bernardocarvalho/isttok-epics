@@ -189,7 +189,7 @@ Process Variables in this IOC Server:
 |ISTTOK:central:TMPump2-MotorOn | bo | 2 |
 |ISTTOK:central:Buzzer| bo | 3 |
 |ISTTOK:central:Emergency-PhysButton| bi | 4 |
-|ISTTOK:central:TTSystem-tzero| bo | 7 |
+|ISTTOK:central:TTSystem-tzero| bi | 7 |
 ----------
 
 * Connected to PCF8574 Address = 60 (Top Valleman)

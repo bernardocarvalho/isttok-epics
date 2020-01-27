@@ -249,7 +249,7 @@ record( bo, "$(P)$(R)RPump1-Motor" ) {
 #       ROTARY1 VALVE       #
 #############################
 record( bo, "$(P)$(R)RPump1-Valve" ) {
-	field(DESC,"Abre a valvula da bomba rotatoria 1. Relay 4")
+	field(DESC,"Abre a valvula da bomba rot. Relay 4")
 	field(OUT, "$(P)$(R)PCF8574:60:REGISTER.B1 PP" )
 	field(ZNAM, "Closed" )
 	field(ONAM, "Open" )

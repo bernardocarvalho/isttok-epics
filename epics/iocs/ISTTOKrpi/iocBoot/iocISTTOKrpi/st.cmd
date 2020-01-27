@@ -26,6 +26,7 @@ dbLoadRecords("db/ISTTOKmachineControl.db","P=ISTTOK:,R=central:")
 
 ## Load Serial drivers
 drvAsynSerialPortConfigure("RS0","/dev/ttyUSB0")
+#drvAsynSerialPortConfigure("RS0","/dev/ttyAMA0")
 
 asynSetOption("RS0", 0, "baud", "9600")
 asynSetOption("RS0", 0, "bits", "8")
