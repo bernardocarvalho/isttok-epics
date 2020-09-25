@@ -238,12 +238,12 @@ Process Variables in this IOC Server:
 ----------
 
 
-### Central Control/Vacuum Node
+### Vacuum Node (temporary)
 - Vacuum Pfeiffer Sensors (RS485)
 
 #### Hardware Platform
 1. A Raspberry Pi 3, running a linux distribution..
-  * Has a USB/RS485 port for monitoring pressure 
+  * Has a USB/RS485 port for monitoring pressure sensors
 
 #### Process Variables 
 Process Variables in this IOC Server:
