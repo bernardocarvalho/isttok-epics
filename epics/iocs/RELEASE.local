@@ -1,0 +1,19 @@
+#RELEASE Location of external products
+HOME=/home/pi
+SUPPORT=$(HOME)/Apps/epics7/support
+#
+#
+ASYN=$(SUPPORT)/asyn
+STREAM=$(SUPPORT)/StreamDevice
+#  IPAC release V2-7 or later is required.
+IPAC=
+#$(SUPPORT)/ipac-2-15
+#
+#  # SEQ is required for testIPServer
+SNCSEQ=
+#$(SUPPORT)/seq-2-2-5
+#
+CALC=
+PCRE=
+#
+EPICS_BASE=$(HOME)/Apps/epics7/epics-base

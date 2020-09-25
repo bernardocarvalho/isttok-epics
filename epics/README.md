@@ -17,12 +17,12 @@ All software stored in IPFN GIT [server](https://git.ipfn.tecnico.ulisboa.pt/sum
 - **Humberto Figueiredo** (ISTTOK Session Leader)
 - **Hugo Alves** (ISTTOK Session Leader, State Machine development)
 - **Tiago Pereira** (dsPIC development, RS232 protocol/ Sensor Interface/ Wiring)
-- **Paulo F. Carvalho** ( Epics Applications), CS-S Gui Panels)
 
 ##    System description
-Presently there are two instances of EPICS IOC Server implemented.
+Presently there are two/three instances of EPICS IOC Server implemented.
 One responsible for the Temperature Node.
 And a second one, installed in a Raspberry Pi, implemented in the new control unit launched at ISTTOK for the remote control of the vacuum pumps, named Central Node.
+A third one is dedicated for readind the Vacuum Sensore through the RS484 Interface
 
 ### Temperature/Vacuum Node: Temperature Sensors and ELCO Voltage Measurement Systems
 - Thermocouple Sensor
@@ -227,22 +227,45 @@ Process Variables in this IOC Server:
 | ISTTOK:central:Shot-TorPSCurrentImage"| ai | ch3 | no |
 ----------
 
+* Connected to RS485 Bus (Not yet)
+
+|PV Name	|PV Type	|Archive|
+|:----------|-------|---:|
+|ISTTOK:central:RPump1-Pressure | ai | yes |
+|ISTTOK:central:RPump2-Pressure  | ai | yes |
+|ISTTOK:central:TMPump1-PressureAdmission | ai | yes |
+|ISTTOK:central:VVessel-Pressure   | ai | yes |
+----------
+
+
+### Central Control/Vacuum Node
+- Vacuum Pfeiffer Sensors (RS485)
+
+#### Hardware Platform
+1. A Raspberry Pi 3, running a linux distribution..
+  * Has a USB/RS485 port for monitoring pressure 
+
+#### Process Variables 
+Process Variables in this IOC Server:
+
 * Connected to RS485 Bus
 
 |PV Name	|PV Type	|Archive|
 |:----------|-------|---:|
-| ISTTOK:central:RPump1-Pressure | ai | yes |
-|ISTTOK:central:RPump2-Pressure  | ai | yes |
-|ISTTOK:central:TMPump1-PressureAdmission | ai | yes |
-ISTTOK:central:VVessel-Pressure   | ai | yes 
+| ISTTOK:vacuum:RPump1-Pressure | ai | yes |
+|ISTTOK:vacuum:RPump2-Pressure  | ai | yes |
+|ISTTOK:vacuum:TMPump1-PressureAdmission | ai | yes |
+|ISTTOK:vacuum:VVessel-Pressure   | ai | yes |
+----------
 
+#### Software Platform
+[//]: # (This may be the most platform independent comment)
 
-##### Start the IOC on power up
-	1. Make sure `screen` is installed in Linux
-	2. Include following Line in /etc/rc.local
-     		* `screen -dm bash -c "cd [..]/ISTTOKrpi/iocBoot/iocISTTOKrpi; ../../bin/linux-arm/ISTTOKrpi st.cmd"`
-	3. To access EPICS console run
-     		* `sudo screen -r`
+1. Linux Raspian "buster"  (user :pi):
+  * IP addr: 192.168.1.120 ( ISTTOK private network)
+  * NTP/timedatectl time conected to  IPFN Gps NTP/PPS server IP:10.136.227.237 193.136.136.129 
+    (this is mandatory, Rpi does not have a Real Time clock    see https://www.raspberrypi.org/forums/viewtopic.php?t=178763)
+  * EPICS 7. To install follow [EPICS Docs](https://docs.epics-controls.org/projects/how-tos/en/latest/getting-started/installation.html) 
 
 
 ## Download and configure CS-Studio
@@ -266,7 +289,7 @@ ISTTOK:central:VVessel-Pressure   | ai | yes
 
 ### EPICS Channel Access Configuration
 ```
-export EPICS_CA_ADDR_LIST="192.168.1.110 192.168.1.152"
+export EPICS_CA_ADDR_LIST=""192.168.1.110 192.168.1.120 192.168.1.152"
 export EPICS_CA_AUTO_ADDR_LIST="NO"
 ```
 
