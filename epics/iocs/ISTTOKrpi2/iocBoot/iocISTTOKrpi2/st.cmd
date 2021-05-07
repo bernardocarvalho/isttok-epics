@@ -26,7 +26,11 @@ asynSetOption("RS0", 0, "clocal", "Y")
 asynSetOption("RS0", 0, "crtscts", "N")
 
 dbLoadRecords("db/ISTTOKpfeiffer.db","P=ISTTOK:,R=vacuum:,bus=RS0")
-
+# Uncomment to Debug STREAM serial activity
+var streamError 1
+var streamDebug 1
+streamSetLogfile("stream_logfile.txt")
+ 
 cd "${TOP}/iocBoot/${IOC}"
 iocInit
 
