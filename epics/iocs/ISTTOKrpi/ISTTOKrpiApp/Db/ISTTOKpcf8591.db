@@ -10,7 +10,7 @@
 # ### macros: ID      I2C address of ADC          ### #
 # ### Description:                                ### #
 # ### This  DB file is 		 using            ### #
-# ### stream(asynI2C)    to read/write   ### #
+# ### stream(asynI2C)    to read/write            ### #
 # ### an PCF8591 ADDA chip                        ### #
 #######################################################
 
@@ -40,7 +40,7 @@ record( ai, "$(P)$(R)TMPump2-Speed" ) {
   field(DESC, "TMPump2-Speed")
   field(DTYP, "Raw Soft Channel" )
   field(INP, "$(P)$(R)PCF8591:72:BYTE2_CH1 PP NMS")
-  field(SCAN, "1 second")
+#  field(SCAN, "1 second")
   field(ASLO, "16" )
   field(AOFF, "0" )
   field(EGU,  "RPM" )
@@ -66,7 +66,7 @@ record( ai, "$(P)$(R)TMPump2-Current" ) {
   field(DESC, "TMPump2-Current")
   field(DTYP, "Raw Soft Channel" )
   field(INP,  "$(P)$(R)PCF8591:72:BYTE2_CH2 PP NMS")
-  field(SCAN, "1 second")
+ # field(SCAN, "1 second")
   field(ASLO, "0.1" )
   field(AOFF, "0" )
   field(EGU,  "mA" )
@@ -93,7 +93,7 @@ record(ai, "$(P)$(R)Shot-TorPSCurrentImage" ) {
   field(DESC, "Toroidal Current Image")
   field(DTYP, "Raw Soft Channel" )
   field(INP, "$(P)$(R)PCF8591:72:BYTE2_CH3 PP NMS")
-  field(SCAN, ".2 second")
+ # field(SCAN, ".2 second")
   field(ASLO, "39.215686275" )
   field(AOFF, "0.0" )
   field(EGU,  "A" )

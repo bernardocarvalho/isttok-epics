@@ -5,7 +5,7 @@ ReadTimeout  = 100;
 WriteTimeout = 100;
 MaxInput     = 2;
 ExtraInput   = Error;
-
+ 
 rReg {
   out ${1};
   in  "%.1r";
@@ -17,7 +17,7 @@ rReg {
 # Bits 4,5 ADC configuration . 00 = four single ended channels
 # Bits 6 : DAC Output enable bit
 # Bits 7 : =0
-
+ 
 rConvAdc0 {
   out ${1} 64;
   in  "%02r";
@@ -34,15 +34,14 @@ rConvAdc3 {
   out ${1} 67;
   in  "%02r";
 }
-
+ 
 ##  @init { rReg; }
 ##
 wReg {
   out ${1} "%.1r";
 }
-
+ 
 wDac {
   out ${1} 64 "%.1r";
 }
-
 

@@ -7,7 +7,7 @@
 # ###                                             ### #
 # ### Ref 2.0; 2019-10-14                         ### #
 # ###                                             ### #
-# ### macros: ID      I2C address of ADC          ### #
+# ### macros: ID      I2C address of DAC          ### #
 # ### Description:                                ### #
 # ### This  DB file is using                      ### #
 # ### stream(asynI2C)    to write                 ### #

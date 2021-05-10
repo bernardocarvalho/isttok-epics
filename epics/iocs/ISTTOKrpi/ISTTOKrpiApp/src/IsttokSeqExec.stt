@@ -11,12 +11,14 @@
  * Copyright (c) : (IPFN-IST)
  *
  * Created 5-Mar-2013
- * Revised 01-07-2019
+ * Revised 07-May-2021
  * Modified 18-Nov-2019
  *
  **/
+//%% #include  "errlog.h"
  
 program IsttokSeqExec
+%{#include "errlog.h"}%
 /* CONSTANT DECLARATION*/
 /*Relays and INPUT (Valleman Board) have negative Logic!*/
 short PCF_RELAY_ON = 0;
@@ -166,18 +168,22 @@ monitor IsttokTMPump1_Emergency;
 short IsttokTMPump1_ManualValve;
 assign IsttokTMPump1_ManualValve to "ISTTOK:central:TMPump1-ManualValve";
 monitor IsttokTMPump1_ManualValve;
- 
+
+/* 
 short IsttokTMPump2_Emergency;
 assign IsttokTMPump2_Emergency to "ISTTOK:central:TMPump2-Emergency";
 monitor IsttokTMPump2_Emergency;
- 
+*/
+
 float IsttokRPump1_Pressure;
-assign IsttokRPump1_Pressure to "ISTTOK:central:RPump1-Pressure";
+assign IsttokRPump1_Pressure to "ISTTOK:vacuum:RPump1-Pressure";
 monitor IsttokRPump1_Pressure;
  
+/* 
 float IsttokRPump2_Pressure;
 assign IsttokRPump2_Pressure to "ISTTOK:central:RPump2-Pressure";
 monitor IsttokRPump2_Pressure;
+*/
 
 float IsttokVVesselTemperature;
 assign IsttokVVesselTemperature to "ISTTOK:temperature:VVessel-Temperature";
@@ -406,13 +412,14 @@ ss PulseSequence {
             /* Pulse state change to Emergency*/
         } state Emergency
 
-        when ( pvStatus(IsttokRPump1_Pressure) != pvStatOK || pvStatus(IsttokRPump2_Pressure) != pvStatOK || 
-	     pvStatus(IsttokTMPump1_Emergency) != pvStatOK || pvStatus(IsttokTMPump2_Emergency) != pvStatOK) {
+        when ( pvStatus(IsttokRPump1_Pressure) != pvStatOK ||  pvStatus(IsttokTMPump1_Emergency) != pvStatOK ) {
+        //when ( pvStatus(IsttokRPump1_Pressure) != pvStatOK || pvStatus(IsttokRPump2_Pressure) != pvStatOK || 
+	//     pvStatus(IsttokTMPump1_Emergency) != pvStatOK || pvStatus(IsttokTMPump2_Emergency) != pvStatOK) {
             /* Vacuum emergency: Pulse state change to Stopping */
             IsttokOPREQ = STOP;
             pvPut(IsttokOPREQ);
             //strcpy(sendMail, "Vacuum Emergency while Process");
-	    sprintf(sendMail, "R1:%1.1e R2:%.1e T1:%d T2:%d",IsttokRPump1_Pressure,IsttokRPump2_Pressure,IsttokTMPump1_Emergency,IsttokTMPump2_Emergency);
+	    sprintf(sendMail, "R1:%1.1e T1:%d",IsttokRPump1_Pressure,IsttokTMPump1_Emergency);
             pvPut(sendMail);
         } state Stopping
 
@@ -453,8 +460,9 @@ ss PulseSequence {
 
         when (IsttokOPREQ == STOP) {} state Stopping
 
-        when ( pvStatus(IsttokTMPump1_Emergency) != pvStatOK || 
-	       pvStatus(IsttokTMPump2_Emergency) != pvStatOK)  {
+        when ( pvStatus(IsttokTMPump1_Emergency) != pvStatOK)  {
+        //when ( pvStatus(IsttokTMPump1_Emergency) != pvStatOK || 
+	//       pvStatus(IsttokTMPump2_Emergency) != pvStatOK)  {
             /* Vacuum emergency: Pulse state change to Stopping */
             IsttokOPREQ = STOP;
             pvPut(IsttokOPREQ);
@@ -497,8 +505,9 @@ ss PulseSequence {
             /* Pulse state change to Stopping */
 	} state Stopping
 
-        when ( pvStatus(IsttokTMPump1_Emergency) != pvStatOK || 
-	       pvStatus(IsttokTMPump2_Emergency) != pvStatOK)  {
+        when ( pvStatus(IsttokTMPump1_Emergency) != pvStatOK)  {
+        //when ( pvStatus(IsttokTMPump1_Emergency) != pvStatOK || 
+	//       pvStatus(IsttokTMPump2_Emergency) != pvStatOK)  {
             /* Vacuum emergency: Pulse state change to Stopping */
             IsttokOPREQ = STOP;
             pvPut(IsttokOPREQ);
@@ -677,7 +686,8 @@ ss StartingSequence {
             STARTINGSTATE = STRST_NonStarting;
             pvPut(STARTINGSTATE);
         } state NonStarting
-        when ( (pvStatus(IsttokRPump1_Pressure) == pvStatOK) && (pvStatus(IsttokRPump2_Pressure) == pvStatOK)) {
+        //when ( (pvStatus(IsttokRPump1_Pressure) == pvStatOK) && (pvStatus(IsttokRPump2_Pressure) == pvStatOK)) {
+        when ( pvStatus(IsttokRPump1_Pressure) == pvStatOK) {
  
                 strcpy(msg, "TMP1 MotorOn ON" );
                 pvPut(msg);
