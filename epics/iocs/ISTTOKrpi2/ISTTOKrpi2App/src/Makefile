@@ -20,10 +20,12 @@ ISTTOKrpi2_DBD += base.dbd
 ISTTOKrpi2_DBD += asyn.dbd
 ISTTOKrpi2_DBD += stream.dbd
 ISTTOKrpi2_DBD += drvAsynSerialPort.dbd
+ISTTOKrpi2_DBD += asSupport.dbd
 
 # Add all the support libraries needed by this IOC
 ISTTOKrpi2_LIBS += asyn
 ISTTOKrpi2_LIBS += stream
+ISTTOKrpi2_LIBS += autosave
 
 # ISTTOKrpi2_registerRecordDeviceDriver.cpp derives from ISTTOKrpi2.dbd
 ISTTOKrpi2_SRCS += ISTTOKrpi2_registerRecordDeviceDriver.cpp

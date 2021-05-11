@@ -1,0 +1,7 @@
+epicsEnvSet("IOC","iocISTTOKrpi2")
+epicsEnvSet("TOP","/home/pi/ISTTOK/epics/iocs/ISTTOKrpi2")
+epicsEnvSet("EPICS_BASE","/home/pi/Apps/epics7/epics-base")
+epicsEnvSet("HOME","/home/pi")
+epicsEnvSet("SUPPORT","/home/pi/Apps/epics7/support")
+epicsEnvSet("ASYN","/home/pi/Apps/epics7/support/asyn")
+epicsEnvSet("STREAM","/home/pi/Apps/epics7/support/StreamDevice")
