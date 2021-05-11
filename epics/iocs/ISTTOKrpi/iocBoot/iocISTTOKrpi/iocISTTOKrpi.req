@@ -11,8 +11,6 @@ ISTTOK:central:TMPump1-ManualValve.VAL
 ISTTOK:central:Shot-TorPSCurrent
 
 #ALARM Limits
-ISTTOK:vacuum:RPump1-Pressure.HIGH
-ISTTOK:vacuum:RPump1-Pressure.HIHI
 #ISTTOK:central:RPump2-Pressure.HIGH
 #ISTTOK:central:RPump2-Pressure.HIHI
 

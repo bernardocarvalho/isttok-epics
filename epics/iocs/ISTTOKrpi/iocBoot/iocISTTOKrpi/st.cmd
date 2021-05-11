@@ -19,9 +19,9 @@ drvAsynI2CConfigure( "I2C", "/dev/i2c-1", 1 )
 
 ## Load record instances
 dbLoadRecords("db/ISTTOKstates.db","P=ISTTOK:,R=central:")
-dbLoadRecords("db/ISTTOKpcf8574.db","P=ISTTOK:,R=central:")
-dbLoadRecords("db/ISTTOKpcf8591.db","P=ISTTOK:,R=central:")
-dbLoadRecords("db/ISTTOKtda8444.db","P=ISTTOK:,R=central:")
+dbLoadRecords("db/ISTTOKpcf8574.db","P=ISTTOK:,R=central:,BUS=I2C")
+dbLoadRecords("db/ISTTOKpcf8591.db","P=ISTTOK:,R=central:,BUS=I2C")
+dbLoadRecords("db/ISTTOKtda8444.db","P=ISTTOK:,R=central:,BUS=I2C")
 dbLoadRecords("db/ISTTOKmachineControl.db","P=ISTTOK:,R=central:")
 
 ## Load Serial drivers
@@ -47,7 +47,7 @@ dbLoadRecords("db/sendmail.db", "P=ISTTOK:,PORT=L0,R=central:,L=0,A=0")
 # Uncomment to Debug STREAM serial activity
 #var streamError 1
 #var streamDebug 1
-#streamSetLogfile("logfile.txt")
+streamSetLogfile("logfile.txt")
 
 ## Run this to trace the stages of iocInit
 #traceIocInit

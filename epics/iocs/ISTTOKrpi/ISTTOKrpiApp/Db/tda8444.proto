@@ -1,5 +1,5 @@
 Terminator   = "";
-LockTimeout  = 500;
+LockTimeout  = 200;
 ReplyTimeout = 100;
 ReadTimeout  = 100;
 WriteTimeout = 100;

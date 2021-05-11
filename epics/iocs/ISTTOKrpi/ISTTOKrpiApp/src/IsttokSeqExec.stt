@@ -183,11 +183,11 @@ monitor IsttokRPump1_Pressure;
 float IsttokRPump2_Pressure;
 assign IsttokRPump2_Pressure to "ISTTOK:central:RPump2-Pressure";
 monitor IsttokRPump2_Pressure;
-*/
 
 float IsttokVVesselTemperature;
 assign IsttokVVesselTemperature to "ISTTOK:temperature:VVessel-Temperature";
 monitor IsttokVVesselTemperature;
+*/
 
 short IsttokShotBuzzer;
 assign IsttokShotBuzzer to "ISTTOK:central:Buzzer";
@@ -871,14 +871,16 @@ ss CleaningSequence{
 	    CLEANINGSTATE = CLNST_Cleaning4;
 	    pvPut(CLEANINGSTATE);
         } state Cleaning4
+    /*
         when (pvSeverity(IsttokVVesselTemperature) >= pvSevrMAJOR) {
-            /* Temperature Limit Pulse state change to Process */
+            // Temperature Limit Pulse state change to Process 
             IsttokProcReq = STOP;
             pvPut(IsttokProcReq);
             strcpy(msg, "Temperature Limit-> State to Process");
             pvPut(msg);
             errlogSevPrintf(MINOR, "%s\n",msg);
         } state Cleaning5
+*/
     }
 }
 

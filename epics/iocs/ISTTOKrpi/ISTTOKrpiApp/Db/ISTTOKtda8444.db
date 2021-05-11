@@ -19,15 +19,15 @@
 #####################################################
 record( longout, "$(P)$(R)TDA8444:32:DAC_CH0") {
 	field(DTYP, "stream")
-	field(OUT,  "@tda8444.proto wDac0(32) I2C")
+	field(OUT,  "@tda8444.proto wDac0(32) $(BUS)")
 	field(DRVH, "63" )
-        field(DRVL, "0" )
+    field(DRVL, "0" )
 	field(VAL, 32)
 	field(PINI,"YES")
 }
 record( longout, "$(P)$(R)TDA8444:32:DAC_CH1") {
 	field(DTYP, "stream")
-	field(OUT,  "@tda8444.proto wDac1(32) I2C")
+	field(OUT,  "@tda8444.proto wDac1(32) $(BUS)")
 	field(DRVH, "63" )
         field(DRVL, "0" )
 	field(VAL, 32)
@@ -35,7 +35,7 @@ record( longout, "$(P)$(R)TDA8444:32:DAC_CH1") {
 }
 record( longout, "$(P)$(R)TDA8444:32:DAC_CH2") {
 	field(DTYP, "stream")
-	field(OUT,  "@tda8444.proto wDac2(32) I2C")
+	field(OUT,  "@tda8444.proto wDac2(32) $(BUS)")
 	field(DRVH, "63" )
         field(DRVL, "0" )
 	field(VAL, 32)
@@ -43,7 +43,7 @@ record( longout, "$(P)$(R)TDA8444:32:DAC_CH2") {
 }
 record( longout, "$(P)$(R)TDA8444:32:DAC_CH3") {
 	field(DTYP, "stream")
-	field(OUT,  "@tda8444.proto wDac3(32) I2C")
+	field(OUT,  "@tda8444.proto wDac3(32) $(BUS)")
 	field(DRVH, "63" )
         field(DRVL, "0" )
 	field(VAL, 32)
@@ -51,7 +51,7 @@ record( longout, "$(P)$(R)TDA8444:32:DAC_CH3") {
 }
 record( longout, "$(P)$(R)TDA8444:32:DAC_CH4") {
 	field(DTYP, "stream")
-	field(OUT,  "@tda8444.proto wDac4(32) I2C")
+	field(OUT,  "@tda8444.proto wDac4(32) $(BUS)")
 	field(DRVH, "63" )
         field(DRVL, "0" )
 	field(VAL, 32)
@@ -59,7 +59,7 @@ record( longout, "$(P)$(R)TDA8444:32:DAC_CH4") {
 }
 record( longout, "$(P)$(R)TDA8444:32:DAC_CH5") {
 	field(DTYP, "stream")
-	field(OUT,  "@tda8444.proto wDac5(32) I2C")
+	field(OUT,  "@tda8444.proto wDac5(32) $(BUS)")
 	field(DRVH, "63" )
         field(DRVL, "0" )
 	field(VAL, 32)
@@ -67,7 +67,7 @@ record( longout, "$(P)$(R)TDA8444:32:DAC_CH5") {
 }
 record( longout, "$(P)$(R)TDA8444:32:DAC_CH6") {
 	field(DTYP, "stream")
-	field(OUT,  "@tda8444.proto wDac6(32) I2C")
+	field(OUT,  "@tda8444.proto wDac6(32) $(BUS)")
 	field(DRVH, "63" )
         field(DRVL, "0" )
 	field(VAL, 32)
@@ -76,7 +76,7 @@ record( longout, "$(P)$(R)TDA8444:32:DAC_CH6") {
 #record( longout, "$(P)$(R) TDA8444:32:DAC_CH7") {
 record( longout, "$(P)$(R)Shot-TorPSCurrent") {
 	field(DTYP, "stream")
-	field(OUT,  "@tda8444.proto wDac7(32) I2C")
+	field(OUT,  "@tda8444.proto wDac7(32) $(BUS)")
 	field(DRVH, "63" )
         field(DRVL, "0" )
 	field(VAL, 1)

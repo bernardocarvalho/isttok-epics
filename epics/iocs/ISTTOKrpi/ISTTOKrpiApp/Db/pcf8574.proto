@@ -1,5 +1,5 @@
 Terminator   = "";
-LockTimeout  = 500;
+LockTimeout  = 200;
 ReplyTimeout = 100;
 ReadTimeout  = 100;
 WriteTimeout = 100;
@@ -8,7 +8,7 @@ ExtraInput   = Error;
 
 rReg {
   out ${1};
-  in  "%.1r";
+  in  "%01r";
 }
 
 ##  @init { rReg; }
