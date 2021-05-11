@@ -23,8 +23,7 @@ CHECK_RELEASE = YES
 
 # To install files into a location other than $(TOP) define
 #   INSTALL_LOCATION here.
-INSTALL_LOCATION=/opt/epics/iocs/ISTTOKrpi
-#</absolute/path/to/install/top>
+#INSTALL_LOCATION=</absolute/path/to/install/top>
 
 # Set this when the IOC and build host use different paths
 #   to the install location. This may be needed to boot from
