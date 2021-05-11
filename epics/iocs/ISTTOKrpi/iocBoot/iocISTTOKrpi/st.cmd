@@ -4,9 +4,9 @@
 ## everywhere it appears in this file
 
 < envPaths
-epicsEnvSet( "STREAM_PROTOCOL_PATH", "$(TOP)/protocols" )
+epicsEnvSet( "STREAM_PROTOCOL_PATH", "$(TOP)/db" )
 epicsEnvSet( "SAVE_DIR", "$(TOP)/iocBoot/$(IOC)" )
-epicsEnvSet( "EPICS_CA_ADDR_LIST", "localhost 192.168.1.152")
+epicsEnvSet( "EPICS_CA_ADDR_LIST", "localhost 192.168.1.120 192.168.1.152")
 
 cd "${TOP}"
 
@@ -25,17 +25,18 @@ dbLoadRecords("db/ISTTOKtda8444.db","P=ISTTOK:,R=central:")
 dbLoadRecords("db/ISTTOKmachineControl.db","P=ISTTOK:,R=central:")
 
 ## Load Serial drivers
-drvAsynSerialPortConfigure("RS0","/dev/ttyUSB0")
+#drvAsynSerialPortConfigure("RS0","/dev/ttyUSB0")
 #drvAsynSerialPortConfigure("RS0","/dev/ttyAMA0")
 
-asynSetOption("RS0", 0, "baud", "9600")
-asynSetOption("RS0", 0, "bits", "8")
-asynSetOption("RS0", 0, "parity", "none")
-asynSetOption("RS0", 0, "stop", "1")
-asynSetOption("RS0", 0, "clocal", "Y")
-asynSetOption("RS0", 0, "crtscts", "N")
+#asynSetOption("RS0", 0, "baud", "9600")
+#asynSetOption("RS0", 0, "bits", "8")
+#asynSetOption("RS0", 0, "parity", "none")
+#asynSetOption("RS0", 0, "stop", "1")
+#asynSetOption("RS0", 0, "clocal", "Y")
+#asynSetOption("RS0", 0, "crtscts", "N")
 
-dbLoadRecords("db/ISTTOKpfeiffer.db","P=ISTTOK:,R=central:,bus=RS0")
+# Pfeiffer sensor are connectoed to other RPI /(192.168.1.120)
+#dbLoadRecords("db/ISTTOKpfeiffer.db","P=ISTTOK:,R=central:,bus=RS0")
 
 # connect to the MAIL server mail.ipfn.tecnico.ulisboa.pt
 #		,priority,noAutoConnect,noProcessEos

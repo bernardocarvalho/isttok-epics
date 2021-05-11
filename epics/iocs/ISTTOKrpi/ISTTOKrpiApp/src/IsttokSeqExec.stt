@@ -114,7 +114,7 @@ monitor STARTINGSTATE;
 short CLEANINGSTATE;
 assign CLEANINGSTATE to "ISTTOK:central:CLEANINGSTATE";
 monitor CLEANINGSTATE;
- 
+
 short CLEANINGMANMODE;
 assign CLEANINGMANMODE to "ISTTOK:central:CLEANINGMANMODE";
 monitor CLEANINGMANMODE;
@@ -128,48 +128,48 @@ monitor STOPPINGSTATE;
 
 short IsttokRPump1_Motor;
 assign IsttokRPump1_Motor to "ISTTOK:central:RPump1-Motor";
- 
+
 short IsttokRPump1_Valve;
 assign IsttokRPump1_Valve to "ISTTOK:central:RPump1-Valve";
- 
+
 short IsttokRPump2_Motor;
 assign IsttokRPump2_Motor to "ISTTOK:central:RPump2-Motor";
- 
+
 short IsttokRPump2_Valve;
 assign IsttokRPump2_Valve to "ISTTOK:central:RPump2-Valve";
- 
+
 short IsttokTMPump1_ControllerOff;
 assign IsttokTMPump1_ControllerOff to "ISTTOK:central:TMPump1-ControllerOff";
- 
+
 short IsttokTMPump1_ControllerOn;
 assign IsttokTMPump1_ControllerOn to "ISTTOK:central:TMPump1-ControllerOn";
- 
+
 short IsttokTMPump1_MotorOff;
 assign IsttokTMPump1_MotorOff to "ISTTOK:central:TMPump1-MotorOff";
- 
+
 short IsttokTMPump1_MotorOn;
 assign IsttokTMPump1_MotorOn to "ISTTOK:central:TMPump1-MotorOn";
- 
+
 short IsttokTMPump2_Motor;
 assign IsttokTMPump2_Motor to "ISTTOK:central:TMPump2-Motor";
- 
+
 short TMPump1NormalOperation;
 assign TMPump1NormalOperation to "ISTTOK:central:TMPump1-NormalOperation";
 monitor TMPump1NormalOperation;
- 
+
 short IsttokTMPump1_Power;
 assign IsttokTMPump1_Power to "ISTTOK:central:TMPump1-Power";
 monitor IsttokTMPump1_Power;
- 
+
 short IsttokTMPump1_Emergency;
 assign IsttokTMPump1_Emergency to "ISTTOK:central:TMPump1-Emergency";
 monitor IsttokTMPump1_Emergency;
- 
+
 short IsttokTMPump1_ManualValve;
 assign IsttokTMPump1_ManualValve to "ISTTOK:central:TMPump1-ManualValve";
 monitor IsttokTMPump1_ManualValve;
 
-/* 
+/*
 short IsttokTMPump2_Emergency;
 assign IsttokTMPump2_Emergency to "ISTTOK:central:TMPump2-Emergency";
 monitor IsttokTMPump2_Emergency;
@@ -178,8 +178,8 @@ monitor IsttokTMPump2_Emergency;
 float IsttokRPump1_Pressure;
 assign IsttokRPump1_Pressure to "ISTTOK:vacuum:RPump1-Pressure";
 monitor IsttokRPump1_Pressure;
- 
-/* 
+
+/*
 float IsttokRPump2_Pressure;
 assign IsttokRPump2_Pressure to "ISTTOK:central:RPump2-Pressure";
 monitor IsttokRPump2_Pressure;
@@ -191,25 +191,25 @@ monitor IsttokVVesselTemperature;
 
 short IsttokShotBuzzer;
 assign IsttokShotBuzzer to "ISTTOK:central:Buzzer";
- 
+
 short IsttokShotLab_WarningLight;
 assign IsttokShotLab_WarningLight to "ISTTOK:central:Lab-WarningLight";
- 
+
 short IsttokShotGasIS_Valves;
 assign IsttokShotGasIS_Valves to "ISTTOK:central:GasIS-Valves";
- 
+
 short IsttokShotVVessel_Filament;
 assign IsttokShotVVessel_Filament to "ISTTOK:central:VVessel-Filament";
- 
+
 short IsttokShotCapBank_Charge;
 assign IsttokShotCapBank_Charge to "ISTTOK:central:CapBank-Charge";
- 
+
 short IsttokShotCapBank_Discharge;
 assign IsttokShotCapBank_Discharge to "ISTTOK:central:CapBank-Discharge";
- 
+
 short IsttokShotClean_TorContactor;
 assign IsttokShotClean_TorContactor to "ISTTOK:central:Clean-TorContactor";
- 
+
 short IsttokShotClean_TorPneuBreaker;
 assign IsttokShotClean_TorPneuBreaker to "ISTTOK:central:Clean-TorPneuBreaker";
  

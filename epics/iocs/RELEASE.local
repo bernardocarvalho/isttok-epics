@@ -5,12 +5,16 @@ SUPPORT=$(HOME)/Apps/epics7/support
 #
 ASYN=$(SUPPORT)/asyn
 STREAM=$(SUPPORT)/StreamDevice
+#CALC=$(SUPPORT)/calc
+AUTOSAVE = $(SUPPORT)/autosave
+DRVASYNI2C =$(SUPPORT)/drvAsynI2C
+SNCSEQ=$(SUPPORT)/seq-2-2
+
 #  IPAC release V2-7 or later is required.
-IPAC=
+#IPAC=
 #$(SUPPORT)/ipac-2-15
 #
 #  # SEQ is required for testIPServer
-SNCSEQ=
 #$(SUPPORT)/seq-2-2-5
 #
 CALC=
