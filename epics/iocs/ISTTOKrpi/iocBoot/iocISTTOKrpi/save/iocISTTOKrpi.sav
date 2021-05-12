@@ -1,4 +1,5 @@
-# autosave R5.3	Automatically generated - DO NOT MODIFY - 210511-172433
+# autosave R5.3	Automatically generated - DO NOT MODIFY - 210512-110358
+! 1 channel(s) not connected - or not all gets were successful
 ISTTOK:central:PULSE-NUMBER.VAL 0
 ISTTOK:central:LogMessage.VAL 
 ISTTOK:central:LASTOPSTATE.VAL 5
@@ -7,5 +8,5 @@ ISTTOK:central:PROCESS-MODE.VAL 0
 ISTTOK:central:CLEANINGMANMODE.VAL 0
 ISTTOK:central:Emergency-UserButton.VAL 0
 ISTTOK:central:TMPump1-ManualValve.VAL 0
-ISTTOK:central:Shot-TorPSCurrent 1
+#ISTTOK:central:Shot-TorPSCurrent Search Issued
 <END>
