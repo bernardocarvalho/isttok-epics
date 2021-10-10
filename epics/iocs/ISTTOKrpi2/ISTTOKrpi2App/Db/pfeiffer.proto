@@ -7,7 +7,7 @@ ReadTimeout = 1500;
 
 # Using redirection to read 2 records, mantissa and exponent
 getPressure001 {
-    out "0010074002=?106";
+#    out "0010074002=?106";
     in  "0011074006%4u%(\$1)2u%+<sum8>";
 }
 #    out "0020074002=?107";
@@ -15,11 +15,11 @@ getPressure002 {
     in  "0021074006%4u%(\$1)2u%+<sum8>";
 }
 getPressure003 {
-    out "0030074002=?108";
+#    out "0030074002=?108";
     in  "0031074006%4u%(\$1)2u%+<sum8>";
 }
 getPressure004 {
-    out "0040074002=?109";
+#    out "0040074002=?109";
     in  "0041074006%4u%(\$1)2u%+<sum8>";
 }
 #
