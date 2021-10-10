@@ -23,6 +23,7 @@ ISTTOKrpi2_DBD += drvAsynSerialPort.dbd
 ISTTOKrpi2_DBD += asSupport.dbd
 
 # Add all the support libraries needed by this IOC
+#ISTTOKrpi2_LIBS += xxx
 ISTTOKrpi2_LIBS += asyn
 ISTTOKrpi2_LIBS += stream
 ISTTOKrpi2_LIBS += autosave

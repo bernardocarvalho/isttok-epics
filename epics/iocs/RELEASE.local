@@ -1,23 +1,29 @@
 #RELEASE Location of external products
 HOME=/home/pi
-SUPPORT=$(HOME)/Apps/epics7/support
-#
-#
-ASYN=$(SUPPORT)/asyn
-STREAM=$(SUPPORT)/StreamDevice
-#CALC=$(SUPPORT)/calc
-AUTOSAVE = $(SUPPORT)/autosave
-DRVASYNI2C =$(SUPPORT)/drvAsynI2C
-#SNCSEQ=$(SUPPORT)/seq-2-2
 
+SUPPORT=$(HOME)/EPICS/support
+
+#  IPAC is only necessary if support for Greensprings IP488 is required
 #  IPAC release V2-7 or later is required.
+# IPAC=$(SUPPORT)/ipac-2-15
 #IPAC=
-#$(SUPPORT)/ipac-2-15
+
+ASYN=$(SUPPORT)/asyn
+STREAM=$(SUPPORT)/stream
+AUTOSAVE = $(SUPPORT)/autosave
 #
-#  # SEQ is required for testIPServer
-#$(SUPPORT)/seq-2-2-5
-#
+# SEQ is required for testIPServer
+#SNCSEQ=$(SUPPORT)/seq-2-2-5
+SNCSEQ=
+
+## For sCalcout support in asynOctet - applications include asynCalc.dbd
+#CALC=$(SUPPORT)/calc-3-7-3
 CALC=
 PCRE=
-#
-EPICS_BASE=$(HOME)/Apps/epics7/epics-base
+
+# If CALC was built with SSCAN support then SSCAN must be defined for testEpicsApp
+#SSCAN=$(SUPPORT)/sscan-2-11-3
+
+#  EPICS_BASE 3.14.6 or later is required
+EPICS_BASE=/home/pi/EPICS/epics-base
+
