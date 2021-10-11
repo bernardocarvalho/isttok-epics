@@ -1,9 +1,14 @@
 Terminator=CR; 
-#MaxInput = 20;
+MaxInput = 30;
+ExtraInput = Ignore;
 
 # in millisecond
-ReadTimeout = 1500;
-#ReplyTimeout = 250;
+#ReadTimeout = 1500;
+#ReplyTimeout = 100;
+#PollPeriod = $ReplyTimeout;
+#Integer. Affects first in command in I/O Intr mode (see chapter Record Processing).
+PollPeriod = 250;
+
 
 # Using redirection to read 2 records, mantissa and exponent
 getPressure001 {
