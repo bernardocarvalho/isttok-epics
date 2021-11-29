@@ -75,4 +75,4 @@ iocInit
 create_monitor_set("$(IOC).req", 30)
 
 ## Start any sequence programs , use safe mode
-seq  IsttokSeqExec
+seq  IsttokSeqExec "unit=ISTTOK"
