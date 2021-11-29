@@ -7,6 +7,13 @@ ASYN=$(SUPPORT)/asyn
 STREAM=$(SUPPORT)/StreamDevice
 #CALC=$(SUPPORT)/calc
 AUTOSAVE = $(SUPPORT)/autosave
+
+## Using this driver in combination with streamDevice
+## requires a workaround forbidding read queries with
+## a max length of 256 byte. To compile the driver with
+## with workaround enabled, uncomment the following line
+#in configure/RELEASE
+#STREAM_WORKAROUND = 1
 DRVASYNI2C =$(SUPPORT)/drvAsynI2C
 SNCSEQ=$(SUPPORT)/seq-2-2
 

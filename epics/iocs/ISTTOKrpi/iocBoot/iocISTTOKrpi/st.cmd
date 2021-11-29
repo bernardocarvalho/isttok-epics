@@ -21,7 +21,7 @@ drvAsynI2CConfigure( "I2C", "/dev/i2c-1", 1 )
 dbLoadRecords("db/ISTTOKstates.db","P=ISTTOK:,R=central:")
 dbLoadRecords("db/ISTTOKpcf8574.db","P=ISTTOK:,R=central:,BUS=I2C")
 dbLoadRecords("db/ISTTOKpcf8591.db","P=ISTTOK:,R=central:,BUS=I2C")
-#dbLoadRecords("db/ISTTOKtda8444.db","P=ISTTOK:,R=central:,BUS=I2C")
+dbLoadRecords("db/ISTTOKtda8444.db","P=ISTTOK:,R=central:,BUS=I2C")
 dbLoadRecords("db/ISTTOKmachineControl.db","P=ISTTOK:,R=central:")
 
 ## Load Serial drivers
