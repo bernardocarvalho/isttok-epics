@@ -1,6 +1,5 @@
 #RELEASE Location of external products
 HOME=/home/pi
-<<<<<<< HEAD
 SUPPORT=$(HOME)/Apps/epics7/support
 #
 #
@@ -17,19 +16,6 @@ AUTOSAVE = $(SUPPORT)/autosave
 #STREAM_WORKAROUND = 1
 DRVASYNI2C =$(SUPPORT)/drvAsynI2C
 SNCSEQ=$(SUPPORT)/seq-2-2
-=======
->>>>>>> 514eb82e224779361fbe0844aaaa5c63fd4fd03f
-
-SUPPORT=$(HOME)/EPICS/support
-
-#  IPAC is only necessary if support for Greensprings IP488 is required
-#  IPAC release V2-7 or later is required.
-# IPAC=$(SUPPORT)/ipac-2-15
-#IPAC=
-
-ASYN=$(SUPPORT)/asyn
-STREAM=$(SUPPORT)/stream
-AUTOSAVE = $(SUPPORT)/autosave
 #
 # SEQ is required for testIPServer
 #SNCSEQ=$(SUPPORT)/seq-2-2-5
