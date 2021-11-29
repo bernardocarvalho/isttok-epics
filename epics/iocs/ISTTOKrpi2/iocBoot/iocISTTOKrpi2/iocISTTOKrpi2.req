@@ -1,0 +1,4 @@
+#ALARM Limits
+ISTTOK:vacuum:RPump1-Pressure.HIGH
+ISTTOK:vacuum:RPump1-Pressure.HIHI
+
