@@ -1,0 +1,6 @@
+O.*
+bin/*
+iocBoot/iocISTTOKrpi2/save/*
+db
+dbd
+configure

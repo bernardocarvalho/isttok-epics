@@ -9,10 +9,9 @@ ISTTOK:central:CLEANINGMANMODE.VAL
 ISTTOK:central:Emergency-UserButton.VAL
 ISTTOK:central:TMPump1-ManualValve.VAL
 ISTTOK:central:Shot-TorPSCurrent
+ISTTOK:central:UPS-Shutdown
 
 #ALARM Limits
-ISTTOK:central:RPump1-Pressure.HIGH
-ISTTOK:central:RPump1-Pressure.HIHI
-ISTTOK:central:RPump2-Pressure.HIGH
-ISTTOK:central:RPump2-Pressure.HIHI
+#ISTTOK:central:RPump2-Pressure.HIGH
+#ISTTOK:central:RPump2-Pressure.HIHI
 

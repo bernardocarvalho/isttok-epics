@@ -1,4 +1,5 @@
-UAG(uag) {pi,opertok,codac-dev,pricardofc}
+#UAG(uag) {pi,root,opertok,codac-dev,pricardofc}
+UAG(uag) {pi,root,opertok,codac-dev}
 HAG(hag) {rpi-isttok,opertok-desktop,atca2}
 ASG(DEFAULT) {
   RULE(1,READ)

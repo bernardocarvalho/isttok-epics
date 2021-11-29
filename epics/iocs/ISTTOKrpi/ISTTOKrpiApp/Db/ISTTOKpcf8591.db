@@ -10,25 +10,25 @@
 # ### macros: ID      I2C address of ADC          ### #
 # ### Description:                                ### #
 # ### This  DB file is 		 using            ### #
-# ### stream(asynI2C)    to read/write   ### #
+# ### stream(asynI2C)    to read/write            ### #
 # ### an PCF8591 ADDA chip                        ### #
 #######################################################
 
 #####################################################
 # Read/Write pcf8591 register @ address 0x48=d72 ### #
 #####################################################
-record( mbboDirect, "$(P)$(R)PCF8591:72:CTRLREGISTER") {
-	field(DTYP, "stream")
-	field(OUT,  "@pcf8591.proto wReg(72) I2C")
-	field(SHFT, "0")
-	field(NOBT, "8")
-	field(VAL, 255)
-	field(PINI,"YES")
+record(mbboDirect, "$(P)$(R)PCF8591:72:CTRLREGISTER") {
+    field(DTYP, "stream")
+    field(OUT,  "@pcf8591.proto wReg(72) $(BUS)")
+    field(SHFT, "0")
+    field(NOBT, "8")
+    field(VAL, 255)
+    field(PINI,"YES")
 }
 # Receiving two bytes. last one counts
 record( longin, "$(P)$(R)PCF8591:72:ADC_CH1" ) {
-	field(DTYP, "stream")
-	field(INP,  "@pcf8591.proto rConvAdc0(72) I2C")
+    field(DTYP, "stream")
+    field(INP,  "@pcf8591.proto rConvAdc0(72) $(BUS)")
 }
 record( calc, "$(P)$(R)PCF8591:72:BYTE2_CH1" ) {
   field(INPA, "$(P)$(R)PCF8591:72:ADC_CH1 PP NMS")
@@ -37,36 +37,36 @@ record( calc, "$(P)$(R)PCF8591:72:BYTE2_CH1" ) {
 }
 
 record( ai, "$(P)$(R)TMPump2-Speed" ) {
-  field(DESC, "TMPump2-Speed")
-  field(DTYP, "Raw Soft Channel" )
-  field(INP, "$(P)$(R)PCF8591:72:BYTE2_CH1 PP NMS")
-  field(SCAN, "1 second")
-  field(ASLO, "16" )
-  field(AOFF, "0" )
-  field(EGU,  "RPM" )
-  field(PREC, "3" )
-  field(HOPR, "5000" )
-  field(LOPR, "0" )
-  field(LOW, "200.0")
-#   #   field(LOLO,"0.0")
-  field(LSV, "MINOR")
-#   #   field(LLSV,"MAJOR")
+    field(DESC, "TMPump2-Speed")
+    field(DTYP, "Raw Soft Channel" )
+    field(INP, "$(P)$(R)PCF8591:72:BYTE2_CH1 PP NMS")
+#  field(SCAN, "1 second")
+    field(ASLO, "16" )
+    field(AOFF, "0" )
+    field(EGU,  "RPM" )
+    field(PREC, "3" )
+    field(HOPR, "5000" )
+    field(LOPR, "0" )
+    field(LOW, "200.0")
+#      field(LOLO,"0.0")
+    field(LSV, "MINOR")
+#      field(LLSV,"MAJOR")
 }
 record( longin, "$(P)$(R)PCF8591:72:ADC_CH2" ) {
-	field(DTYP, "stream")
-	field(INP,  "@pcf8591.proto rConvAdc1(72) I2C")
+    field(DTYP, "stream")
+	field(INP,  "@pcf8591.proto rConvAdc1(72) $(BUS)")
 }
 record( calc, "$(P)$(R)PCF8591:72:BYTE2_CH2" ) {
-  field(INPA, "$(P)$(R)PCF8591:72:ADC_CH2 PP NMS")
+    field(INPA, "$(P)$(R)PCF8591:72:ADC_CH2 PP NMS")
 # LSB i=last byte received
-  field(CALC, " (A & 255)" )
+  field(CALC, "(A & 255)" )
 }
 
 record( ai, "$(P)$(R)TMPump2-Current" ) {
   field(DESC, "TMPump2-Current")
   field(DTYP, "Raw Soft Channel" )
   field(INP,  "$(P)$(R)PCF8591:72:BYTE2_CH2 PP NMS")
-  field(SCAN, "1 second")
+ # field(SCAN, "1 second")
   field(ASLO, "0.1" )
   field(AOFF, "0" )
   field(EGU,  "mA" )
@@ -82,7 +82,7 @@ record( ai, "$(P)$(R)TMPump2-Current" ) {
 # Receiving two bytes. last one counts
 record( longin, "$(P)$(R)PCF8591:72:ADC_CH3" ) {
 	field(DTYP, "stream")
-	field(INP,  "@pcf8591.proto rConvAdc2(72) I2C")
+	field(INP,  "@pcf8591.proto rConvAdc2(72) $(BUS)")
 }
 record( calc, "$(P)$(R)PCF8591:72:BYTE2_CH3" ) {
   field(INPA, "$(P)$(R)PCF8591:72:ADC_CH3 PP NMS")
@@ -90,17 +90,17 @@ record( calc, "$(P)$(R)PCF8591:72:BYTE2_CH3" ) {
   field(CALC, " (A & 255 )" )
 }
 record(ai, "$(P)$(R)Shot-TorPSCurrentImage" ) {
-  field(DESC, "Toroidal Current Image")
-  field(DTYP, "Raw Soft Channel" )
-  field(INP, "$(P)$(R)PCF8591:72:BYTE2_CH3 PP NMS")
-  field(SCAN, ".2 second")
-  field(ASLO, "39.215686275" )
-  field(AOFF, "0.0" )
-  field(EGU,  "A" )
-  field(PREC, "3" )
-  field(HOPR, "10000" )
-  field(LOPR, "0" )
-  field(MDEL, "20" )
+    field(DESC, "Toroidal Current Image")
+    field(DTYP, "Raw Soft Channel" )
+    field(INP, "$(P)$(R)PCF8591:72:BYTE2_CH3 PP NMS")
+    field(SCAN, ".2 second")
+    field(ASLO, "39.215686275" )
+    field(AOFF, "0.0" )
+    field(EGU,  "A" )
+    field(PREC, "3" )
+    field(HOPR, "10000" )
+    field(LOPR, "0" )
+    field(MDEL, "20" )
 #  field(LOW, "200.0")
 #   #   field(LOLO,"0.0")
 #  field(LSV, "MINOR")
@@ -110,7 +110,7 @@ record(ai, "$(P)$(R)Shot-TorPSCurrentImage" ) {
 
 record( longout, "$(P)$(R)PCF8591:72:DAC") {
 	field(DTYP, "stream")
-	field(OUT,  "@pcf8591.proto wDac(72) I2C")
+	field(OUT,  "@pcf8591.proto wDac(72) $(BUS)")
 	field(DRVH, "255" )
         field(DRVL, "0" )
 	field(VAL, 128)

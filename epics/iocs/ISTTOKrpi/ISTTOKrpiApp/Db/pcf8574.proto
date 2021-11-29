@@ -8,7 +8,7 @@ ExtraInput   = Error;
 
 rReg {
   out ${1};
-  in  "%.1r";
+  in  "%01r";
 }
 
 ##  @init { rReg; }

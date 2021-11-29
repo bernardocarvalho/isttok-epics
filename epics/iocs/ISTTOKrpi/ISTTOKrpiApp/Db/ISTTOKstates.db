@@ -92,6 +92,24 @@ record(calc, "$(P)$(R)WSHOTCALCSTATE") {
 #	field(SCAN,"1 second")
 #}
 
+record(bo, "$(P)$(R)UPS-OnBattery") {
+	info(autosaveFields, "VAL STAT")
+	field(DESC, "Main APC UPS On Battery status")
+	field(VAL, "0")
+	field(ZNAM, "OFF")
+	field(ONAM, "ON")
+    field(OSV, "MAJOR")
+}
+
+record(bo, "$(P)$(R)UPS-Shutdown") {
+	info(autosaveFields, "VAL STAT")
+	field(DESC, "Main APC UPS Shutdown request")
+#	field(VAL, "0")
+	field(ZNAM, "OFF")
+	field(ONAM, "ON")
+    field(OSV, "MAJOR")
+}
+
 record(bo, "$(P)$(R)OPREQ") {
 	info(autosaveFields, "VAL")
 	field(DESC, "Pulse Sequence Start/Stop")

@@ -1,5 +1,5 @@
 Terminator   = "";
-LockTimeout  = 500;
+LockTimeout  = 200;
 ReplyTimeout = 100;
 ReadTimeout  = 100;
 WriteTimeout = 100;
@@ -8,7 +8,7 @@ ExtraInput   = Error;
 
 rReg {
   out ${1};
-  in  "%.1r";
+  in  "%01r";
 }
 # To read adc write control Byte
 # Bits 0,1 ADC channel Selection
@@ -34,15 +34,14 @@ rConvAdc3 {
   out ${1} 67;
   in  "%02r";
 }
-
+ 
 ##  @init { rReg; }
 ##
 wReg {
   out ${1} "%.1r";
 }
-
+ 
 wDac {
   out ${1} 64 "%.1r";
 }
-
 
