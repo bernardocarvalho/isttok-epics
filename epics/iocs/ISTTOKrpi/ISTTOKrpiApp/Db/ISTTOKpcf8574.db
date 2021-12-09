@@ -54,9 +54,10 @@ record( mbbiDirect, "$(P)$(R)PCF8574:57:REGISTER:READ" ) {
 	field(FLNK, "$(P)$(R)PCF8574:57:REGISTER:READ:FNOUT")
 }
 
-#####################################################
-# ### Read/Write pcf8574 address 0x3c=60 register ### #
-###################################################
+################################################################
+# ### Read/Write pcf8574 address 0x3c=60 register              #
+# I2C power up with output at 1 (Relay coils are de-energized)#
+################################################################
 record( mbboDirect, "$(P)$(R)PCF8574:60:REGISTER") {
 	field( DTYP, "stream")
 	field( OUT,  "@pcf8574.proto wReg(60) $(BUS)")

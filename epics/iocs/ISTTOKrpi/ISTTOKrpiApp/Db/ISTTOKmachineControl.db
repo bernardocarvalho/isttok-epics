@@ -228,9 +228,9 @@ record(calc, "$(P)$(R)Emergency" ) {
 ###############
 ###############
 
-#############################
-#       ROTARY1 PUMP        #
-#############################
+###################################
+#       ROTARY1 PUMP  Relay 5 NC  #
+###################################
 record( bo, "$(P)$(R)RPump1-Motor" ) {
     field(DESC,"Power to Rotatory Pump 1. Relay 5")
         field(OUT, "$(P)$(R)PCF8574:60:REGISTER.B0 PP" )
@@ -240,9 +240,9 @@ record( bo, "$(P)$(R)RPump1-Motor" ) {
         field(ZSV,"MINOR")
 }
 
-#############################
-#       ROTARY1 VALVE       #
-#############################
+####################################
+#       ROTARY1 VALVE  Relay 4 NC  #
+####################################
 record( bo, "$(P)$(R)RPump1-Valve" ) {
     field(DESC,"Abre a valvula da bomba rot. Relay 4")
         field(OUT, "$(P)$(R)PCF8574:60:REGISTER.B1 PP" )

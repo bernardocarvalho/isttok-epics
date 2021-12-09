@@ -21,6 +21,7 @@ record(mbbi, "$(P)$(R)OPSTATE") {
 	field(FRVL, "4")
 	field(FVVL, "5")
 	field(SXVL, "6")
+	field(SVVL, "7")
 	field(ZRST, "Stopped")
 	field(ONST, "Starting")
 	field(TWST, "Idle")
@@ -28,6 +29,7 @@ record(mbbi, "$(P)$(R)OPSTATE") {
 	field(FRST, "WaitShot")
 	field(FVST, "Stopping")
 	field(SXST, "Emergency")
+	field(SVST, "UPSEmergency")
 	field(VAL, "0")
 }
 record(mbbo, "$(P)$(R)LASTOPSTATE") {
@@ -40,6 +42,7 @@ record(mbbo, "$(P)$(R)LASTOPSTATE") {
 	field(FRVL, "4")
 	field(FVVL, "5")
 	field(SXVL, "6")
+	field(SVVL, "7")
 	field(ZRST, "Stopped")
 	field(ONST, "Starting")
 	field(TWST, "Idle")
@@ -47,6 +50,7 @@ record(mbbo, "$(P)$(R)LASTOPSTATE") {
 	field(FRST, "WaitShot")
 	field(FVST, "Stopping")
 	field(SXST, "Emergency")
+	field(SVST, "UPSEmergency")
 #	field(VAL, "0")
 }
 
