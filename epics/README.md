@@ -194,13 +194,13 @@ Process Variables in this IOC Server:
 
 * Connected to PCF8574 Address = 60 (Top Valleman)
 
-|PV Name	| PV Type	| Bit |
+|PV Name	| PV Type	| Bit | Relay #/(NO/NC)|
 |:----------|-------|---:|
-|ISTTOK:central:RPump1-Motor| bo | 0 |
-|ISTTOK:central:RPump1-Valve| bo | 1 |
-|ISTTOK:central:RPump2-Motor| bo | 2 |
-|ISTTOK:central:RPump2-Valve| bo | 3 |
-|ISTTOK:central:VVessel-Filament| bo | 4 |
+|ISTTOK:central:RPump1-Motor| bo | 0 | 5 / NC |
+|ISTTOK:central:RPump1-Valve| bo | 1 | 4 / NC |
+|ISTTOK:central:RPump2-Motor (Not Used/Disabled)| bo | 2 | |
+|ISTTOK:central:RPump2-Valve (Not Used/Disabled| bo | 3 | |
+|ISTTOK:central:VVessel-Filament| bo | 4 | 1 / NO|
 |ISTTOK:central:Clean-TorContactor| bo | 7 |
 ----------
 

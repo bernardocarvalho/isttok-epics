@@ -252,11 +252,11 @@ record( bo, "$(P)$(R)RPump1-Valve" ) {
 }
 
 #############################
-#       ROTARY2 PUMP        #
+#       ROTARY2 PUMP  NO LONGUER USED (RESERVED)  #
 #############################
 record( bo, "$(P)$(R)RPump2-Motor" ) {
     field(DESC,"Power On Rotatory Pump 2")
-        field(OUT, "$(P)$(R)PCF8574:60:REGISTER.B2 PP" )
+#        field(OUT, "$(P)$(R)PCF8574:60:REGISTER.B2 PP" )
         field(ZNAM, "Off" )
         field(ONAM, "On" )
         field(VAL,"1")
@@ -264,11 +264,11 @@ record( bo, "$(P)$(R)RPump2-Motor" ) {
 }
 
 #############################
-#       ROTARY2 VALVE       #
+#       ROTARY2 VALVE   NO LONGUER USED (RESERVED)  #
 #############################
 record( bo, "$(P)$(R)RPump2-Valve" ) {
     field(DESC," Abre a valvula da bomba rotatoria 2 ")
-        field(OUT,"$(P)$(R)PCF8574:60:REGISTER.B3 PP" )
+#        field(OUT,"$(P)$(R)PCF8574:60:REGISTER.B3 PP" )
         field(ZNAM,"Closed" )
         field(ONAM,"Open" )
         field(VAL,"1")
