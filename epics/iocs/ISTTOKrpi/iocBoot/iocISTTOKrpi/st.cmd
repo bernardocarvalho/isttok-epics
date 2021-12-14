@@ -25,18 +25,18 @@ dbLoadRecords("db/ISTTOKtda8444.db","P=ISTTOK:,R=central:,BUS=I2C")
 dbLoadRecords("db/ISTTOKmachineControl.db","P=ISTTOK:,R=central:")
 
 ## Load Serial drivers
-#drvAsynSerialPortConfigure("RS0","/dev/ttyUSB0")
 #drvAsynSerialPortConfigure("RS0","/dev/ttyAMA0")
 
-#asynSetOption("RS0", 0, "baud", "9600")
-#asynSetOption("RS0", 0, "bits", "8")
-#asynSetOption("RS0", 0, "parity", "none")
-#asynSetOption("RS0", 0, "stop", "1")
-#asynSetOption("RS0", 0, "clocal", "Y")
-#asynSetOption("RS0", 0, "crtscts", "N")
+drvAsynSerialPortConfigure("RS0","/dev/ttyUSB0")
+asynSetOption("RS0", 0, "baud", "9600")
+asynSetOption("RS0", 0, "bits", "8")
+asynSetOption("RS0", 0, "parity", "none")
+asynSetOption("RS0", 0, "stop", "1")
+asynSetOption("RS0", 0, "clocal", "Y")
+asynSetOption("RS0", 0, "crtscts", "N")
 
 # Pfeiffer sensor are connectoed to other RPI /(192.168.1.120)
-#dbLoadRecords("db/ISTTOKpfeiffer.db","P=ISTTOK:,R=central:,bus=RS0")
+dbLoadRecords("db/ISTTOKpfeiffer.db","P=ISTTOK:,R=central:,bus=RS0")
 
 # connect to the MAIL server mail.ipfn.tecnico.ulisboa.pt
 #		,priority,noAutoConnect,noProcessEos
@@ -45,8 +45,10 @@ drvAsynIPPortConfigure("L0","193.136.136.3:25",0,1,0)
 dbLoadRecords("db/sendmail.db", "P=ISTTOK:,PORT=L0,R=central:,L=0,A=0")
 
 # Uncomment to Debug STREAMDEVICE serial activity
+# 2021/12/14 13:11:50.019969 RS0 ISTTOK:central:P002:M: No reply within 200 ms to "0020074002=?107<0d>
 #var streamError 1
-#var streamDebug 1
+#with this no errors on pfeiffer bus
+var streamDebug 1
 streamSetLogfile("logfile.txt")
 
 ## Run this to trace the stages of iocInit

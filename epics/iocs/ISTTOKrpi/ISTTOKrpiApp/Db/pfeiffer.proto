@@ -1,23 +1,43 @@
 Terminator=CR; 
-MaxInput = 20;
+# CR and LF are control characters, respectively coded 0x0D (13 decimal) and 0x0A (10 decimal)
+# CR and LF are control characters, respectively coded 0x0D (13 decimal) and 0x0A (10 decimal)
+MaxInput = 30;
+ExtraInput = Ignore;
 
-# in millisecond
-#ReadTimeout = 2000;
-ReplyTimeout = 250;
+# Values in millisecond
+LockTimeout = 1000;
+# Affects first out command in a protocol.
+#  If other records currently use the device, how many milliseconds to wait for 
+# exclusive access to the device before giving up? 
+
+#ReadTimeout = 1500;
+
+ReplyTimeout = 400;
+
+#PollPeriod = $ReplyTimeout;
+#Integer. Affects first in command in I/O Intr mode (see chapter Record Processing).
+PollPeriod = 200;
+
 
 # Using redirection to read 2 records, mantissa and exponent
+# TMPump1-PressureAdmission
 getPressure001 {
     out "0010074002=?106";
     in  "0011074006%4u%(\$1)2u%+<sum8>";
 }
+
+#RPump1-Pressure
 getPressure002 {
     out "0020074002=?107";
     in  "0021074006%4u%(\$1)2u%+<sum8>";
 }
+
+#VVessel-Pressure
 getPressure003 {
     out "0030074002=?108";
     in  "0031074006%4u%(\$1)2u%+<sum8>";
 }
+
 getPressure004 {
     out "0040074002=?109";
     in  "0041074006%4u%(\$1)2u%+<sum8>";
