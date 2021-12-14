@@ -12,6 +12,8 @@ ISTTOK:central:Shot-TorPSCurrent
 ISTTOK:central:UPS-Shutdown
 
 #ALARM Limits
+ISTTOK:central:RPump1-Pressure.HIGH
+ISTTOK:central:RPump1-Pressure.HIHI
 #ISTTOK:central:RPump2-Pressure.HIGH
 #ISTTOK:central:RPump2-Pressure.HIHI
 

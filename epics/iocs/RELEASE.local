@@ -19,7 +19,7 @@ SNCSEQ=$(SUPPORT)/seq-2-2
 #
 # SEQ is required for testIPServer
 #SNCSEQ=$(SUPPORT)/seq-2-2-5
-SNCSEQ=
+#SNCSEQ=
 
 ## For sCalcout support in asynOctet - applications include asynCalc.dbd
 #CALC=$(SUPPORT)/calc-3-7-3
@@ -30,5 +30,5 @@ PCRE=
 #SSCAN=$(SUPPORT)/sscan-2-11-3
 
 #  EPICS_BASE 3.14.6 or later is required
-EPICS_BASE=/home/pi/EPICS/epics-base
+EPICS_BASE=/home/pi/Apps/epics7/epics-base
 
