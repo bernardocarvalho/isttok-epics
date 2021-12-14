@@ -201,7 +201,7 @@ Process Variables in this IOC Server:
 |ISTTOK:central:RPump2-Motor (Not Used/Disabled)| bo | 2 | |
 |ISTTOK:central:RPump2-Valve (Not Used/Disabled| bo | 3 | |
 |ISTTOK:central:VVessel-Filament| bo | 4 | 1 / NO|
-|ISTTOK:central:Clean-TorContactor| bo | 7 |
+|ISTTOK:central:Clean-TorContactor| bo | 7 | |
 ----------
 
 
@@ -242,8 +242,8 @@ Process Variables in this IOC Server:
 - Vacuum Pfeiffer Sensors (RS485)
 
 #### Hardware Platform
-1. A Raspberry Pi 3, running a linux distribution..
-  * Has a USB/RS485 port for monitoring pressure sensors
+1. A Raspberry Pi 2, running a raspian Buster distribution..
+  * Has a USB/RS485 interface for monitoring pressure sensors
 
 #### Process Variables 
 Process Variables in this IOC Server:
@@ -270,7 +270,8 @@ Process Variables in this IOC Server:
 
 ## Download and configure CS-Studio
 
-* Install  JAVA JDK (version Java SE Development Kit 8)
+* Install  JAVA JDK (version Java SE Development Kit 8) or 
+openjdk-8-jre linux package
 * Download ISTTOK EPICS Files to a working folder
 	* `git clone  https://bernardo@git.ipfn.tecnico.ulisboa.pt/r/ISTTOK.git`
 * Goto site [CS-Studio](http://download.controlsystemstudio.org/release/4.5/) and download latest version to your OS
@@ -289,7 +290,7 @@ Process Variables in this IOC Server:
 
 ### EPICS Channel Access Configuration
 ```
-export EPICS_CA_ADDR_LIST=""192.168.1.110 192.168.1.120 192.168.1.152"
+export EPICS_CA_ADDR_LIST="192.168.1.110 192.168.1.120 192.168.1.152"
 export EPICS_CA_AUTO_ADDR_LIST="NO"
 ```
 
