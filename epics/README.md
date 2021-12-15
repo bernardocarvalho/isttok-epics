@@ -114,15 +114,15 @@ Process Value in this IOC Server:
 
 ### Central Control/Vacuum Node
 - Vacuum Sensors
--  Pffeifer rotatory vacuum pump
+-  Pffeifer rotatory vacuum pumpa (*RPump1*)
 - Edwards electro valve
-- Seiko Seiki turbomolecular pump and control unit
-- Main State Machine 
+- Seiko Seiki turbomolecular pump and control unit (model SCU-400)
+- Main State Machine, see [source](https://git.ipfn.tecnico.ulisboa.pt/blob/ISTTOK.git/master/epics%2Fiocs%2FISTTOKrpi%2FISTTOKrpiApp%2Fsrc%2FIsttokSeqExec.stt)
 
 #### Hardware Platform
 1. A Raspberry Pi 3, running a linux distribution..
   * Has a USB/RS485 port for monitoring pressure (to be connected soon)  
-2. Two Interface Boards, Velleman Model   [k8000](https://www.velleman.eu/products/view/?id=9383)..
+2. Two Interface Boards, Velleman Model [k8000](https://www.velleman.eu/products/view/?id=9383)..
   * connected to raspberry Pi through I2C interface;
   * 8 isolated output connected to the relays (6 relays installed for the rotatory control)
   * 4 isolated outputs connected to SEIKO unit controller
@@ -136,15 +136,16 @@ Process Value in this IOC Server:
   * IP addr:192.168.1.110 ( ISTTOK private network)
   * NTP/timedatectl time conected to  IPFN Gps NTP/PPS server IP:10.136.227.237 193.136.136.129 
     (this is mandatory, Rpi does not have a Real Time clock    see https://www.raspberrypi.org/forums/viewtopic.php?t=178763)
-  * EPICS v. base-3.15.5 (in /usr/local/epics) including modules:
-    * synApps_5_8
-    * asyn-4-26
-    * seq-2-2-1
-    * autosave-5-6-1 
-  * IOC installed in '/opt/epics/iocs/'
+  * EPICS v. base-7.0 from epics [github](https://github.com/epics-base/)
+    * (in /home/pi/Apps/epics7/epics-base) including modules:
+    * asynDriver [asyn](https://github.com/epics-modules/asyn)
+    * [StreamDevice](https://paulscherrerinstitute.github.io/StreamDevice)
+    * State Notation Language and Sequence v.2.2 [seq](https://www-csr.bessy.de/control/SoftDist/sequencer)
+    * [autosave](https://github.com/epics-modules/autosave)
+    * IOC installed in '/home/pi/ISTTOK/epics/iocs/ISTTOKrpi'
       * Running in `screen deamon` (see `/etc/rc.local`) 
 
-  For installation EPICS in Rpi see this [link](prjemian.github.io/epicspi)
+  For installation EPICS in Linux/raspian see this [link](https://docs.epics-controls.org/projects/how-tos/en/latest/getting-started/installation.html)
 
 #### Process Variables 
 Process Variables in this IOC Server:
@@ -161,6 +162,8 @@ Process Variables in this IOC Server:
 |ISTTOK:central:COUNTDOWN |	mbbi 	|	no |
 |ISTTOK:central:PULSE-NUMBER |	longout | yes |
 |ISTTOK:central:OPSTATE |longout | yes |
+|ISTTOK:central:UPS-OnBattery | bo | yes |
+|ISTTOK:central:UPS-Shutdown  | bo | yes |
 |ISTTOK:central:CurrentTime |	stringin 	|	no |
 |ISTTOK:central:TraceMessage |	stringout 	|	yes |
 |ISTTOK:central:LogMessage |	stringout 	|	yes |
@@ -180,7 +183,7 @@ Process Variables in this IOC Server:
 |ISTTOK:central:TMPump1-NormalOperation | bi | 7 |
 ----------
 
-* Connected to PCF8574 I2C Address = 57
+* Connected to PCF8574 I2C Address = 57 (Bottom Valleman board)
 
 |PV Name	| PV Type	| Bit |
 |:----------|-------|---:|
@@ -192,7 +195,7 @@ Process Variables in this IOC Server:
 |ISTTOK:central:TTSystem-tzero| bi | 7 |
 ----------
 
-* Connected to PCF8574 Address = 60 (Top Valleman)
+* Connected to PCF8574 Address = 60 (Top Valleman Board)
 
 |PV Name	| PV Type	| Bit | Relay #/(NO/NC)|
 |:----------|-------|---:|
@@ -205,7 +208,7 @@ Process Variables in this IOC Server:
 ----------
 
 
-* Connected to TDA8444 DAC  @ address 0x20=d32  (Bottom Valleman)
+* Connected to TDA8444 DAC  @ address 0x20=d32  (Bottom Valleman Board)
 
 |PV Name	|PV Type	|Archive|
 |:----------|-------|---:|
@@ -227,18 +230,18 @@ Process Variables in this IOC Server:
 | ISTTOK:central:Shot-TorPSCurrentImage"| ai | ch3 | no |
 ----------
 
-* Connected to RS485 Bus (Not yet)
+* Connected to RS485 Bus (Using USB */dev/ttyUSB0*)
 
-|PV Name	|PV Type	|Archive|
-|:----------|-------|---:|
-|ISTTOK:central:RPump1-Pressure | ai | yes |
-|ISTTOK:central:RPump2-Pressure  | ai | yes |
-|ISTTOK:central:TMPump1-PressureAdmission | ai | yes |
-|ISTTOK:central:VVessel-Pressure   | ai | yes |
+|PV Name	|PV Type	|Archive| RS485 command|
+|:----------|-------|---:|---|
+|ISTTOK:central:RPump1-Pressure | ai | yes | out "0020074002=?107"; |
+|ISTTOK:central:RPump2-Pressure (Disabled)  | ai | yes | |
+|ISTTOK:central:TMPump1-PressureAdmission | ai | yes | out "0010074002=?106"; |
+|ISTTOK:central:VVessel-Pressure   | ai | yes |  out "0030074002=?108";|
 ----------
 
 
-### Vacuum Node (temporary)
+### Vacuum Node (**Not used, backup server only**)
 - Vacuum Pfeiffer Sensors (RS485)
 
 #### Hardware Platform
@@ -252,10 +255,10 @@ Process Variables in this IOC Server:
 
 |PV Name	|PV Type	|Archive|
 |:----------|-------|---:|
-| ISTTOK:vacuum:RPump1-Pressure | ai | yes |
-|ISTTOK:vacuum:RPump2-Pressure  | ai | yes |
-|ISTTOK:vacuum:TMPump1-PressureAdmission | ai | yes |
-|ISTTOK:vacuum:VVessel-Pressure   | ai | yes |
+| ISTTOK:vacuum:RPump1-Pressure (not used)| ai | yes |
+|ISTTOK:vacuum:RPump2-Pressure (not used)  | ai | yes |
+|ISTTOK:vacuum:TMPump1-PressureAdmission  (not used)| ai | yes |
+|ISTTOK:vacuum:VVessel-Pressure   (not used) | ai | yes |
 ----------
 
 #### Software Platform
@@ -290,7 +293,7 @@ openjdk-8-jre linux package
 
 ### EPICS Channel Access Configuration
 ```
-export EPICS_CA_ADDR_LIST="192.168.1.110 192.168.1.120 192.168.1.152"
+export EPICS_CA_ADDR_LIST="192.168.1.110 192.168.1.152"
 export EPICS_CA_AUTO_ADDR_LIST="NO"
 ```
 
