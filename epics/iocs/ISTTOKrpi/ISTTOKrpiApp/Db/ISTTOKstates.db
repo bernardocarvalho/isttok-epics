@@ -105,15 +105,16 @@ record(bo, "$(P)$(R)UPS-OnBattery") {
     info(autosaveFields, "VAL STAT")
     field(DESC, "Main APC UPS On Battery status")
     field(VAL, "0")
+    field(PINI, "YES")
     field(ZNAM, "OFF")
     field(ONAM, "ON")
     field(OSV, "MAJOR")
 }
 
 record(bo, "$(P)$(R)UPS-Shutdown") {
-    info(autosaveFields, "VAL STAT")
+   # info(autosaveFields, "VAL STAT")
     field(DESC, "Main APC UPS Shutdown request")
-#   field(VAL, "0")
+    field(VAL, "0")
     field(ZNAM, "OFF")
     field(ONAM, "ON")
     field(OSV, "MAJOR")
