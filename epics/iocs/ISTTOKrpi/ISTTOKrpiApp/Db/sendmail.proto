@@ -40,7 +40,7 @@ mail_end {
 send {
 	mail_start;
 	out "Problem is: %s\n";
-	out "Please check: http://epics.ipfn.ist.utl.pt/isttok";
+	out "Please check: http://epics.ipfn.tecnico.ulisboa.pt/isttok";
 	mail_end;
 }
 
