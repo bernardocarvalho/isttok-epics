@@ -27,7 +27,8 @@ record(bo, "$(P)$(R)TMPump1-ControllerOn" ) {
     field(ZNAM, "Off" )
     field(ONAM, "Pulse" )
     field(HIGH, "2.5")
-    field(FLNK, "$(P)$(R)TMPump1-ControllerOnInv" )
+# Disabled until further notice
+#    field(FLNK, "$(P)$(R)TMPump1-ControllerOnInv" )
     field(VAL,"0")
 }
 record(calcout, "$(P)$(R)TMPump1-ControllerOnInv") {
@@ -43,7 +44,8 @@ record(bo, "$(P)$(R)TMPump1-ControllerOff" ) {
     field(ZNAM, "Off" )
     field(ONAM, "Pulse" )
     field(HIGH, "2.5")
-    field(FLNK, "$(P)$(R)TMPump1-ControllerOffInv" )
+# Disabled until further notice
+#    field(FLNK, "$(P)$(R)TMPump1-ControllerOffInv" )
     field(VAL,"0")
 }
 

@@ -46,10 +46,10 @@ dbLoadRecords("db/sendmail.db", "P=ISTTOK:,PORT=L0,R=central:,L=0,A=0")
 
 # Uncomment to Debug STREAMDEVICE serial activity
 # 2021/12/14 13:11:50.019969 RS0 ISTTOK:central:P002:M: No reply within 200 ms to "0020074002=?107<0d>
-#var streamError 1
+var streamError 1
 #with this no errors on pfeiffer bus
-var streamDebug 1
-streamSetLogfile("logfile.txt")
+#var streamDebug 1
+#streamSetLogfile("logfile.txt")
 
 ## Run this to trace the stages of iocInit
 #traceIocInit
@@ -70,11 +70,11 @@ asSetFilename("${TOP}/iocBoot/${IOC}/access_security.acf")
 
 iocInit
 
-#asInit
+asInit
 
 # Create request file and start periodic 'save’
 # makeAutosaveFileFromDbInfo("$(SAVE_DIR)/$(IOC).req", "autosaveFields")
-create_monitor_set("$(IOC).req", 30)
+create_monitor_set("$(IOC).req", 30, "P=ISTTOK:,R=central:")
 
 ## Start any sequence programs , use safe mode
 seq  IsttokSeqExec "unit=ISTTOK"

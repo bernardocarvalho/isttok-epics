@@ -1,8 +1,8 @@
-# autosave R5.3	Automatically generated - DO NOT MODIFY - 211214-141949
+# autosave R5.3	Automatically generated - DO NOT MODIFY - 211215-002448
 ISTTOK:central:PULSE-NUMBER.VAL 0
 ISTTOK:central:LogMessage.VAL 
-ISTTOK:central:LASTOPSTATE.VAL 5
-ISTTOK:central:OPREQ 0
+ISTTOK:central:LASTOPSTATE.VAL 2
+ISTTOK:central:OPREQ.VAL 1
 ISTTOK:central:PROCESS-MODE.VAL 0
 ISTTOK:central:CLEANINGMANMODE.VAL 0
 ISTTOK:central:Emergency-UserButton.VAL 0
