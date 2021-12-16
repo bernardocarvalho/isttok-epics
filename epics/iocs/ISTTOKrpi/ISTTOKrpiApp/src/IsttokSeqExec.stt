@@ -233,8 +233,11 @@ short IsttokShotCountdown;
 assign IsttokShotCountdown to "ISTTOK:central:COUNTDOWN";
 monitor IsttokShotCountdown;
 
-string IsttokShotCountdownScan;
-assign IsttokShotCountdownScan to "ISTTOK:central:COUNTDOWN.SCAN";
+//string IsttokShotCountdownScan;
+//assign IsttokShotCountdownScan to "ISTTOK:central:COUNTDOWN.SCAN";
+
+short IsttokShotCountdownDisa;
+assign IsttokShotCountdownDisa to "ISTTOK:central:COUNTDOWN.DISA";
 
 short IsttokEmergency;
 assign IsttokEmergency to "ISTTOK:central:Emergency";
@@ -1027,8 +1030,10 @@ ss ShotSequence {
     entry {
             WSHOTINGSTATE = WSHTST_NonShoting;
             pvPut(WSHOTINGSTATE);
-            strcpy(IsttokShotCountdownScan, "Passive");
-            pvPut(IsttokShotCountdownScan);
+            IsttokShotCountdownDisa = 1;
+            pvPut(IsttokShotCountdownDisa);
+//            strcpy(IsttokShotCountdownScan, "Passive");
+//            pvPut(IsttokShotCountdownScan);
     }
         when( IsttokOPSTATE == POS_WaitShot ){
             //strcpy(msg, "Waiting for Trigger...");
@@ -1036,8 +1041,11 @@ ss ShotSequence {
             //errlogSevPrintf(NO_ALARM, "%s\n",msg);
             IsttokShotCountdown = 0;
             pvPut(IsttokShotCountdown);
-            strcpy(IsttokShotCountdownScan, "1 second");
-            pvPut(IsttokShotCountdownScan);
+            // Enable Counting
+            IsttokShotCountdownDisa = 0;
+            pvPut(IsttokShotCountdownDisa);
+//            strcpy(IsttokShotCountdownScan, "1 second");
+//            pvPut(IsttokShotCountdownScan);
             WSHOTINGSTATE = WSHTST_ShotEnd;
             pvPut(WSHOTINGSTATE);
             //WSHOTINGSTATE = WSHTST_WaitTrg;

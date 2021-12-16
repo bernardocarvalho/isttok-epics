@@ -152,7 +152,7 @@ record(bo, "$(P)$(R)PROCESS-MODE") {
     info(autosaveFields, "VAL")
     field(DESC, "Plasma Process Mode")
     #field(VAL, "0")
-    field(PINI, "YES")
+    #field(PINI, "YES")
     field(ZNAM, "CLEAN")
     field(ONAM, "SHOT")
 }
@@ -163,6 +163,8 @@ record(bo, "$(P)$(R)PROCESS-REQ") {
     field(PINI, "YES")
     field(ZNAM, "STOP")
     field(ONAM, "START")
+    field(SCAN,"Passive")
+    field(FLNK, "$(P)$(R)PULSE-NUMBER")
 }
 
 record(bo, "$(P)$(R)AUTHORISATION") {
@@ -172,16 +174,23 @@ record(bo, "$(P)$(R)AUTHORISATION") {
     field(VAL, "0")
 }
 
-record(longout, "$(P)$(R)PULSE-NUMBER") {
+record(calc, "$(P)$(R)PULSE-NUMBER") {
     info(autosaveFields, "VAL")
     field(DESC, "Pulse Number")
-    field(PINI, "YES")
+    field(INPA, "$(P)$(R)PROCESS-REQ NPP")
+    field(INPB, "$(P)$(R)PULSE-NUMBER")
+    field(INPC, "$(P)$(R)PROCESS-MODE NPP")
+    field(CALC, "(A=1)? B+C :B")
+    field(SCAN,"Passive")
+#    field(PINI, "YES")
 }
 
 record(calc, "$(P)$(R)COUNTDOWN") {
     field(DESC, "Countdown Increment")
     field(INPA,"$(P)$(R)COUNTDOWN")
-    field(SCAN,"Passive")
+    field(DISA,"1")
+    #field(SCAN,"Passive")
+    field(SCAN,"1 second")
     field(CALC,"A+1")
     field(VAL, "160")
 }

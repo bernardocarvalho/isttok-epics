@@ -162,8 +162,8 @@ Process Variables in this IOC Server:
 |ISTTOK:central:COUNTDOWN |	mbbi 	|	no |
 |ISTTOK:central:PULSE-NUMBER |	longout | yes |
 |ISTTOK:central:OPSTATE |longout | yes |
-|ISTTOK:central:UPS-OnBattery | bo | yes |
-|ISTTOK:central:UPS-Shutdown  | bo | yes |
+|ISTTOK:central:UPS-OnBattery | bo | no |
+|ISTTOK:central:UPS-Shutdown  | bo | no |
 |ISTTOK:central:CurrentTime |	stringin 	|	no |
 |ISTTOK:central:TraceMessage |	stringout 	|	yes |
 |ISTTOK:central:LogMessage |	stringout 	|	yes |
@@ -232,12 +232,12 @@ Process Variables in this IOC Server:
 
 * Connected to RS485 Bus (Using USB */dev/ttyUSB0*)
 
-|PV Name	|PV Type	|Archive| RS485 command|
+|PV Name	|PV Type	|Archive| RS485 request command|
 |:----------|-------|---:|---|
-|ISTTOK:central:RPump1-Pressure | ai | yes | out "0020074002=?107"; |
+|ISTTOK:central:VVessel-Pressure   | ai | yes |  out "0010074002=?106"|
+|ISTTOK:central:RPump1-Pressure | ai | yes | out "0020074002=?107" |
 |ISTTOK:central:RPump2-Pressure (Disabled)  | ai | yes | |
-|ISTTOK:central:TMPump1-PressureAdmission | ai | yes | out "0010074002=?106"; |
-|ISTTOK:central:VVessel-Pressure   | ai | yes |  out "0030074002=?108";|
+|ISTTOK:central:TMPump1-PressureAdmission | ai | yes | out "0030074002=?108" |
 ----------
 
 
