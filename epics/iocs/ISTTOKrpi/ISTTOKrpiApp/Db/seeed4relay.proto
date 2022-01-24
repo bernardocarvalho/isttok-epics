@@ -1,0 +1,29 @@
+Terminator   = "";
+LockTimeout  = 500;
+ReplyTimeout = 100;
+ReadTimeout  = 100;
+WriteTimeout = 100;
+MaxInput     = 1;
+ExtraInput   = Error;
+
+#define CMD_CHANNEL_CTRL        0x10
+#define CMD_SAVE_I2C_ADDR       0x11
+#define CMD_READ_I2C_ADDR       0x12
+#define CMD_READ_FIRMWARE_VER   0x13
+
+rReg {
+  out ${1} 16;
+  in  "%01r";
+}
+
+rFw {
+  out ${1} 18;
+  in  "%01r";
+}
+##  @init { rReg; }
+##
+wReg {
+  out ${1} 16 "%.1r";
+}
+
+#  @init { out ${1}; in "%.1r"; }

@@ -23,6 +23,8 @@ dbLoadRecords("db/ISTTOKpcf8574.db","P=ISTTOK:,R=central:,BUS=I2C")
 dbLoadRecords("db/ISTTOKpcf8591.db","P=ISTTOK:,R=central:,BUS=I2C")
 dbLoadRecords("db/ISTTOKtda8444.db","P=ISTTOK:,R=central:,BUS=I2C")
 dbLoadRecords("db/ISTTOKmachineControl.db","P=ISTTOK:,R=central:")
+## SEEED RELAY BOARD
+dbLoadRecords("db/seeed4relay.db","P=ISTTOK:,R=central:,A=17")
 
 ## Load Serial drivers
 #drvAsynSerialPortConfigure("RS0","/dev/ttyAMA0")
@@ -46,7 +48,7 @@ dbLoadRecords("db/sendmail.db", "P=ISTTOK:,PORT=L0,R=central:,L=0,A=0")
 
 # Uncomment to Debug STREAMDEVICE serial activity
 # 2021/12/14 13:11:50.019969 RS0 ISTTOK:central:P002:M: No reply within 200 ms to "0020074002=?107<0d>
-var streamError 1
+#var streamError 1
 #with this no errors on pfeiffer bus
 #var streamDebug 1
 #streamSetLogfile("logfile.txt")

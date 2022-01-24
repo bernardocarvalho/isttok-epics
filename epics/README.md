@@ -120,7 +120,8 @@ Process Value in this IOC Server:
 - Main State Machine, see [source](https://git.ipfn.tecnico.ulisboa.pt/blob/ISTTOK.git/master/epics%2Fiocs%2FISTTOKrpi%2FISTTOKrpiApp%2Fsrc%2FIsttokSeqExec.stt)
 
 #### Hardware Platform
-1. A Raspberry Pi 3, running a linux distribution..
+1. A Raspberry Pi  running a linux distribution..
+  * Raspberry Pi 2 Model B Rev 1.1 hardware. `# cat /proc/cpuinfo | grep Model`
   * Has a USB/RS485 port for monitoring pressure (to be connected soon)  
 2. Two Interface Boards, Velleman Model [k8000](https://www.velleman.eu/products/view/?id=9383)..
   * connected to raspberry Pi through I2C interface;
@@ -136,7 +137,7 @@ Process Value in this IOC Server:
   * IP addr:192.168.1.110 ( ISTTOK private network)
   * NTP/timedatectl time conected to  IPFN Gps NTP/PPS server IP:10.136.227.237 193.136.136.129 
     (this is mandatory, Rpi does not have a Real Time clock    see https://www.raspberrypi.org/forums/viewtopic.php?t=178763)
-  * EPICS v. base-7.0 from epics [github](https://github.com/epics-base/)
+  * EPICS v7 base-7.0 from epics [github](https://github.com/epics-base)
     * (in /home/pi/Apps/epics7/epics-base) including modules:
     * asynDriver [asyn](https://github.com/epics-modules/asyn)
     * [StreamDevice](https://paulscherrerinstitute.github.io/StreamDevice)
@@ -239,6 +240,13 @@ Process Variables in this IOC Server:
 |ISTTOK:central:RPump2-Pressure (Disabled)  | ai | yes | |
 |ISTTOK:central:TMPump1-PressureAdmission | ai | yes | out "0030074002=?108" |
 ----------
+
+* Connected to [Seeeduino](https://wiki.seeedstudio.com/Grove-4-Channel_SPDT_Relay)
+Grove - 4-Channel SPDT Relay  Address = 17
+
+|PV Name	| PV Type	| Bit | Relay NO/NC|
+|:----------|-------|---:|
+|ISTTOK:central:GasIS-Valves| bo | 0 | NO |
 
 
 ### Vacuum Node (**Not used, backup server only**)
