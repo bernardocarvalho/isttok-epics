@@ -323,17 +323,6 @@ record(bo, "$(P)$(R)Clean-TorContactor" ) {
 ###############
 ###############
 
-############################
-# TOR CLEAN BREAKER ON/OFF #
-############################
-record(bo, "$(P)$(R)Clean-TorPneuBreaker" ) {
-##   field(DESC," Interruptor de ar comprimido  do transformador para a fonte de campo toroidal das descargas de limpeza (500 A)")
-    field( OUT, "$(P)$(R)PCF8574:61:REGISTER.B0 PP" )
-        field( ZNAM, "On" )
-        field( ONAM, "Off" )
-        field(VAL,"1")
-}
-
 record(bo, "$(P)$(R)Shot-TorPSDisable" ) {
 #   field(DESC," É desligado na emergência e em qualquer estado que não seja Process ou Wait Shot.")
     field( OUT, "$(P)$(R)PCF8574:61:REGISTER.B1 PP" )
@@ -437,6 +426,7 @@ record(bo, "$(P)$(R)GasIS-Valves" ) {
     field( ZNAM, "OFF" )
     field( ONAM, "ON" )
     field(VAL,"0")
+    field(OSV,"MINOR")
 }
 
 ####################################
@@ -449,14 +439,29 @@ record(bo, "$(P)$(R)Clean-PrimPneuBreaker"){
     field( ZNAM, "OFF" )
     field( ONAM, "ON" )
     field(VAL,"0")
+    field(OSV,"MAJOR")
 }
 ##########################################
 #       CAP BANK DISCHARGE ON/OFF        #
 ##########################################
 record(bo, "$(P)$(R)CapBank-Discharge" ) {
     field(DESC,"Liga o circuito de descarga do ELCO ")
-    field( OUT, "$(P)$(R)SEEED4RELAY:17:REGISTER.B2 PP" )
-    field( ZNAM, "OFF" )
-    field( ONAM, "ON" )
+    field( OUT,"$(P)$(R)SEEED4RELAY:17:REGISTER.B2 PP" )
+    field( ZNAM,"OFF" )
+    field( ONAM,"ON" )
     field( VAL,"0")
+    field(OSV,"MINOR")
 }
+############################
+# TOR CLEAN BREAKER ON/OFF #
+############################
+record(bo, "$(P)$(R)Clean-TorPneuBreaker" ) {
+##   field(DESC," Interruptor de ar comprimido  do transformador para a fonte de campo toroidal das descargas de limpeza (500 A)")
+    field(OUT,"$(P)$(R)SEEED4RELAY:17:REGISTER.B3 PP" )
+    field(ZNAM,"OFF" )
+    field(ONAM, "ON" )
+    field(VAL,"0")
+    field(OSV,"MAJOR")
+}
+
+

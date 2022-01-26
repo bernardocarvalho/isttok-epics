@@ -247,6 +247,9 @@ SPDT Relay  Address = 17
 |PV Name	| PV Type	| Bit | Relay NO/NC|
 |:----------|-------|---:|
 |ISTTOK:central:GasIS-Valves| bo | 0 | NO |
+|ISTTOK:central:PrimPneuBreaker| bo | 1 | NO |
+|ISTTOK:central:CapBank-Discharge| bo | 2 | NO |
+|ISTTOK:central:Clean-TorPneuBreaker| bo | 3 | NO |
 
 
 ### Vacuum Node (**Not used, backup server only**)
