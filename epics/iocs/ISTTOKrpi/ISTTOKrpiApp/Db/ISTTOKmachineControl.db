@@ -27,7 +27,8 @@ record(bo, "$(P)$(R)TMPump1-ControllerOn" ) {
     field(ZNAM, "Off" )
     field(ONAM, "Pulse" )
     field(HIGH, "2.5")
-    field(FLNK, "$(P)$(R)TMPump1-ControllerOnInv" )
+# Disabled until further notice
+#    field(FLNK, "$(P)$(R)TMPump1-ControllerOnInv" )
     field(VAL,"0")
 }
 record(calcout, "$(P)$(R)TMPump1-ControllerOnInv") {
@@ -43,7 +44,8 @@ record(bo, "$(P)$(R)TMPump1-ControllerOff" ) {
     field(ZNAM, "Off" )
     field(ONAM, "Pulse" )
     field(HIGH, "2.5")
-    field(FLNK, "$(P)$(R)TMPump1-ControllerOffInv" )
+# Disabled until further notice
+#    field(FLNK, "$(P)$(R)TMPump1-ControllerOffInv" )
     field(VAL,"0")
 }
 
@@ -321,17 +323,6 @@ record(bo, "$(P)$(R)Clean-TorContactor" ) {
 ###############
 ###############
 
-############################
-# TOR CLEAN BREAKER ON/OFF #
-############################
-record(bo, "$(P)$(R)Clean-TorPneuBreaker" ) {
-##   field(DESC," Interruptor de ar comprimido  do transformador para a fonte de campo toroidal das descargas de limpeza (500 A)")
-    field( OUT, "$(P)$(R)PCF8574:61:REGISTER.B0 PP" )
-        field( ZNAM, "On" )
-        field( ONAM, "Off" )
-        field(VAL,"1")
-}
-
 record(bo, "$(P)$(R)Shot-TorPSDisable" ) {
 #   field(DESC," É desligado na emergência e em qualquer estado que não seja Process ou Wait Shot.")
     field( OUT, "$(P)$(R)PCF8574:61:REGISTER.B1 PP" )
@@ -381,17 +372,6 @@ record(bo, "$(P)$(R)Clean-PrimContactor" ) {
         field(VAL,"1")
 }
 
-####################################
-### PRIMARY CLEAN BREAKER ON/OFF ###
-####################################
-record(bo, "$(P)$(R)Clean-PrimPneuBreaker"){
-#record(bo, "$(P)$(R)PrimaryCleanBreakerOnOff"){
-    field( DESC, "Primary Cleaning OnOff")
-        field( OUT, "$(P)$(R)PCF8574:61:REGISTER.B5 PP" )
-        field( ZNAM, "On")
-        field( ONAM, "Off")
-        field(VAL,"1")
-}
 
 ##################################
 #       GIS VALVES ON/OFF        #
@@ -399,23 +379,12 @@ record(bo, "$(P)$(R)Clean-PrimPneuBreaker"){
 record(bo, "$(P)$(R)GasIS-Valves" ) {
 #   field(DESC," 2 válvulas pneumáticas de corte do sistema de injecção de H/D/Ne/He no TOK, 24V out = deixa passar")
 #   record(bo, "$(P)$(R)GISValvesOnOff" ) {
-    field( OUT, "$(P)$(R)PCF8574:61:REGISTER.B6 PP" )
-        field( ZNAM, "On" )
-        field( ONAM, "Off" )
-        field(VAL,"1")
+    field( OUT, "$(P)$(R)SEEED4RELAY:17:REGISTER.B0 PP" )
+        field( ZNAM, "OFF" )
+        field( ONAM, "ON" )
+        field(VAL,"0")
 }
 
-##########################################
-#       CAP BANK DISCHARGE ON/OFF        #
-##########################################
-record(bo, "$(P)$(R)CapBank-Discharge" ) {
-    field(DESC," Liga o circuito de descarga do ELCO ")
-#   record(bo, "$(P)$(R)CapBankDischargeOnOff" ) {
-    field(OUT, "$(P)$(R)PCF8574:61:REGISTER.B7 PP" )
-        field(ZNAM, "On" )
-        field(ONAM, "Off" )
-        field(VAL,"1")
-}
 
 #record(bo,"$(P)$(R)Primary-PressureCondition"){
 #	field(ZNAM, "OFF" )
@@ -442,3 +411,57 @@ record(bo, "$(P)$(R)TMPump1-ManualValve"){
         field( ZNAM, "Closed")
         field( ONAM, "Open")
 }
+
+### SEEED 4 RELAY BOARD
+#
+#
+ 
+##################################
+#       GIS VALVES ON/OFF        #
+##################################
+record(bo, "$(P)$(R)GasIS-Valves" ) {
+#   field(DESC," 2 válvulas pneumáticas de corte do sistema de injecção de H/D/Ne/He no TOK, 24V out = deixa passar")
+#   record(bo, "$(P)$(R)GISValvesOnOff" ) {
+    field( OUT, "$(P)$(R)SEEED4RELAY:17:REGISTER.B0 PP" )
+    field( ZNAM, "OFF" )
+    field( ONAM, "ON" )
+    field(VAL,"0")
+    field(OSV,"MINOR")
+}
+
+####################################
+### PRIMARY CLEAN BREAKER ON/OFF ###
+####################################
+record(bo, "$(P)$(R)Clean-PrimPneuBreaker"){
+#record(bo, "$(P)$(R)PrimaryCleanBreakerOnOff"){
+    field( DESC, "Primary Cleaning OnOff")
+    field( OUT, "$(P)$(R)SEEED4RELAY:17:REGISTER.B1 PP" )
+    field( ZNAM, "OFF" )
+    field( ONAM, "ON" )
+    field(VAL,"0")
+    field(OSV,"MAJOR")
+}
+##########################################
+#       CAP BANK DISCHARGE ON/OFF        #
+##########################################
+record(bo, "$(P)$(R)CapBank-Discharge" ) {
+    field(DESC,"Liga o circuito de descarga do ELCO ")
+    field( OUT,"$(P)$(R)SEEED4RELAY:17:REGISTER.B2 PP" )
+    field( ZNAM,"OFF" )
+    field( ONAM,"ON" )
+    field( VAL,"0")
+    field(OSV,"MINOR")
+}
+############################
+# TOR CLEAN BREAKER ON/OFF #
+############################
+record(bo, "$(P)$(R)Clean-TorPneuBreaker" ) {
+##   field(DESC," Interruptor de ar comprimido  do transformador para a fonte de campo toroidal das descargas de limpeza (500 A)")
+    field(OUT,"$(P)$(R)SEEED4RELAY:17:REGISTER.B3 PP" )
+    field(ZNAM,"OFF" )
+    field(ONAM, "ON" )
+    field(VAL,"0")
+    field(OSV,"MAJOR")
+}
+
+

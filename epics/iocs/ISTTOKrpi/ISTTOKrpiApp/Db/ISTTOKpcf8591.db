@@ -94,6 +94,8 @@ record(ai, "$(P)$(R)Shot-TorPSCurrentImage" ) {
     field(DTYP, "Raw Soft Channel" )
     field(INP, "$(P)$(R)PCF8591:72:BYTE2_CH3 PP NMS")
     field(SCAN, ".2 second")
+#Scan Disable Input Link Value
+    field(DISA, "1")
     field(ASLO, "39.215686275" )
     field(AOFF, "0.0" )
     field(EGU,  "A" )

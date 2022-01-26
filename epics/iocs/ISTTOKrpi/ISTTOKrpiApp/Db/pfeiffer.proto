@@ -1,18 +1,18 @@
-Terminator=CR; 
+Terminator = CR;
+inTerminator = CR;
 # CR and LF are control characters, respectively coded 0x0D (13 decimal) and 0x0A (10 decimal)
-# CR and LF are control characters, respectively coded 0x0D (13 decimal) and 0x0A (10 decimal)
-MaxInput = 30;
+MaxInput = 20;
 ExtraInput = Ignore;
 
 # Values in millisecond
-LockTimeout = 1000;
+LockTimeout = 500;
 # Affects first out command in a protocol.
 #  If other records currently use the device, how many milliseconds to wait for 
 # exclusive access to the device before giving up? 
 
 #ReadTimeout = 1500;
 
-ReplyTimeout = 400;
+ReplyTimeout = 300;
 
 #PollPeriod = $ReplyTimeout;
 #Integer. Affects first in command in I/O Intr mode (see chapter Record Processing).

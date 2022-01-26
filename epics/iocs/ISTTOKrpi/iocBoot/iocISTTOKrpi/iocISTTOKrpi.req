@@ -1,18 +1,19 @@
-ISTTOK:central:PULSE-NUMBER.VAL
+# P=ISTTOK:,R=central:
+$(P)$(R)PULSE-NUMBER.VAL
 ISTTOK:central:LogMessage.VAL
 
 ISTTOK:central:LASTOPSTATE.VAL
-ISTTOK:central:OPREQ
+ISTTOK:central:OPREQ.VAL
 ISTTOK:central:PROCESS-MODE.VAL
 ISTTOK:central:CLEANINGMANMODE.VAL
 
 ISTTOK:central:Emergency-UserButton.VAL
 ISTTOK:central:TMPump1-ManualValve.VAL
 ISTTOK:central:Shot-TorPSCurrent
-ISTTOK:central:UPS-Shutdown
+#ISTTOK:central:UPS-Shutdown
 
 #ALARM Limits
-ISTTOK:central:RPump1-Pressure.HIGH
+$(P)$(R)RPump1-Pressure.HIGH
 ISTTOK:central:RPump1-Pressure.HIHI
 #ISTTOK:central:RPump2-Pressure.HIGH
 #ISTTOK:central:RPump2-Pressure.HIHI

@@ -1,0 +1,19 @@
+##############################################################
+# ### Read/Write SEEED Relay Board address 0x11=17 register ##
+#############################################################
+record( mbboDirect, "$(P)$(R)SEEED4RELAY:$(A):REGISTER") {
+#record(longout, "$(P)$(R)SEEED4RELAY:$(A):REGISTER") {
+    field(DTYP, "stream")
+    field(OUT,  "@seeed4relay.proto wReg($(A)) I2C")
+#    field(DRVH, "15" )
+#    field(DRVL, "0" )
+    field(SHFT, "0")
+    field(NOBT, "4")
+    field(VAL, 0)
+#    field(PINI,"YES")
+}
+record( mbbiDirect, "$(P)$(R)SEEED4RELAY:$(A):REGISTER:READ") {
+    field(DTYP, "stream")
+    field(INP,  "@seeed4relay.proto rReg($(A)) I2C")
+}
+
