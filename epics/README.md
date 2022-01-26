@@ -241,8 +241,8 @@ Process Variables in this IOC Server:
 |ISTTOK:central:TMPump1-PressureAdmission | ai | yes | out "0030074002=?108" |
 ----------
 
-* Connected to [Seeeduino](https://wiki.seeedstudio.com/Grove-4-Channel_SPDT_Relay)
-Grove - 4-Channel SPDT Relay  Address = 17
+* Connected to [Seeeduino](https://wiki.seeedstudio.com/Grove-4-Channel_SPDT_Relay) Grove - 4-Channel
+SPDT Relay  Address = 17
 
 |PV Name	| PV Type	| Bit | Relay NO/NC|
 |:----------|-------|---:|

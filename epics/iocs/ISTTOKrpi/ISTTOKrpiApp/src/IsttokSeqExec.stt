@@ -27,6 +27,8 @@ short PCF_RELAY_OFF= 1;
 short PCF_INPUT_ON = 0;
 short PCF_INPUT_OFF= 1;
 short PCF_PULSE_ON = 1;
+short SEEED_RELAY_OFF= 0;
+short SEEED_RELAY_ON = 1;
 
 short STRST_NonStarting = 0;
 short STRST_Starting1 = 1;
@@ -226,8 +228,8 @@ assign IsttokShotShot_TorPSDisable to "ISTTOK:central:Shot-TorPSDisable";
 short IsttokShotClean_PrimContactor;
 assign IsttokShotClean_PrimContactor to "ISTTOK:central:Clean-PrimContactor";
 
-short IsttokShotClean_PrimPneuBreaker;
-assign IsttokShotClean_PrimPneuBreaker to "ISTTOK:central:Clean-PrimPneuBreaker";
+short IsttokClean_PrimPneuBreaker;
+assign IsttokClean_PrimPneuBreaker to "ISTTOK:central:Clean-PrimPneuBreaker";
 
 short IsttokShotCountdown;
 assign IsttokShotCountdown to "ISTTOK:central:COUNTDOWN";
@@ -287,8 +289,8 @@ ss PulseSequence {
             IsttokShotClean_PrimContactor = PCF_RELAY_OFF;
             pvPut(IsttokShotClean_PrimContactor);
 
-            IsttokShotClean_PrimPneuBreaker = PCF_RELAY_OFF;
-            pvPut(IsttokShotClean_PrimPneuBreaker);
+            IsttokClean_PrimPneuBreaker = SEEED_RELAY_OFF;
+            pvPut(IsttokClean_PrimPneuBreaker);
 
             IsttokShotBuzzer = PCF_RELAY_OFF;
             pvPut(IsttokShotBuzzer);
@@ -296,13 +298,13 @@ ss PulseSequence {
             IsttokShotCapBank_Charge = PCF_RELAY_OFF;
             pvPut(IsttokShotCapBank_Charge);
 
-            IsttokShotCapBank_Discharge = PCF_RELAY_OFF;
+            IsttokShotCapBank_Discharge = SEEED_RELAY_OFF;
             pvPut(IsttokShotCapBank_Discharge);
 
             IsttokShotVVessel_Filament = PCF_RELAY_OFF;
             pvPut(IsttokShotVVessel_Filament);
 
-            IsttokShotGasIS_Valves = PCF_RELAY_OFF;
+            IsttokShotGasIS_Valves = SEEED_RELAY_OFF;
             pvPut(IsttokShotGasIS_Valves);
 
             IsttokShotLab_WarningLight = PCF_RELAY_OFF;
@@ -595,10 +597,10 @@ ss PulseSequence {
             IsttokShotCapBank_Charge = PCF_RELAY_OFF;
             pvPut(IsttokShotCapBank_Charge);
 
-            IsttokShotCapBank_Discharge = PCF_RELAY_OFF;
+            IsttokShotCapBank_Discharge = SEEED_RELAY_OFF;
             pvPut(IsttokShotCapBank_Discharge);
 
-            IsttokShotGasIS_Valves = PCF_RELAY_OFF;
+            IsttokShotGasIS_Valves = SEEED_RELAY_OFF;
             pvPut(IsttokShotGasIS_Valves);
 
             IsttokShotVVessel_Filament = PCF_RELAY_OFF;
@@ -645,13 +647,18 @@ ss PulseSequence {
             strcpy(msg, "EMERGENCY: CAPBANK CrowBar Close");
             pvPut(msg);
             errlogSevPrintf(NO_ALARM, "%s\n",msg);
-            IsttokShotCapBank_Discharge = PCF_RELAY_OFF;
+            IsttokShotCapBank_Discharge = SEEED_RELAY_OFF;
             pvPut(IsttokShotCapBank_Discharge);
+
+            strcpy(msg, "Prim_Pneu_Breaker OFF");
+            pvPut(msg);
+            IsttokClean_PrimPneuBreaker = SEEED_RELAY_OFF;
+            pvPut(IsttokClean_PrimPneuBreaker);
 
             strcpy(msg, "EMERGENCY: GIS Valves CLOSE");
             pvPut(msg);
             errlogSevPrintf(NO_ALARM, "%s\n",msg);
-            IsttokShotGasIS_Valves = PCF_RELAY_OFF;
+            IsttokShotGasIS_Valves = SEEED_RELAY_OFF;
             pvPut(IsttokShotGasIS_Valves);
 
             strcpy(msg, "EMERGENCY: Filament OFF");
@@ -717,12 +724,12 @@ ss PulseSequence {
  *
  *            strcpy(msg, "EMERGENCY: CAPBANK CrowBar Close");
  *            errlogSevPrintf(NO_ALARM, "%s\n",msg);
- *            IsttokShotCapBank_Discharge = PCF_RELAY_OFF;
+ *            IsttokShotCapBank_Discharge = SEEED_RELAY_OFF;
  *            pvPut(IsttokShotCapBank_Discharge);
  *
  *            strcpy(msg, "EMERGENCY: GIS Valves CLOSE");
  *            errlogSevPrintf(NO_ALARM, "%s\n",msg);
- *            IsttokShotGasIS_Valves = PCF_RELAY_OFF;
+ *            IsttokShotGasIS_Valves = SEEED_RELAY_OFF;
  *            pvPut(IsttokShotGasIS_Valves);
  *
  *            strcpy(msg, "UPS EMERGENCY: Filament OFF");
@@ -873,7 +880,7 @@ ss CleaningSequence{
     entry{
             strcpy(msg, "GIS Valves CLOSE");
             pvPut(msg);
-            IsttokShotGasIS_Valves = PCF_RELAY_OFF;
+            IsttokShotGasIS_Valves = SEEED_RELAY_OFF;
             pvPut(IsttokShotGasIS_Valves);
 
             strcpy(msg, "Filament OFF");
@@ -896,6 +903,11 @@ ss CleaningSequence{
             IsttokShotClean_TorContactor = PCF_RELAY_OFF;
             pvPut(IsttokShotClean_TorContactor);
 
+            strcpy(msg, "Prim_Pneu_Breaker OFF");
+            pvPut(msg);
+            IsttokClean_PrimPneuBreaker = SEEED_RELAY_OFF;
+            pvPut(IsttokClean_PrimPneuBreaker);
+
             CLEANINGSTATE = CLNST_NonCleaning;
             pvPut(CLEANINGSTATE);
 
@@ -908,8 +920,11 @@ ss CleaningSequence{
             strcpy(msg, "GIS Valves OPEN");
             pvPut(msg);
             errlogSevPrintf(NO_ALARM, "%s\n",msg);
-            IsttokShotGasIS_Valves = PCF_RELAY_ON;
+            IsttokShotGasIS_Valves = SEEED_RELAY_ON;
             pvPut(IsttokShotGasIS_Valves);
+            IsttokClean_PrimPneuBreaker = SEEED_RELAY_ON;
+            pvPut(IsttokClean_PrimPneuBreaker);
+
             CLEANINGSTATE = CLNST_Cleaning1;
             pvPut(CLEANINGSTATE);
         } state Cleaning1
@@ -920,7 +935,9 @@ ss CleaningSequence{
             strcpy(msg, "GIS Valves CLOSE");
             pvPut(msg);
             errlogSevPrintf(NO_ALARM, "%s\n",msg);
-            IsttokShotGasIS_Valves = PCF_RELAY_OFF;
+            IsttokClean_PrimPneuBreaker = SEEED_RELAY_OFF;
+            pvPut(IsttokClean_PrimPneuBreaker);
+            IsttokShotGasIS_Valves = SEEED_RELAY_OFF;
             pvPut(IsttokShotGasIS_Valves);
         } state NonCleaning
 
@@ -1007,7 +1024,7 @@ ss CleaningSequence{
             IsttokShotClean_TorContactor = PCF_RELAY_OFF;
             pvPut(IsttokShotClean_TorContactor);
 /* Close GIS to let Pressure down */
-            IsttokShotGasIS_Valves = PCF_RELAY_OFF;
+            IsttokShotGasIS_Valves = SEEED_RELAY_OFF;
             pvPut(IsttokShotGasIS_Valves);
             CLEANINGSTATE = CLNST_Cleaning4;
             pvPut(CLEANINGSTATE);
@@ -1025,6 +1042,7 @@ ss CleaningSequence{
     }
 }
 
+/*********** SUB-State: ShotSequence Set ************/
 ss ShotSequence {
     state NonShoting {
     entry {
@@ -1089,7 +1107,7 @@ ss ShotSequence {
             strcpy(msg, "CAPBANK Crowbar Open");
             pvPut(msg);
             errlogSevPrintf(NO_ALARM, "%s\n",msg);
-            IsttokShotCapBank_Discharge = PCF_RELAY_ON;
+            IsttokShotCapBank_Discharge = SEEED_RELAY_ON;
             pvPut(IsttokShotCapBank_Discharge);
             strcpy(msg, "Lights ON");
             pvPut(msg);
@@ -1110,7 +1128,7 @@ ss ShotSequence {
             strcpy(msg, "GIS Valves OPEN");
             pvPut(msg);
             errlogSevPrintf(NO_ALARM, "%s\n",msg);
-            IsttokShotGasIS_Valves = PCF_RELAY_ON;
+            IsttokShotGasIS_Valves = SEEED_RELAY_ON;
             pvPut(IsttokShotGasIS_Valves);
             WSHOTINGSTATE = WSHTST_Shooting4;
             pvPut(WSHOTINGSTATE);
@@ -1235,7 +1253,7 @@ ss ShotSequence {
             strcpy(msg, "CAPBANK CrowBar Close" );
             pvPut(msg);
             errlogSevPrintf(NO_ALARM, "%s\n", msg);
-            IsttokShotCapBank_Discharge = PCF_RELAY_OFF;
+            IsttokShotCapBank_Discharge = SEEED_RELAY_OFF;
             pvPut(IsttokShotCapBank_Discharge);
             WSHOTINGSTATE = WSHTST_Shooting11;
             pvPut(WSHOTINGSTATE);
@@ -1253,7 +1271,7 @@ ss ShotSequence {
             strcpy(msg, "GIS Valves CLOSE" );
             pvPut(msg);
             errlogSevPrintf(NO_ALARM, "%s\n", msg);
-            IsttokShotGasIS_Valves = 1;
+            IsttokShotGasIS_Valves = SEEED_RELAY_OFF;
             pvPut(IsttokShotGasIS_Valves);
             strcpy(msg, "Filament OFF" );
             pvPut(msg);
@@ -1305,7 +1323,10 @@ ss StoppingSequence {
             pvPut(msg);
             errlogSevPrintf(NO_ALARM, "%s\n",msg);
 
-        IsttokTMPump1_MotorOff = ON;
+            IsttokClean_PrimPneuBreaker = SEEED_RELAY_OFF;
+            pvPut(IsttokClean_PrimPneuBreaker);
+
+            IsttokTMPump1_MotorOff = ON;
             pvPut(IsttokTMPump1_MotorOff);
 
  //     IsttokTMPump2_Motor = PCF_RELAY_OFF;

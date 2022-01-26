@@ -383,17 +383,6 @@ record(bo, "$(P)$(R)Clean-PrimContactor" ) {
         field(VAL,"1")
 }
 
-####################################
-### PRIMARY CLEAN BREAKER ON/OFF ###
-####################################
-record(bo, "$(P)$(R)Clean-PrimPneuBreaker"){
-#record(bo, "$(P)$(R)PrimaryCleanBreakerOnOff"){
-    field( DESC, "Primary Cleaning OnOff")
-        field( OUT, "$(P)$(R)PCF8574:61:REGISTER.B5 PP" )
-        field( ZNAM, "On")
-        field( ONAM, "Off")
-        field(VAL,"1")
-}
 
 ##################################
 #       GIS VALVES ON/OFF        #
@@ -407,17 +396,6 @@ record(bo, "$(P)$(R)GasIS-Valves" ) {
         field(VAL,"0")
 }
 
-##########################################
-#       CAP BANK DISCHARGE ON/OFF        #
-##########################################
-record(bo, "$(P)$(R)CapBank-Discharge" ) {
-    field(DESC," Liga o circuito de descarga do ELCO ")
-#   record(bo, "$(P)$(R)CapBankDischargeOnOff" ) {
-    field(OUT, "$(P)$(R)PCF8574:61:REGISTER.B7 PP" )
-        field(ZNAM, "On" )
-        field(ONAM, "Off" )
-        field(VAL,"1")
-}
 
 #record(bo,"$(P)$(R)Primary-PressureCondition"){
 #	field(ZNAM, "OFF" )
@@ -443,4 +421,42 @@ record(bo, "$(P)$(R)TMPump1-ManualValve"){
         field( DESC, "State of manual valve")
         field( ZNAM, "Closed")
         field( ONAM, "Open")
+}
+
+### SEEED 4 RELAY BOARD
+#
+#
+ 
+##################################
+#       GIS VALVES ON/OFF        #
+##################################
+record(bo, "$(P)$(R)GasIS-Valves" ) {
+#   field(DESC," 2 válvulas pneumáticas de corte do sistema de injecção de H/D/Ne/He no TOK, 24V out = deixa passar")
+#   record(bo, "$(P)$(R)GISValvesOnOff" ) {
+    field( OUT, "$(P)$(R)SEEED4RELAY:17:REGISTER.B0 PP" )
+    field( ZNAM, "OFF" )
+    field( ONAM, "ON" )
+    field(VAL,"0")
+}
+
+####################################
+### PRIMARY CLEAN BREAKER ON/OFF ###
+####################################
+record(bo, "$(P)$(R)Clean-PrimPneuBreaker"){
+#record(bo, "$(P)$(R)PrimaryCleanBreakerOnOff"){
+    field( DESC, "Primary Cleaning OnOff")
+    field( OUT, "$(P)$(R)SEEED4RELAY:17:REGISTER.B1 PP" )
+    field( ZNAM, "OFF" )
+    field( ONAM, "ON" )
+    field(VAL,"0")
+}
+##########################################
+#       CAP BANK DISCHARGE ON/OFF        #
+##########################################
+record(bo, "$(P)$(R)CapBank-Discharge" ) {
+    field(DESC,"Liga o circuito de descarga do ELCO ")
+    field( OUT, "$(P)$(R)SEEED4RELAY:17:REGISTER.B2 PP" )
+    field( ZNAM, "OFF" )
+    field( ONAM, "ON" )
+    field( VAL,"0")
 }

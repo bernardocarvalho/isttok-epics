@@ -15,6 +15,7 @@ dbLoadDatabase "dbd/ISTTOKrpi.dbd"
 ISTTOKrpi_registerRecordDeviceDriver pdbbase
 
 ## Load  I2C drivers
+# *** IMPORTANT: Compile drvAsynI2C with flag STREAM_WORKAROUND = 1
 drvAsynI2CConfigure( "I2C", "/dev/i2c-1", 1 )
 
 ## Load record instances

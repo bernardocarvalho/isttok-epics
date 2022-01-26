@@ -6,6 +6,9 @@ WriteTimeout = 100;
 MaxInput     = 1;
 ExtraInput   = Error;
 
+
+# IMPORTANT: Compile drvAsynI2C with flag STREAM_WORKAROUND = 1
+
 #define CMD_CHANNEL_CTRL        0x10
 #define CMD_SAVE_I2C_ADDR       0x11
 #define CMD_READ_I2C_ADDR       0x12
