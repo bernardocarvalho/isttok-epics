@@ -26,6 +26,7 @@ dbLoadRecords("db/ISTTOKtda8444.db","P=ISTTOK:,R=central:,BUS=I2C")
 dbLoadRecords("db/ISTTOKmachineControl.db","P=ISTTOK:,R=central:")
 ## SEEED RELAY BOARD
 dbLoadRecords("db/seeed4relay.db","P=ISTTOK:,R=central:,A=17")
+dbLoadRecords("db/seeed4relay.db","P=ISTTOK:,R=central:,A=18")
 
 ## Load Serial drivers
 #drvAsynSerialPortConfigure("RS0","/dev/ttyAMA0")

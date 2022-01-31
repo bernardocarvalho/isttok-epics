@@ -29,6 +29,7 @@ short PCF_INPUT_OFF= 1;
 short PCF_PULSE_ON = 1;
 short SEEED_RELAY_OFF= 0;
 short SEEED_RELAY_ON = 1;
+short SEEED_RELAY_PULSE = 1;
 
 short STRST_NonStarting = 0;
 short STRST_Starting1 = 1;
@@ -179,6 +180,10 @@ assign IsttokTMPump2_Emergency to "ISTTOK:central:TMPump2-Emergency";
 monitor IsttokTMPump2_Emergency;
 */
 
+float IsttokTMPump1_Pressure;
+assign IsttokTMPump1_Pressure to "ISTTOK:central:TMPump1-PressureAdmission";
+monitor IsttokTMPump1_Pressure;
+
 float IsttokRPump1_Pressure;
 /*assign IsttokRPump1_Pressure to "ISTTOK:vacuum:RPump1-Pressure";*/
 assign IsttokRPump1_Pressure to "ISTTOK:central:RPump1-Pressure";
@@ -286,16 +291,16 @@ ss PulseSequence {
 //            IsttokProcMode = OFF; // UPON POWER-DOWN OR FAILURE PREVENT TO ENTER WAITSHOT ON POWER-UP!
 //            pvPut(IsttokProcMode);
 
-            IsttokClean_PrimContactor = PCF_RELAY_OFF;
+            IsttokClean_PrimContactor = SEEED_RELAY_OFF;
             pvPut(IsttokClean_PrimContactor);
 
             IsttokClean_PrimPneuBreaker = SEEED_RELAY_OFF;
             pvPut(IsttokClean_PrimPneuBreaker);
 
-            IsttokBuzzer = PCF_RELAY_OFF;
+            IsttokBuzzer = SEEED_RELAY_OFF;
             pvPut(IsttokBuzzer);
 
-            IsttokCapBank_Charge = PCF_RELAY_OFF;
+            IsttokCapBank_Charge = SEEED_RELAY_OFF;
             pvPut(IsttokCapBank_Charge);
 
             IsttokCapBank_Discharge = SEEED_RELAY_OFF;
@@ -313,7 +318,7 @@ ss PulseSequence {
             IsttokClean_TorPneuBreaker = SEEED_RELAY_OFF;
             pvPut(IsttokClean_TorPneuBreaker);
 
-            IsttokClean_TorContactor = PCF_RELAY_OFF;
+            IsttokClean_TorContactor = SEEED_RELAY_OFF;
             pvPut(IsttokClean_TorContactor);
 
             Isttok_TorPSDisable = PCF_RELAY_OFF;
@@ -461,7 +466,8 @@ ss PulseSequence {
             strcpy(msg, "State Idle to Stopping");
             pvPut(msg);
             errlogSevPrintf(MINOR, "%s\n", msg);
-            sprintf(sendMail, "Rpump1 Pressure:%1.1e TMP1 Pressure:%d",IsttokRPump1_Pressure,IsttokTMPump1_Emergency);
+            sprintf(sendMail, "Rpump1 Pressure:%1.1e TMP1 Emergency:%d TMP1 Adm. Pressure:%4.2e",
+                    IsttokRPump1_Pressure, IsttokTMPump1_Emergency, IsttokTMPump1_Pressure);
             pvPut(sendMail);
         } state Stopping
 
@@ -594,7 +600,7 @@ ss PulseSequence {
             Isttok_TorPSDisable = PCF_RELAY_OFF;
             pvPut(Isttok_TorPSDisable);
 
-            IsttokCapBank_Charge = PCF_RELAY_OFF;
+            IsttokCapBank_Charge = SEEED_RELAY_OFF;
             pvPut(IsttokCapBank_Charge);
 
             IsttokCapBank_Discharge = SEEED_RELAY_OFF;
@@ -641,7 +647,7 @@ ss PulseSequence {
             strcpy(msg, "EMERGENCY: CAPBANK Charge OFF");
             pvPut(msg);
             errlogSevPrintf(NO_ALARM, "%s\n",msg);
-            IsttokCapBank_Charge = PCF_RELAY_OFF;
+            IsttokCapBank_Charge = SEEED_RELAY_OFF;
             pvPut(IsttokCapBank_Charge);
 
             strcpy(msg, "EMERGENCY: CAPBANK CrowBar Close");
@@ -895,7 +901,7 @@ ss CleaningSequence{
 
             strcpy(msg, "Primary_CT OFF");
             pvPut(msg);
-            IsttokClean_PrimContactor = PCF_RELAY_OFF;
+            IsttokClean_PrimContactor = SEEED_RELAY_OFF;
             pvPut(IsttokClean_PrimContactor);
 
             strcpy(msg, "Toroidal_BK OPEN");
@@ -905,7 +911,7 @@ ss CleaningSequence{
 
             strcpy(msg, "Toroidal_CT OFF");
             pvPut(msg);
-            IsttokClean_TorContactor = PCF_RELAY_OFF;
+            IsttokClean_TorContactor = SEEED_RELAY_OFF;
             pvPut(IsttokClean_TorContactor);
 
             strcpy(msg, "Prim_Pneu_Breaker OFF");
@@ -971,7 +977,7 @@ ss CleaningSequence{
             strcpy(msg, "Primary-CT ON");
             pvPut(msg);
             errlogSevPrintf(NO_ALARM, "%s\n",msg);
-            IsttokClean_PrimContactor = PCF_RELAY_ON;
+            IsttokClean_PrimContactor = SEEED_RELAY_ON;
             pvPut(IsttokClean_PrimContactor);
             CLEANINGSTATE = CLNST_Cleaning3;
             pvPut(CLEANINGSTATE);
@@ -982,7 +988,7 @@ ss CleaningSequence{
             strcpy(msg, "Primary-CT OFF");
             pvPut(msg);
             errlogSevPrintf(NO_ALARM, "%s\n",msg);
-            IsttokClean_PrimContactor = PCF_RELAY_OFF;
+            IsttokClean_PrimContactor = SEEED_RELAY_OFF;
             pvPut(IsttokClean_PrimContactor);
             CLEANINGSTATE = CLNST_Cleaning2;
             pvPut(CLEANINGSTATE);
@@ -1012,7 +1018,7 @@ ss CleaningSequence{
             strcpy(msg, "Toroidal-CT ON");
             pvPut(msg);
             errlogSevPrintf(NO_ALARM, "%s\n",msg);
-            IsttokClean_TorContactor = PCF_RELAY_ON;
+            IsttokClean_TorContactor = SEEED_RELAY_ON;
             pvPut(IsttokClean_TorContactor);
             CLEANINGSTATE = CLNST_Cleaning5;
             pvPut(CLEANINGSTATE);
@@ -1026,7 +1032,7 @@ ss CleaningSequence{
             strcpy(msg, "Toroidal-CT OFF");
             pvPut(msg);
             errlogSevPrintf(NO_ALARM, "%s\n",msg);
-            IsttokClean_TorContactor = PCF_RELAY_OFF;
+            IsttokClean_TorContactor = SEEED_RELAY_OFF;
             pvPut(IsttokClean_TorContactor);
 /* Close GIS to let Pressure down */
             IsttokGasIS_Valves = SEEED_RELAY_OFF;
@@ -1107,7 +1113,7 @@ ss ShotSequence {
             strcpy(msg, "Buzzer 1-Sound");
             pvPut(msg);
             errlogSevPrintf(NO_ALARM, "%s\n",msg);
-            IsttokBuzzer = 1;
+            IsttokBuzzer = SEEED_RELAY_PULSE;
             pvPut(IsttokBuzzer);
             strcpy(msg, "CAPBANK Crowbar Open");
             pvPut(msg);
@@ -1164,7 +1170,7 @@ ss ShotSequence {
             strcpy(msg, "CAPBANK Charge ON" );
             pvPut(msg);
             errlogSevPrintf(NO_ALARM, "%s\n",msg);
-            IsttokCapBank_Charge = PCF_RELAY_ON;
+            IsttokCapBank_Charge = SEEED_RELAY_ON;
             pvPut(IsttokCapBank_Charge);
             WSHOTINGSTATE = WSHTST_Shooting6;
             pvPut(WSHOTINGSTATE);
@@ -1182,7 +1188,7 @@ ss ShotSequence {
             strcpy(msg, "CAPBANK Charge OFF" );
             pvPut(msg);
             errlogSevPrintf(NO_ALARM, "%s\n", msg);
-            IsttokCapBank_Charge = PCF_RELAY_OFF;
+            IsttokCapBank_Charge = SEEED_RELAY_OFF;
             pvPut(IsttokCapBank_Charge);
             WSHOTINGSTATE = WSHTST_Shooting7;
             pvPut(WSHOTINGSTATE);
@@ -1200,7 +1206,7 @@ ss ShotSequence {
             strcpy(msg, "Buzzer 2-Sound" );
             pvPut(msg);
             errlogSevPrintf(NO_ALARM, "%s\n", msg);
-            IsttokBuzzer = 1;
+            IsttokBuzzer = SEEED_RELAY_PULSE;
             pvPut(IsttokBuzzer);
             strcpy(msg, "Filament ON");
             pvPut(msg);

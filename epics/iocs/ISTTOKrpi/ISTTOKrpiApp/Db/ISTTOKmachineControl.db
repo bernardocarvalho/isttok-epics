@@ -28,14 +28,16 @@ record(bo, "$(P)$(R)TMPump1-ControllerOn" ) {
     field(ONAM, "Pulse" )
     field(HIGH, "2.5")
 # Disabled until further notice
-#    field(FLNK, "$(P)$(R)TMPump1-ControllerOnInv" )
+    field(FLNK, "$(P)$(R)TMPump1-ControllerOnInv" )
     field(VAL,"0")
 }
 record(calcout, "$(P)$(R)TMPump1-ControllerOnInv") {
     field(INPA, "$(P)$(R)TMPump1-ControllerOn NPP MS")
-    field(OUT,  "$(P)$(R)PCF8574:56:REGISTER.B0 PP MS")
+# Disabled until further notice
+#    field(OUT,  "$(P)$(R)PCF8574:56:REGISTER.B0 PP MS")
     field(OOPT, "On Change")
     field(CALC, "A?0:1")
+    field(VAL,"1")
 }
 
 record(bo, "$(P)$(R)TMPump1-ControllerOff" ) {
@@ -45,15 +47,17 @@ record(bo, "$(P)$(R)TMPump1-ControllerOff" ) {
     field(ONAM, "Pulse" )
     field(HIGH, "2.5")
 # Disabled until further notice
-#    field(FLNK, "$(P)$(R)TMPump1-ControllerOffInv" )
+    field(FLNK, "$(P)$(R)TMPump1-ControllerOffInv" )
     field(VAL,"0")
 }
 
 record(calcout, "$(P)$(R)TMPump1-ControllerOffInv") {
     field(INPA, "$(P)$(R)TMPump1-ControllerOff NPP MS" )
-    field(OUT,  "$(P)$(R)PCF8574:56:REGISTER.B1 PP MS")
+# Disabled until further notice
+#    field(OUT,  "$(P)$(R)PCF8574:56:REGISTER.B1 PP MS")
     field(OOPT, "On Change")
     field(CALC, "A?0:1")
+    field(VAL,"1")
 }
 
 record(bo, "$(P)$(R)TMPump1-MotorOn" ) {
@@ -177,24 +181,6 @@ record(bo, "$(P)$(R)TMPump2-Motor" ) {
 }
 
 ##############################
-#       BUZZER ON/OFF        #
-##############################
-record(bo, "$(P)$(R)Buzzer" ) {
-    field(DESC," Lab Buzzer ")
-        field(ZNAM, "Off" )
-        field(ONAM, "Pulse" )
-        field(HIGH, "2.5")
-        field(FLNK, "$(P)$(R)BuzzerInv" )
-        field(VAL, "0")
-}
-record(calcout, "$(P)$(R)BuzzerInv" ) {
-    field(INPA, "$(P)$(R)Buzzer NPP MS" )
-        field(OUT,  "$(P)$(R)PCF8574:57:REGISTER.B3 PP MS" )
-        field(OOPT, "On Change" )
-        field(CALC, "A?0:1" )
-}
-
-##############################
 #       EMERGENCY MODE       #
 ##############################
 record(bi, "$(P)$(R)Emergency-PhysButton" ) {
@@ -306,17 +292,6 @@ record(bo, "$(P)$(R)Lab-WarningLight" ) {
 ############
 #$(P)$(R)PCF8574:60:REGISTER:READ.B6
 
-##############################
-# TOR CLEAN CONTACTOR ON/OFF #
-##############################
-record(bo, "$(P)$(R)Clean-TorContactor" ) {
-#   field(DESC," Contactor 220V do transformador para a fonte de campo toroidal das descargas de limpeza (500 A) ")
-    field( OUT, "$(P)$(R)PCF8574:60:REGISTER.B7 PP" )
-        field( ZNAM, "On" )
-        field( ONAM, "Off" )
-        field(VAL,"1")
-}
-
 ###############
 ###############
 # REGISTER 61 #
@@ -347,31 +322,6 @@ record(calcout, "$(P)$(R)Shot-TorPSTriggerInv" ) {
         field( CALC, "A?0:1" )
 }
 ############################################################
-
-#######################################
-#       CAP BANK CHARGE ON/OFF        #
-#######################################
-record(bo, "$(P)$(R)CapBank-Charge" ) {
-##   field(DESC," Contactor 220V do circuito de carga do banco de condensadores p/ SHOT (ELCO) ")
-#record(bo, "$(P)$(R)CapBankChargeOnOff" ) {
-    field(OUT, "$(P)$(R)PCF8574:61:REGISTER.B3 PP" )
-        field(ZNAM, "On" )
-        field(ONAM, "Off" )
-        field(VAL,"1")
-}
-
-########################################
-#       PRIMARY CLEAN CONTACTOR ON/OFF #
-########################################
-record(bo, "$(P)$(R)Clean-PrimContactor" ) {
-#   field(DESC," Contactor 220V do para o primário das descargas de limpeza ")
-#   record(bo, "$(P)$(R)PrimaryCleanContactorOnOff" ) {
-    field(OUT,  "$(P)$(R)PCF8574:61:REGISTER.B4 PP MS" )
-        field(ZNAM, "On" )
-        field(ONAM, "Off" )
-        field(VAL,"1")
-}
-
 
 ##################################
 #       GIS VALVES ON/OFF        #
@@ -412,7 +362,7 @@ record(bo, "$(P)$(R)TMPump1-ManualValve"){
         field( ONAM, "Open")
 }
 
-### SEEED 4 RELAY BOARD
+### SEEED 4-RELAY I2C BOARDS ADDR 0x11 & 0x12
 #
 #
  
@@ -463,5 +413,66 @@ record(bo, "$(P)$(R)Clean-TorPneuBreaker" ) {
     field(VAL,"0")
     field(OSV,"MAJOR")
 }
+######################################
+#       PRIMARY CLEAN CONTACTOR ON/OFF #
+######################################
+record(bo, "$(P)$(R)Clean-PrimContactor") {
+    field(DESC,"220V Contactor for Clean Primary")
+    field(OUT,"$(P)$(R)SEEED4RELAY:18:REGISTER.B0 PP")
+    field(ZNAM,"OFF")
+    field(ONAM, "ON")
+    field(VAL,"0")
+    field(OSV,"MINOR")
+}
+######################################
+# TOR CLEAN CONTACTOR ON/OFF         #
+######################################
+record(bo, "$(P)$(R)Clean-TorContactor" ) {
+    field(DESC,"220V Contactor for Clean Toroidal PS")
+#   field(DESC," Contactor 220V do transformador para a fonte de campo toroidal das descargas de limpeza (500 A) ")
+    field(OUT,"$(P)$(R)SEEED4RELAY:18:REGISTER.B1 PP")
+    field(ZNAM,"OFF")
+    field(ONAM, "ON")
+    field(VAL,  "0")
+    field(OSV,"MINOR")
+}
 
+#######################################
+#       CAP BANK CHARGE ON/OFF        #
+#######################################
+record(bo, "$(P)$(R)CapBank-Charge" ) {
+    field(DESC,"220V Contactor for ELCO Charger")
+##   field(DESC," Contactor 220V do circuito de carga do banco de condensadores p/ SHOT (ELCO) ")
+    field(OUT,"$(P)$(R)SEEED4RELAY:18:REGISTER.B2 PP")
+    field(ZNAM,"OFF")
+    field(ONAM, "ON")
+    field(VAL,  "0")
+    field(OSV,"MINOR")
+}
+
+##############################
+#       BUZZER ON/OFF        #
+##############################
+record(bo, "$(P)$(R)Buzzer" ) {
+    field(DESC," Lab Buzzer ")
+    field(OUT,"$(P)$(R)SEEED4RELAY:18:REGISTER.B3 PP")
+    field(ZNAM,"OFF")
+    field(ONAM, "Pulse")
+    field(HIGH, "2.5")
+    field(VAL,  "0")
+    field(OSV,"MINOR")
+}
+
+#        field(ZNAM, "Off" )
+#        field(ONAM, "Pulse" )
+#        field(HIGH, "2.5")
+#        field(FLNK, "$(P)$(R)BuzzerInv" )
+#        field(VAL, "0")
+#}
+#record(calcout, "$(P)$(R)BuzzerInv" ) {
+#    field(INPA, "$(P)$(R)Buzzer NPP MS" )
+#        field(OUT,  "$(P)$(R)PCF8574:57:REGISTER.B3 PP MS" )
+#        field(OOPT, "On Change" )
+#        field(CALC, "A?0:1" )
+#}
 
