@@ -312,7 +312,7 @@ ss PulseSequence {
             IsttokGasIS_Valves = SEEED_RELAY_OFF;
             pvPut(IsttokGasIS_Valves);
 
-            IsttokLab_WarningLight = PCF_RELAY_OFF;
+            IsttokLab_WarningLight = SEEED_RELAY_OFF;
             pvPut(IsttokLab_WarningLight);
 
             IsttokClean_TorPneuBreaker = SEEED_RELAY_OFF;
@@ -321,7 +321,7 @@ ss PulseSequence {
             IsttokClean_TorContactor = SEEED_RELAY_OFF;
             pvPut(IsttokClean_TorContactor);
 
-            Isttok_TorPSDisable = PCF_RELAY_OFF;
+            Isttok_TorPSDisable = SEEED_RELAY_OFF;
             pvPut(Isttok_TorPSDisable);
 
             Isttok_TorPSTrigger= OFF;
@@ -436,7 +436,7 @@ ss PulseSequence {
             pvPut(IsttokOPSTATE);
             IsttokLastOPSTATE = POS_Idle;
             pvPut(IsttokLastOPSTATE);
-            Isttok_TorPSDisable = PCF_RELAY_OFF;
+            Isttok_TorPSDisable = SEEED_RELAY_OFF;
             pvPut(Isttok_TorPSDisable);
             IsttokProcReq = STOP;
             pvPut(IsttokProcReq);
@@ -547,7 +547,7 @@ ss PulseSequence {
             strcpy(msg, "Toroidal Shot Enable");
             pvPut(msg);
             errlogSevPrintf(NO_ALARM, "%s\n",msg);
-            Isttok_TorPSDisable = PCF_RELAY_ON;
+            Isttok_TorPSDisable = SEEED_RELAY_ON;
             pvPut(Isttok_TorPSDisable);
             IsttokOPSTATE = POS_WaitShot;
             pvPut(IsttokOPSTATE);
@@ -597,7 +597,7 @@ ss PulseSequence {
             IsttokOPSTATE = POS_Stopping;
             pvPut(IsttokOPSTATE);
             /*Just to be sure */
-            Isttok_TorPSDisable = PCF_RELAY_OFF;
+            Isttok_TorPSDisable = SEEED_RELAY_OFF;
             pvPut(Isttok_TorPSDisable);
 
             IsttokCapBank_Charge = SEEED_RELAY_OFF;
@@ -641,7 +641,7 @@ ss PulseSequence {
             strcpy(msg, "Emergency Toroidal Shot Disable");
             pvPut(msg);
             errlogSevPrintf(MAJOR, "%s\n",msg);
-            Isttok_TorPSDisable = PCF_RELAY_OFF;
+            Isttok_TorPSDisable = SEEED_RELAY_OFF;
             pvPut(Isttok_TorPSDisable);
 
             strcpy(msg, "EMERGENCY: CAPBANK Charge OFF");
@@ -1123,7 +1123,7 @@ ss ShotSequence {
             strcpy(msg, "Lights ON");
             pvPut(msg);
             errlogSevPrintf(NO_ALARM, "%s\n",msg);
-            IsttokLab_WarningLight = PCF_RELAY_ON;
+            IsttokLab_WarningLight = SEEED_RELAY_ON;
             pvPut(IsttokLab_WarningLight);
             WSHOTINGSTATE = WSHTST_Shooting3;
             pvPut(WSHOTINGSTATE);
@@ -1305,7 +1305,7 @@ ss ShotSequence {
             strcpy(msg, "Lights OFF and Recovering..." );
             pvPut(msg);
             errlogSevPrintf(NO_ALARM, "%s\n", msg);
-            IsttokLab_WarningLight = PCF_RELAY_OFF;
+            IsttokLab_WarningLight = SEEED_RELAY_OFF;
             pvPut(IsttokLab_WarningLight);
             WSHOTINGSTATE = WSHTST_ShotEnd;
             pvPut(WSHOTINGSTATE);

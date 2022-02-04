@@ -275,18 +275,6 @@ record(bo, "$(P)$(R)VVessel-Filament" ) {
         field(PINI,"YES")
 }
 
-##############################
-#       LIGHTS ON/OFF        #
-##############################
-record(bo, "$(P)$(R)Lab-WarningLight" ) {
-    field(DESC," Luzes de sinalização, 220V ")
-#   record(bo, "$(P)$(R)LightsOnOff" ) {
-    field(OUT, "$(P)$(R)PCF8574:60:REGISTER.B5 PP" )
-        field(ZNAM, "On" )
-        field(ONAM, "Off" )
-        field(VAL,"1")
-}
-
 ############
 # NOT USED #
 ############
@@ -297,14 +285,6 @@ record(bo, "$(P)$(R)Lab-WarningLight" ) {
 # REGISTER 61 #
 ###############
 ###############
-
-record(bo, "$(P)$(R)Shot-TorPSDisable" ) {
-#   field(DESC," É desligado na emergência e em qualquer estado que não seja Process ou Wait Shot.")
-    field( OUT, "$(P)$(R)PCF8574:61:REGISTER.B1 PP" )
-        field( ZNAM, "Off" )
-        field( ONAM, "On" )
-        field(VAL,"1")
-}
 
 record(bo, "$(P)$(R)Shot-TorPSTrigger" ) {
     field(DESC," Trigger da FRAEP")
@@ -462,6 +442,42 @@ record(bo, "$(P)$(R)Buzzer" ) {
     field(VAL,  "0")
     field(OSV,"MINOR")
 }
+
+##############################
+#       LIGHTS ON/OFF        #
+##############################
+record(bo, "$(P)$(R)Lab-WarningLight" ) {
+    field(DESC,"Luzes de sinalização, 220V ")
+#    ####field(OUT, "$(P)$(R)PCF8574:60:REGISTER.B5 PP" )
+    field(OUT,"$(P)$(R)SEEED4RELAY:19:REGISTER.B0 PP")
+    field(ZNAM,"OFF")
+    field(ONAM, "ON")
+    field(VAL,  "0")
+    field(OSV,"MINOR")
+}
+#        field(ZNAM, "On" )
+#        field(ONAM, "Off" )
+#        field(VAL,"1")
+#}
+
+######################################
+#       Tor Power Supply Disable     #
+# É desligado na emergência e em qualquer estado que
+# não seja Process ou Wait Shot.
+######################################
+record(bo, "$(P)$(R)Shot-TorPSDisable" ) {
+    field(DESC,"Tor Power Supply Disable")
+    ####field( OUT, "$(P)$(R)PCF8574:61:REGISTER.B1 PP" )
+    field(OUT,"$(P)$(R)SEEED4RELAY:19:REGISTER.B1 PP")
+    field( ZNAM, "Enabled" )
+    field( ONAM, "Disabled" )
+    field(VAL,"0")
+    field(OSV,"MINOR")
+}
+#        field( ZNAM, "Off" )
+#        field( ONAM, "On" )
+#        field(VAL,"1")
+#}
 
 #        field(ZNAM, "Off" )
 #        field(ONAM, "Pulse" )
