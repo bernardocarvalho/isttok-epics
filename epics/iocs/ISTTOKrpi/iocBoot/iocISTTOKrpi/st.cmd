@@ -27,10 +27,12 @@ dbLoadRecords("db/ISTTOKmachineControl.db","P=ISTTOK:,R=central:")
 ## SEEED RELAY BOARD
 dbLoadRecords("db/seeed4relay.db","P=ISTTOK:,R=central:,A=17")
 dbLoadRecords("db/seeed4relay.db","P=ISTTOK:,R=central:,A=18")
+dbLoadRecords("db/seeed4relay.db","P=ISTTOK:,R=central:,A=19")
 
 ## Load Serial drivers
 #drvAsynSerialPortConfigure("RS0","/dev/ttyAMA0")
 
+#drvAsynSerialPortConfigure("RS0","/dev/ttyUSB0")
 drvAsynSerialPortConfigure("RS0","/dev/ttyUSB0")
 asynSetOption("RS0", 0, "baud", "9600")
 asynSetOption("RS0", 0, "bits", "8")

@@ -191,7 +191,6 @@ Process Variables in this IOC Server:
 |ISTTOK:central:TMPump2-Emergency | bi | 0 |
 |ISTTOK:central:TMPump2-Acceleration | bi | 1 |
 |ISTTOK:central:TMPump2-MotorOn | bo | 2 |
-|ISTTOK:central:Buzzer| bo | 3 |
 |ISTTOK:central:Emergency-PhysButton| bi | 4 |
 |ISTTOK:central:TTSystem-tzero| bi | 7 |
 ----------
@@ -205,7 +204,6 @@ Process Variables in this IOC Server:
 |ISTTOK:central:RPump2-Motor (Not Used/Disabled)| bo | 2 | |
 |ISTTOK:central:RPump2-Valve (Not Used/Disabled| bo | 3 | |
 |ISTTOK:central:VVessel-Filament| bo | 4 | 1 / NO|
-|ISTTOK:central:Clean-TorContactor| bo | 7 | |
 ----------
 
 
@@ -250,6 +248,15 @@ SPDT Relay  Address = 17
 |ISTTOK:central:PrimPneuBreaker| bo | 1 | NO |
 |ISTTOK:central:CapBank-Discharge| bo | 2 | NO |
 |ISTTOK:central:Clean-TorPneuBreaker| bo | 3 | NO |
+
+* Connected to Seeeduino- 4-Channel SPDT Relay  Address = 18
+
+|PV Name	| PV Type	| Bit | Relay NO/NC|
+|:----------|-------|---:|
+|ISTTOK:central:Clean-PrimContactor| bo | 0 | Relay NO/NC|
+|ISTTOK:central:Clean-TorContactor| bo | 1 | Relay NO/NC|
+|ISTTOK:central:CapBank-Charge| bo | 2 | Relay NO/NC|
+|ISTTOK:central:Buzzer| bo | 3 | Relay NO/NC|
 
 
 ### Vacuum Node (**Not used, backup server only**)

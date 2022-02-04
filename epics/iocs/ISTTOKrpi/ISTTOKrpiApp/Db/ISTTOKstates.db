@@ -13,7 +13,7 @@
 #
 ##
 
-record(mbbi, "$(P)$(R)OPSTATE") {
+record(mbbo, "$(P)$(R)OPSTATE") {
     field(DESC, "Multiple Pulse Sequence State")
     field(ZRVL, "0")
     field(ONVL, "1")
@@ -220,7 +220,7 @@ record(stringout, "$(P)$(R)LogMessage") {
 #   field(VAL, "Trace mode ON")
 }
 
-record(mbbi, "$(P)$(R)STARTINGSTATE") {
+record(mbbo, "$(P)$(R)STARTINGSTATE") {
     field(DESC, "Starting State Sequence")
     field(ZRVL, "0")
     field(ONVL, "1")
@@ -237,7 +237,7 @@ record(mbbi, "$(P)$(R)STARTINGSTATE") {
     field(VAL, "0")
 }
 
-record(mbbi, "$(P)$(R)CLEANINGSTATE") {
+record(mbbo, "$(P)$(R)CLEANINGSTATE") {
     field(DESC, "Cleaning State Sequence")
     field(ZRVL, "0")
     field(ONVL, "1")
@@ -256,7 +256,7 @@ record(mbbi, "$(P)$(R)CLEANINGSTATE") {
     field(VAL, "0")
 }
 
-record(mbbi, "$(P)$(R)WSHOTINGSTATE") {
+record(mbbo, "$(P)$(R)WSHOTINGSTATE") {
     field(DESC, "Plasma Shot State Sequence")
     field(ZRVL, "0")
     field(ONVL, "1")
@@ -289,7 +289,7 @@ record(mbbi, "$(P)$(R)WSHOTINGSTATE") {
     field(VAL, "0")
 }
 
-record(mbbi, "$(P)$(R)STOPPINGSTATE") {
+record(mbbo, "$(P)$(R)STOPPINGSTATE") {
   field(DESC, "Stopping State Sequence")
   field(ZRVL, "0")
   field(ONVL, "1")

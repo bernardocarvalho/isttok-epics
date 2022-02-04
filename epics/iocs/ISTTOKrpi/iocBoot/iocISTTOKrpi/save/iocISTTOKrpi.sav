@@ -1,10 +1,10 @@
-# autosave R5.3	Automatically generated - DO NOT MODIFY - 211215-181848
-ISTTOK:central:PULSE-NUMBER.VAL 49461
+# autosave R5.3	Automatically generated - DO NOT MODIFY - 220204-002940
+ISTTOK:central:PULSE-NUMBER.VAL 49468
 ISTTOK:central:LogMessage.VAL 
-ISTTOK:central:LASTOPSTATE.VAL 2
+ISTTOK:central:LASTOPSTATE.VAL 5
 ISTTOK:central:OPREQ.VAL 1
 ISTTOK:central:PROCESS-MODE.VAL 0
-ISTTOK:central:CLEANINGMANMODE.VAL 0
+ISTTOK:central:CLEANINGMANMODE.VAL 1
 ISTTOK:central:Emergency-UserButton.VAL 0
 ISTTOK:central:TMPump1-ManualValve.VAL 1
 ISTTOK:central:Shot-TorPSCurrent 32
