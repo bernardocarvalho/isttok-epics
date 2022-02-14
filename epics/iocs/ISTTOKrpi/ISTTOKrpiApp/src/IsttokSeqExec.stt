@@ -18,10 +18,18 @@
  **/
 //%% #include  "errlog.h"
 
-program IsttokSeqExec
+program IsttokSeqExec ("output=logFile.txt")
 %{#include "errlog.h"}%
+%%#include <fcntl.h>    /* for exit() */
+%%#include <stdio.h>    /* for exit() */
+%%#include <stdlib.h>    /* for exit() */
 /* CONSTANT DECLARATION*/
-/*Relays and INPUT (Valleman Board) have negative Logic!*/
+/*Relays and INPUT PVs on Valleman Board have negative Logic!*/
+/*=================== declarations =========================*/
+
+int fd; /* file descriptor for logging */
+char *pmac; /* used to access program macros */
+
 short PCF_RELAY_ON = 0;
 short PCF_RELAY_OFF= 1;
 short PCF_INPUT_ON = 0;
@@ -142,12 +150,13 @@ assign IsttokRPump2_Motor to "ISTTOK:central:RPump2-Motor";
 
 short IsttokRPump2_Valve;
 assign IsttokRPump2_Valve to "ISTTOK:central:RPump2-Valve";
-
+/* No use for these, Controller does not respond
 short IsttokTMPump1_ControllerOff;
 assign IsttokTMPump1_ControllerOff to "ISTTOK:central:TMPump1-ControllerOff";
 
 short IsttokTMPump1_ControllerOn;
 assign IsttokTMPump1_ControllerOn to "ISTTOK:central:TMPump1-ControllerOn";
+*/
 
 short IsttokTMPump1_MotorOff;
 assign IsttokTMPump1_MotorOff to "ISTTOK:central:TMPump1-MotorOff";
@@ -277,6 +286,23 @@ ss PulseSequence {
 /*********** State: init ****************** */
     state init {
     entry {
+            fd = -1;
+            /* Use parameter to define logging file */
+
+            pmac = macValueGet("output");
+            if (pmac == 0 || pmac[0] == 0) {
+                printf("No macro defined for \"output\"\n");
+                fd = 1;
+            }
+            else {
+                fd = open(pmac, (O_CREAT | O_WRONLY), 0664);
+/*                if (fd == ERROR) { */
+                if (fd == -1) {
+                    printf("Can't open %s\n", pmac);
+                    exit (-1);
+                }
+            }
+            dprintf(fd, "Starting program\n");
             strcpy(msg, "INIT: Sequence Entry");
             pvPut(msg);
             errlogSevPrintf(NO_ALARM, "%s\n",msg);
@@ -326,13 +352,13 @@ ss PulseSequence {
 
             Isttok_TorPSTrigger= OFF;
             pvPut(Isttok_TorPSTrigger);
-
+/*
             IsttokTMPump1_ControllerOff = OFF;
             pvPut(IsttokTMPump1_ControllerOff);
 
             IsttokTMPump1_ControllerOn = OFF;
             pvPut(IsttokTMPump1_ControllerOn);
-
+*/
             IsttokTMPump1_MotorOff = OFF;
             pvPut(IsttokTMPump1_MotorOff);
 
@@ -457,7 +483,6 @@ ss PulseSequence {
         } state Emergency
 
         when ( (pvStatus(IsttokRPump1_Pressure) != pvStatOK) ||  (pvStatus(IsttokTMPump1_Emergency) != pvStatOK) ) {
-        //when ( pvStatus(IsttokRPump1_Pressure) != pvStatOK || pvStatus(IsttokRPump2_Pressure) != pvStatOK ||
     //     pvStatus(IsttokTMPump1_Emergency) != pvStatOK || pvStatus(IsttokTMPump2_Emergency) != pvStatOK) {
             /* Vacuum emergency: Pulse state change to Stopping */
             /*IsttokOPREQ = STOP; State should recover from */
@@ -466,8 +491,8 @@ ss PulseSequence {
             strcpy(msg, "State Idle to Stopping");
             pvPut(msg);
             errlogSevPrintf(MINOR, "%s\n", msg);
-            sprintf(sendMail, "Rpump1 Pressure:%1.1e TMP1 Emergency:%d TMP1 Adm. Pressure:%4.2e",
-                    IsttokRPump1_Pressure, IsttokTMPump1_Emergency, IsttokTMPump1_Pressure);
+            sprintf(sendMail, "Vacuum Emergency while Idle, Rpump1 Pressure:%1.1e, TMP1 Adm. Pressure:%4.2e, TMP1 Emergency:%d",
+                    IsttokRPump1_Pressure, IsttokTMPump1_Pressure, IsttokTMPump1_Emergency);
             pvPut(sendMail);
         } state Stopping
 
@@ -1394,6 +1419,14 @@ ss StoppingSequence {
         when (IsttokOPSTATE != POS_Stopping ) { } state NonStopping
    }
 }
+/* Exit procedure - close the log file 
+exit {
+  printf("close fd=%d\n", fd);
+  if ((fd > 0) && (fd != ioGlobalStdGet(1)) )
+    close(fd);
+  fd = -1;
+}
+*/
 
 /**** END PROGRAM ***/
 

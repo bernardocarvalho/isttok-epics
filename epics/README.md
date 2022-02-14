@@ -217,7 +217,6 @@ Process Variables in this IOC Server:
 | ISTTOK:central:TDA8444:32:DAC_CH3| longout | no |
 | ISTTOK:central:TDA8444:32:DAC_CH5| longout | no |
 | ISTTOK:central:TDA8444:32:DAC_CH6| longout | no |
-| ISTTOK:central:Shot-TorPSCurrent| longout | no |
 ----------
 
 * Connected to PCF8591  ADC  / DAC register @ address 0x48=d72 
@@ -257,6 +256,14 @@ SPDT Relay  Address = 17
 |ISTTOK:central:Clean-TorContactor| bo | 1 | Relay NO/NC|
 |ISTTOK:central:CapBank-Charge| bo | 2 | Relay NO/NC|
 |ISTTOK:central:Buzzer| bo | 3 | Relay NO/NC|
+
+
+* Connected to Seeeduino- 4-Channel SPDT Relay  Address = 19
+
+|PV Name	| PV Type	| Bit | Relay NO/NC|
+|:----------|-------|---:|
+| ISTTOK:central:Shot-TorPSDisable| 0 | NO |
+| ISTTOK:central:Lab-WarningLight| 1 | NO |
 
 
 ### Vacuum Node (**Not used, backup server only**)

@@ -83,4 +83,4 @@ asInit
 create_monitor_set("$(IOC).req", 30, "P=ISTTOK:,R=central:")
 
 ## Start any sequence programs , use safe mode
-seq  IsttokSeqExec "unit=ISTTOK"
+seq  IsttokSeqExec "unit=ISTTOK,node=central,output=logFile2"
