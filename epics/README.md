@@ -262,8 +262,8 @@ SPDT Relay  Address = 17
 
 |PV Name	| PV Type	| Bit | Relay NO/NC|
 |:----------|-------|---:|
-| ISTTOK:central:Shot-TorPSDisable| 0 | NO |
-| ISTTOK:central:Lab-WarningLight| 1 | NO |
+| ISTTOK:central:Shot-TorPSDisable| bo | 0 | NO |
+| ISTTOK:central:Lab-WarningLight| bo |1 | NO |
 
 
 ### Vacuum Node (**Not used, backup server only**)
