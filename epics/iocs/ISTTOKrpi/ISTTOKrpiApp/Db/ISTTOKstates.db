@@ -246,6 +246,7 @@ record(mbbo, "$(P)$(R)CLEANINGSTATE") {
     field(FRVL, "4")
     field(FVVL, "5")
     field(SXVL, "6")
+    field(SVVL, "7")
     field(ZRST, "NonCleaning")
     field(ONST, "Cleaning1")
     field(TWST, "Cleaning2")
@@ -253,6 +254,7 @@ record(mbbo, "$(P)$(R)CLEANINGSTATE") {
     field(FRST, "Cleaning4")
     field(FVST, "Cleaning5")
     field(SXST, "Cleaning6")
+    field(SVST, "Manual")
     field(VAL, "0")
 }
 

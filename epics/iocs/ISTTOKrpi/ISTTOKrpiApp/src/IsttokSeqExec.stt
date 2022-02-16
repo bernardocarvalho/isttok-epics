@@ -52,6 +52,8 @@ short CLNST_Cleaning2 = 2;
 short CLNST_Cleaning3 = 3;
 short CLNST_Cleaning4 = 4;
 short CLNST_Cleaning5 = 5;
+short CLNST_Cleaning6 = 6;
+short CLNST_Manual    = 7;
 
 short WSHTST_NonShoting = 0;
 short WSHTST_WaitTrg  = 1;
@@ -128,9 +130,9 @@ short CLEANINGSTATE;
 assign CLEANINGSTATE to "ISTTOK:central:CLEANINGSTATE";
 monitor CLEANINGSTATE;
 
-short CLEANINGMANMODE;
-assign CLEANINGMANMODE to "ISTTOK:central:CLEANINGMANMODE";
-monitor CLEANINGMANMODE;
+short CLEANING_AUTOMODE;
+assign CLEANING_AUTOMODE to "ISTTOK:central:CLEANINGMANMODE";
+monitor CLEANING_AUTOMODE;
 
 short WSHOTINGSTATE;
 assign WSHOTINGSTATE to "ISTTOK:central:WSHOTINGSTATE";
@@ -529,7 +531,7 @@ ss PulseSequence {
             pvPut(IsttokOPSTATE);
     }
         when ((IsttokProcReq==STOP) && (CLEANINGSTATE == CLNST_NonCleaning))  {
-            strcpy(msg, "State to Idle  From Clean");
+            strcpy(msg, "State from Clean to Idle");
             pvPut(msg);
             errlogSevPrintf(NO_ALARM, "%s\n",msg);
         } state Idle
@@ -948,9 +950,19 @@ ss CleaningSequence{
             pvPut(CLEANINGSTATE);
 
             errlogSevPrintf(NO_ALARM, "%s\n",msg);
+            strcpy(msg, "Entry Cleanning State Mach");
+            pvPut(msg);
+            errlogSevPrintf(NO_ALARM, "%s\n",msg);
 
         }
-        when(delay(1.0) && CLEANINGMANMODE == 1 && IsttokOPSTATE == POS_Clean){
+        when(delay(1.0) && CLEANING_AUTOMODE == 0 && IsttokOPSTATE == POS_Clean){
+            strcpy(msg, "Entry on Manual Cleaning...");
+
+            CLEANINGSTATE = CLNST_Manual;
+            pvPut(CLEANINGSTATE);
+        } state CleaningManual
+
+        when(delay(1.0) && CLEANING_AUTOMODE == 1 && IsttokOPSTATE == POS_Clean){
             strcpy(msg, "Initiating Auto Cleaning...");
             pvPut(msg);
             strcpy(msg, "GIS Valves OPEN");
@@ -965,6 +977,10 @@ ss CleaningSequence{
             pvPut(CLEANINGSTATE);
         } state Cleaning1
     }
+    state CleaningManual {
+        when (IsttokProcReq==STOP) {
+        } state NonCleaning
+    }
     state Cleaning1 {
         when (delay(1.0) && IsttokProcReq==STOP) {
             // Reversing Cleaning
@@ -977,14 +993,14 @@ ss CleaningSequence{
             pvPut(IsttokGasIS_Valves);
         } state NonCleaning
 
-        when (delay(2.0) && CLEANINGMANMODE == 1 && IsttokOPSTATE == POS_Clean ) {
+        when (delay(2.0) && CLEANING_AUTOMODE == 1 && IsttokOPSTATE == POS_Clean ) {
             strcpy(msg, "Filament ON");
             pvPut(msg);
             errlogSevPrintf(NO_ALARM, "%s\n",msg);
             IsttokVVessel_Filament = PCF_RELAY_ON;
             pvPut(IsttokVVessel_Filament);
-        CLEANINGSTATE = CLNST_Cleaning2;
-        pvPut(CLEANINGSTATE);
+            CLEANINGSTATE = CLNST_Cleaning2;
+            pvPut(CLEANINGSTATE);
         } state Cleaning2
     }
     state Cleaning2 {
@@ -998,7 +1014,7 @@ ss CleaningSequence{
             CLEANINGSTATE = CLNST_Cleaning1;
             pvPut(CLEANINGSTATE);
         } state Cleaning1
-        when (delay(2.0) && CLEANINGMANMODE == 1 && IsttokOPSTATE == POS_Clean) {
+        when (delay(2.0) && CLEANING_AUTOMODE == 1 && IsttokOPSTATE == POS_Clean) {
             strcpy(msg, "Primary-CT ON");
             pvPut(msg);
             errlogSevPrintf(NO_ALARM, "%s\n",msg);
@@ -1018,7 +1034,7 @@ ss CleaningSequence{
             CLEANINGSTATE = CLNST_Cleaning2;
             pvPut(CLEANINGSTATE);
         } state Cleaning2
-        when(delay(2.0) && CLEANINGMANMODE == 1 && IsttokOPSTATE == POS_Clean){
+        when(delay(2.0) && CLEANING_AUTOMODE == 1 && IsttokOPSTATE == POS_Clean){
             strcpy(msg, "Toroidal-BK CLOSE");
             pvPut(msg);
             errlogSevPrintf(NO_ALARM, "%s\n",msg);
@@ -1039,7 +1055,7 @@ ss CleaningSequence{
             CLEANINGSTATE = CLNST_Cleaning3;
             pvPut(CLEANINGSTATE);
         } state Cleaning3
-        when (delay(2.0) && CLEANINGMANMODE == 1 && IsttokOPSTATE == POS_Clean){
+        when (delay(2.0) && CLEANING_AUTOMODE == 1 && IsttokOPSTATE == POS_Clean){
             strcpy(msg, "Toroidal-CT ON");
             pvPut(msg);
             errlogSevPrintf(NO_ALARM, "%s\n",msg);
