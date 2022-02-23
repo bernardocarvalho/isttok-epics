@@ -26,10 +26,13 @@ dbLoadRecords("db/ISTTOKtda8444.db","P=ISTTOK:,R=central:,BUS=I2C")
 dbLoadRecords("db/ISTTOKmachineControl.db","P=ISTTOK:,R=central:")
 ## SEEED RELAY BOARD
 dbLoadRecords("db/seeed4relay.db","P=ISTTOK:,R=central:,A=17")
+dbLoadRecords("db/seeed4relay.db","P=ISTTOK:,R=central:,A=18")
+dbLoadRecords("db/seeed4relay.db","P=ISTTOK:,R=central:,A=19")
 
 ## Load Serial drivers
 #drvAsynSerialPortConfigure("RS0","/dev/ttyAMA0")
 
+#drvAsynSerialPortConfigure("RS0","/dev/ttyUSB0")
 drvAsynSerialPortConfigure("RS0","/dev/ttyUSB0")
 asynSetOption("RS0", 0, "baud", "9600")
 asynSetOption("RS0", 0, "bits", "8")
@@ -80,4 +83,4 @@ asInit
 create_monitor_set("$(IOC).req", 30, "P=ISTTOK:,R=central:")
 
 ## Start any sequence programs , use safe mode
-seq  IsttokSeqExec "unit=ISTTOK"
+seq  IsttokSeqExec "unit=ISTTOK,node=central,output=logFile2"
