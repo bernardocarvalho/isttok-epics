@@ -1,6 +1,6 @@
 #UAG(uag) {pi,root,opertok,codac-dev,pricardofc}
 UAG(uag) {pi,root,opertok,codac-dev,oper}
-HAG(hag) {rpi-isttok,opertok-desktop,atca2,timings}
+HAG(hag) {rpi-isttok,opertok-desktop,atca2,debian-timing}
 ASG(DEFAULT) {
   RULE(1,READ)
   RULE(1,WRITE) {

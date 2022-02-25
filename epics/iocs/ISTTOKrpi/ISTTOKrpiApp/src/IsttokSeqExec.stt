@@ -204,11 +204,11 @@ monitor IsttokRPump1_Pressure;
 float IsttokRPump2_Pressure;
 assign IsttokRPump2_Pressure to "ISTTOK:central:RPump2-Pressure";
 monitor IsttokRPump2_Pressure;
+*/
 
 float IsttokVVesselTemperature;
 assign IsttokVVesselTemperature to "ISTTOK:temperature:VVessel-Temperature";
 monitor IsttokVVesselTemperature;
-*/
 
 short IsttokBuzzer;
 assign IsttokBuzzer to "ISTTOK:central:Buzzer";
@@ -574,8 +574,10 @@ ss PulseSequence {
             strcpy(msg, "Toroidal Shot Enable");
             pvPut(msg);
             errlogSevPrintf(NO_ALARM, "%s\n",msg);
+/*
             Isttok_TorPSDisable = SEEED_RELAY_ON;
             pvPut(Isttok_TorPSDisable);
+*/
             IsttokOPSTATE = POS_WaitShot;
             pvPut(IsttokOPSTATE);
     }
@@ -668,7 +670,7 @@ ss PulseSequence {
             strcpy(msg, "Emergency Toroidal Shot Disable");
             pvPut(msg);
             errlogSevPrintf(MAJOR, "%s\n",msg);
-            Isttok_TorPSDisable = SEEED_RELAY_OFF;
+            Isttok_TorPSDisable = SEEED_RELAY_ON;
             pvPut(Isttok_TorPSDisable);
 
             strcpy(msg, "EMERGENCY: CAPBANK Charge OFF");
@@ -1081,16 +1083,15 @@ ss CleaningSequence{
             CLEANINGSTATE = CLNST_Cleaning4;
             pvPut(CLEANINGSTATE);
         } state Cleaning4
-    /*
-          when (pvSeverity(IsttokVVesselTemperature) >= pvSevrMAJOR) {
-            // Temperature Limit Pulse state change to Idle
+
+        when (pvSeverity(IsttokVVesselTemperature) >= pvSevrMAJOR) {
+            // Temperature Limit Pulse state change to Idle and close clean PVs
             IsttokProcReq = STOP;
             pvPut(IsttokProcReq);
             strcpy(msg, "Temperature Limit-> State to Idle");
             pvPut(msg);
             errlogSevPrintf(MINOR, "%s\n",msg);
         } state Cleaning5
-*/
     }
 }
 
