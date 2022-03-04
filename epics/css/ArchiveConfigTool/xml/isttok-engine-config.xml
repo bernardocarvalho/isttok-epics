@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Example for XML configuration file syntax -->
+<engineconfig>
+  <!-- Engine can have one or more groups
+       Each group has a name and one or more channels
+    -->
+  <group>
+    <name>IsttokMainVacuum</name>
+      <!-- Each channel has a name and
+           a sample period (or expected change period).
+           The period is either in seconds or in HH:MM:SS format.
+           It is either using the 'monitor' or 'scan' sample mode.
+         <monitor/>
+         <monitor>0.0001</monitor>
+       -->
+      <channel>
+         <name>ISTTOK:central:VVessel-Pressure</name>
+         <period>10.0</period><scan/>
+      </channel>
+
+      <!-- Example for a monitor with engine-enforced
+           value change threshold of 2.5
+        -->
+      <channel>
+         <name>ISTTOK:central:RPump1-Pressure</name>
+         <period>10.0</period><scan/>
+      </channel>
+
+      <channel>
+         <name>ISTTOK:central:TMPump1-PressureAdmission</name>
+         <period>10.0</period>
+         <monitor>1e-8</monitor>
+         <enable/>
+      </channel>
+
+      <!-- Channel that is scanned every 10 minutes
+      <channel>
+         <name>NSV:Enable</name>
+         <period>00:10:00</period><scan/>
+         <enable/>
+     </channel> -->
+
+      <!-- Channel that enables sampling of this group 
+      <channel>
+         <name>NSV:Enable</name>
+         <period>1.0</period><monitor/>
+         <enable/>
+      </channel> -->
+  </group>
+
+  <!-- Other Group 
+  <group>
+    <name>SouthSectorVacuum</name>
+      <channel>
+         <name>SSV:P1</name>
+         <period>1.0</period><monitor/>
+      </channel>
+  </group> -->
+</engineconfig>
+
