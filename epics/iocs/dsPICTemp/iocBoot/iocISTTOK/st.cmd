@@ -15,7 +15,8 @@ cd "${TOP}"
 dbLoadDatabase "dbd/ISTTOK.dbd"
 ISTTOK_registerRecordDeviceDriver pdbbase
 
-drvAsynSerialPortConfigure("RS232","/dev/ttyUSB0")
+#drvAsynSerialPortConfigure("RS232","/dev/ttyUSB1")
+drvAsynSerialPortConfigure("RS232","/dev/dsPIC0")
 asynSetOption("RS232", 0, "baud", "115200")
 asynSetOption("RS232", 0, "bits", "8")
 asynSetOption("RS232", 0, "parity", "none")
