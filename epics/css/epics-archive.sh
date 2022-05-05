@@ -11,8 +11,7 @@ cd $TOP
 #JAR=`echo "${TOP}/service-archive-engine-*.jar"`
 JAR=$(ls service-archive-engine-*.jar)
 #$JAVA_HOME/bin/java -jar $JAR $OPT "$@"
-$JAVA_HOME/bin/java -jar $JAR  -engine isttokDB -port 4812 -settings isttok.ini
-
+$JAVA_HOME/bin/java -jar $JAR  -engine isttokDB -port 4812 -settings isttok.ini -noshell
 
 #sleep 2s
 #echo "Archive Started. Check browser at  http://localhost:4812/main"

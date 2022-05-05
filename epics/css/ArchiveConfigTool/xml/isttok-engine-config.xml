@@ -33,7 +33,7 @@
       </channel>
 
       <channel>
-         <name>ISTTOK:central:TPump1-Emergency</name>
+         <name>ISTTOK:central:TMPump1-Emergency</name>
          <period>1.0</period>
          <monitor/>
       </channel>
@@ -69,8 +69,8 @@
     <name>IsttokTemperature</name>
       <channel>
          <name>ISTTOK:temperature:VVessel-Temperature</name>
-         <period>10.0</period>
-         <monitor>1.0</monitor>
+         <period>30.0</period>
+         <monitor>2.5</monitor>
          <enable/>
       </channel>
   </group>
