@@ -1,0 +1,42 @@
+#!/bin/sh
+#
+# This shell script if placed in /etc/apcupsd
+# will be called by /etc/apcupsd/apccontrol when the    
+# UPS goes to shutdown mode
+#
+# In ISTTOK we really don't do the shutdown
+# We send an email message to root to notify him.
+#
+
+EPICSBIN='/home/pi/Apps/epics7/epics-base/bin/linux-arm'
+$EPICSBIN/caput ISTTOK:central:UPS-Shutdown ON
+
+HOSTNAME=`rpi-isttok`
+SYSADMIN=humbfig@gmail.com
+MSG="$HOSTNAME UPS $1 s going to to shutdown"
+#
+(
+   echo "$MSG"
+   echo " "
+   /sbin/apcaccess status
+) | $APCUPSD_MAIL -s "$MSG" $SYSADMIN
+
+sleep 50
+
+# Now wait for Epics state machine to go to stopping state
+STOPSTATE=$($EPICSBIN/caget -t -n ISTTOK:central:STOPPINGSTATE)
+echo "Init:$STOPSTATE"
+# dont forget spaces on [ ]
+#while [ $STOPSTATE -lt 2 ];
+#do
+#    STOPSTATE=$($EPICSBIN/caget -t -n ISTTOK:central:STOPPINGSTATE)
+#    echo "STOPSTATE = $STOPSTATE, Waiting  =2"
+#    sleep 1
+#done
+echo "OK STOPSTATE: $STOPSTATE"
+sleep 10
+# allow shutdown and let UPS do poweroff (after ~90 s) on  rpi-isttok
+exit 0
+
+# Do not shutdown raspberry pi host
+#exit 99
