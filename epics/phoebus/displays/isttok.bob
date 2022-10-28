@@ -9,8 +9,8 @@
     <text>ISTTOK STATUS Page</text>
     <x use_class="true">0</x>
     <y use_class="true">0</y>
-    <width>550</width>
-    <height>31</height>
+    <width>234</width>
+    <height>25</height>
     <font use_class="true">
       <font name="Header 1" family="Liberation Sans" style="BOLD" size="22.0">
       </font>
@@ -20,80 +20,31 @@
       </color>
     </foreground_color>
     <transparent use_class="true">true</transparent>
-  </widget>
-  <widget type="label" version="2.0.0">
-    <name>Label_1</name>
-    <text>Some Value:</text>
-    <y>50</y>
-  </widget>
-  <widget type="label" version="2.0.0">
-    <name>Label_2</name>
-    <class>COMMENT</class>
-    <text>Some comment.</text>
-    <x>220</x>
-    <y>50</y>
-    <width>140</width>
-    <font use_class="true">
-      <font name="Comment" family="Liberation Sans" style="ITALIC" size="14.0">
-      </font>
-    </font>
-    <foreground_color use_class="true">
-      <color name="Text" red="0" green="0" blue="0">
-      </color>
-    </foreground_color>
-    <transparent use_class="true">true</transparent>
-    <wrap_words use_class="true">true</wrap_words>
-  </widget>
-  <widget type="meter" version="3.0.0">
-    <name>Meter</name>
-    <pv_name>ISTTOK:central:TMPump1-PressureAdmission</pv_name>
-    <x>230</x>
-    <y>180</y>
-    <width>200</width>
-    <height>100</height>
-    <format>2</format>
+    <auto_size>true</auto_size>
   </widget>
   <widget type="label" version="2.0.0">
     <name>Label_3</name>
     <text>TMPump1-PressureAdmission</text>
     <x>240</x>
-    <y>70</y>
+    <y>56</y>
     <width>190</width>
     <height>16</height>
     <auto_size>true</auto_size>
-  </widget>
-  <widget type="meter" version="3.0.0">
-    <name>Meter_1</name>
-    <pv_name>ISTTOK:central:RPump1-Pressure</pv_name>
-    <x>450</x>
-    <y>190</y>
-    <width>200</width>
-    <height>90</height>
-    <format>2</format>
   </widget>
   <widget type="label" version="2.0.0">
     <name>Label_4</name>
     <text>RPump1-Pressure</text>
     <x>480</x>
-    <y>70</y>
+    <y>60</y>
     <width>116</width>
     <height>16</height>
     <auto_size>true</auto_size>
-  </widget>
-  <widget type="meter" version="3.0.0">
-    <name>Meter_2</name>
-    <pv_name>ISTTOK:central:VVessel-Pressure</pv_name>
-    <x>20</x>
-    <y>190</y>
-    <width>200</width>
-    <height>100</height>
-    <format>2</format>
   </widget>
   <widget type="label" version="2.0.0">
     <name>Label_5</name>
     <text>VVessel-Pressure</text>
     <x>50</x>
-    <y>70</y>
+    <y>56</y>
     <width>113</width>
     <height>16</height>
     <auto_size>true</auto_size>
@@ -101,39 +52,28 @@
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_1</name>
     <pv_name>ISTTOK:central:OPSTATE</pv_name>
-    <x>314</x>
-    <y>360</y>
-    <show_units>false</show_units>
-  </widget>
-  <widget type="textupdate" version="2.0.0">
-    <name>Text Update_2</name>
-    <pv_name>ISTTOK:central:Emergency</pv_name>
-    <x>486</x>
-    <y>20</y>
-    <width>10</width>
+    <x>490</x>
+    <y>40</y>
+    <width>145</width>
     <show_units>false</show_units>
   </widget>
   <widget type="label" version="2.0.0">
     <name>Label_6</name>
     <text>OPSTATE</text>
-    <x>180</x>
-    <y>360</y>
+    <x>399</x>
+    <y>40</y>
     <width>66</width>
     <height>16</height>
-    <background_color>
-      <color name="Button_Background" red="210" green="210" blue="210">
-      </color>
-    </background_color>
     <transparent>false</transparent>
     <auto_size>true</auto_size>
   </widget>
   <widget type="label" version="2.0.0">
     <name>Label_7</name>
     <text>Emergency</text>
-    <x>330</x>
-    <y>10</y>
-    <width>71</width>
-    <height>16</height>
+    <x>260</x>
+    <y>20</y>
+    <width>92</width>
+    <height>21</height>
     <font>
       <font family="Liberation Sans" style="REGULAR" size="18.0">
       </font>
@@ -148,8 +88,8 @@
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_3</name>
     <pv_name>ISTTOK:temperature:VVessel-Temperature</pv_name>
-    <x>306</x>
-    <y>320</y>
+    <x>425</x>
+    <y>460</y>
     <width>144</width>
     <height>30</height>
     <font>
@@ -160,8 +100,8 @@
   <widget type="label" version="2.0.0">
     <name>Label_8</name>
     <text>VVessel-Temperature</text>
-    <x>130</x>
-    <y>330</y>
+    <x>220</x>
+    <y>470</y>
     <width>137</width>
     <height>16</height>
     <background_color>
@@ -174,7 +114,8 @@
   <widget type="led" version="2.0.0">
     <name>LED</name>
     <pv_name>ISTTOK:central:Emergency</pv_name>
-    <x>440</x>
+    <x>370</x>
+    <y>20</y>
     <width>30</width>
     <height>30</height>
     <on_color>
@@ -229,10 +170,9 @@
   </widget>
   <widget type="databrowser" version="2.0.0">
     <name>Data Browser</name>
-    <x>50</x>
-    <y>390</y>
-    <width>520</width>
-    <height>250</height>
+    <file>press_sensors.plt</file>
+    <y>150</y>
+    <width>635</width>
     <show_toolbar>true</show_toolbar>
     <selection_value_pv>ISTTOK:central:VVessel-Pressure</selection_value_pv>
   </widget>
