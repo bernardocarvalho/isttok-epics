@@ -25,37 +25,37 @@
   <axes>
     <axis>
       <visible>true</visible>
-      <name>Pressures</name>
+      <name>PressLog</name>
       <use_axis_name>false</use_axis_name>
       <use_trace_names>true</use_trace_names>
-      <right>false</right>
+      <right>true</right>
       <color>
         <red>0</red>
         <green>0</green>
         <blue>0</blue>
       </color>
-      <min>5.0E-9</min>
-      <max>0.01</max>
-      <grid>false</grid>
+      <min>-9.0</min>
+      <max>-1.0</max>
+      <grid>true</grid>
       <autoscale>false</autoscale>
-      <log_scale>true</log_scale>
+      <log_scale>false</log_scale>
     </axis>
   </axes>
   <annotations>
   </annotations>
   <pvlist>
     <pv>
-      <display_name>VVessel-Pressure</display_name>
+      <display_name>log(RPump1-Pressure)</display_name>
       <visible>true</visible>
-      <name>ISTTOK:central:VVessel-Pressure</name>
+      <name>eq://log(`ISTTOK:central:RPump1-Pressure`)/2.3</name>
       <axis>0</axis>
       <color>
-        <red>0</red>
-        <green>255</green>
+        <red>255</red>
+        <green>127</green>
         <blue>0</blue>
       </color>
       <trace_type>AREA</trace_type>
-      <linewidth>3</linewidth>
+      <linewidth>2</linewidth>
       <line_style>SOLID</line_style>
       <point_type>NONE</point_type>
       <point_size>2</point_size>
@@ -65,37 +65,37 @@
       <request>OPTIMIZED</request>
     </pv>
     <pv>
-      <display_name>TMPump1-PressureAdmission</display_name>
+      <display_name>log(TMPump1-PressureAdmission)</display_name>
       <visible>true</visible>
-      <name>ISTTOK:central:TMPump1-PressureAdmission</name>
+      <name>eq://log(`ISTTOK:central:TMPump1-PressureAdmission`)/2.3</name>
       <axis>0</axis>
       <color>
-        <red>0</red>
+        <red>51</red>
+        <green>77</green>
+        <blue>179</blue>
+      </color>
+      <trace_type>AREA</trace_type>
+      <linewidth>2</linewidth>
+      <line_style>SOLID</line_style>
+      <point_type>NONE</point_type>
+      <point_size>2</point_size>
+      <waveform_index>0</waveform_index>
+      <period>0.0</period>
+      <ring_size>5000</ring_size>
+      <request>OPTIMIZED</request>
+    </pv>
+    <pv>
+      <display_name>log(VVessel-Pressure)</display_name>
+      <visible>true</visible>
+      <name>eq://log(`ISTTOK:central:VVessel-Pressure`)/2.3</name>
+      <axis>0</axis>
+      <color>
+        <red>127</red>
         <green>0</green>
         <blue>255</blue>
       </color>
       <trace_type>AREA</trace_type>
-      <linewidth>3</linewidth>
-      <line_style>SOLID</line_style>
-      <point_type>NONE</point_type>
-      <point_size>2</point_size>
-      <waveform_index>0</waveform_index>
-      <period>0.0</period>
-      <ring_size>5000</ring_size>
-      <request>OPTIMIZED</request>
-    </pv>
-    <pv>
-      <display_name>RPump1-Pressure</display_name>
-      <visible>true</visible>
-      <name>ISTTOK:central:RPump1-Pressure</name>
-      <axis>0</axis>
-      <color>
-        <red>255</red>
-        <green>0</green>
-        <blue>0</blue>
-      </color>
-      <trace_type>AREA</trace_type>
-      <linewidth>3</linewidth>
+      <linewidth>2</linewidth>
       <line_style>SOLID</line_style>
       <point_type>NONE</point_type>
       <point_size>2</point_size>
