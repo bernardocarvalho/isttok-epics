@@ -1,0 +1,373 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<display version="2.0.0">
+  <name>ISTTOK AMin</name>
+  <width>830</width>
+  <height>710</height>
+  <background_color>
+    <color red="242" green="242" blue="242">
+    </color>
+  </background_color>
+  <widget type="label" version="2.0.0">
+    <name>Label</name>
+    <class>TITLE</class>
+    <text>My Display</text>
+    <x use_class="true">0</x>
+    <y use_class="true">0</y>
+    <width>230</width>
+    <height>31</height>
+    <font use_class="true">
+      <font name="Header 1" family="Liberation Sans" style="BOLD" size="22.0">
+      </font>
+    </font>
+    <foreground_color use_class="true">
+      <color name="Text" red="0" green="0" blue="0">
+      </color>
+    </foreground_color>
+    <transparent use_class="true">true</transparent>
+  </widget>
+  <widget type="picture" version="2.0.0">
+    <name>Image Template</name>
+    <file>pics/tecnico_logo.png</file>
+    <x>540</x>
+    <width>170</width>
+    <height>74</height>
+    <actions>
+    </actions>
+  </widget>
+  <widget type="tabs" version="2.0.0">
+    <name>Tabs</name>
+    <tabs>
+      <tab>
+        <name>Vacuum-M</name>
+        <children>
+          <widget type="label" version="2.0.0">
+            <name>Label VVessel</name>
+            <text>CHAMBER PRESSURE</text>
+            <x>39</x>
+            <y>15</y>
+            <width>175</width>
+            <height>34</height>
+            <font>
+              <font family="DejaVu Sans Mono" style="BOLD" size="10.891089108910892">
+              </font>
+            </font>
+            <foreground_color>
+              <color name="IO Text Fg" red="0" green="0" blue="0">
+              </color>
+            </foreground_color>
+            <background_color>
+              <color name="Dark Gray Border" red="190" green="190" blue="190">
+              </color>
+            </background_color>
+            <transparent>false</transparent>
+            <horizontal_alignment>1</horizontal_alignment>
+            <vertical_alignment>1</vertical_alignment>
+            <actions>
+            </actions>
+            <border_width>2</border_width>
+            <border_color>
+              <color name="IO Border" red="0" green="0" blue="0">
+              </color>
+            </border_color>
+          </widget>
+          <widget type="label" version="2.0.0">
+            <name>Label Template_12</name>
+            <text>ADMISSION PRESSURE1</text>
+            <x>221</x>
+            <y>15</y>
+            <width>176</width>
+            <height>34</height>
+            <font>
+              <font family="DejaVu Sans Mono" style="BOLD" size="10.891089108910892">
+              </font>
+            </font>
+            <foreground_color>
+              <color name="IO Text Fg" red="0" green="0" blue="0">
+              </color>
+            </foreground_color>
+            <background_color>
+              <color name="Dark Gray Border" red="190" green="190" blue="190">
+              </color>
+            </background_color>
+            <transparent>false</transparent>
+            <horizontal_alignment>1</horizontal_alignment>
+            <vertical_alignment>1</vertical_alignment>
+            <actions>
+            </actions>
+            <border_width>2</border_width>
+            <border_color>
+              <color name="IO Border" red="0" green="0" blue="0">
+              </color>
+            </border_color>
+          </widget>
+          <widget type="label" version="2.0.0">
+            <name>Label Template_13</name>
+            <text>PRIMARY PRESSURE1</text>
+            <x>404</x>
+            <y>15</y>
+            <width>176</width>
+            <height>34</height>
+            <font>
+              <font family="DejaVu Sans Mono" style="BOLD" size="10.891089108910892">
+              </font>
+            </font>
+            <foreground_color>
+              <color name="IO Text Fg" red="0" green="0" blue="0">
+              </color>
+            </foreground_color>
+            <background_color>
+              <color name="Dark Gray Border" red="190" green="190" blue="190">
+              </color>
+            </background_color>
+            <transparent>false</transparent>
+            <horizontal_alignment>1</horizontal_alignment>
+            <vertical_alignment>1</vertical_alignment>
+            <actions>
+            </actions>
+            <border_width>2</border_width>
+            <border_color>
+              <color name="IO Border" red="0" green="0" blue="0">
+              </color>
+            </border_color>
+          </widget>
+          <widget type="meter" version="3.0.0">
+            <name>Meter VVessel</name>
+            <pv_name>ISTTOK:central:VVessel-Pressure</pv_name>
+            <x>39</x>
+            <y>55</y>
+            <width>179</width>
+            <height>81</height>
+            <foreground_color>
+              <color name="IO InputPV Fg" red="0" green="0" blue="0">
+              </color>
+            </foreground_color>
+            <background_color>
+              <color name="IO Background" red="235" green="235" blue="235">
+              </color>
+            </background_color>
+            <font>
+              <font name="IO Scale" family="DejaVu Sans Mono" style="REGULAR" size="9.900990099009901">
+              </font>
+            </font>
+            <format>2</format>
+            <actions>
+            </actions>
+            <minimum>1.0E-8</minimum>
+            <needle_color>
+              <color name="IO Stick" red="0" green="0" blue="0">
+              </color>
+            </needle_color>
+          </widget>
+          <widget type="meter" version="3.0.0">
+            <name>Meter Template_3</name>
+            <pv_name>eq://log(`ISTTOK:central:TMPump1-PressureAdmission`)/2.3</pv_name>
+            <x>221</x>
+            <y>55</y>
+            <width>180</width>
+            <height>82</height>
+            <foreground_color>
+              <color name="IO InputPV Fg" red="0" green="0" blue="0">
+              </color>
+            </foreground_color>
+            <background_color>
+              <color name="IO Background" red="235" green="235" blue="235">
+              </color>
+            </background_color>
+            <font>
+              <font name="IO Scale" family="DejaVu Sans Mono" style="REGULAR" size="9.900990099009901">
+              </font>
+            </font>
+            <format>5</format>
+            <show_value>false</show_value>
+            <show_units>false</show_units>
+            <show_limits>false</show_limits>
+            <actions>
+            </actions>
+            <border_alarm_sensitive>false</border_alarm_sensitive>
+            <limits_from_pv>false</limits_from_pv>
+            <minimum>-8.0</minimum>
+            <maximum>2.0</maximum>
+            <needle_color>
+              <color name="IO Stick" red="0" green="0" blue="0">
+              </color>
+            </needle_color>
+          </widget>
+          <widget type="meter" version="3.0.0">
+            <name>Meter Template_4</name>
+            <pv_name>eq://log(`ISTTOK:central:RPump1-Pressure`)/2.3</pv_name>
+            <x>404</x>
+            <y>55</y>
+            <width>180</width>
+            <height>82</height>
+            <foreground_color>
+              <color name="IO InputPV Fg" red="0" green="0" blue="0">
+              </color>
+            </foreground_color>
+            <background_color>
+              <color name="IO Background" red="235" green="235" blue="235">
+              </color>
+            </background_color>
+            <font>
+              <font name="IO Scale" family="DejaVu Sans Mono" style="REGULAR" size="9.900990099009901">
+              </font>
+            </font>
+            <show_value>false</show_value>
+            <show_units>false</show_units>
+            <show_limits>false</show_limits>
+            <actions>
+            </actions>
+            <border_alarm_sensitive>false</border_alarm_sensitive>
+            <limits_from_pv>false</limits_from_pv>
+            <minimum>-4.0</minimum>
+            <maximum>3.0</maximum>
+            <needle_color>
+              <color name="IO Stick" red="0" green="0" blue="0">
+              </color>
+            </needle_color>
+          </widget>
+          <widget type="textupdate" version="2.0.0">
+            <name>Text UpVVessel</name>
+            <pv_name>ISTTOK:central:VVessel-Pressure</pv_name>
+            <x>39</x>
+            <y>145</y>
+            <width>175</width>
+            <height>34</height>
+            <font>
+              <font name="IO Label" family="DejaVu Sans Mono" style="REGULAR" size="11.881188118811881">
+              </font>
+            </font>
+            <foreground_color>
+              <color name="IO Foreground" red="0" green="0" blue="0">
+              </color>
+            </foreground_color>
+            <background_color>
+              <color name="IO Background" red="235" green="235" blue="235">
+              </color>
+            </background_color>
+            <format>2</format>
+            <precision>2</precision>
+            <horizontal_alignment>1</horizontal_alignment>
+            <vertical_alignment>1</vertical_alignment>
+            <wrap_words>false</wrap_words>
+            <actions>
+            </actions>
+            <border_width>2</border_width>
+            <border_color>
+              <color name="IO Foreground" red="0" green="0" blue="0">
+              </color>
+            </border_color>
+          </widget>
+          <widget type="textupdate" version="2.0.0">
+            <name>Text Update Template_3</name>
+            <pv_name>ISTTOK:central:TMPump1-PressureAdmission</pv_name>
+            <x>221</x>
+            <y>145</y>
+            <width>175</width>
+            <height>34</height>
+            <font>
+              <font name="IO Label" family="DejaVu Sans Mono" style="REGULAR" size="11.881188118811881">
+              </font>
+            </font>
+            <background_color>
+              <color name="IO Background" red="235" green="235" blue="235">
+              </color>
+            </background_color>
+            <format>2</format>
+            <precision>2</precision>
+            <horizontal_alignment>1</horizontal_alignment>
+            <vertical_alignment>1</vertical_alignment>
+            <wrap_words>false</wrap_words>
+            <actions>
+            </actions>
+            <border_width>2</border_width>
+            <border_color>
+              <color name="IO Foreground" red="0" green="0" blue="0">
+              </color>
+            </border_color>
+          </widget>
+          <widget type="textupdate" version="2.0.0">
+            <name>Text Update Template_4</name>
+            <pv_name>ISTTOK:central:RPump1-Pressure</pv_name>
+            <x>404</x>
+            <y>145</y>
+            <width>175</width>
+            <height>34</height>
+            <font>
+              <font name="IO Label" family="DejaVu Sans Mono" style="REGULAR" size="11.881188118811881">
+              </font>
+            </font>
+            <background_color>
+              <color name="IO Background" red="235" green="235" blue="235">
+              </color>
+            </background_color>
+            <format>2</format>
+            <precision>2</precision>
+            <horizontal_alignment>1</horizontal_alignment>
+            <vertical_alignment>1</vertical_alignment>
+            <wrap_words>false</wrap_words>
+            <actions>
+            </actions>
+            <border_alarm_sensitive>false</border_alarm_sensitive>
+            <border_width>2</border_width>
+            <border_color>
+              <color name="IO Foreground" red="0" green="0" blue="0">
+              </color>
+            </border_color>
+          </widget>
+          <widget type="embedded" version="2.0.0">
+            <name>Embedded Display</name>
+            <file>ManualControl.bob</file>
+            <x>409</x>
+            <y>382</y>
+            <width>360</width>
+            <height>180</height>
+            <border_width>1</border_width>
+          </widget>
+          <widget type="thermometer" version="2.0.0">
+            <name>ThermometerVvessel</name>
+            <pv_name>ISTTOK:temperature:VVessel-Temperature</pv_name>
+            <x>719</x>
+            <y>12</y>
+          </widget>
+          <widget type="label" version="2.0.0">
+            <name>Label_TVV</name>
+            <text>VVessel Temp -ºC</text>
+            <x>689</x>
+            <y>171</y>
+            <width>115</width>
+            <height>16</height>
+            <auto_size>true</auto_size>
+            <wrap_words>false</wrap_words>
+          </widget>
+          <widget type="textupdate" version="2.0.0">
+            <name>TU_VV_Temp</name>
+            <pv_name>ISTTOK:temperature:VVessel-Temperature</pv_name>
+            <x>689</x>
+            <y>102</y>
+            <wrap_words>false</wrap_words>
+          </widget>
+          <widget type="picture" version="2.0.0">
+            <name>Image</name>
+            <file>pics/isttok6.png</file>
+            <x>39</x>
+            <y>242</y>
+            <width>185</width>
+            <height>182</height>
+            <stretch_image>true</stretch_image>
+            <actions>
+            </actions>
+          </widget>
+        </children>
+      </tab>
+      <tab>
+        <name>Vacuum-SM</name>
+        <children>
+        </children>
+      </tab>
+    </tabs>
+    <x>10</x>
+    <y>60</y>
+    <width>820</width>
+    <height>650</height>
+  </widget>
+</display>

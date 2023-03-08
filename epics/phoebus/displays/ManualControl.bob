@@ -1,0 +1,1693 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<display version="2.0.0">
+  <name>EDisplayManuelC</name>
+  <width>360</width>
+  <height>180</height>
+  <widget type="label" version="2.0.0">
+    <name>Label Template_240</name>
+    <text>TMP1 MOTOR ON:</text>
+    <y>102</y>
+    <width>79</width>
+    <height>16</height>
+    <font>
+      <font family="DejaVu Sans Mono" style="REGULAR" size="6.930693069306931">
+      </font>
+    </font>
+    <foreground_color>
+      <color name="IO Text Fg" red="0" green="0" blue="0">
+      </color>
+    </foreground_color>
+    <background_color>
+      <color name="IO Background" red="235" green="235" blue="235">
+      </color>
+    </background_color>
+    <horizontal_alignment>2</horizontal_alignment>
+    <vertical_alignment>1</vertical_alignment>
+    <actions>
+    </actions>
+    <border_color>
+      <color name="IO Border" red="0" green="0" blue="0">
+      </color>
+    </border_color>
+  </widget>
+  <widget type="led" version="2.0.0">
+    <name>LED_5</name>
+    <pv_name>ISTTOK:central:TMPump1-ControllerOff</pv_name>
+    <x>121</x>
+    <y>41</y>
+    <width>17</width>
+    <height>18</height>
+    <off_color>
+      <color red="150" green="150" blue="150">
+      </color>
+    </off_color>
+    <foreground_color>
+      <color red="192" green="192" blue="192">
+      </color>
+    </foreground_color>
+    <line_color>
+      <color red="0" green="0" blue="0">
+      </color>
+    </line_color>
+    <square>true</square>
+    <actions>
+    </actions>
+    <border_alarm_sensitive>false</border_alarm_sensitive>
+  </widget>
+  <widget type="led" version="2.0.0">
+    <name>LED_6</name>
+    <pv_name>ISTTOK:central:Lab-WarningLight</pv_name>
+    <x>121</x>
+    <y>141</y>
+    <width>17</width>
+    <height>18</height>
+    <off_color>
+      <color name="Green" red="0" green="255" blue="0">
+      </color>
+    </off_color>
+    <on_color>
+      <color red="150" green="150" blue="150">
+      </color>
+    </on_color>
+    <foreground_color>
+      <color red="192" green="192" blue="192">
+      </color>
+    </foreground_color>
+    <line_color>
+      <color red="0" green="0" blue="0">
+      </color>
+    </line_color>
+    <square>true</square>
+    <actions>
+    </actions>
+    <border_alarm_sensitive>false</border_alarm_sensitive>
+  </widget>
+  <widget type="label" version="2.0.0">
+    <name>Label Template_241</name>
+    <text>GIS VALVES:</text>
+    <y>162</y>
+    <width>79</width>
+    <height>16</height>
+    <font>
+      <font family="DejaVu Sans Mono" style="REGULAR" size="6.930693069306931">
+      </font>
+    </font>
+    <foreground_color>
+      <color name="IO Text Fg" red="0" green="0" blue="0">
+      </color>
+    </foreground_color>
+    <background_color>
+      <color name="IO Background" red="235" green="235" blue="235">
+      </color>
+    </background_color>
+    <horizontal_alignment>2</horizontal_alignment>
+    <vertical_alignment>1</vertical_alignment>
+    <actions>
+    </actions>
+    <border_color>
+      <color name="IO Border" red="0" green="0" blue="0">
+      </color>
+    </border_color>
+  </widget>
+  <widget type="led" version="2.0.0">
+    <name>LED_7</name>
+    <pv_name>ISTTOK:central:TMPump1-MotorOff</pv_name>
+    <x>121</x>
+    <y>81</y>
+    <width>17</width>
+    <height>18</height>
+    <off_color>
+      <color red="150" green="150" blue="150">
+      </color>
+    </off_color>
+    <foreground_color>
+      <color red="192" green="192" blue="192">
+      </color>
+    </foreground_color>
+    <line_color>
+      <color red="0" green="0" blue="0">
+      </color>
+    </line_color>
+    <square>true</square>
+    <actions>
+    </actions>
+    <border_alarm_sensitive>false</border_alarm_sensitive>
+  </widget>
+  <widget type="bool_button" version="2.0.0">
+    <name>Boolean Button</name>
+    <pv_name>ISTTOK:central:TMPump1-ControllerOn</pv_name>
+    <bit>-1</bit>
+    <x>81</x>
+    <y>60</y>
+    <width>37</width>
+    <height>20</height>
+    <off_label></off_label>
+    <off_color>
+      <color red="240" green="240" blue="240">
+      </color>
+    </off_color>
+    <on_label></on_label>
+    <on_color>
+      <color red="192" green="192" blue="192">
+      </color>
+    </on_color>
+    <show_led>false</show_led>
+    <font>
+      <font family="Ubuntu" style="REGULAR" size="6.930693069306931">
+      </font>
+    </font>
+    <background_color>
+      <color red="240" green="240" blue="240">
+      </color>
+    </background_color>
+    <actions>
+    </actions>
+    <rules>
+      <rule name="EnableRule" prop_id="enabled" out_exp="false">
+        <exp bool_exp="pv0 == 0">
+          <value>false</value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>true</value>
+        </exp>
+        <pv_name>loc://enable_disable</pv_name>
+      </rule>
+    </rules>
+    <border_alarm_sensitive>false</border_alarm_sensitive>
+    <enabled>false</enabled>
+    <confirm_message>Are you sure you want to do this?</confirm_message>
+  </widget>
+  <widget type="led" version="2.0.0">
+    <name>LED_8</name>
+    <pv_name>ISTTOK:central:GasIS-Valves</pv_name>
+    <x>121</x>
+    <y>161</y>
+    <width>17</width>
+    <height>18</height>
+    <off_color>
+      <color name="Green" red="0" green="255" blue="0">
+      </color>
+    </off_color>
+    <on_color>
+      <color red="150" green="150" blue="150">
+      </color>
+    </on_color>
+    <foreground_color>
+      <color red="192" green="192" blue="192">
+      </color>
+    </foreground_color>
+    <line_color>
+      <color red="0" green="0" blue="0">
+      </color>
+    </line_color>
+    <square>true</square>
+    <actions>
+    </actions>
+    <border_alarm_sensitive>false</border_alarm_sensitive>
+  </widget>
+  <widget type="bool_button" version="2.0.0">
+    <name>Boolean Button_1</name>
+    <pv_name>ISTTOK:central:Lab-WarningLight</pv_name>
+    <bit>-1</bit>
+    <x>81</x>
+    <y>140</y>
+    <width>37</width>
+    <height>20</height>
+    <off_label></off_label>
+    <off_color>
+      <color red="240" green="240" blue="240">
+      </color>
+    </off_color>
+    <on_label></on_label>
+    <on_color>
+      <color red="192" green="192" blue="192">
+      </color>
+    </on_color>
+    <show_led>false</show_led>
+    <font>
+      <font family="Ubuntu" style="REGULAR" size="6.930693069306931">
+      </font>
+    </font>
+    <background_color>
+      <color red="240" green="240" blue="240">
+      </color>
+    </background_color>
+    <actions>
+    </actions>
+    <rules>
+      <rule name="EnableRule" prop_id="enabled" out_exp="false">
+        <exp bool_exp="pv0 == 0">
+          <value>false</value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>true</value>
+        </exp>
+        <pv_name>loc://enable_disable</pv_name>
+      </rule>
+    </rules>
+    <border_alarm_sensitive>false</border_alarm_sensitive>
+    <enabled>false</enabled>
+    <confirm_message>Are you sure you want to do this?</confirm_message>
+  </widget>
+  <widget type="label" version="2.0.0">
+    <name>Label Template_242</name>
+    <text>TMP1 CONTROLLER ON:</text>
+    <y>62</y>
+    <width>79</width>
+    <height>16</height>
+    <font>
+      <font family="DejaVu Sans Mono" style="REGULAR" size="6.930693069306931">
+      </font>
+    </font>
+    <foreground_color>
+      <color name="IO Text Fg" red="0" green="0" blue="0">
+      </color>
+    </foreground_color>
+    <background_color>
+      <color name="IO Background" red="235" green="235" blue="235">
+      </color>
+    </background_color>
+    <horizontal_alignment>2</horizontal_alignment>
+    <vertical_alignment>1</vertical_alignment>
+    <actions>
+    </actions>
+    <border_color>
+      <color name="IO Border" red="0" green="0" blue="0">
+      </color>
+    </border_color>
+  </widget>
+  <widget type="led" version="2.0.0">
+    <name>LED_9</name>
+    <pv_name>ISTTOK:central:TMPump1-MotorOn</pv_name>
+    <x>121</x>
+    <y>101</y>
+    <width>17</width>
+    <height>18</height>
+    <off_color>
+      <color red="150" green="150" blue="150">
+      </color>
+    </off_color>
+    <foreground_color>
+      <color red="192" green="192" blue="192">
+      </color>
+    </foreground_color>
+    <line_color>
+      <color red="0" green="0" blue="0">
+      </color>
+    </line_color>
+    <square>true</square>
+    <actions>
+    </actions>
+    <border_alarm_sensitive>false</border_alarm_sensitive>
+  </widget>
+  <widget type="bool_button" version="2.0.0">
+    <name>Boolean Button_2</name>
+    <pv_name>ISTTOK:central:TMPump1-MotorOn</pv_name>
+    <bit>-1</bit>
+    <x>81</x>
+    <y>100</y>
+    <width>37</width>
+    <height>20</height>
+    <off_label></off_label>
+    <off_color>
+      <color red="240" green="240" blue="240">
+      </color>
+    </off_color>
+    <on_label></on_label>
+    <on_color>
+      <color red="192" green="192" blue="192">
+      </color>
+    </on_color>
+    <show_led>false</show_led>
+    <font>
+      <font family="Ubuntu" style="REGULAR" size="6.930693069306931">
+      </font>
+    </font>
+    <background_color>
+      <color red="240" green="240" blue="240">
+      </color>
+    </background_color>
+    <actions>
+    </actions>
+    <rules>
+      <rule name="EnableRule" prop_id="enabled" out_exp="false">
+        <exp bool_exp="pv0 == 0">
+          <value>false</value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>true</value>
+        </exp>
+        <pv_name>loc://enable_disable</pv_name>
+      </rule>
+    </rules>
+    <border_alarm_sensitive>false</border_alarm_sensitive>
+    <enabled>false</enabled>
+    <confirm_message>Are you sure you want to do this?</confirm_message>
+  </widget>
+  <widget type="bool_button" version="2.0.0">
+    <name>Boolean Button_3</name>
+    <pv_name>ISTTOK:central:TMPump1-ControllerOff</pv_name>
+    <bit>-1</bit>
+    <x>81</x>
+    <y>40</y>
+    <width>37</width>
+    <height>20</height>
+    <off_label></off_label>
+    <off_color>
+      <color red="240" green="240" blue="240">
+      </color>
+    </off_color>
+    <on_label></on_label>
+    <on_color>
+      <color red="192" green="192" blue="192">
+      </color>
+    </on_color>
+    <show_led>false</show_led>
+    <font>
+      <font family="Ubuntu" style="REGULAR" size="6.930693069306931">
+      </font>
+    </font>
+    <background_color>
+      <color red="240" green="240" blue="240">
+      </color>
+    </background_color>
+    <actions>
+    </actions>
+    <rules>
+      <rule name="EnableRule" prop_id="enabled" out_exp="false">
+        <exp bool_exp="pv0 == 0">
+          <value>false</value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>true</value>
+        </exp>
+        <pv_name>loc://enable_disable</pv_name>
+      </rule>
+    </rules>
+    <border_alarm_sensitive>false</border_alarm_sensitive>
+    <enabled>false</enabled>
+    <confirm_message>Are you sure you want to do this?</confirm_message>
+  </widget>
+  <widget type="label" version="2.0.0">
+    <name>Label Template_243</name>
+    <text>BUZZER:</text>
+    <y>122</y>
+    <width>79</width>
+    <height>16</height>
+    <font>
+      <font family="DejaVu Sans Mono" style="REGULAR" size="6.930693069306931">
+      </font>
+    </font>
+    <foreground_color>
+      <color name="IO Text Fg" red="0" green="0" blue="0">
+      </color>
+    </foreground_color>
+    <background_color>
+      <color name="IO Background" red="235" green="235" blue="235">
+      </color>
+    </background_color>
+    <horizontal_alignment>2</horizontal_alignment>
+    <vertical_alignment>1</vertical_alignment>
+    <actions>
+    </actions>
+    <border_color>
+      <color name="IO Border" red="0" green="0" blue="0">
+      </color>
+    </border_color>
+  </widget>
+  <widget type="label" version="2.0.0">
+    <name>Label Template_244</name>
+    <text>LIGHTS:</text>
+    <y>142</y>
+    <width>79</width>
+    <height>16</height>
+    <font>
+      <font family="DejaVu Sans Mono" style="REGULAR" size="6.930693069306931">
+      </font>
+    </font>
+    <foreground_color>
+      <color name="IO Text Fg" red="0" green="0" blue="0">
+      </color>
+    </foreground_color>
+    <background_color>
+      <color name="IO Background" red="235" green="235" blue="235">
+      </color>
+    </background_color>
+    <horizontal_alignment>2</horizontal_alignment>
+    <vertical_alignment>1</vertical_alignment>
+    <actions>
+    </actions>
+    <border_color>
+      <color name="IO Border" red="0" green="0" blue="0">
+      </color>
+    </border_color>
+  </widget>
+  <widget type="led" version="2.0.0">
+    <name>LED_10</name>
+    <pv_name>ISTTOK:central:TMPump1-ControllerOn</pv_name>
+    <x>121</x>
+    <y>61</y>
+    <width>17</width>
+    <height>18</height>
+    <off_color>
+      <color red="150" green="150" blue="150">
+      </color>
+    </off_color>
+    <foreground_color>
+      <color red="192" green="192" blue="192">
+      </color>
+    </foreground_color>
+    <line_color>
+      <color red="0" green="0" blue="0">
+      </color>
+    </line_color>
+    <square>true</square>
+    <actions>
+    </actions>
+    <border_alarm_sensitive>false</border_alarm_sensitive>
+  </widget>
+  <widget type="bool_button" version="2.0.0">
+    <name>Boolean Button_4</name>
+    <pv_name>ISTTOK:central:Buzzer</pv_name>
+    <bit>-1</bit>
+    <x>81</x>
+    <y>120</y>
+    <width>37</width>
+    <height>20</height>
+    <off_label></off_label>
+    <off_color>
+      <color red="240" green="240" blue="240">
+      </color>
+    </off_color>
+    <on_label></on_label>
+    <on_color>
+      <color red="192" green="192" blue="192">
+      </color>
+    </on_color>
+    <show_led>false</show_led>
+    <font>
+      <font family="Ubuntu" style="REGULAR" size="6.930693069306931">
+      </font>
+    </font>
+    <background_color>
+      <color red="240" green="240" blue="240">
+      </color>
+    </background_color>
+    <actions>
+    </actions>
+    <rules>
+      <rule name="EnableRule" prop_id="enabled" out_exp="false">
+        <exp bool_exp="pv0 == 0">
+          <value>false</value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>true</value>
+        </exp>
+        <pv_name>loc://enable_disable</pv_name>
+      </rule>
+    </rules>
+    <border_alarm_sensitive>false</border_alarm_sensitive>
+    <enabled>false</enabled>
+    <confirm_message>Are you sure you want to do this?</confirm_message>
+  </widget>
+  <widget type="led" version="2.0.0">
+    <name>LED_11</name>
+    <pv_name>ISTTOK:central:Buzzer</pv_name>
+    <x>121</x>
+    <y>121</y>
+    <width>17</width>
+    <height>18</height>
+    <off_color>
+      <color red="150" green="150" blue="150">
+      </color>
+    </off_color>
+    <foreground_color>
+      <color red="192" green="192" blue="192">
+      </color>
+    </foreground_color>
+    <line_color>
+      <color red="0" green="0" blue="0">
+      </color>
+    </line_color>
+    <square>true</square>
+    <actions>
+    </actions>
+    <border_alarm_sensitive>false</border_alarm_sensitive>
+  </widget>
+  <widget type="label" version="2.0.0">
+    <name>Label Template_245</name>
+    <text>TMP1 MOTOR OFF:</text>
+    <y>82</y>
+    <width>79</width>
+    <height>16</height>
+    <font>
+      <font family="DejaVu Sans Mono" style="REGULAR" size="6.930693069306931">
+      </font>
+    </font>
+    <foreground_color>
+      <color name="IO Text Fg" red="0" green="0" blue="0">
+      </color>
+    </foreground_color>
+    <background_color>
+      <color name="IO Background" red="235" green="235" blue="235">
+      </color>
+    </background_color>
+    <horizontal_alignment>2</horizontal_alignment>
+    <vertical_alignment>1</vertical_alignment>
+    <actions>
+    </actions>
+    <border_color>
+      <color name="IO Border" red="0" green="0" blue="0">
+      </color>
+    </border_color>
+  </widget>
+  <widget type="label" version="2.0.0">
+    <name>Label Template_246</name>
+    <text>TMP1 CONTROLLER OFF:</text>
+    <y>42</y>
+    <width>79</width>
+    <height>16</height>
+    <font>
+      <font family="DejaVu Sans Mono" style="REGULAR" size="6.930693069306931">
+      </font>
+    </font>
+    <foreground_color>
+      <color name="IO Text Fg" red="0" green="0" blue="0">
+      </color>
+    </foreground_color>
+    <background_color>
+      <color name="IO Background" red="235" green="235" blue="235">
+      </color>
+    </background_color>
+    <horizontal_alignment>2</horizontal_alignment>
+    <vertical_alignment>1</vertical_alignment>
+    <actions>
+    </actions>
+    <border_color>
+      <color name="IO Border" red="0" green="0" blue="0">
+      </color>
+    </border_color>
+  </widget>
+  <widget type="bool_button" version="2.0.0">
+    <name>Boolean Button_5</name>
+    <pv_name>ISTTOK:central:TMPump1-MotorOff</pv_name>
+    <bit>-1</bit>
+    <x>81</x>
+    <y>80</y>
+    <width>37</width>
+    <height>20</height>
+    <off_label></off_label>
+    <off_color>
+      <color red="240" green="240" blue="240">
+      </color>
+    </off_color>
+    <on_label></on_label>
+    <on_color>
+      <color red="192" green="192" blue="192">
+      </color>
+    </on_color>
+    <show_led>false</show_led>
+    <font>
+      <font family="Ubuntu" style="REGULAR" size="6.930693069306931">
+      </font>
+    </font>
+    <background_color>
+      <color red="240" green="240" blue="240">
+      </color>
+    </background_color>
+    <actions>
+    </actions>
+    <rules>
+      <rule name="EnableRule" prop_id="enabled" out_exp="false">
+        <exp bool_exp="pv0 == 0">
+          <value>false</value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>true</value>
+        </exp>
+        <pv_name>loc://enable_disable</pv_name>
+      </rule>
+    </rules>
+    <border_alarm_sensitive>false</border_alarm_sensitive>
+    <enabled>false</enabled>
+    <confirm_message>Are you sure you want to do this?</confirm_message>
+  </widget>
+  <widget type="bool_button" version="2.0.0">
+    <name>Boolean Button_6</name>
+    <pv_name>ISTTOK:central:GasIS-Valves</pv_name>
+    <bit>-1</bit>
+    <x>81</x>
+    <y>160</y>
+    <width>37</width>
+    <height>20</height>
+    <off_label></off_label>
+    <off_color>
+      <color red="240" green="240" blue="240">
+      </color>
+    </off_color>
+    <on_label></on_label>
+    <on_color>
+      <color red="192" green="192" blue="192">
+      </color>
+    </on_color>
+    <show_led>false</show_led>
+    <font>
+      <font family="Ubuntu" style="REGULAR" size="6.930693069306931">
+      </font>
+    </font>
+    <background_color>
+      <color red="240" green="240" blue="240">
+      </color>
+    </background_color>
+    <actions>
+    </actions>
+    <rules>
+      <rule name="EnableRule" prop_id="enabled" out_exp="false">
+        <exp bool_exp="pv0 == 0">
+          <value>false</value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>true</value>
+        </exp>
+        <pv_name>loc://enable_disable</pv_name>
+      </rule>
+    </rules>
+    <border_alarm_sensitive>false</border_alarm_sensitive>
+    <enabled>false</enabled>
+    <confirm_message>Are you sure you want to do this?</confirm_message>
+  </widget>
+  <widget type="led" version="2.0.0">
+    <name>LED_12</name>
+    <pv_name>ISTTOK:central:TMPump2-Motor</pv_name>
+    <x>121</x>
+    <y>21</y>
+    <width>17</width>
+    <height>18</height>
+    <off_color>
+      <color red="0" green="255" blue="0">
+      </color>
+    </off_color>
+    <on_color>
+      <color red="150" green="150" blue="150">
+      </color>
+    </on_color>
+    <foreground_color>
+      <color red="192" green="192" blue="192">
+      </color>
+    </foreground_color>
+    <line_color>
+      <color red="0" green="0" blue="0">
+      </color>
+    </line_color>
+    <square>true</square>
+    <actions>
+    </actions>
+    <border_alarm_sensitive>false</border_alarm_sensitive>
+  </widget>
+  <widget type="bool_button" version="2.0.0">
+    <name>Boolean Button_7</name>
+    <pv_name>ISTTOK:central:TMPump2-Motor</pv_name>
+    <bit>-1</bit>
+    <x>81</x>
+    <y>20</y>
+    <width>37</width>
+    <height>20</height>
+    <off_label></off_label>
+    <off_color>
+      <color red="240" green="240" blue="240">
+      </color>
+    </off_color>
+    <on_label></on_label>
+    <on_color>
+      <color red="192" green="192" blue="192">
+      </color>
+    </on_color>
+    <show_led>false</show_led>
+    <font>
+      <font family="Ubuntu" style="REGULAR" size="6.930693069306931">
+      </font>
+    </font>
+    <background_color>
+      <color red="240" green="240" blue="240">
+      </color>
+    </background_color>
+    <actions>
+    </actions>
+    <rules>
+      <rule name="EnableRule" prop_id="enabled" out_exp="false">
+        <exp bool_exp="pv0 == 0">
+          <value>false</value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>true</value>
+        </exp>
+        <pv_name>loc://enable_disable</pv_name>
+      </rule>
+    </rules>
+    <border_alarm_sensitive>false</border_alarm_sensitive>
+    <enabled>false</enabled>
+    <confirm_message>Are you sure you want to do this?</confirm_message>
+  </widget>
+  <widget type="label" version="2.0.0">
+    <name>Label Template_247</name>
+    <text>TMP2 MOTOR:</text>
+    <y>22</y>
+    <width>79</width>
+    <height>16</height>
+    <font>
+      <font family="DejaVu Sans Mono" style="REGULAR" size="6.930693069306931">
+      </font>
+    </font>
+    <foreground_color>
+      <color name="IO Text Fg" red="0" green="0" blue="0">
+      </color>
+    </foreground_color>
+    <background_color>
+      <color name="IO Background" red="235" green="235" blue="235">
+      </color>
+    </background_color>
+    <horizontal_alignment>2</horizontal_alignment>
+    <vertical_alignment>1</vertical_alignment>
+    <actions>
+    </actions>
+    <border_color>
+      <color name="IO Border" red="0" green="0" blue="0">
+      </color>
+    </border_color>
+  </widget>
+  <widget type="label" version="2.0.0">
+    <name>Label Template_248</name>
+    <text>CAP.BANK CROWBAR OPEN:</text>
+    <x>149</x>
+    <y>42</y>
+    <width>145</width>
+    <height>16</height>
+    <font>
+      <font family="DejaVu Sans Mono" style="REGULAR" size="6.930693069306931">
+      </font>
+    </font>
+    <foreground_color>
+      <color name="IO Text Fg" red="0" green="0" blue="0">
+      </color>
+    </foreground_color>
+    <background_color>
+      <color name="IO Background" red="235" green="235" blue="235">
+      </color>
+    </background_color>
+    <horizontal_alignment>2</horizontal_alignment>
+    <vertical_alignment>1</vertical_alignment>
+    <actions>
+    </actions>
+    <border_color>
+      <color name="IO Border" red="0" green="0" blue="0">
+      </color>
+    </border_color>
+  </widget>
+  <widget type="led" version="2.0.0">
+    <name>LED_13</name>
+    <pv_name>ISTTOK:central:CapBank-Discharge</pv_name>
+    <x>335</x>
+    <y>42</y>
+    <width>17</width>
+    <height>18</height>
+    <off_color>
+      <color red="0" green="255" blue="0">
+      </color>
+    </off_color>
+    <on_color>
+      <color red="255" green="0" blue="0">
+      </color>
+    </on_color>
+    <foreground_color>
+      <color red="192" green="192" blue="192">
+      </color>
+    </foreground_color>
+    <line_color>
+      <color red="0" green="0" blue="0">
+      </color>
+    </line_color>
+    <square>true</square>
+    <actions>
+    </actions>
+  </widget>
+  <widget type="label" version="2.0.0">
+    <name>Label Template_249</name>
+    <text>CAP.BANK CHARGE:</text>
+    <x>149</x>
+    <y>22</y>
+    <width>145</width>
+    <height>16</height>
+    <font>
+      <font family="DejaVu Sans Mono" style="REGULAR" size="6.930693069306931">
+      </font>
+    </font>
+    <foreground_color>
+      <color name="IO Text Fg" red="0" green="0" blue="0">
+      </color>
+    </foreground_color>
+    <background_color>
+      <color name="IO Background" red="235" green="235" blue="235">
+      </color>
+    </background_color>
+    <horizontal_alignment>2</horizontal_alignment>
+    <vertical_alignment>1</vertical_alignment>
+    <actions>
+    </actions>
+    <border_color>
+      <color name="IO Border" red="0" green="0" blue="0">
+      </color>
+    </border_color>
+  </widget>
+  <widget type="label" version="2.0.0">
+    <name>Label Template_250</name>
+    <text>FILAMENT:</text>
+    <x>149</x>
+    <y>2</y>
+    <width>144</width>
+    <height>16</height>
+    <font>
+      <font family="DejaVu Sans Mono" style="REGULAR" size="6.930693069306931">
+      </font>
+    </font>
+    <foreground_color>
+      <color name="IO Text Fg" red="0" green="0" blue="0">
+      </color>
+    </foreground_color>
+    <background_color>
+      <color name="IO Background" red="235" green="235" blue="235">
+      </color>
+    </background_color>
+    <horizontal_alignment>2</horizontal_alignment>
+    <vertical_alignment>1</vertical_alignment>
+    <actions>
+    </actions>
+    <border_color>
+      <color name="IO Border" red="0" green="0" blue="0">
+      </color>
+    </border_color>
+  </widget>
+  <widget type="led" version="2.0.0">
+    <name>LED_14</name>
+    <pv_name>ISTTOK:central:VVessel-Filament</pv_name>
+    <x>335</x>
+    <y>1</y>
+    <width>17</width>
+    <height>18</height>
+    <off_color>
+      <color name="Green" red="0" green="255" blue="0">
+      </color>
+    </off_color>
+    <on_color>
+      <color red="150" green="150" blue="150">
+      </color>
+    </on_color>
+    <foreground_color>
+      <color red="192" green="192" blue="192">
+      </color>
+    </foreground_color>
+    <line_color>
+      <color red="0" green="0" blue="0">
+      </color>
+    </line_color>
+    <square>true</square>
+    <actions>
+    </actions>
+    <border_alarm_sensitive>false</border_alarm_sensitive>
+  </widget>
+  <widget type="bool_button" version="2.0.0">
+    <name>Boolean Button_8</name>
+    <pv_name>ISTTOK:central:CapBank-Charge</pv_name>
+    <bit>-1</bit>
+    <x>295</x>
+    <y>20</y>
+    <width>37</width>
+    <height>20</height>
+    <off_label></off_label>
+    <off_color>
+      <color red="240" green="240" blue="240">
+      </color>
+    </off_color>
+    <on_label></on_label>
+    <on_color>
+      <color red="192" green="192" blue="192">
+      </color>
+    </on_color>
+    <show_led>false</show_led>
+    <font>
+      <font family="Ubuntu" style="REGULAR" size="6.930693069306931">
+      </font>
+    </font>
+    <background_color>
+      <color red="240" green="240" blue="240">
+      </color>
+    </background_color>
+    <actions>
+    </actions>
+    <rules>
+      <rule name="EnableRule" prop_id="enabled" out_exp="false">
+        <exp bool_exp="pv0 == 0">
+          <value>false</value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>true</value>
+        </exp>
+        <pv_name>loc://enable_disable</pv_name>
+      </rule>
+    </rules>
+    <border_alarm_sensitive>false</border_alarm_sensitive>
+    <enabled>false</enabled>
+    <confirm_message>Are you sure you want to do this?</confirm_message>
+  </widget>
+  <widget type="bool_button" version="2.0.0">
+    <name>Boolean Button_9</name>
+    <pv_name>ISTTOK:central:VVessel-Filament</pv_name>
+    <bit>-1</bit>
+    <x>295</x>
+    <width>37</width>
+    <height>20</height>
+    <off_label></off_label>
+    <off_color>
+      <color red="240" green="240" blue="240">
+      </color>
+    </off_color>
+    <on_label></on_label>
+    <on_color>
+      <color red="192" green="192" blue="192">
+      </color>
+    </on_color>
+    <show_led>false</show_led>
+    <font>
+      <font family="Ubuntu" style="REGULAR" size="6.930693069306931">
+      </font>
+    </font>
+    <background_color>
+      <color red="240" green="240" blue="240">
+      </color>
+    </background_color>
+    <actions>
+    </actions>
+    <rules>
+      <rule name="EnableRule" prop_id="enabled" out_exp="false">
+        <exp bool_exp="pv0 == 0">
+          <value>false</value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>true</value>
+        </exp>
+        <pv_name>loc://enable_disable</pv_name>
+      </rule>
+    </rules>
+    <border_alarm_sensitive>false</border_alarm_sensitive>
+    <enabled>false</enabled>
+    <confirm_message>Are you sure you want to do this?</confirm_message>
+  </widget>
+  <widget type="bool_button" version="2.0.0">
+    <name>Boolean Button_10</name>
+    <pv_name>ISTTOK:central:CapBank-Discharge</pv_name>
+    <bit>-1</bit>
+    <x>295</x>
+    <y>40</y>
+    <width>37</width>
+    <height>20</height>
+    <off_label></off_label>
+    <off_color>
+      <color red="240" green="240" blue="240">
+      </color>
+    </off_color>
+    <on_label></on_label>
+    <on_color>
+      <color red="192" green="192" blue="192">
+      </color>
+    </on_color>
+    <show_led>false</show_led>
+    <font>
+      <font family="Ubuntu" style="REGULAR" size="6.930693069306931">
+      </font>
+    </font>
+    <background_color>
+      <color red="240" green="240" blue="240">
+      </color>
+    </background_color>
+    <actions>
+    </actions>
+    <rules>
+      <rule name="EnableRule" prop_id="enabled" out_exp="false">
+        <exp bool_exp="pv0 == 0">
+          <value>false</value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>true</value>
+        </exp>
+        <pv_name>loc://enable_disable</pv_name>
+      </rule>
+    </rules>
+    <border_alarm_sensitive>false</border_alarm_sensitive>
+    <enabled>false</enabled>
+    <confirm_message>Are you sure you want to do this?</confirm_message>
+  </widget>
+  <widget type="led" version="2.0.0">
+    <name>LED_15</name>
+    <pv_name>ISTTOK:central:CapBank-Charge</pv_name>
+    <x>335</x>
+    <y>21</y>
+    <width>17</width>
+    <height>18</height>
+    <off_color>
+      <color name="Green" red="0" green="255" blue="0">
+      </color>
+    </off_color>
+    <on_color>
+      <color red="150" green="150" blue="150">
+      </color>
+    </on_color>
+    <foreground_color>
+      <color red="192" green="192" blue="192">
+      </color>
+    </foreground_color>
+    <line_color>
+      <color red="0" green="0" blue="0">
+      </color>
+    </line_color>
+    <square>true</square>
+    <actions>
+    </actions>
+    <border_alarm_sensitive>false</border_alarm_sensitive>
+  </widget>
+  <widget type="led" version="2.0.0">
+    <name>LED_16</name>
+    <pv_name>ISTTOK:central:Clean-PrimContactor</pv_name>
+    <x>335</x>
+    <y>61</y>
+    <width>17</width>
+    <height>18</height>
+    <off_color>
+      <color name="Green" red="0" green="255" blue="0">
+      </color>
+    </off_color>
+    <on_color>
+      <color red="150" green="150" blue="150">
+      </color>
+    </on_color>
+    <foreground_color>
+      <color red="192" green="192" blue="192">
+      </color>
+    </foreground_color>
+    <line_color>
+      <color red="0" green="0" blue="0">
+      </color>
+    </line_color>
+    <square>true</square>
+    <actions>
+    </actions>
+    <border_alarm_sensitive>false</border_alarm_sensitive>
+  </widget>
+  <widget type="bool_button" version="2.0.0">
+    <name>Boolean Button_11</name>
+    <pv_name>ISTTOK:central:Clean-PrimContactor</pv_name>
+    <bit>-1</bit>
+    <x>295</x>
+    <y>60</y>
+    <width>37</width>
+    <height>20</height>
+    <off_label></off_label>
+    <off_color>
+      <color red="240" green="240" blue="240">
+      </color>
+    </off_color>
+    <on_label></on_label>
+    <on_color>
+      <color red="192" green="192" blue="192">
+      </color>
+    </on_color>
+    <show_led>false</show_led>
+    <font>
+      <font family="Ubuntu" style="REGULAR" size="6.930693069306931">
+      </font>
+    </font>
+    <background_color>
+      <color red="240" green="240" blue="240">
+      </color>
+    </background_color>
+    <actions>
+    </actions>
+    <rules>
+      <rule name="EnableRule" prop_id="enabled" out_exp="false">
+        <exp bool_exp="pv0 == 0">
+          <value>false</value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>true</value>
+        </exp>
+        <pv_name>loc://enable_disable</pv_name>
+      </rule>
+    </rules>
+    <border_alarm_sensitive>false</border_alarm_sensitive>
+    <enabled>false</enabled>
+    <confirm_message>Are you sure you want to do this?</confirm_message>
+  </widget>
+  <widget type="label" version="2.0.0">
+    <name>Label Template_251</name>
+    <text>PRIM.CLEAN CONTACTOR:</text>
+    <x>149</x>
+    <y>62</y>
+    <width>145</width>
+    <height>16</height>
+    <font>
+      <font family="DejaVu Sans Mono" style="REGULAR" size="6.930693069306931">
+      </font>
+    </font>
+    <foreground_color>
+      <color name="IO Text Fg" red="0" green="0" blue="0">
+      </color>
+    </foreground_color>
+    <background_color>
+      <color name="IO Background" red="235" green="235" blue="235">
+      </color>
+    </background_color>
+    <horizontal_alignment>2</horizontal_alignment>
+    <vertical_alignment>1</vertical_alignment>
+    <actions>
+    </actions>
+    <border_color>
+      <color name="IO Border" red="0" green="0" blue="0">
+      </color>
+    </border_color>
+  </widget>
+  <widget type="label" version="2.0.0">
+    <name>Label Template_252</name>
+    <text>PRIM.CLEAN BREAKER:</text>
+    <x>149</x>
+    <y>82</y>
+    <width>144</width>
+    <height>16</height>
+    <font>
+      <font family="DejaVu Sans Mono" style="REGULAR" size="6.930693069306931">
+      </font>
+    </font>
+    <foreground_color>
+      <color name="IO Text Fg" red="0" green="0" blue="0">
+      </color>
+    </foreground_color>
+    <background_color>
+      <color name="IO Background" red="235" green="235" blue="235">
+      </color>
+    </background_color>
+    <horizontal_alignment>2</horizontal_alignment>
+    <vertical_alignment>1</vertical_alignment>
+    <actions>
+    </actions>
+    <border_color>
+      <color name="IO Border" red="0" green="0" blue="0">
+      </color>
+    </border_color>
+  </widget>
+  <widget type="bool_button" version="2.0.0">
+    <name>Boolean Button_12</name>
+    <pv_name>ISTTOK:central:Clean-PrimPneuBreaker</pv_name>
+    <bit>-1</bit>
+    <x>295</x>
+    <y>80</y>
+    <width>37</width>
+    <height>20</height>
+    <off_label></off_label>
+    <off_color>
+      <color red="240" green="240" blue="240">
+      </color>
+    </off_color>
+    <on_label></on_label>
+    <on_color>
+      <color red="192" green="192" blue="192">
+      </color>
+    </on_color>
+    <show_led>false</show_led>
+    <font>
+      <font family="Ubuntu" style="REGULAR" size="6.930693069306931">
+      </font>
+    </font>
+    <background_color>
+      <color red="240" green="240" blue="240">
+      </color>
+    </background_color>
+    <actions>
+    </actions>
+    <rules>
+      <rule name="EnableRule" prop_id="enabled" out_exp="false">
+        <exp bool_exp="pv0 == 0">
+          <value>false</value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>true</value>
+        </exp>
+        <pv_name>loc://enable_disable</pv_name>
+      </rule>
+    </rules>
+    <border_alarm_sensitive>false</border_alarm_sensitive>
+    <enabled>false</enabled>
+    <confirm_message>Are you sure you want to do this?</confirm_message>
+  </widget>
+  <widget type="led" version="2.0.0">
+    <name>LED_17</name>
+    <pv_name>ISTTOK:central:Clean-PrimPneuBreaker</pv_name>
+    <x>335</x>
+    <y>81</y>
+    <width>17</width>
+    <height>18</height>
+    <off_color>
+      <color name="Green" red="0" green="255" blue="0">
+      </color>
+    </off_color>
+    <on_color>
+      <color red="150" green="150" blue="150">
+      </color>
+    </on_color>
+    <foreground_color>
+      <color red="192" green="192" blue="192">
+      </color>
+    </foreground_color>
+    <line_color>
+      <color red="0" green="0" blue="0">
+      </color>
+    </line_color>
+    <square>true</square>
+    <actions>
+    </actions>
+    <border_alarm_sensitive>false</border_alarm_sensitive>
+  </widget>
+  <widget type="label" version="2.0.0">
+    <name>Label _22</name>
+    <text> TOR.SHOT DISABLE:</text>
+    <x>149</x>
+    <y>142</y>
+    <width>145</width>
+    <height>16</height>
+    <font>
+      <font family="DejaVu Sans Mono" style="REGULAR" size="6.930693069306931">
+      </font>
+    </font>
+    <foreground_color>
+      <color name="IO Text Fg" red="0" green="0" blue="0">
+      </color>
+    </foreground_color>
+    <background_color>
+      <color name="IO Background" red="235" green="235" blue="235">
+      </color>
+    </background_color>
+    <horizontal_alignment>2</horizontal_alignment>
+    <vertical_alignment>1</vertical_alignment>
+    <actions>
+    </actions>
+    <border_color>
+      <color name="IO Border" red="0" green="0" blue="0">
+      </color>
+    </border_color>
+  </widget>
+  <widget type="bool_button" version="2.0.0">
+    <name>Boolean Button_13</name>
+    <pv_name>ISTTOK:central:Shot-TorPSDisable</pv_name>
+    <bit>-1</bit>
+    <x>295</x>
+    <y>140</y>
+    <width>37</width>
+    <height>20</height>
+    <off_label></off_label>
+    <off_color>
+      <color red="240" green="240" blue="240">
+      </color>
+    </off_color>
+    <on_label></on_label>
+    <on_color>
+      <color red="192" green="192" blue="192">
+      </color>
+    </on_color>
+    <show_led>false</show_led>
+    <font>
+      <font family="Ubuntu" style="REGULAR" size="6.930693069306931">
+      </font>
+    </font>
+    <background_color>
+      <color red="240" green="240" blue="240">
+      </color>
+    </background_color>
+    <actions>
+    </actions>
+    <rules>
+      <rule name="EnableRule" prop_id="enabled" out_exp="false">
+        <exp bool_exp="pv0 == 0">
+          <value>false</value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>true</value>
+        </exp>
+        <pv_name>loc://enable_disable</pv_name>
+      </rule>
+    </rules>
+    <border_alarm_sensitive>false</border_alarm_sensitive>
+    <enabled>false</enabled>
+    <confirm_message>Are you sure you want to do this?</confirm_message>
+  </widget>
+  <widget type="led" version="2.0.0">
+    <name>LED_18</name>
+    <pv_name>ISTTOK:central:Shot-TorPSDisable</pv_name>
+    <x>335</x>
+    <y>141</y>
+    <width>17</width>
+    <height>18</height>
+    <off_color>
+      <color red="150" green="150" blue="150">
+      </color>
+    </off_color>
+    <foreground_color>
+      <color red="192" green="192" blue="192">
+      </color>
+    </foreground_color>
+    <line_color>
+      <color red="0" green="0" blue="0">
+      </color>
+    </line_color>
+    <square>true</square>
+    <actions>
+    </actions>
+    <border_alarm_sensitive>false</border_alarm_sensitive>
+  </widget>
+  <widget type="label" version="2.0.0">
+    <name>Label Template_253</name>
+    <text>TOR.CLEAN CONTACTOR:</text>
+    <x>149</x>
+    <y>102</y>
+    <width>145</width>
+    <height>16</height>
+    <font>
+      <font family="DejaVu Sans Mono" style="REGULAR" size="6.930693069306931">
+      </font>
+    </font>
+    <foreground_color>
+      <color name="IO Text Fg" red="0" green="0" blue="0">
+      </color>
+    </foreground_color>
+    <background_color>
+      <color name="IO Background" red="235" green="235" blue="235">
+      </color>
+    </background_color>
+    <horizontal_alignment>2</horizontal_alignment>
+    <vertical_alignment>1</vertical_alignment>
+    <actions>
+    </actions>
+    <border_color>
+      <color name="IO Border" red="0" green="0" blue="0">
+      </color>
+    </border_color>
+  </widget>
+  <widget type="bool_button" version="2.0.0">
+    <name>Boolean Button_14</name>
+    <pv_name>ISTTOK:central:Clean-TorContactor</pv_name>
+    <bit>-1</bit>
+    <x>295</x>
+    <y>100</y>
+    <width>37</width>
+    <height>20</height>
+    <off_label></off_label>
+    <off_color>
+      <color red="240" green="240" blue="240">
+      </color>
+    </off_color>
+    <on_label></on_label>
+    <on_color>
+      <color red="192" green="192" blue="192">
+      </color>
+    </on_color>
+    <show_led>false</show_led>
+    <font>
+      <font family="Ubuntu" style="REGULAR" size="6.930693069306931">
+      </font>
+    </font>
+    <background_color>
+      <color red="240" green="240" blue="240">
+      </color>
+    </background_color>
+    <actions>
+    </actions>
+    <rules>
+      <rule name="EnableRule" prop_id="enabled" out_exp="false">
+        <exp bool_exp="pv0 == 0">
+          <value>false</value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>true</value>
+        </exp>
+        <pv_name>loc://enable_disable</pv_name>
+      </rule>
+    </rules>
+    <border_alarm_sensitive>false</border_alarm_sensitive>
+    <enabled>false</enabled>
+    <confirm_message>Are you sure you want to do this?</confirm_message>
+  </widget>
+  <widget type="led" version="2.0.0">
+    <name>LED_19</name>
+    <pv_name>ISTTOK:central:Clean-TorContactor</pv_name>
+    <x>335</x>
+    <y>101</y>
+    <width>17</width>
+    <height>18</height>
+    <off_color>
+      <color name="Green" red="0" green="255" blue="0">
+      </color>
+    </off_color>
+    <on_color>
+      <color red="150" green="150" blue="150">
+      </color>
+    </on_color>
+    <foreground_color>
+      <color red="192" green="192" blue="192">
+      </color>
+    </foreground_color>
+    <line_color>
+      <color red="0" green="0" blue="0">
+      </color>
+    </line_color>
+    <square>true</square>
+    <actions>
+    </actions>
+    <border_alarm_sensitive>false</border_alarm_sensitive>
+  </widget>
+  <widget type="label" version="2.0.0">
+    <name>Label Template_254</name>
+    <text>TOR.CLEAN BREAKER:</text>
+    <x>149</x>
+    <y>122</y>
+    <width>145</width>
+    <height>16</height>
+    <font>
+      <font family="DejaVu Sans Mono" style="REGULAR" size="6.930693069306931">
+      </font>
+    </font>
+    <foreground_color>
+      <color name="IO Text Fg" red="0" green="0" blue="0">
+      </color>
+    </foreground_color>
+    <background_color>
+      <color name="IO Background" red="235" green="235" blue="235">
+      </color>
+    </background_color>
+    <horizontal_alignment>2</horizontal_alignment>
+    <vertical_alignment>1</vertical_alignment>
+    <actions>
+    </actions>
+    <border_color>
+      <color name="IO Border" red="0" green="0" blue="0">
+      </color>
+    </border_color>
+  </widget>
+  <widget type="bool_button" version="2.0.0">
+    <name>Boolean Button_15</name>
+    <pv_name>ISTTOK:central:Clean-TorPneuBreaker</pv_name>
+    <bit>-1</bit>
+    <x>295</x>
+    <y>120</y>
+    <width>37</width>
+    <height>20</height>
+    <off_label></off_label>
+    <off_color>
+      <color red="240" green="240" blue="240">
+      </color>
+    </off_color>
+    <on_label></on_label>
+    <on_color>
+      <color red="192" green="192" blue="192">
+      </color>
+    </on_color>
+    <show_led>false</show_led>
+    <font>
+      <font family="Ubuntu" style="REGULAR" size="6.930693069306931">
+      </font>
+    </font>
+    <background_color>
+      <color red="240" green="240" blue="240">
+      </color>
+    </background_color>
+    <actions>
+    </actions>
+    <rules>
+      <rule name="EnableRule" prop_id="enabled" out_exp="false">
+        <exp bool_exp="pv0 == 0">
+          <value>false</value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>true</value>
+        </exp>
+        <pv_name>loc://enable_disable</pv_name>
+      </rule>
+    </rules>
+    <border_alarm_sensitive>false</border_alarm_sensitive>
+    <enabled>false</enabled>
+    <confirm_message>Are you sure you want to do this?</confirm_message>
+  </widget>
+  <widget type="led" version="2.0.0">
+    <name>LED_20</name>
+    <pv_name>ISTTOK:central:Clean-TorPneuBreaker</pv_name>
+    <x>335</x>
+    <y>121</y>
+    <width>17</width>
+    <height>18</height>
+    <off_color>
+      <color name="Green" red="0" green="255" blue="0">
+      </color>
+    </off_color>
+    <on_color>
+      <color red="150" green="150" blue="150">
+      </color>
+    </on_color>
+    <foreground_color>
+      <color red="192" green="192" blue="192">
+      </color>
+    </foreground_color>
+    <line_color>
+      <color red="0" green="0" blue="0">
+      </color>
+    </line_color>
+    <square>true</square>
+    <actions>
+    </actions>
+    <border_alarm_sensitive>false</border_alarm_sensitive>
+  </widget>
+  <widget type="label" version="2.0.0">
+    <name>Label Template_255</name>
+    <text>TOR.SHOT TRIGGER:</text>
+    <x>149</x>
+    <y>162</y>
+    <width>145</width>
+    <height>16</height>
+    <font>
+      <font family="DejaVu Sans Mono" style="REGULAR" size="6.930693069306931">
+      </font>
+    </font>
+    <foreground_color>
+      <color name="IO Text Fg" red="0" green="0" blue="0">
+      </color>
+    </foreground_color>
+    <background_color>
+      <color name="IO Background" red="235" green="235" blue="235">
+      </color>
+    </background_color>
+    <horizontal_alignment>2</horizontal_alignment>
+    <vertical_alignment>1</vertical_alignment>
+    <actions>
+    </actions>
+    <border_color>
+      <color name="IO Border" red="0" green="0" blue="0">
+      </color>
+    </border_color>
+  </widget>
+  <widget type="bool_button" version="2.0.0">
+    <name>Boolean Button_16</name>
+    <pv_name>ISTTOK:central:Shot-TorPSTrigger</pv_name>
+    <bit>-1</bit>
+    <x>295</x>
+    <y>160</y>
+    <width>37</width>
+    <height>20</height>
+    <off_label></off_label>
+    <off_color>
+      <color red="240" green="240" blue="240">
+      </color>
+    </off_color>
+    <on_label></on_label>
+    <on_color>
+      <color red="192" green="192" blue="192">
+      </color>
+    </on_color>
+    <show_led>false</show_led>
+    <font>
+      <font family="Ubuntu" style="REGULAR" size="6.930693069306931">
+      </font>
+    </font>
+    <background_color>
+      <color red="240" green="240" blue="240">
+      </color>
+    </background_color>
+    <actions>
+    </actions>
+    <rules>
+      <rule name="EnableRule" prop_id="enabled" out_exp="false">
+        <exp bool_exp="pv0 == 0">
+          <value>false</value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>true</value>
+        </exp>
+        <pv_name>loc://enable_disable</pv_name>
+      </rule>
+    </rules>
+    <border_alarm_sensitive>false</border_alarm_sensitive>
+    <enabled>false</enabled>
+    <confirm_message>Are you sure you want to do this?</confirm_message>
+  </widget>
+  <widget type="led" version="2.0.0">
+    <name>LED_21</name>
+    <pv_name>ISTTOK:central:Shot-TorPSTrigger</pv_name>
+    <x>335</x>
+    <y>161</y>
+    <width>17</width>
+    <height>18</height>
+    <off_color>
+      <color red="150" green="150" blue="150">
+      </color>
+    </off_color>
+    <foreground_color>
+      <color red="192" green="192" blue="192">
+      </color>
+    </foreground_color>
+    <line_color>
+      <color red="0" green="0" blue="0">
+      </color>
+    </line_color>
+    <square>true</square>
+    <actions>
+    </actions>
+    <border_alarm_sensitive>false</border_alarm_sensitive>
+  </widget>
+  <widget type="label" version="2.0.0">
+    <name>Label Template_256</name>
+    <text>MANUAL CONTROL</text>
+    <x>2</x>
+    <y>2</y>
+    <width>183</width>
+    <height>14</height>
+    <font>
+      <font family="DejaVu Sans Mono" style="BOLD" size="8.910891089108912">
+      </font>
+    </font>
+    <background_color>
+      <color name="IO Background" red="235" green="235" blue="235">
+      </color>
+    </background_color>
+    <horizontal_alignment>1</horizontal_alignment>
+    <vertical_alignment>1</vertical_alignment>
+    <actions>
+    </actions>
+    <border_width>1</border_width>
+    <border_color>
+      <color name="IO Border" red="0" green="0" blue="0">
+      </color>
+    </border_color>
+  </widget>
+</display>
